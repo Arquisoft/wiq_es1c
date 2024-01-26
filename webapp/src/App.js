@@ -17,7 +17,7 @@ function App() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Typography component="h1" variant="h5" align="center" sx={{ marginTop: 2 }}>
-        Welcome to the 2024 edition of the Software Architecture course
+        wiq_es1c
       </Typography>
       {showLogin ? <Login /> : <AddUser />}
       <Typography component="div" align="center" sx={{ marginTop: 2 }}>
