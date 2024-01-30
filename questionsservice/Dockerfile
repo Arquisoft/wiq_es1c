@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 23123
 
 # Define the command to run your app
-CMD ["node", "user-service.js"]
+CMD ["node", "questions-service.js"]
