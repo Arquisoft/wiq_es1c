@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const geoGen = require('./questionGenerators/GeoGenerator')
 
 const app = express();
 const port = 23123;
@@ -8,15 +9,7 @@ const port = 23123;
 app.use(bodyParser.json());
 
 app.get('/generate', async (req, res) => {
-    res.status(200)
-    .json({
-      "titulo": "Cual es la capital de asturias",
-      "respuesta": "Oviedo",
-      "respuestasFalsas" : [
-        "Madrid",
-        "Sevilla"
-      ]
-    })
+  res.status(200).json(await geoGen())
 });
 
 const server = app.listen(port, () => {
