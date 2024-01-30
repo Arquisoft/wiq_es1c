@@ -1,5 +1,5 @@
 async function query(SPARQL) {
-    const apiUrl = `https://query.wikidata.org/sparql?query=${encodeURIComponent(consultaSPARQL)}&format=json`;
+    const apiUrl = `https://query.wikidata.org/sparql?query=${encodeURIComponent(SPARQL)}&format=json`;
 
     const response = await fetch(apiUrl, {
         headers: {
