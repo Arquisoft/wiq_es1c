@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import AddUser from './components/AddUser';
-import Login from './components/Login';
+import AddUser from './components/register/AddUser';
+import Login from './components/login/Login';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -14,7 +14,7 @@ function App() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container className='bg-white p-5 ' component="main" maxWidth="xs">
       <CssBaseline />
       <Typography component="h1" variant="h5" align="center" sx={{ marginTop: 2 }}>
         Welcome to wiq_es1c
