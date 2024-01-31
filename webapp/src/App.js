@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import { AppRouter } from './routers/AppRouter';
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);
@@ -14,7 +15,10 @@ function App() {
   };
 
   return (
-    <Container className='min-h-screen'>
+    <div className='bg-white dark:bg-dark-mode min-h-screen'>
+      <h1 className='text-white text-center text-3xl'>APP</h1>
+    </div>
+    /*<Container className='min-h-screen'>
       <Container className='bg-white p-5' component="main" maxWidth="xs">
         <CssBaseline />
         <Typography component="h1" variant="h5" align="center" sx={{ marginTop: 2 }}>
@@ -33,7 +37,7 @@ function App() {
           )}
         </Typography>
       </Container>
-    </Container>
+    </Container>*/
   );
 }
 
