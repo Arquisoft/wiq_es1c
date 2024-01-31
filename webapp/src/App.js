@@ -1,23 +1,12 @@
-import React, { useState } from 'react';
-import AddUser from './components/register/AddUser';
-import Login from './components/login/Login';
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import { AppRouter } from './routers/AppRouter';
+import React from 'react';
+
+import router from './routers/AppRouter';
+import { RouterProvider } from 'react-router-dom';
+
 
 function App() {
-  const [showLogin, setShowLogin] = useState(true);
-
-  const handleToggleView = () => {
-    setShowLogin(!showLogin);
-  };
-
   return (
-    <div className='bg-white dark:bg-dark-mode min-h-screen'>
-      <h1 className='text-white text-center text-3xl'>APP</h1>
-    </div>
+    <RouterProvider router={ router } />
     /*<Container className='min-h-screen'>
       <Container className='bg-white p-5' component="main" maxWidth="xs">
         <CssBaseline />
