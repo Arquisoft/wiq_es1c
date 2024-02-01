@@ -17,7 +17,7 @@ Both the user and auth service share a Mongo database that is accessed with mong
 
 ## Description
 
-This project has been developed by the contributors listed below, as part of the **Software Architecture course at the University of Oviedo**.
+This project has been developed by the contributors listed in the following section, as part of the **Software Architecture course at the University of Oviedo** for the academic year 2023/2024.
 
 **WIQ** is a game inspired in the popular spanish show *"Saber y Ganar"*, where players must answer questions from different topics by choosing one of the options given to them. 
 
@@ -27,12 +27,12 @@ The questions in the game are generated automatically, keeping the game interest
 
 ## Contributors
 
-* Rubén Fernández Valdés <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
-* Manuel de la Uz González <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Rubén Fernández Valdés <a href="https://github.com/RubenFern">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Manuel de la Uz González <a href="https://github.com/Manueluz">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
 * Yago Fernández López <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
-* Noel Expósito Espina <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Noel Expósito Espina <a href="https://github.com/22Noel">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
 * Manuel González Santos <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
-* Javier Monteserín Rodríguez <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Javier Monteserín Rodríguez <a href="https://github.com/uo288524">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
 
 ## Quick start guide
 
