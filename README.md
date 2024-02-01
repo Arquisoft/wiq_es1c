@@ -37,23 +37,23 @@ The questions in the game are generated automatically, keeping the game interest
   </tr>
   <tr>
     <td>Manuel de la Uz González</td>
-    <td><a href="https://github.com/Manueluz"><img alt="Github de Rubén" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
+    <td><a href="https://github.com/Manueluz"><img alt="Github de Manuel" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Yago Fernández López</td>
-    <td><a href=""><img alt="Github de Rubén" src="https://img.shields.io/badge/Yago-lightgray?logo=github"></a></td>
+    <td><a href="https://github.com/uo289549"><img alt="Github de Yago" src="https://img.shields.io/badge/Yago-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Noel Expósito Espina</td>
-    <td><a href="https://github.com/22Noel"><img alt="Github de Rubén" src="https://img.shields.io/badge/Noel-lightgray?logo=github"></a></td>
+    <td><a href="https://github.com/22Noel"><img alt="Github de Noel" src="https://img.shields.io/badge/Noel-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Manuel González Santos</td>
-    <td><a href=""><img alt="Github de Rubén" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
+    <td><a href=""><img alt="Github de Manuel" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Javier Monteserín Rodríguez</td>
-    <td><a href="https://github.com/uo288524"><img alt="Github de Rubén" src="https://img.shields.io/badge/Javier-lightgray?logo=github"></a></td>
+    <td><a href="https://github.com/uo288524"><img alt="Github de Javier" src="https://img.shields.io/badge/Javier-lightgray?logo=github"></a></td>
   </tr>
 </table>
 
