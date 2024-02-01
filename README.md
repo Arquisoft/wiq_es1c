@@ -15,13 +15,24 @@ This repo is a basic application composed of several components.
 
 Both the user and auth service share a Mongo database that is accessed with mongoose.
 
+## Description
+
+This project has been developed by the contributors listed below, as part of the **Software Architecture course at the University of Oviedo**.
+
+**WIQ** is a game inspired in the popular spanish show *"Saber y Ganar"*, where players must answer questions from different topics by choosing one of the options given to them. 
+
+The questions in the game are generated automatically, keeping the game interesting and not repetitive.
+
+> (THIS DESCRIPTION WILL BE COMPLETED WHEN THE PROJECT HAS ADVANCED MORE)
+
 ## Contributors
-* Rubén Fernández Valdés
-* Manuel de la Uz González
-* Yago Fernández López
-* Noel Expósito Espina
-* Manuel González Santos
-* Javier Monteserín Rodríguez
+
+* Rubén Fernández Valdés <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Manuel de la Uz González <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Yago Fernández López <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Noel Expósito Espina <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Manuel González Santos <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
+* Javier Monteserín Rodríguez <a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a>
 
 ## Quick start guide
 
