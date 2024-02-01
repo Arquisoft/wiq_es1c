@@ -46,7 +46,7 @@ const Login = () => {
             Iniciar Sesión
           </Typography>
           <Box
-            component="form"
+            component="div"
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
