@@ -1,6 +1,6 @@
 import image from './error404.svg';
 
-const Error = () =>
+const Error404 = () =>
 {
     return (
         <div className='min-w-full min-h-screen flex justify-center flex-col items-center'>
@@ -10,4 +10,4 @@ const Error = () =>
     );
 }
 
-export default Error;
+export default Error404;
