@@ -1,37 +1,32 @@
-import React, { useState } from 'react';
-import AddUser from './components/AddUser';
-import Login from './components/Login';
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import React from 'react';
+
+import router from './routers/AppRouter';
+import { RouterProvider } from 'react-router-dom';
+
 
 function App() {
-  const [showLogin, setShowLogin] = useState(true);
-
-  const handleToggleView = () => {
-    setShowLogin(!showLogin);
-  };
-
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Typography component="h1" variant="h5" align="center" sx={{ marginTop: 2 }}>
-        Welcome to wiq_es1c
-      </Typography>
-      {showLogin ? <Login /> : <AddUser />}
-      <Typography component="div" align="center" sx={{ marginTop: 2 }}>
-        {showLogin ? (
-          <Link name="gotoregister" component="button" variant="body2" onClick={handleToggleView}>
-            Don't have an account? Register here.
-          </Link>
-        ) : (
-          <Link component="button" variant="body2" onClick={handleToggleView}>
-            Already have an account? Login here.
-          </Link>
-        )}
-      </Typography>
-    </Container>
+    <RouterProvider router={ router } />
+    /*<Container className='min-h-screen'>
+      <Container className='bg-white p-5' component="main" maxWidth="xs">
+        <CssBaseline />
+        <Typography component="h1" variant="h5" align="center" sx={{ marginTop: 2 }}>
+          Welcome to wiq_es1c
+        </Typography>
+          {showLogin ? <Login /> : <AddUser />}
+        <Typography component="div" align="center" sx={{ marginTop: 2 }}>
+          {showLogin ? (
+            <Link name="gotoregister" component="button" variant="body2" onClick={handleToggleView}>
+              Don't have an account? Register here.
+            </Link>
+          ) : (
+            <Link component="button" variant="body2" onClick={handleToggleView}>
+              Already have an account? Login here.
+            </Link>
+          )}
+        </Typography>
+      </Container>
+    </Container>*/
   );
 }
 

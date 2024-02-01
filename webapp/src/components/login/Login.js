@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
+    <Container className='text-white' component="main" maxWidth="xs" sx={{ marginTop: 0 }}>
       {loginSuccess ? (
         <div>
           <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
