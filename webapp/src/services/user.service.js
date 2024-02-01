@@ -6,7 +6,7 @@ const login = async (username, password) =>
 {
     try {
         const response = await axios.post(`${apiEndpoint}/login`, { username, password });
-  console.log(response);
+  
         const res = JSON.stringify({ "login": "success" });
 
         return res;
