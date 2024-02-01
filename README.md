@@ -31,27 +31,27 @@ The questions in the game are generated automatically, keeping the game interest
 <table>
   <tr>
     <td>Rubén Fernández Valdés</td>
-    <td><a href="https://github.com/RubenFern">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a></td>
+    <td><a href="https://github.com/RubenFern"><img alt="Github de Rubén" src="https://img.shields.io/badge/Rub%C3%A9n-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Manuel de la Uz González</td>
-    <td><a href="https://github.com/Manueluz">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a></td>
+    <td><a href="https://github.com/Manueluz"><img alt="Github de Rubén" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Yago Fernández López</td>
-    <td><a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a></td>
+    <td><a href=""><img alt="Github de Rubén" src="https://img.shields.io/badge/Yago-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Noel Expósito Espina</td>
-    <td><a href="https://github.com/22Noel">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a></td>
+    <td><a href="https://github.com/22Noel"><img alt="Github de Rubén" src="https://img.shields.io/badge/Noel-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Manuel González Santos</td>
-    <td><a href="">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a></td>
+    <td><a href=""><img alt="Github de Rubén" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Javier Monteserín Rodríguez</td>
-    <td><a href="https://github.com/uo288524">![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)</a></td>
+    <td><a href="https://github.com/uo288524"><img alt="Github de Rubén" src="https://img.shields.io/badge/Javier-lightgray?logo=github"></a></td>
   </tr>
 </table>
 
