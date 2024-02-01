@@ -1,10 +1,8 @@
 import React from 'react';
-import { RouterProvider } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
 import App from './App';
-import router from './routers/AppRouter';
 import './index.css';
 
 
