@@ -1,78 +1,103 @@
 // src/components/Login.js
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import React from "react";
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  CssBaseline,
+  Box,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  Avatar,
+} from "@mui/material";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loginSuccess, setLoginSuccess] = useState(false);
-  const [createdAt, setCreatedAt] = useState('');
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-
-  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-
-  const loginUser = async () => {
-    try {
-      const response = await axios.post(`${apiEndpoint}/login`, { username, password });
-
-      // Extract data from the response
-      const { createdAt: userCreatedAt } = response.data;
-
-      setCreatedAt(userCreatedAt);
-      setLoginSuccess(true);
-
-      setOpenSnackbar(true);
-    } catch (error) {
-      setError(error.response.data.error);
-    }
-  };
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
+  const handleSubmit = () => {};
 
   return (
-    <Container className='text-white' component="main" maxWidth="xs" sx={{ marginTop: 0 }}>
-      {loginSuccess ? (
-        <div>
-          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
-            Hello {username}!
-          </Typography>
-          <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
-            Your account was created on {new Date(createdAt).toLocaleDateString()}.
-          </Typography>
-        </div>
-      ) : (
-        <div>
+    <Container 
+      component="main"
+      maxWidth="sm"
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
+      className="min-h-screen flex justify-center align-middle"
+    >
+      <Container
+        className="bg-white rounded-lg"
+        component="main"
+        maxWidth="sm"
+      >
+        <CssBaseline />
+        <Box
+          sx={{
+            padding: 3,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Iniciar Sesión
           </Typography>
-          <TextField
-            margin="normal"
-            fullWidth
-            label="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextField
-            margin="normal"
-            fullWidth
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button variant="contained" color="primary" onClick={loginUser}>
-            Login
-          </Button>
-          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />
-          {error && (
-            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-          )}
-        </div>
-      )}
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Correo electrónico"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Contraseña"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Recordarme"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Iniciar sesión
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  <span></span>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to={ '/register' } className="underline text-blue-600 hover:text-blue-900">
+                  {"¿No tienes una cuenta? Regístrate"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
     </Container>
   );
 };
