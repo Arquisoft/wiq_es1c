@@ -28,6 +28,8 @@ The questions in the game are generated automatically, keeping the game interest
 > (THIS DESCRIPTION WILL BE COMPLETED WHEN THE PROJECT HAS ADVANCED MORE)
 
 ## Contributors
+<img align="right" width="220" height="220" src="media/gif/limbani-monkey.gif"> 
+
 <table>
   <tr>
     <td>Rubén Fernández Valdés</td>
