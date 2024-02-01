@@ -15,7 +15,8 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Login = () => 
+{
   const handleSubmit = () => {};
 
   return (
