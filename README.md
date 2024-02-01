@@ -49,7 +49,7 @@ The questions in the game are generated automatically, keeping the game interest
   </tr>
   <tr>
     <td>Manuel González Santos</td>
-    <td><a href=""><img alt="Github de Manuel" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
+    <td><a href="https://github.com/gs-Manuel"><img alt="Github de Manuel" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
   </tr>
   <tr>
     <td>Javier Monteserín Rodríguez</td>
