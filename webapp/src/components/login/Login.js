@@ -55,10 +55,10 @@ const Login = () => {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Correo electrónico"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Nombre de usuario"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
