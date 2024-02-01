@@ -1,5 +1,15 @@
-version: '3'
+version: '4'
 services:
+  questionsservice:
+    container_name: questionsservice-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/questionsservice:latest
+    profiles: ["dev", "prod"]
+    build: ./questionsservice
+    ports:
+      - "23123:23123"
+    networks:
+      - mynetwork
+
   mongodb:
     container_name: mongodb-${teamname:-defaultASW}
     image: mongo
