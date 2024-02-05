@@ -17,10 +17,8 @@ jobs:
         node-version: 20
     - run: npm --prefix api ci
     - run: npm --prefix webapp ci
-    - run: npm --prefix gateway ci
     - run: npm --prefix api test -- --coverage
     - run: npm --prefix webapp test -- --coverage
-    - run: npm --prefix gateway test -- --coverage
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       env:

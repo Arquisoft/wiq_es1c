@@ -14,10 +14,8 @@ jobs:
         node-version: 20
     - run: npm --prefix api ci
     - run: npm --prefix webapp ci
-    - run: npm --prefix gateway ci
     - run: npm --prefix api test -- --coverage
     - run: npm --prefix webapp test -- --coverage
-    - run: npm --prefix gateway test -- --coverage
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       env:
@@ -55,23 +53,6 @@ jobs:
           registry: ghcr.io
           workdir: webapp
           buildargs: API_URI
-  docker-push-gateway:
-    name: Push gateway Docker Image to GitHub Packages
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    needs: [e2e-tests]
-    steps:
-    - uses: actions/checkout@v4
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
-      with:
-          name: arquisoft/wiq_es1c/gateway
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
-          workdir: gateway
   docker-push-api:
     name: Push api service Docker Image to GitHub Packages
     runs-on: ubuntu-latest

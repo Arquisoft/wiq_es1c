@@ -6,7 +6,8 @@ services:
     profiles: ["dev", "prod"]
     build: ./api
     depends_on:
-      - gateway
+      mariadb:
+        condition: service_healthy
     ports:
       - "23123:23123"
     networks:
@@ -25,22 +26,9 @@ services:
       - MARIADB_DATABASE=db
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect"]
-      interval: 10s
-      timeout: 15s
-      retries: 5
-    networks:
-      - mynetwork
-
-  gateway:
-    container_name: gateway-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es1c/gateway:latest
-    profiles: ["dev", "prod"]
-    build: ./gateway
-    depends_on:
-      mariadb:
-        condition: service_healthy
-    ports:
-      - "80:80"
+      interval: 2s
+      timeout: 3s
+      retries: 10
     networks:
       - mynetwork
 
@@ -50,9 +38,9 @@ services:
     profiles: ["dev", "prod"]
     build: ./webapp
     depends_on:
-      - gateway
+      - api
     ports:
-      - "3000:3000" 
+      - "80:3000" 
 
 # prometheus:
 #   image: prom/prometheus

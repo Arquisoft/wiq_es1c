@@ -18,6 +18,8 @@ app.get('/', async (req, res) => {
   res.status(200).send("<p>hi!</p>")
 });
 
+
+
 const server = app.listen(port, () => {
     sequelize.authenticate();
     console.log(`Gateway listening at http://localhost:${port}`);
