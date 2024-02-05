@@ -1,8 +1,8 @@
 {
-  "name": "questionsservice",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "questions-service.js",
+  "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
   },

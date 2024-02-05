@@ -13,7 +13,7 @@ app.get('/generate', async (req, res) => {
 });
 
 const server = app.listen(port, () => {
-  console.log(`Question Service listening at http://localhost:${port}`);
+  console.log(`API listening at http://localhost:${port}`);
 });
 
 
