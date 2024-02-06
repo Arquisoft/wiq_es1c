@@ -27,16 +27,6 @@ async function query(SPARQL) {
     return resultados
 }
 
-const consultaPersonalizada = `
-    SELECT ?pais ?paisLabel ?codigoISO WHERE {
-        ?pais wdt:P31 wd:Q6256.
-        ?pais wdt:P297 ?codigoISO.
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-    } ORDER BY ?paisLabel
-`;
-
-query(consultaPersonalizada)
-
 const surroundWithCache = (func) => {
     let cache = {}
 
