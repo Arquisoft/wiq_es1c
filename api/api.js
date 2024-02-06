@@ -10,8 +10,6 @@ const authMiddleware = require('./auth/authMiddleware');
 const auth = require('./auth/authEndpoints');
 const sync = require('./db/sync')
 
-// Constants (TODO: Change into ENV variables)
-const privateKey = "change me please!"
 const port = 8000;
 const app = express();
 

@@ -53,7 +53,10 @@ describe('login function', () => {
     const res = mockResponse();
 
     // Mocking Sequelize's findOne method
-    jest.spyOn(user, 'findOne').mockResolvedValue(undefined);
+    jest.spyOn(user, 'findOne').mockResolvedValue({
+        username: 'user',
+        password: 'pass',
+    });
 
     // Mocking bcrypt's compareSync method
     bcrypt.compareSync.mockReturnValue(false);
