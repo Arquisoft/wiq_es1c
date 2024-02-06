@@ -27,18 +27,20 @@ const Login = () =>
   {
     e.preventDefault();
 
-    if ( username.trim() === '' || password.trim() === '' )
+    if ( username.trim() !== '' && password.trim() !== '' )
     {
-      if ( username.trim() === '' )
-        setValidUsername(false);
-      
-      if ( password.trim() === '' )
-        setValidPassword(false);
+      setValidUsername(true);
+      setValidPassword(true);
 
+      await login(username, password);
       return;
     }
 
-    await login(username, password);
+    if ( username.trim() === '' )
+      setValidUsername(false);
+      
+    if ( password.trim() === '' )
+      setValidPassword(false);
   }
 
   const checkUsername = (e) =>
