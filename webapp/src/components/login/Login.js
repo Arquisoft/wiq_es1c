@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link } from "react-router-dom";
-import login from "../../services/user.service";
+import { login, register } from "../../services/user.service";
 
 const Login = () => 
 {
@@ -113,10 +113,6 @@ const Login = () =>
               onChange={ checkPassword }
               error={!validPassword}
               helperText={validPassword ? '' : 'Debes introducir tu contraseña'}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Recordarme"
             />
             <Button
               type="submit"

@@ -43,9 +43,10 @@ const login = async (req, res) => {
             return;
         }
 
-        res.cookie("token", jwt.sign({user_id: u.id}, privateKey))
-
-        res.status(200).send();
+        res
+            .status(200)
+            .json({token: jwt.sign({user_id: u.id}, privateKey)})
+            .send();
     } catch(e) {
         console.log(e)
         res.status(500).send();
@@ -56,9 +57,6 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
     try{
-
-        console.log(req.body)
-
         if(!validateRequiredFields(req,['username','password'])){
             res.status(401).send();
             return;
@@ -79,10 +77,13 @@ const register = async (req, res) => {
 }
 
 const verify = async (req, res) => {
-    let token = req.cookies.token
+    if(!validateRequiredFields(req,['token'])){
+        res.status(401).send();
+        return;
+    }
+
     try{
-        let decoded = jwt.verify(token, privateKey);
-        console.log(decoded)
+        jwt.verify(req.body.token, privateKey);
         res.status(200).send();
     }catch(err){
         res.status(401).send();
