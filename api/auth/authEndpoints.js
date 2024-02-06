@@ -48,7 +48,6 @@ const login = async (req, res) => {
             .json({token: jwt.sign({user_id: u.id}, privateKey)})
             .send();
     } catch(e) {
-        console.log(e)
         res.status(500).send();
     }
 
@@ -70,7 +69,7 @@ const register = async (req, res) => {
             password: password 
         })
 
-        res.status(200).send(user.name)
+        res.status(200).send(name)
     }catch{
         res.status(500).send();
     }

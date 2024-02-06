@@ -10,9 +10,11 @@ COPY package*.json ./
 # Install app dependencies
 RUN npm install
 
+# Set the env var
+ENV DB_URL = 'mariadb'
+
 # Copy the app source code to the working directory
 COPY . .
-
 # Expose the port the app runs on
 EXPOSE 23123
 
