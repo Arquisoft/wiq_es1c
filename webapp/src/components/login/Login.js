@@ -1,78 +1,146 @@
 // src/components/Login.js
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  CssBaseline,
+  Box,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  Avatar,
+} from "@mui/material";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link } from "react-router-dom";
+import login from "../../services/user.service";
 
-const Login = () => {
+const Login = () => 
+{
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loginSuccess, setLoginSuccess] = useState(false);
-  const [createdAt, setCreatedAt] = useState('');
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
 
-  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+  const handleSubmit = async (e) =>
+  {
+    e.preventDefault();
 
-  const loginUser = async () => {
-    try {
-      const response = await axios.post(`${apiEndpoint}/login`, { username, password });
+    if ( username.trim() !== '' && password.trim() !== '' )
+    {
+      setValidUsername(true);
+      setValidPassword(true);
 
-      // Extract data from the response
-      const { createdAt: userCreatedAt } = response.data;
-
-      setCreatedAt(userCreatedAt);
-      setLoginSuccess(true);
-
-      setOpenSnackbar(true);
-    } catch (error) {
-      setError(error.response.data.error);
+      await login(username, password);
+      return;
     }
-  };
 
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
+    if ( username.trim() === '' )
+      setValidUsername(false);
+      
+    if ( password.trim() === '' )
+      setValidPassword(false);
+  }
+
+  const checkUsername = (e) =>
+  {
+    setUsername(e.target.value);
+    setValidUsername(true);
+  }
+
+  const checkPassword = (e) =>
+  {
+    setPassword(e.target.value);
+    setValidPassword(true);
+  }
 
   return (
-    <Container className='text-white' component="main" maxWidth="xs" sx={{ marginTop: 0 }}>
-      {loginSuccess ? (
-        <div>
-          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
-            Hello {username}!
-          </Typography>
-          <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
-            Your account was created on {new Date(createdAt).toLocaleDateString()}.
-          </Typography>
-        </div>
-      ) : (
-        <div>
+    <Container 
+      component="main"
+      maxWidth="sm"
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
+      className="min-h-screen flex justify-center align-middle"
+    >
+      <Container
+        className="bg-white rounded-lg"
+        component="main"
+        maxWidth="sm"
+      >
+        <CssBaseline />
+        <Box
+          sx={{
+            padding: 3,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Iniciar Sesión
           </Typography>
-          <TextField
-            margin="normal"
-            fullWidth
-            label="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextField
-            margin="normal"
-            fullWidth
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button variant="contained" color="primary" onClick={loginUser}>
-            Login
-          </Button>
-          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />
-          {error && (
-            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-          )}
-        </div>
-      )}
+          <Box
+            component="form"
+            onSubmit={ handleSubmit }
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Nombre de usuario"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              onChange={ checkUsername }
+              error={!validUsername}
+              helperText={validUsername ? '' : 'Debes introducir tu nombre de usuario'}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Contraseña"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={ checkPassword }
+              error={!validPassword}
+              helperText={validPassword ? '' : 'Debes introducir tu contraseña'}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Recordarme"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Iniciar sesión
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  <span></span>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to={ '/register' } className="underline text-blue-600 hover:text-blue-900">
+                  {"¿No tienes una cuenta? Regístrate"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
     </Container>
   );
 };
