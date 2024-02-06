@@ -9,7 +9,7 @@ services:
       mariadb:
         condition: service_healthy
     ports:
-      - "23123:23123"
+      - "8000:8000"
     networks:
       - mynetwork
 

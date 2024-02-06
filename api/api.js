@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 // My own libs
 const geoGen = require('./questions/questionGenerators/GeoGenerator');
@@ -10,11 +11,12 @@ const authMiddleware = require('./auth/authMiddleware');
 
 // Constants (TODO: Change into ENV variables)
 const privateKey = "change me please!"
-const port = 23123;
+const port = 8000;
 const app = express();
 
 // Middleware 
 app.use(bodyParser.json()); // Parse the request into json
+app.use(cors()) // This api is listening on a different port from the frontend
 app.use(cookieParser()); // Parse the request so we have cookies
 app.use('/api/questions/', authMiddleware); // Auth middleware for the questions API
 
