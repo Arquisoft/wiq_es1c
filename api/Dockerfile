@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Set the env var
-ENV DB_URL = 'mariadb'
+ENV DB_URL=mariadb
 
 # Copy the app source code to the working directory
 COPY . .

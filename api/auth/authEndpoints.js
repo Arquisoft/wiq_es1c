@@ -24,8 +24,8 @@ const login = async (req, res) => {
             return;
         }
 
-        username = req.body.username;
-        password = req.body.password;
+        let username = req.body.username;
+        let password = req.body.password;
 
         let u = await user.findOne({
             where: {
@@ -69,7 +69,7 @@ const register = async (req, res) => {
             password: password 
         })
 
-        res.status(200).send(name)
+        res.status(200).send()
     }catch{
         res.status(500).send();
     }
