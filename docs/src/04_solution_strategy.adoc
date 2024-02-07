@@ -26,9 +26,6 @@ based upon problem statement, quality goals and key constraints.
 Refer to details in the following sections.
 
 
-
-
-
 .Further Information
 
 See https://docs.arc42.org/section-4/[Solution Strategy] in the arc42 documentation.
@@ -56,3 +53,11 @@ The following technologies have been used to develop this project:
 * We chose MariaDB as our RDMS for its similarity with MySQL, a language that is familiar to everyone on the team. MariaDB offers an API that allows tables to be made and managed without having to deal with sql files, simplifying the process.
 
 * Docker: TODO
+
+=== Microservice structuring
+
+The application is organised into microservices, making the different components that form the project more isolated and easier to maintain, having modules that have less coupling between them, making them more independent.
+
+=== Quality goals achieving
+
+Pending.
