@@ -37,29 +37,61 @@ See https://docs.arc42.org/section-6/[Runtime View] in the arc42 documentation.
 
 ****
 
-=== <Runtime Scenario 1>
-
-
-* _<insert runtime diagram or textual description of the scenario>_
-* _<insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.>_
-
-It is possible to use a sequence diagram:
-
-[plantuml,"Sequence diagram",png]
+=== User plays a questions game
+When the users starts a game, it does so via the game service (which internally will use the questiosn service). The game service will provide questions until the end of the game.
+[plantuml,"Start a game",png]
 ----
-actor Alice
-actor Bob
-database Pod as "Bob's Pod"
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-Alice  --> Pod: Store route
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+actor a as "Alice"
+participant q as "game service"
+participant w as "questions service"
+database d as "Database"
+
+
+a -> q: Requests to begin a game
+loop numero de preguntas del juego
+q -> w: Requests question
+w -->q
+q -> d: Registers the question
+d -->q
+q -> a: Returns the question 
+|||
+...Alice takes some time to awnser the question......
+|||
+a -> q: Sends the awnser
+q -> d: Registers awnser
+d -->q
+q -> a: Confirms if the awnser was valid or not
+a -> q: Asks for next question
+end
+q -> a: Tells the user the game has ended, along with the stats
 ----
 
-=== <Runtime Scenario 2>
+=== A new question is generated
+Other services can ask the questions service to generate a question, this serves as an abastraction over the WikiData API as we are only insterested in the questions and not the raw data.
+[plantuml,"Generate a question",png]
+----
+participant a as "other participants"
+participant q as "questions service"
+database w as "Wikidata"
 
-=== ...
+a -> q: Requests a new question
+q -> w: Requests data to generate a question
+w -->q
+q -> q: Generates the question
+q -> a: Returns the question 
+----
 
-=== <Runtime Scenario n>
+=== User looks at his history
+The user can look at his history via the User data microservice which provices acces to all of the data of the user
+[plantuml,"Look at history",png]
+----
+actor a as "Alice"
+participant q as "user data service"
+database d as "Database"
+
+
+a -> q: Requests to see the history
+q -> d: Requests the history of the player
+d -->q
+q -> a: Returns the history 
+----
