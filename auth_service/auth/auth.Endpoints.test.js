@@ -128,7 +128,7 @@ describe('register function', () => {
     jest.resetAllMocks();
   });
 
-  it('should respond with 200 for valid registration', async () => {
+  it('should respond with 201 for valid registration', async () => {
     const req = mockRequest({
       body: {
         username: 'newUser',
@@ -139,6 +139,26 @@ describe('register function', () => {
 
     // Mocking validateRequiredFields to return true
     user.create.mockResolvedValueOnce({
+      name: 'newUser',
+      password: 'newPassword',
+    });
+
+    await register(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.send).toHaveBeenCalled();
+  });
+
+  it('should respond with 200 for repeated username', async () => {
+    const req = mockRequest({
+      body: {
+        username: 'newUser',
+        password: 'newPassword',
+      },
+    });
+    const res = mockResponse();
+
+    user.findOne.mockResolvedValueOnce({
       name: 'newUser',
       password: 'newPassword',
     });
