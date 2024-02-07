@@ -38,13 +38,14 @@ See https://docs.arc42.org/section-4/[Solution Strategy] in the arc42 documentat
 === Technologies used
 
 The following technologies have been used to develop this project:
-* JavaScript: JavaScript is a high-level, interpreted programming language primarily used for building dynamic and interactive web applications. 
 
-* React: React is a JavaScript framework for building user interfaces for web applications. 
+* **JavaScript**: JavaScript is a high-level, interpreted programming language primarily used for building dynamic and interactive web applications. 
 
-* MariaDB: MariaDB is an open-source relational database managemente system. It offers features such as ACID compliance and compatibility with MySQL.
+* **React**: React is a JavaScript framework for building user interfaces for web applications. 
 
-* Docker: Docker is a platform and tool that allows developers to build, package, distribute, and run applications within lightweight, portable containers that encapsulate everything needed to run an application. 
+* **MariaDB**: MariaDB is an open-source relational database managemente system. It offers features such as ACID compliance and compatibility with MySQL.
+
+* **Docker**: Docker is a platform and tool that allows developers to build, package, distribute, and run applications within lightweight, portable containers that encapsulate everything needed to run an application. 
 
 ==== Why we have chosen this technologies
 
