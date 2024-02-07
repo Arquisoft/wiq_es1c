@@ -6,6 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [role="arc42help"]
 ****
+
 .Contents
 A short summary and explanation of the fundamental decisions and solution strategies, that shape system architecture. It includes
 
@@ -23,6 +24,15 @@ Keep the explanations of such key decisions short.
 Motivate what was decided and why it was decided that way,
 based upon problem statement, quality goals and key constraints.
 Refer to details in the following sections.
+
+
+The following technologies have been used to develop this project:
+* **JavaScript**: JavaScript is a high-level, interpreted programming language primarily used for building dynamic and interactive web applications. 
+* **React**: React is a JavaScript framework for building user interfaces for web applications. We decided work with it for various reasons that make development easier, such as reusable components and it allows for developers to see the changes made instantly. 
+* **MariaDB**: MariaDB is an open-source relational database managemente system. We are familiar with it, since it is very similar to other RDMS that we have already used before, MySQL for example. It offers an API to manage the database without having to deal directly with SQL code. 
+* **Docker**: 
+* **Github**:
+* **JavaScript**:
 
 
 .Further Information
