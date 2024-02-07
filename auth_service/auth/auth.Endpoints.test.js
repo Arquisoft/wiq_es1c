@@ -43,7 +43,7 @@ describe('login function', () => {
     expect(res.send).toHaveBeenCalled();
   });
 
-  it('should respond with 401 for invalid credentials', async () => {
+  it('should respond with 401 for invalid credentials (wrong password)', async () => {
     const req = mockRequest({
       body: {
         username: 'invalidUser',
@@ -57,6 +57,27 @@ describe('login function', () => {
         username: 'user',
         password: 'pass',
     });
+
+    // Mocking bcrypt's compareSync method
+    bcrypt.compareSync.mockReturnValue(false);
+
+    await login(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.send).toHaveBeenCalled();
+  });
+
+  it('should respond with 401 for invalid credentials (wrong username)', async () => {
+    const req = mockRequest({
+      body: {
+        username: 'invalidUser',
+        password: 'invalidPassword',
+      },
+    });
+    const res = mockResponse();
+
+    // Mocking Sequelize's findOne method
+    jest.spyOn(user, 'findOne').mockResolvedValue(undefined);
 
     // Mocking bcrypt's compareSync method
     bcrypt.compareSync.mockReturnValue(false);

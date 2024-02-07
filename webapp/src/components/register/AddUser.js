@@ -12,18 +12,19 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link } from "react-router-dom";
-import { login, register } from "../../services/user.service";
+import { register } from "../../services/user.service";
 
 const AddUser = () => 
 {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const doRegister = async (e) => {
       e.preventDefault();
 
-      await register(username,password)
-      return;
+      let error = await register(username,password)
+      setError(error);
   }
 
   const checkUsername = (e) =>
@@ -101,6 +102,11 @@ const AddUser = () =>
               id="confirmPassword"
               autoComplete="current-password"
             />
+
+            <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+              {error}
+            </Typography>
+
             <Button
               type="submit"
               fullWidth

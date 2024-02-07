@@ -1,15 +1,28 @@
 version: '5'
 services:
-  api:
-    container_name: api-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es1c/api:latest
+  question:
+    container_name: question-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/question:latest
     profiles: ["dev", "prod"]
-    build: ./api
+    build: ./question_service
     depends_on:
       mariadb:
         condition: service_healthy
     ports:
-      - "8000:8000"
+      - "8002:8002"
+    networks:
+      - mynetwork
+
+  auth:
+    container_name: auth-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/auth:latest
+    profiles: ["dev", "prod"]
+    build: ./auth_service
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "8001:8001"
     networks:
       - mynetwork
 
@@ -38,7 +51,8 @@ services:
     profiles: ["dev", "prod"]
     build: ./webapp
     depends_on:
-      - api
+      - question
+      - auth
     ports:
       - "80:3000" 
 

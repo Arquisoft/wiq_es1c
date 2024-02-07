@@ -2,7 +2,7 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "api.js",
+  "main": "auth.js",
   "scripts": {
     "test": "jest"
   },

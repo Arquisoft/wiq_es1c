@@ -12,9 +12,11 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm --prefix api ci
+    - run: npm --prefix question_service ci
+    - run: npm --prefix auth_service ci
     - run: npm --prefix webapp ci
-    - run: npm --prefix api test -- --coverage
+    - run: npm --prefix question_service test -- --coverage
+    - run: npm --prefix auth_service test -- --coverage
     - run: npm --prefix webapp test -- --coverage
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
@@ -29,7 +31,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm --prefix gateway install
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
     - run: npm --prefix webapp run test:e2e
@@ -53,8 +54,8 @@ jobs:
           registry: ghcr.io
           workdir: webapp
           buildargs: API_URI
-  docker-push-api:
-    name: Push api service Docker Image to GitHub Packages
+  docker-push-question:
+    name: Push question service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -65,11 +66,28 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-          name: arquisoft/wiq_es1c/api
+          name: arquisoft/wiq_es1c/question
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-          workdir: api
+          workdir: question
+  docker-push-auth:
+    name: Push auth service Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+          name: arquisoft/wiq_es1c/auth
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          workdir: auth
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest

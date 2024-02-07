@@ -62,6 +62,21 @@ const register = async (req, res) => {
         }
 
         let name = req.body.username
+
+        let u = await user.findOne({
+            where: {
+                name: name
+            }
+        })
+
+        if(u != undefined){
+            res
+                .status(200)
+                .json({error:"Nombre de usuario no disponible"})
+                .send();
+            return;
+        }
+
         let password = req.body.password
 
         user.create({
@@ -69,8 +84,9 @@ const register = async (req, res) => {
             password: password 
         })
 
-        res.status(200).send()
-    }catch{
+        res.status(201).send()
+    }catch (e){
+        console.log(e)
         res.status(500).send();
     }
 }
