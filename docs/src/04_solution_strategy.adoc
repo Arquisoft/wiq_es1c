@@ -40,7 +40,11 @@ See https://docs.arc42.org/section-4/[Solution Strategy] in the arc42 documentat
 The following technologies have been used to develop this project:
 * *JavaScript*: JavaScript is a high-level, interpreted programming language primarily used for building dynamic and interactive web applications. 
 * *React*: React is a JavaScript framework for building user interfaces for web applications. 
-* *MariaDB*: MariaDB is an open-source relational database managemente system.
-* *Docker*: 
-* *Github*:
-* *JavaScript*:
+* *MariaDB*: MariaDB is an open-source relational database managemente system. It offers features such as ACID compliance and compatibility with MySQL.
+* *Docker*: Docker is a platform and tool that allows developers to build, package, distribute, and run applications within lightweight, portable containers that encapsulate everything needed to run an application. 
+
+==== Why we have chosen this technologies
+
+* We went with JavaScript as our programming language because it is very widespread, which makes it very easy to search information about it. Also, we have already worked with it in the past, so we have some base knowledge about it.
+* React is a very popular framework at the moment, you can find information about it everywhere. React makes building web user interfaces much easier, using reusable components and refreshing instantly when changes are made.
+* We chose MariaDB as our RDMS for its similarity with MySQL, a language that is familiar to everyone on the team. MariaDB offers an API that allows tables to be made and managed without having to deal with sql files, simplifying the process.
