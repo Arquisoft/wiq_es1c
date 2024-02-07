@@ -11,7 +11,8 @@ if (process.env.DB_URL) {
 }else {
     sequelize = new Sequelize({
         dialect: 'sqlite',
-        storage: ':memory:', 
+        storage: ':memory:',
+        logging: false, 
     });
 }
 
