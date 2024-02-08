@@ -30,16 +30,15 @@ const Login = () =>
 
     if ( username.trim() !== '' && password.trim() !== '' )
     {
+      setError('');
       setValidUsername(true);
       setValidPassword(true);
 
-      let res = await login(username, password);
+      const res = await login(username, password);
 
-      if(!res)
-        setError("Usuario o contraseña incorrectos");
-      else
-        setError("");
-
+      if (res !== '')
+        setError(res);
+console.log(res);
       return;
     }
 

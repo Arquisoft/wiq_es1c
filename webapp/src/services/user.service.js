@@ -8,16 +8,17 @@ const login = async (username, password) =>
 {
     try {
         const response = await axios.post(`${apiEndpoint}:8001/api/auth/login`, { username, password });
+        console.log(response);
 
         if(response.status === 401)
-          return false;
+          return response.data.error;
 
         token = response.data.token;
 
-        return true;
+        return "";
 
       } catch (error) {
-        return false;
+        return "";
       }
 }
 
@@ -29,9 +30,7 @@ const register = async (username, password) =>
         if(response.status === 201)
           return "";
 
-        let err = response.data.error;
-
-        return err;
+        return response.data.error;
 
       } catch (error) {
         return "";
