@@ -1,5 +1,5 @@
 // src/components/AddUser.js
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -12,10 +12,30 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link } from "react-router-dom";
+import { register } from "../../services/user.service";
 
 const AddUser = () => 
 {
-  const register = () => {}
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const doRegister = async (e) => {
+      e.preventDefault();
+
+      let error = await register(username,password)
+      setError(error);
+  }
+
+  const checkUsername = (e) =>
+  {
+    setUsername(e.target.value);
+  }
+
+  const checkPassword = (e) =>
+  {
+    setPassword(e.target.value);
+  }
   
   return (
     <Container 
@@ -45,8 +65,8 @@ const AddUser = () =>
             Registro
           </Typography>
           <Box
-            component="div"
-            onSubmit={register}
+            component="form"
+            onSubmit={ doRegister }
             noValidate
             sx={{ mt: 1 }}
           >
@@ -58,6 +78,7 @@ const AddUser = () =>
               label="Nombre de usuario"
               name="username"
               autoComplete="username"
+              onChange={ checkUsername }
               autoFocus
             />
             <TextField
@@ -69,6 +90,7 @@ const AddUser = () =>
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={ checkPassword }
             />
             <TextField
               margin="normal"
@@ -80,6 +102,11 @@ const AddUser = () =>
               id="confirmPassword"
               autoComplete="current-password"
             />
+
+            <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+              {error}
+            </Typography>
+
             <Button
               type="submit"
               fullWidth
