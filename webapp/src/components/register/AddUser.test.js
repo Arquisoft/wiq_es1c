@@ -16,7 +16,6 @@ describe('AddUser Component', () => {
   });
 
   test('submits the form with valid input', async () => {
-    /* TODO fix these tests
     render(<MemoryRouter><AddUser /></MemoryRouter>);
     
     fireEvent.change(screen.getByLabelText(/Nombre de usuario/i), { target: { value: 'validUsername' } });
@@ -28,18 +27,17 @@ describe('AddUser Component', () => {
     // Wait for the asynchronous code inside doRegister to complete
     await waitFor(() => {
       expect(screen.queryByText('')).not.toBeInTheDocument(); // No error message should be present
-    });*/
+    });
   });
 
   test('displays error message with invalid input', async () => {
-    /* TODO fix these tests
     render(<MemoryRouter><AddUser /></MemoryRouter>);
 
     fireEvent.submit(screen.getByRole('button', { name: 'Registrarme' }));
 
     await waitFor(() => {
       expect(screen.getByText('')).toBeInTheDocument(); // An error message should be present
-    });*/
+    });
   });
 
   // Add more tests as needed
