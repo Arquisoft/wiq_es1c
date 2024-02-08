@@ -38,7 +38,7 @@ const Login = () =>
 
       if (res !== '')
         setError(res);
-console.log(res);
+
       return;
     }
 
