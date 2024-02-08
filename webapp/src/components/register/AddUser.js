@@ -17,24 +17,54 @@ import { register } from "../../services/user.service";
 const AddUser = () => 
 {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(''); 
+  const [confirmPassword, setConfirmPassword] = useState(''); 
+  const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
   const [error, setError] = useState('');
 
   const doRegister = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      let error = await register(username,password)
-      setError(error);
+    if ( username !== '' && password !== '' && password === confirmPassword )
+    {
+      setError('');
+      setValidUsername(true);
+      setValidPassword(true);
+
+      const error = await register(username,password)
+      console.log(error);
+      if (error !== '')
+        setError(error);
+    }
+
+    if ( username === '' )
+      setValidUsername(false);
+      
+    if ( password === '' )
+      setValidPassword(false);
+
+    if ( password !== confirmPassword )
+      setValidConfirmPassword(false);
   }
 
   const checkUsername = (e) =>
   {
-    setUsername(e.target.value);
+    setUsername(e.target.value.trim());
+    setValidUsername(true);
   }
 
   const checkPassword = (e) =>
   {
-    setPassword(e.target.value);
+    setPassword(e.target.value.trim());
+    setValidPassword(true);
+  }
+
+  const checkConfirmPassword = (e) =>
+  {
+    setConfirmPassword(e.target.value.trim());
+    setValidConfirmPassword(true);
   }
   
   return (
@@ -79,6 +109,8 @@ const AddUser = () =>
               name="username"
               autoComplete="username"
               onChange={ checkUsername }
+              error={!validUsername}
+              helperText={validUsername ? '' : 'Debes introducir tu nombre de usuario'}
               autoFocus
             />
             <TextField
@@ -91,6 +123,8 @@ const AddUser = () =>
               id="password"
               autoComplete="current-password"
               onChange={ checkPassword }
+              error={!validPassword}
+              helperText={validPassword ? '' : 'Debes introducir una contraseña'}
             />
             <TextField
               margin="normal"
@@ -101,6 +135,9 @@ const AddUser = () =>
               type="password"
               id="confirmPassword"
               autoComplete="current-password"
+              onChange={ checkConfirmPassword }
+              error={!validConfirmPassword}
+              helperText={validConfirmPassword ? '' : 'Las contraseñas no coinciden'}
             />
 
             <Typography variant="body2" color="error" sx={{ mt: 1 }}>

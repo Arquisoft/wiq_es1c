@@ -28,7 +28,7 @@ const Login = () =>
   {
     e.preventDefault();
 
-    if ( username.trim() !== '' && password.trim() !== '' )
+    if ( username !== '' && password !== '' )
     {
       setError('');
       setValidUsername(true);
@@ -42,22 +42,22 @@ const Login = () =>
       return;
     }
 
-    if ( username.trim() === '' )
+    if ( username === '' )
       setValidUsername(false);
       
-    if ( password.trim() === '' )
+    if ( password === '' )
       setValidPassword(false);
   }
 
   const checkUsername = (e) =>
   {
-    setUsername(e.target.value);
+    setUsername(e.target.value.trim());
     setValidUsername(true);
   }
 
   const checkPassword = (e) =>
   {
-    setPassword(e.target.value);
+    setPassword(e.target.value.trim());
     setValidPassword(true);
   }
 

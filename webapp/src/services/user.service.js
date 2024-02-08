@@ -21,7 +21,10 @@ const login = async (username, password) =>
 const register = async (username, password) =>
 {
     try {
-      await axios.post(`${apiEndpoint}:8001/api/auth/register`, { username, password });
+      const response = await axios.post(`${apiEndpoint}:8001/api/auth/register`, { username, password });
+
+      if ( response.status === 200 )
+        return response.data.error;
 
       return "";
 
