@@ -44,6 +44,8 @@ The following technologies have been used to develop this project:
 
 * **Docker**: Docker is a platform and tool that allows developers to build, package, distribute, and run applications within lightweight, portable containers that encapsulate everything needed to run an application. 
 
+* **Tailwind CSS**: Tailwind CSS is a highly customizable CSS framework that provides a set of low-level utility classes that can be directly applied to HTML elements to style them. 
+
 ==== Why we have chosen this technologies
 
 * We went with JavaScript as our programming language because it is very widespread, which makes it very easy to search information about it. Also, we have already worked with it in the past, so we have some base knowledge about it.
@@ -52,7 +54,9 @@ The following technologies have been used to develop this project:
 
 * We chose MariaDB as our RDMS for its similarity with MySQL, a language that is familiar to everyone on the team. MariaDB offers an API that allows tables to be made and managed without having to deal with sql files, simplifying the process.
 
-* Docker: TODO
+* Docker is a very popular tool for containerization, which allows us to have a consistent environment for the project. It provides standarized versions without having to install programs and automatic deployment.
+
+* Tailwind makes the process of giving style to the application much more flexible, making it simpler and quicker. 
 
 === Microservice structuring
 
