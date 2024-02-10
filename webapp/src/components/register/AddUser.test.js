@@ -15,7 +15,7 @@ describe('AddUser Component', () => {
     expect(screen.getByText('Registro')).toBeInTheDocument();
   });
 
-  test('submits the form with valid input', async () => {
+  test('submit the form with valid inputs', async () => {
     render(<MemoryRouter><AddUser /></MemoryRouter>);
     
     fireEvent.change(screen.getByLabelText(/Nombre de usuario/i), { target: { value: 'validUsername' } });
@@ -43,5 +43,19 @@ describe('AddUser Component', () => {
     });
   });
 
-  // Add more tests as needed
+  test('submit the form with different passwords', async () => {
+    render(<MemoryRouter><AddUser /></MemoryRouter>);
+    
+    fireEvent.change(screen.getByLabelText(/Nombre de usuario/i), { target: { value: 'validUsername' } });
+
+    fireEvent.change(screen.getAllByLabelText(/Contraseña/i)[0], { target: { value: 'validPassword' } });
+    fireEvent.change(screen.getByLabelText(/Repetir contraseña/i), { target: { value: 'invalidPassword' } });
+
+    fireEvent.submit(screen.getByRole('button', { name: 'Registrarme' }));
+
+    // Wait for the asynchronous code inside doRegister to complete
+    await waitFor(() => {
+      expect(screen.getByText('Las contraseñas no coinciden')).toBeInTheDocument();
+    });
+  });
 });
