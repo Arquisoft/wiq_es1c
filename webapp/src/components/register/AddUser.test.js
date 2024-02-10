@@ -15,32 +15,47 @@ describe('AddUser Component', () => {
     expect(screen.getByText('Registro')).toBeInTheDocument();
   });
 
-  test('submits the form with valid input', async () => {
-    /* TODO fix these tests
+  test('submit the form with valid inputs', async () => {
     render(<MemoryRouter><AddUser /></MemoryRouter>);
     
     fireEvent.change(screen.getByLabelText(/Nombre de usuario/i), { target: { value: 'validUsername' } });
-    fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: 'validPassword' } });
+
+    fireEvent.change(screen.getAllByLabelText(/Contraseña/i)[0], { target: { value: 'validPassword' } });
     fireEvent.change(screen.getByLabelText(/Repetir contraseña/i), { target: { value: 'validPassword' } });
 
     fireEvent.submit(screen.getByRole('button', { name: 'Registrarme' }));
 
     // Wait for the asynchronous code inside doRegister to complete
     await waitFor(() => {
-      expect(screen.queryByText('')).not.toBeInTheDocument(); // No error message should be present
-    });*/
+      expect(screen.queryByText('Debes introducir tu nombre de usuario')).toBeNull();
+      expect(screen.queryByText('Debes introducir una contraseña')).toBeNull();
+    });
   });
 
-  test('displays error message with invalid input', async () => {
-    /* TODO fix these tests
+  test('attempt to register with empty fields', async () => {
     render(<MemoryRouter><AddUser /></MemoryRouter>);
 
     fireEvent.submit(screen.getByRole('button', { name: 'Registrarme' }));
 
     await waitFor(() => {
-      expect(screen.getByText('')).toBeInTheDocument(); // An error message should be present
-    });*/
+      expect(screen.getByText('Debes introducir tu nombre de usuario')).toBeInTheDocument();
+      expect(screen.getByText('Debes introducir una contraseña')).toBeInTheDocument();
+    });
   });
 
-  // Add more tests as needed
+  test('submit the form with different passwords', async () => {
+    render(<MemoryRouter><AddUser /></MemoryRouter>);
+    
+    fireEvent.change(screen.getByLabelText(/Nombre de usuario/i), { target: { value: 'validUsername' } });
+
+    fireEvent.change(screen.getAllByLabelText(/Contraseña/i)[0], { target: { value: 'validPassword' } });
+    fireEvent.change(screen.getByLabelText(/Repetir contraseña/i), { target: { value: 'invalidPassword' } });
+
+    fireEvent.submit(screen.getByRole('button', { name: 'Registrarme' }));
+
+    // Wait for the asynchronous code inside doRegister to complete
+    await waitFor(() => {
+      expect(screen.getByText('Las contraseñas no coinciden')).toBeInTheDocument();
+    });
+  });
 });

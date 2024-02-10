@@ -20,7 +20,10 @@ function validateRequiredFields(req, requiredFields) {
 const login = async (req, res) => {
     try {
         if(!validateRequiredFields(req,['username','password'])){
-            res.status(401).send();
+            res
+                .status(401)
+                .json({error:"Usuario o contraseña incorrectos"})
+                .send();
             return;
         }
 
@@ -34,12 +37,18 @@ const login = async (req, res) => {
         })
 
         if(u == undefined){
-            res.status(401).send();
+            res
+                .status(401)
+                .json({error:"Usuario o contraseña incorrectos"})
+                .send();
             return;
         }
 
         if(!bcrypt.compareSync(password, u.password)) {
-            res.status(401).send();
+            res
+                .status(401)
+                .json({error:"Usuario o contraseña incorrectos"})
+                .send();
             return;
         }
 
@@ -57,7 +66,10 @@ const login = async (req, res) => {
 const register = async (req, res) => {
     try{
         if(!validateRequiredFields(req,['username','password'])){
-            res.status(401).send();
+            res
+                .status(401)
+                .json({error:"Usuario o contraseña incorrectos"})
+                .send();
             return;
         }
 

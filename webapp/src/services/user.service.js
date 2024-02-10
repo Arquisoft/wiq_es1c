@@ -7,38 +7,33 @@ let token;
 const login = async (username, password) =>
 {
     try {
-        const response = await axios.post(`${apiEndpoint}:8001/api/auth/login`, { username, password });
+      const response = await axios.post(`${apiEndpoint}:8001/api/auth/login`, { username, password });
 
-        if(response.status == 401)
-          return false;
+      token = response.data.token;
 
-        token = response.data.token;
+      return "";
 
-        return true;
-
-      } catch (error) {
-        return false;
-      }
+    } catch (error) {
+      return error.response.data.error;
+    }
 }
 
 const register = async (username, password) =>
 {
-      try {
-        const response = await axios.post(`${apiEndpoint}:8001/api/auth/register`, { username, password });
+    try {
+      const response = await axios.post(`${apiEndpoint}:8001/api/auth/register`, { username, password });
 
-        if(response.status == 201)
-          return "";
+      if ( response.status === 200 )
+        return response.data.error;
 
-        let err = response.data.error;
+      return "";
 
-        return err;
-
-      } catch (error) {
-        return "";
-      }
+    } catch (error) {
+      return error.response.data.error;
+    }
 }
 
-const isLoggedIn = async (username, password) => token != undefined;
+const isLoggedIn = async (username, password) => token !== undefined;
 const getToken = async () => token;
 
 export {login, register, isLoggedIn, getToken};
