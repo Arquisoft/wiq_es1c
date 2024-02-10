@@ -34,7 +34,7 @@ const AddUser = () =>
       setValidPassword(true);
 
       const error = await register(username,password)
-      console.log(error);
+
       if (error !== '')
         setError(error);
     }
