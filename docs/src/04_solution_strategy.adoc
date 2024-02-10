@@ -62,6 +62,14 @@ The following technologies have been used to develop this project:
 
 The application is organised into microservices, making the different components that form the project more isolated and easier to maintain, having modules that have less coupling between them, making them more independent.
 
-=== Quality goals achieving
+=== Decissions made to achieve quality goals 
 
 Pending.
+
+=== Work methodology decissions
+
+* This project will be developed entirely in **English**, as it is the most common language in programming and we are more used to using it on a daily basis while doing other projects.
+
+* We use a Kanban project in Github to quickly see the current state of the project and see what everyone is working on and what there is to do.
+
+* Communication between team members is mostly made through Github, using issues to create and assign tasks, Whatsapp, to ask the rest of the team for help if needed for quick advice, and meetings, where we decide which way we are going to go with the project and discuss about work methodology. 
