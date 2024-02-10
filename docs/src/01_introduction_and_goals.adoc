@@ -16,6 +16,25 @@ These include
 ****
 
 === Requirements Overview
+The functional requirements that the application will have:
+
+* The system will have at least one web frontend that will be deployed and access will be through the Web.
+
+* Users will be able to register in the system and consult the history of their participation in the system:
+** Number of games
+** Correct/Failed
+** Questions
+** Times
+
+* The system will allow access to user information and questions generated through an API.
+
+* The questions must be answered within a certain period of time.
+
+* Each question will have one correct answer and several incorrect or distracting answers.
+
+* Both the correct and incorrect answers will be generated automatically.
+
+* The questions will be generated automatically from Wikidata data.
 
 [role="arc42help"]
 ****
@@ -42,6 +61,25 @@ See https://docs.arc42.org/section-1/[Introduction and Goals] in the arc42 docum
 ****
 
 === Quality Goals
+
+[options="header",cols="1,2,2"]
+|===
+|Quality goal
+|Motivation
+|Priority
+
+|*Usability*
+|Good User Experience(UX) will provide us any posibility to be competitive in the market
+|High
+
+|*Performance efficiency*
+|Efficiency problems cause a very negative UX
+|High
+
+|*Maintainability*
+|We hope that there will be changes to the project, or that the game modes will be expanded
+|Medium
+|===
 
 [role="arc42help"]
 ****
