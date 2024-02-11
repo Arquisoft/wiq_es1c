@@ -3,6 +3,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-architecture-constraints]]
 == Architecture Constraints
 
+[options="header",cols="1,2"]
+|===
+|Constraint|Explication
+| _Question generated from Wikidata data_ | It´s the unique constraint, get the questions from the Wikidata data, generated automatically.
+|===
 
 [role="arc42help"]
 ****
