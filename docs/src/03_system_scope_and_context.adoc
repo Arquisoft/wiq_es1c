@@ -67,6 +67,13 @@ legend
 
 ----
 
+| ===
+| Element | Description  
+| User | Plays the game through his device
+| WIQ | The application that runs the game
+| Wikidata API | WIQ takes information from Wikidata in order to form the questions and its answers.
+| ===
+
 **<Diagram or Table>**
 
 **<optionally: Explanation of external domain interfaces>**
@@ -101,16 +108,23 @@ node "WIQ user device" {
 
 [User-agent] --> Webapp: HTTPS
 
-database "MariaDB" {
-[Users]
-[Scores]
-}
+database "MariaDB"
 
 WIQ --> [Wikidata]: REST
 WIQ --> MariaDB: Uses
 
 ----
 
+| ===
+| Element | Description
+| Azure Cloud | Virtual Machine deployed in Azure that runs the application
+| WIQ | Our application
+| Webapp | The part of the application that the user accesses
+| WIQ user device | The device used by the user to access the app via user-agent
+| User-agent | Browser, Chrome for example
+| MariaDB | Database that contains all the data needed for the application to run, such as scores or users registered
+| Wikidata | The application uses its API REST to form questions
+| ===
 
 **<optionally: Explanation of technical interfaces>**
 
