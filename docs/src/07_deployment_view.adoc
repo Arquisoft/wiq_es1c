@@ -60,7 +60,7 @@ _**<Overview Diagram>**_
 
 Motivation::
 
-_<explanation in text form>_
+In the development stage the application will be running on each student’s machine. However, in the production stage the application will be running on a Docker environment hosted on Azure.
 
 Quality and/or Performance Features::
 
