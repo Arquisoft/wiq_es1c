@@ -31,7 +31,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm --prefix auth_service install
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
     - run: npm --prefix webapp run test:e2e

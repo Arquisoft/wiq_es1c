@@ -7,7 +7,7 @@ import Error404 from "../components/error/Error404";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Navigate to="/login" replace />
+        element: <Navigate to="/home" replace />
     },
     {
         path: "/home",
