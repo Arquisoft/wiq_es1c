@@ -74,9 +74,6 @@ legend
 | Wikidata API | WIQ takes information from Wikidata in order to form the questions and its answers.
 | ===
 
-**<Diagram or Table>**
-
-**<optionally: Explanation of external domain interfaces>**
 
 === Technical Context
 
@@ -125,7 +122,3 @@ WIQ --> MariaDB: Uses
 | MariaDB | Database that contains all the data needed for the application to run, such as scores or users registered
 | Wikidata | The application uses its API REST to form questions
 | ===
-
-**<optionally: Explanation of technical interfaces>**
-
-**<Mapping Input/Output to Channels>**
