@@ -18,6 +18,10 @@ app.use(cors()) // This api is listening on a different port from the frontend
 app.post("/api/auth/register", auth.register);
 app.post("/api/auth/login", auth.login);
 app.post("/api/auth/verify", auth.verify);
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK' });
+});
+
 
 // Start the server
 const server = app.listen(port, () => {
