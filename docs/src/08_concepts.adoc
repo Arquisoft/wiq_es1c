@@ -56,18 +56,43 @@ See https://docs.arc42.org/section-8/[Concepts] in the arc42 documentation.
 ****
 
 
-=== _<Concept 1>_
+=== _<Microservices architecture>_
 
-_<explanation>_
+We have decided that our architecture will be based on microservices, what means that every part of the
+aplication will be divided in a service that performs a specific function. The service is reponsible for both
+logic and database access and all the services are connected by an API.
 
 
+=== _<User Experience>_
 
-=== _<Concept 2>_
+The application will consist of a website where the user will be able to play our asking game, however as we
+have not started coding yet we do not have a clear idea of how it will look or if we are adding extra
+functionality to the webpage.
 
-_<explanation>_
 
-...
+=== _<Session handling>_
 
-=== _<Concept n>_
+The application will include a system to control the user access to keep track of their games. This Information
+will be saved in a database.
 
-_<explanation>_
+
+=== _<Persistence>_
+
+The persistence module of this application is related to save user credentials and in addition register
+the questions which are asked to the user. For this we will use a relational database.
+
+
+=== _<Security & Safety>_
+
+To enure customer safety we will apply encryption to their passwords when saving registration or login data.
+
+
+=== _<Testing>_
+
+In order to avoid errors in our aplication we will include a bunch of tests that cover both the frontend
+and backend areas.
+
+=== _<Internationalitasion>_
+
+At this point of the proyect we are not sure if we will implement internationalitasion, it's a decision that
+we will take as the proyect progresses.
