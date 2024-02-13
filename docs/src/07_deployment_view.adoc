@@ -97,15 +97,3 @@ Mapping of Building Blocks to Infrastructure::
 | *_Client Device_*
 | It is the device of the user. Will show us the execution of the webapp.
 |===
-
-
-=== Infrastructure Level 2
-
-[role="arc42help"]
-****
-Here you can include the internal structure of (some) infrastructure elements from level 1.
-
-Please copy the structure from level 1 for each selected element.
-****
-
-==== _<Infrastructure Element 1>_
