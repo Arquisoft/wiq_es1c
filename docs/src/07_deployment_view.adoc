@@ -56,11 +56,30 @@ Describe (usually in a combination of diagrams, tables, and text):
 For multiple environments or alternative deployments please copy and adapt this section of arc42 for all relevant environments.
 ****
 
-_**<Overview Diagram>**_
+[plantuml, "infrastructure-level1", png]
+----
+node AzureServer{
+    node DockerContainer {
+        component WebApp
+    }
+}
+
+node UserDevice {
+    node WebBrowser {
+        component WebAppImage
+    }
+}
+
+Actor User
+
+
+WebApp -d-> WebAppImage : "shows on user device"
+WebAppImage <-l- User
+----
 
 Motivation::
 
-In the development stage the application will be running on each student’s machine. However, in the production stage the application will be running on a Docker environment hosted on Azure.
+In the development stage the application will be running on each developer machine using Docker containers. However, in the production stage the application will be running on a Docker environment hosted on Azure, which will be available 24 hours a day. Our goal is to learn how to use docker properly on a server open 24 hours a day.
 
 Quality and/or Performance Features::
 
@@ -81,14 +100,13 @@ Please copy the structure from level 1 for each selected element.
 
 ==== _<Infrastructure Element 1>_
 
-_<diagram + explanation>_
-
-==== _<Infrastructure Element 2>_
-
-_<diagram + explanation>_
-
-...
-
-==== _<Infrastructure Element n>_
-
-_<diagram + explanation>_
+[options="header",cols="1,3"]
+|===
+| Element | Description
+ 
+| *_WebApp_*
+| It is the frontend of our application. It runs the application.
+ 
+| *_Client Device_*
+| It is the device of the user. Will show us the execution of the webapp.
+|===
