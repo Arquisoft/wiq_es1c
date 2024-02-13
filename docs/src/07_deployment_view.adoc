@@ -83,7 +83,7 @@ In the development stage the application will be running on each developer machi
 
 Quality and/or Performance Features::
 
-_<explanation in text form>_
+We have not tested the application performance so we can't analyze it yet
 
 Mapping of Building Blocks to Infrastructure::
 
