@@ -17,7 +17,7 @@ app.use(authMiddleware); // Auth middleware for the questions API
 
 // Api endpoints
 // Question endpoints
-app.get('/api/questions/generate', async (req, res) => {
+app.post('/api/questions/generate', async (req, res) => {
   res.status(200).json(await geoGen())
 });
 
