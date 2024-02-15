@@ -483,14 +483,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-deployment-view">7. Deployment View</a>
 <ul class="sectlevel2">
 <li><a href="#_infrastructure_level_1">7.1. Infrastructure Level 1</a></li>
-<li><a href="#_infrastructure_level_2">7.2. Infrastructure Level 2</a></li>
 </ul>
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_concept_1">8.1. <em>&lt;Concept 1&gt;</em></a></li>
-<li><a href="#_concept_2">8.2. <em>&lt;Concept 2&gt;</em></a></li>
-<li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
+<li><a href="#_microservices_architecture">8.1. <em>&lt;Microservices architecture&gt;</em></a></li>
+<li><a href="#_user_experience">8.2. <em>&lt;User Experience&gt;</em></a></li>
+<li><a href="#_session_handling">8.3. <em>&lt;Session handling&gt;</em></a></li>
+<li><a href="#_persistence">8.4. <em>&lt;Persistence&gt;</em></a></li>
+<li><a href="#_security_safety">8.5. <em>&lt;Security &amp; Safety&gt;</em></a></li>
+<li><a href="#_testing">8.6. <em>&lt;Testing&gt;</em></a></li>
+<li><a href="#_internationalitasion">8.7. <em>&lt;Internationalitasion&gt;</em></a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a></li>
@@ -613,6 +616,50 @@ If requirements documents exist this overview should refer to these documents.</
 </div>
 </div>
 </div>
+<div class="paragraph">
+<p>The functional requirements that the application will have:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The system will have at least one web frontend that will be deployed and access will be through the Web.</p>
+</li>
+<li>
+<p>Users will be able to register in the system and consult the history of their participation in the system:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Number of games</p>
+</li>
+<li>
+<p>Correct/Failed</p>
+</li>
+<li>
+<p>Questions</p>
+</li>
+<li>
+<p>Times</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The system will allow access to user information and questions generated through an API.</p>
+</li>
+<li>
+<p>The questions must be answered within a certain period of time.</p>
+</li>
+<li>
+<p>Each question will have one correct answer and several incorrect or distracting answers.</p>
+</li>
+<li>
+<p>Both the correct and incorrect answers will be generated automatically.</p>
+</li>
+<li>
+<p>The questions will be generated automatically from Wikidata data.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_quality_goals">1.2. Quality Goals</h3>
@@ -644,6 +691,42 @@ If you as an architect do not know how the quality of your work will be judged&#
 </div>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Quality goal</th>
+<th class="tableblock halign-left valign-top">Motivation</th>
+<th class="tableblock halign-left valign-top">Concrete Scenario</th>
+<th class="tableblock halign-left valign-top">Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Usability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Good User Experience(UX) will provide us any posibility to be competitive in the market</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We aim to achieve a beautiful, user-friendly graphical interface that is clear and easy to learn, in concrete, we look for 90% of the users to be able to use the application without any help</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Performance efficiency</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Efficiency problems cause a very negative UX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We aim to achieve a response time of less than 2 seconds for the new question to be displayed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We hope that there will be changes to the project, or that the game modes will be expanded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will work on the optional parts regarding creating the mobile application and implementing various game modes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_stakeholders">1.3. Stakeholders</h3>
@@ -686,9 +769,9 @@ These stakeholders determine the extent and the level of detail of your work and
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 16.6666%;">
+<col style="width: 50%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
@@ -699,14 +782,19 @@ These stakeholders determine the extent and the level of detail of your work and
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Students</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Manuel González Santos, Noel Expósito Espina,Yago Fernández López, Manuel de la Uz González, Rubén Fernández Valdés, Javier Monteserín Rodríguez</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Passing the subject as the main objective, and creating a project we can be proud of</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Teachers</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>José Emilio Labra Gallo</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To ensure that we learn the contents of the subject, especially that we learn to work as a team</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Users</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Any user of the application</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">That the application is easy to use and that it is fun to use</p></td>
 </tr>
 </tbody>
 </table>
@@ -717,6 +805,24 @@ These stakeholders determine the extent and the level of detail of your work and
 <div class="sect1">
 <h2 id="section-architecture-constraints">2. Architecture Constraints</h2>
 <div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Explication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Question generated from Wikidata data</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It´s the unique constraint, get the questions from the Wikidata data, generated automatically.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -806,7 +912,7 @@ The title of the table is the name of your system, the three columns contain the
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/businesscontext.png" alt="businesscontext" width="1067" height="578">
+<img src="./images/businesscontext.png" alt="businesscontext" width="421" height="294">
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -816,8 +922,8 @@ The title of the table is the name of your system, the three columns contain the
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Element</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Element</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
@@ -855,7 +961,7 @@ together with a mapping table showing the relationships between channels and inp
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/technicalcontext.png" alt="technicalcontext" width="1039" height="578">
+<img src="./images/technicalcontext.png" alt="technicalcontext" width="312" height="497">
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1049,7 +1155,7 @@ Refer to details in the following sections.</p>
 <h3 id="_level_1_whitebox_of_the_overall_system">5.1. Level 1: Whitebox of the Overall System</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Whitebox.png" alt="Whitebox" width="1028" height="578">
+<img src="./images/Whitebox.png" alt="Whitebox" width="393" height="87">
 </div>
 </div>
 <div class="dlist">
@@ -1092,7 +1198,7 @@ Refer to details in the following sections.</p>
 <h3 id="_level_2">5.2. Level 2</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/BlackBox%20Level%202.png" alt="BlackBox Level 2" width="1022" height="578">
+<img src="./images/BlackBox%20Level%202.png" alt="BlackBox Level 2" width="839" height="251">
 </div>
 </div>
 <div class="dlist">
@@ -1135,7 +1241,7 @@ Refer to details in the following sections.</p>
 <h3 id="_level_3">5.3. Level 3</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/BlackBox%20Level%203.png" alt="BlackBox Level 3" width="1043" height="578">
+<img src="./images/BlackBox%20Level%203.png" alt="BlackBox Level 3" width="789" height="443">
 </div>
 </div>
 <div class="dlist">
@@ -1371,60 +1477,47 @@ when your infrastructure is more complex.</p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/infrastructure-level1.png" alt="infrastructure level1" width="290" height="427">
+</div>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p><em>&lt;explanation in text form&gt;</em></p>
+<p>In the development stage the application will be running on each developer machine using Docker containers. However, in the production stage the application will be running on a Docker environment hosted on Azure, which will be available 24 hours a day. Our goal is to learn how to use docker properly on a server open 24 hours a day.</p>
 </dd>
 <dt class="hdlist1">Quality and/or Performance Features</dt>
 <dd>
-<p><em>&lt;explanation in text form&gt;</em></p>
+<p>We have not tested the application performance so we can&#8217;t analyze it yet</p>
 </dd>
 <dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
-<dd>
-<p><em>&lt;description of the mapping&gt;</em></p>
-</dd>
 </dl>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_infrastructure_level_2">7.2. Infrastructure Level 2</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
-</div>
-<div class="paragraph">
-<p>Please copy the structure from level 1 for each selected element.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_1">7.2.1. <em>&lt;Infrastructure Element 1&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_2">7.2.2. <em>&lt;Infrastructure Element 2&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_n">7.2.3. <em>&lt;Infrastructure Element n&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><em>WebApp</em></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the frontend of our application. It runs the application.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><em>Client Device</em></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the device of the user. Will show us the execution of the webapp.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 </div>
@@ -1531,24 +1624,53 @@ on this list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_1">8.1. <em>&lt;Concept 1&gt;</em></h3>
+<h3 id="_microservices_architecture">8.1. <em>&lt;Microservices architecture&gt;</em></h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>We have decided that our architecture will be based on microservices, what means that every part of the
+aplication will be divided in a service that performs a specific function. The service is reponsible for both
+logic and database access and all the services are connected by an API.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_2">8.2. <em>&lt;Concept 2&gt;</em></h3>
+<h3 id="_user_experience">8.2. <em>&lt;User Experience&gt;</em></h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p>The application will consist of a website where the user will be able to play our asking game, however as we
+have not started coding yet we do not have a clear idea of how it will look or if we are adding extra
+functionality to the webpage.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_n">8.3. <em>&lt;Concept n&gt;</em></h3>
+<h3 id="_session_handling">8.3. <em>&lt;Session handling&gt;</em></h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>The application will include a system to control the user access to keep track of their games. This Information
+will be saved in a database.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_persistence">8.4. <em>&lt;Persistence&gt;</em></h3>
+<div class="paragraph">
+<p>The persistence module of this application is related to save user credentials and in addition register
+the questions which are asked to the user. For this we will use a relational database.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_safety">8.5. <em>&lt;Security &amp; Safety&gt;</em></h3>
+<div class="paragraph">
+<p>To enure customer safety we will apply encryption to their passwords when saving registration or login data.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing">8.6. <em>&lt;Testing&gt;</em></h3>
+<div class="paragraph">
+<p>In order to avoid errors in our aplication we will include a bunch of tests that cover both the frontend
+and backend areas.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_internationalitasion">8.7. <em>&lt;Internationalitasion&gt;</em></h3>
+<div class="paragraph">
+<p>At this point of the proyect we are not sure if we will implement internationalitasion, it&#8217;s a decision that
+we will take as the proyect progresses.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1600,6 +1722,37 @@ Refer to section 4, where you already captured the most important decisions of y
 There you will find links and examples about ADR.</p>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>We have added the ADRs to the Wiki section in the GitHub page, so we provide the links to them:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-01-(JavaScript)">ADR 01</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-02-(React)">ADR 02</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-03-(MariaDB)">ADR 03</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-04-(Docker)">ADR 04</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-05-(Tailwind-CSS)">ADR 05</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-06-(Material-UI)">ADR 06</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-07-(Testing-react-library)">ADR 07</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-08-(Reacr%E2%80%90router%E2%80%90dom)">ADR 08</a></p>
+</li>
+</ul>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1660,6 +1813,66 @@ concrete and measurable.</p>
 </div>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Quality Category</th>
+<th class="tableblock halign-left valign-top">Quality</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usability</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Easy to use</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Ease of use by the user when playing games or moving around the application.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC1</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">__</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Easy to learn</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Game modes should be intuitive.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">__</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Maintainability</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Robustness</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The application must be able to respond to user requests first.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC2</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">__</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Persistence</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>There will be no partial loss of user information and data.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">__</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Performance efficiency</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Response time</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>La aplicación no deberá superar los 3 segundos de tiempo de espera</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC3</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Security</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Integrity</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>User data must be kept confidential and secure at all times.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">__</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Cultural and Regional</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Multi-language</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The application texts must be displayed in English.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC4</em></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
@@ -1701,6 +1914,36 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Id</th>
+<th class="tableblock halign-left valign-top">Scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC1</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A new user registers in the application and can start playing without the need to view a user guide.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC2</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A user performs an action in the application that results in an internal error, but the user can still use the application normally.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC3</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Un usuario jugando irá visualizando las diferentes preguntas con un tiempo de espera bajo o inexistente.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC4</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Un usuario de habla inglesa podrá usar y jugar con la aplicación sin suponerle ningún problema.</em></p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1801,7 +2044,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-02-05 17:58:24 +0100
+Last updated 2024-01-30 13:22:39 +0100
 </div>
 </div>
 </body>
