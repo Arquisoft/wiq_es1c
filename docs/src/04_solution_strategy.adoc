@@ -36,15 +36,21 @@ See https://docs.arc42.org/section-4/[Solution Strategy] in the arc42 documentat
 
 The following technologies have been used to develop this project:
 
-* **JavaScript**: JavaScript is a high-level, interpreted programming language primarily used for building dynamic and interactive web applications. 
+* **JavaScript** is a high-level, interpreted programming language primarily used for building dynamic and interactive web applications. 
 
-* **React**: React is a JavaScript framework for building user interfaces for web applications. 
+* **React** is a JavaScript framework for building user interfaces for web applications. 
 
-* **MariaDB**: MariaDB is an open-source relational database managemente system. It offers features such as ACID compliance and compatibility with MySQL.
+* **MariaDB** is an open-source relational database managemente system. It offers features such as ACID compliance and compatibility with MySQL.
 
-* **Docker**: Docker is a platform and tool that allows developers to build, package, distribute, and run applications within lightweight, portable containers that encapsulate everything needed to run an application. 
+* **Docker** is a platform and tool that allows developers to build, package, distribute, and run applications within lightweight, portable containers that encapsulate everything needed to run an application. 
 
-* **Tailwind CSS**: Tailwind CSS is a highly customizable CSS framework that provides a set of low-level utility classes that can be directly applied to HTML elements to style them. 
+* **Tailwind CSS** is a highly customizable CSS framework that provides a set of low-level utility classes that can be directly applied to HTML elements to style them. 
+
+* **Material UI** is a library that implements the Material Design from Google. 
+
+* **Testing react library** is a library for testing React components.
+
+* **React-router-dom** offers easy configuration for application routes on the client side. It is only needed to establish the route and its associated component. 
 
 ==== Why we have chosen this technologies
 
@@ -58,10 +64,24 @@ The following technologies have been used to develop this project:
 
 * Tailwind makes the process of giving style to the application much more flexible, making it simpler and quicker. 
 
-=== Microservice structuring
+* Material UI allows us to save time when designing the inferfaces that the user will be using.
+
+* In order to encourage better test practises, we included Testing react library.
+
+* **React-router-dom** as mentioned before, makes the process of building routes much easier. Also, when the user changes route, the virtual dom itself renders the new component.
+
+=== Project structuring
 
 The application is organised into microservices, making the different components that form the project more isolated and easier to maintain, having modules that have less coupling between them, making them more independent.
 
-=== Quality goals achieving
+=== Decissions made to achieve quality goals 
 
 Pending.
+
+=== Work methodology decissions
+
+* This project will be developed entirely in English, as it is the most common language in programming and we are more used to using it on a daily basis while doing other projects.
+
+* We use a Kanban project in Github to quickly see the current state of the project and see what everyone is working on and what there is to do.
+
+* Communication between team members is mostly made through Github, using issues to create and assign tasks, Whatsapp, to ask the rest of the team for help if needed for quick advice, and meetings, where we decide which way we are going to go with the project and discuss about work methodology. 
