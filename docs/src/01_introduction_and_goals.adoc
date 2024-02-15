@@ -16,7 +16,6 @@ These include
 ****
 
 === Requirements Overview
-
 [role="arc42help"]
 ****
 .Contents
@@ -40,9 +39,27 @@ Keep these excerpts as short as possible. Balance readability of this document w
 See https://docs.arc42.org/section-1/[Introduction and Goals] in the arc42 documentation.
 
 ****
+The functional requirements that the application will have:
+
+* The system will have at least one web frontend that will be deployed and access will be through the Web.
+
+* Users will be able to register in the system and consult the history of their participation in the system:
+** Number of games
+** Correct/Failed
+** Questions
+** Times
+
+* The system will allow access to user information and questions generated through an API.
+
+* The questions must be answered within a certain period of time.
+
+* Each question will have one correct answer and several incorrect or distracting answers.
+
+* Both the correct and incorrect answers will be generated automatically.
+
+* The questions will be generated automatically from Wikidata data.
 
 === Quality Goals
-
 [role="arc42help"]
 ****
 .Contents
@@ -62,9 +79,30 @@ If you as an architect do not know how the quality of your work will be judged..
 .Form
 A table with quality goals and concrete scenarios, ordered by priorities
 ****
+[options="header",cols="1,2,2,1"]
+|===
+|Quality goal
+|Motivation
+|Concrete Scenario
+|Priority
+
+|*Usability*
+|Good User Experience(UX) will provide us any posibility to be competitive in the market
+|We aim to achieve a beautiful, user-friendly graphical interface that is clear and easy to learn, in concrete, we look for 90% of the users to be able to use the application without any help
+|High
+
+|*Performance efficiency*
+|Efficiency problems cause a very negative UX
+|We aim to achieve a response time of less than 2 seconds for the new question to be displayed
+|High
+
+|*Maintainability*
+|We hope that there will be changes to the project, or that the game modes will be expanded
+|We will work on the optional parts regarding creating the mobile application and implementing various game modes
+|Medium
+|===
 
 === Stakeholders
-
 [role="arc42help"]
 ****
 .Contents
@@ -84,10 +122,11 @@ These stakeholders determine the extent and the level of detail of your work and
 .Form
 Table with role names, person names, and their expectations with respect to the architecture and its documentation.
 ****
-
-[options="header",cols="1,2,2"]
+[options="header",cols="1,3,2"]
 |===
 |Role/Name|Contact|Expectations
-| _<Role-1>_ | _<Contact-1>_ | _<Expectation-1>_
-| _<Role-2>_ | _<Contact-2>_ | _<Expectation-2>_
+| _Students_ | _Manuel González Santos, Noel Expósito Espina,Yago Fernández López, Manuel de la Uz González, Rubén Fernández Valdés, Javier Monteserín Rodríguez_ | Passing the subject as the main objective, and creating a project we can be proud of
+| _Teachers_ | _José Emilio Labra Gallo_ | To ensure that we learn the contents of the subject, especially that we learn to work as a team
+| _Users_ | _Any user of the application_ | That the application is easy to use and that it is fun to use
 |===
+
