@@ -15,13 +15,47 @@ This repo is a basic application composed of several components.
 
 Both the user and auth service share a Mongo database that is accessed with mongoose.
 
+
+
+## Description
+
+This project has been developed by the contributors listed in the following section, as part of the **Software Architecture course at the University of Oviedo** for the academic year 2023/2024.
+
+**WIQ** is a game inspired in the popular spanish show *"Saber y Ganar"*, where players must answer questions from different topics by choosing one of the options given to them. 
+
+The questions in the game are generated automatically, keeping the game interesting and not repetitive.
+
+> (THIS DESCRIPTION WILL BE COMPLETED WHEN THE PROJECT HAS ADVANCED MORE)
+
 ## Contributors
-* Rubén Fernández Valdés
-* Manuel de la Uz González
-* Yago Fernández López
-* Noel Expósito Espina
-* Manuel González Santos
-* Javier Monteserín Rodríguez
+<img align="right" width="220" height="220" src="media/gif/limbani-monkey.gif"> 
+
+<table>
+  <tr>
+    <td>Rubén Fernández Valdés</td>
+    <td><a href="https://github.com/RubenFern"><img alt="Github de Rubén" src="https://img.shields.io/badge/Rub%C3%A9n-lightgray?logo=github"></a></td>
+  </tr>
+  <tr>
+    <td>Manuel de la Uz González</td>
+    <td><a href="https://github.com/Manueluz"><img alt="Github de Manuel" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
+  </tr>
+  <tr>
+    <td>Yago Fernández López</td>
+    <td><a href="https://github.com/uo289549"><img alt="Github de Yago" src="https://img.shields.io/badge/Yago-lightgray?logo=github"></a></td>
+  </tr>
+  <tr>
+    <td>Noel Expósito Espina</td>
+    <td><a href="https://github.com/22Noel"><img alt="Github de Noel" src="https://img.shields.io/badge/Noel-lightgray?logo=github"></a></td>
+  </tr>
+  <tr>
+    <td>Manuel González Santos</td>
+    <td><a href="https://github.com/gs-Manuel"><img alt="Github de Manuel" src="https://img.shields.io/badge/Manuel-lightgray?logo=github"></a></td>
+  </tr>
+  <tr>
+    <td>Javier Monteserín Rodríguez</td>
+    <td><a href="https://github.com/uo288524"><img alt="Github de Javier" src="https://img.shields.io/badge/Javier-lightgray?logo=github"></a></td>
+  </tr>
+</table>
 
 ## Quick start guide
 

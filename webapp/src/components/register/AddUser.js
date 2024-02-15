@@ -1,58 +1,108 @@
 // src/components/AddUser.js
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import React from "react";
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  CssBaseline,
+  Box,
+  Grid,
+  Avatar,
+} from "@mui/material";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link } from "react-router-dom";
 
-const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-
-const AddUser = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-
-  const addUser = async () => {
-    try {
-      await axios.post(`${apiEndpoint}/adduser`, { username, password });
-      setOpenSnackbar(true);
-    } catch (error) {
-      setError(error.response.data.error);
-    }
-  };
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
-
+const AddUser = () => 
+{
+  const register = () => {}
+  
   return (
-    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
-      <Typography component="h1" variant="h5">
-        Add User
-      </Typography>
-      <TextField
-        name="username"
-        margin="normal"
-        fullWidth
-        label="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <TextField
-        name="password"
-        margin="normal"
-        fullWidth
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button variant="contained" color="primary" onClick={addUser}>
-        Add User
-      </Button>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="User added successfully" />
-      {error && (
-        <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-      )}
+    <Container 
+      component="main"
+      maxWidth="sm"
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
+      className="min-h-screen flex justify-center align-middle"
+    >
+      <Container
+        className="bg-white rounded-lg"
+        component="main"
+        maxWidth="sm"
+      >
+        <CssBaseline />
+        <Box
+          sx={{
+            padding: 3,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Registro
+          </Typography>
+          <Box
+            component="div"
+            onSubmit={register}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Nombre de usuario"
+              name="username"
+              autoComplete="username"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Contraseña"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Repetir contraseña"
+              type="password"
+              id="confirmPassword"
+              autoComplete="current-password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Registrarme
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  <span></span>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to={ '/login' } className="underline text-blue-600 hover:text-blue-900">
+                  {"¿Ya tienes unas cuenta? Inicia sesión"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
     </Container>
   );
 };

@@ -48,9 +48,32 @@ The title of the table is the name of your system, the three columns contain the
 
 ****
 
-**<Diagram or Table>**
+[plantuml, "businesscontext", png]
+----
 
-**<optionally: Explanation of external domain interfaces>**
+component "WIQ" as wiq #LightGray
+component "Wikidata API" as data #Cyan
+[wiq] --> [data]: Uses
+[data] --> [wiq]: Generates questions
+:User: --> [wiq]: Answers
+wiq --> User: Asks questions
+
+
+legend
+ |<back:#LightGray>   </back>| Internal source |
+ |<back:#Cyan>   </back>| External source |
+ endlegend
+
+
+----
+
+| ===
+| Element | Description  
+| User | Plays the game through his device
+| WIQ | The application that runs the game
+| Wikidata API | WIQ takes information from Wikidata in order to form the questions and its answers.
+| ===
+
 
 === Technical Context
 
@@ -68,8 +91,34 @@ together with a mapping table showing the relationships between channels and inp
 
 ****
 
-**<Diagram or Table>**
+[plantuml, "technicalcontext", png]
+----
+node "Azure cloud" {
+  node "WIQ" {
+[Webapp]
+}
+}
 
-**<optionally: Explanation of technical interfaces>**
+node "WIQ user device" {
+[User-agent]
+}
 
-**<Mapping Input/Output to Channels>**
+[User-agent] --> Webapp: HTTPS
+
+database "MariaDB"
+
+WIQ --> [Wikidata]: REST
+WIQ --> MariaDB: Uses
+
+----
+
+| ===
+| Element | Description
+| Azure Cloud | Virtual Machine deployed in Azure that runs the application
+| WIQ | Our application
+| Webapp | The part of the application that the user accesses
+| WIQ user device | The device used by the user to access the app via user-agent
+| User-agent | Browser, Chrome for example
+| MariaDB | Database that contains all the data needed for the application to run, such as scores or users registered
+| Wikidata | The application uses its API REST to form questions
+| ===
