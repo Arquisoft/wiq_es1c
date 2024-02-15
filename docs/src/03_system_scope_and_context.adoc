@@ -65,7 +65,7 @@ legend
 ----
 
 |===
-| Element | Description  
+| *Element* | *Description*  
 | User | Plays the game through his device
 | WIQ | The application that runs the game
 | Wikidata API | WIQ takes information from Wikidata in order to form the questions and its answers.
@@ -106,11 +106,10 @@ database "MariaDB"
 
 WIQ --> [Wikidata]: REST
 WIQ --> MariaDB: Uses
-
 ----
 
 |===
-| Element | Description
+| *Element* | *Description*
 | Azure Cloud | Virtual Machine deployed in Azure that runs the application
 | WIQ | Our application
 | Webapp | The part of the application that the user accesses
