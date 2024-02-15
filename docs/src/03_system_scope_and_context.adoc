@@ -109,7 +109,7 @@ WIQ --> MariaDB: Uses
 
 ----
 
-| ===
+|===
 | Element | Description
 | Azure Cloud | Virtual Machine deployed in Azure that runs the application
 | WIQ | Our application
@@ -118,4 +118,4 @@ WIQ --> MariaDB: Uses
 | User-agent | Browser, Chrome for example
 | MariaDB | Database that contains all the data needed for the application to run, such as scores or users registered
 | Wikidata | The application uses its API REST to form questions
-| ===
+|===
