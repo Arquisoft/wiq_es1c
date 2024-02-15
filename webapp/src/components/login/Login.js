@@ -1,5 +1,6 @@
 // src/components/Login.js
 import React, { useState } from "react";
+
 import {
   Container,
   Typography,
@@ -7,14 +8,13 @@ import {
   Button,
   CssBaseline,
   Box,
-  FormControlLabel,
-  Checkbox,
   Grid,
   Avatar,
 } from "@mui/material";
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link } from "react-router-dom";
-import login from "../../services/user.service";
+import { login } from "../../services/user.service";
 
 const Login = () => 
 {
@@ -22,36 +22,42 @@ const Login = () =>
   const [password, setPassword] = useState('');
   const [validUsername, setValidUsername] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) =>
   {
     e.preventDefault();
 
-    if ( username.trim() !== '' && password.trim() !== '' )
+    if ( username !== '' && password !== '' )
     {
+      setError('');
       setValidUsername(true);
       setValidPassword(true);
 
-      await login(username, password);
+      const res = await login(username, password);
+
+      if (res !== '')
+        setError(res);
+
       return;
     }
 
-    if ( username.trim() === '' )
+    if ( username === '' )
       setValidUsername(false);
       
-    if ( password.trim() === '' )
+    if ( password === '' )
       setValidPassword(false);
   }
 
   const checkUsername = (e) =>
   {
-    setUsername(e.target.value);
+    setUsername(e.target.value.trim());
     setValidUsername(true);
   }
 
   const checkPassword = (e) =>
   {
-    setPassword(e.target.value);
+    setPassword(e.target.value.trim());
     setValidPassword(true);
   }
 
@@ -114,10 +120,11 @@ const Login = () =>
               error={!validPassword}
               helperText={validPassword ? '' : 'Debes introducir tu contraseña'}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Recordarme"
-            />
+            
+            <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+              {error}
+            </Typography>
+
             <Button
               type="submit"
               fullWidth

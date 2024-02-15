@@ -1,5 +1,5 @@
 // src/components/AddUser.js
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -12,10 +12,60 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link } from "react-router-dom";
+import { register } from "../../services/user.service";
 
 const AddUser = () => 
 {
-  const register = () => {}
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState(''); 
+  const [confirmPassword, setConfirmPassword] = useState(''); 
+  const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  const [validConfirmPassword, setValidConfirmPassword] = useState(true);
+  const [error, setError] = useState('');
+
+  const doRegister = async (e) => {
+    e.preventDefault();
+
+    if ( username !== '' && password !== '' && password === confirmPassword )
+    {
+      setError('');
+      setValidUsername(true);
+      setValidPassword(true);
+
+      const error = await register(username,password)
+
+      if (error !== '')
+        setError(error);
+    }
+
+    if ( username === '' )
+      setValidUsername(false);
+      
+    if ( password === '' )
+      setValidPassword(false);
+
+    if ( password !== confirmPassword )
+      setValidConfirmPassword(false);
+  }
+
+  const checkUsername = (e) =>
+  {
+    setUsername(e.target.value.trim());
+    setValidUsername(true);
+  }
+
+  const checkPassword = (e) =>
+  {
+    setPassword(e.target.value.trim());
+    setValidPassword(true);
+  }
+
+  const checkConfirmPassword = (e) =>
+  {
+    setConfirmPassword(e.target.value.trim());
+    setValidConfirmPassword(true);
+  }
   
   return (
     <Container 
@@ -45,8 +95,8 @@ const AddUser = () =>
             Registro
           </Typography>
           <Box
-            component="div"
-            onSubmit={register}
+            component="form"
+            onSubmit={ doRegister }
             noValidate
             sx={{ mt: 1 }}
           >
@@ -58,6 +108,9 @@ const AddUser = () =>
               label="Nombre de usuario"
               name="username"
               autoComplete="username"
+              onChange={ checkUsername }
+              error={!validUsername}
+              helperText={validUsername ? '' : 'Debes introducir tu nombre de usuario'}
               autoFocus
             />
             <TextField
@@ -69,6 +122,9 @@ const AddUser = () =>
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={ checkPassword }
+              error={!validPassword}
+              helperText={validPassword ? '' : 'Debes introducir una contraseña'}
             />
             <TextField
               margin="normal"
@@ -79,7 +135,15 @@ const AddUser = () =>
               type="password"
               id="confirmPassword"
               autoComplete="current-password"
+              onChange={ checkConfirmPassword }
+              error={!validConfirmPassword}
+              helperText={validConfirmPassword ? '' : 'Las contraseñas no coinciden'}
             />
+
+            <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+              {error}
+            </Typography>
+
             <Button
               type="submit"
               fullWidth

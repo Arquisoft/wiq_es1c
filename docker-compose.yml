@@ -1,70 +1,49 @@
-version: '4'
+version: '5'
 services:
-  questionsservice:
-    container_name: questionsservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es1c/questionsservice:latest
+  question:
+    container_name: question-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/question:latest
     profiles: ["dev", "prod"]
-    build: ./questionsservice
-    ports:
-      - "23123:23123"
-    networks:
-      - mynetwork
-
-  mongodb:
-    container_name: mongodb-${teamname:-defaultASW}
-    image: mongo
-    profiles: ["dev", "prod"]
-    volumes:
-      - mongodb_data:/data/db
-    ports:
-      - "27017:27017"
-    networks:
-      - mynetwork
-
-  authservice:
-    container_name: authservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es1c/authservice:latest
-    profiles: ["dev", "prod"]
-    build: ./users/authservice
+    build: ./question_service
     depends_on:
-      - mongodb
+      mariadb:
+        condition: service_healthy
     ports:
       - "8002:8002"
     networks:
       - mynetwork
-    environment:
-      MONGODB_URI: mongodb://mongodb:27017/userdb
 
-  userservice:
-    container_name: userservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es1c/userservice:latest
+  auth:
+    container_name: auth-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/auth:latest
     profiles: ["dev", "prod"]
-    build: ./users/userservice
+    build: ./auth_service
     depends_on:
-      - mongodb
+      mariadb:
+        condition: service_healthy
     ports:
       - "8001:8001"
     networks:
       - mynetwork
-    environment:
-      MONGODB_URI: mongodb://mongodb:27017/userdb
 
-  gatewayservice:
-    container_name: gatewayservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es1c/gatewayservice:latest
+  mariadb:
+    container_name: mariadb-${teamname:-defaultASW}
+    image: mariadb
     profiles: ["dev", "prod"]
-    build: ./gatewayservice
-    depends_on:
-      - mongodb
-      - userservice
-      - authservice
+    volumes:
+      - mariadb_data:/var/lib/mysql
     ports:
-      - "8000:8000"
+      - "3306:3306"
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1 # This should be done in a real production server, im aware.
+      - MARIADB_DATABASE=db
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
     networks:
       - mynetwork
-    environment:
-      AUTH_SERVICE_URL: http://authservice:8002
-      USER_SERVICE_URL: http://userservice:8001
 
   webapp:
     container_name: webapp-${teamname:-defaultASW}
@@ -72,48 +51,49 @@ services:
     profiles: ["dev", "prod"]
     build: ./webapp
     depends_on:
-      - gatewayservice
+      - question
+      - auth
     ports:
-      - "3000:3000" 
+      - "80:3000" 
 
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus-${teamname:-defaultASW}
-    profiles: ["dev"]
-    networks:
-      - mynetwork
-    volumes:
-      - ./gatewayservice/monitoring/prometheus:/etc/prometheus
-      - prometheus_data:/prometheus
-    ports:
-      - "9090:9090"
-    depends_on: 
-      - gatewayservice
+# prometheus:
+#   image: prom/prometheus
+#   container_name: prometheus-${teamname:-defaultASW}
+#   profiles: ["dev"]
+#   networks:
+#     - mynetwork
+#   volumes:
+#     - ./gatewayservice/monitoring/prometheus:/etc/prometheus
+#     - prometheus_data:/prometheus
+#   ports:
+#     - "9090:9090"
+#   depends_on: 
+#     - gatewayservice
       
-  grafana:
-    image: grafana/grafana
-    container_name: grafana-${teamname:-defaultASW}
-    profiles: ["dev"]
-    networks:
-      - mynetwork
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./gatewayservice/monitoring/grafana/provisioning:/etc/grafana/provisioning
-    environment:
-      - GF_SERVER_HTTP_PORT=9091
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    ports:
-      - "9091:9091"
-    depends_on: 
-      - prometheus
+# grafana:
+#   image: grafana/grafana
+#   container_name: grafana-${teamname:-defaultASW}
+#   profiles: ["dev"]
+#   networks:
+#     - mynetwork
+#   volumes:
+#     - grafana_data:/var/lib/grafana
+#     - ./gatewayservice/monitoring/grafana/provisioning:/etc/grafana/provisioning
+#   environment:
+#     - GF_SERVER_HTTP_PORT=9091
+#     - GF_AUTH_DISABLE_LOGIN_FORM=true
+#     - GF_AUTH_ANONYMOUS_ENABLED=true
+#     - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+#   ports:
+#     - "9091:9091"
+#   depends_on: 
+#     - prometheus
 
 
 volumes:
-  mongodb_data:
-  prometheus_data: 
-  grafana_data: 
+  mariadb_data:
+# prometheus_data: 
+# grafana_data: 
 
 networks:
   mynetwork:
