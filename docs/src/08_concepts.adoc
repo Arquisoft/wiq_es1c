@@ -79,12 +79,12 @@ will be saved in a database.
 === _<Persistence>_
 
 The persistence module of this application is related to save user credentials and in addition register
-the questions which are asked to the user. For this we will use a relational database.
+the questions which are asked to the user and his answers. For this we will use a relational database.
 
 
 === _<Security & Safety>_
 
-To enure customer safety we will apply encryption to their passwords when saving registration or login data.
+To ensure customer safety we will apply encryption to their passwords when saving registration or login data.
 
 
 === _<Testing>_
@@ -92,7 +92,7 @@ To enure customer safety we will apply encryption to their passwords when saving
 In order to avoid errors in our aplication we will include a bunch of tests that cover both the frontend
 and backend areas.
 
-=== _<Internationalitasion>_
+=== _<Internationalization>_
 
-At this point of the proyect we are not sure if we will implement internationalitasion, it's a decision that
+At this point of the proyect we are not sure if we will implement Internationalization, it's a decision that
 we will take as the proyect progresses.
