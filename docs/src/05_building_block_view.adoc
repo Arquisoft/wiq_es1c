@@ -65,30 +65,37 @@ Contained Building Blocks::
 === Level 3
 [plantuml,"BlackBox Level 3",png]
 ----
-Component ms as "Micro services" {
-    Component auth as "Auth Service"
-    Component questions as "Question Service"
-    Component game as "Game Service"
-    Component friends as "Friends Service"
-    Component history as "UserData Service"
+Component WIQ as "WIQ" {
+
+    Component ms as "Micro services" {
+        Component auth as "Auth Service"
+        Component questions as "Question Service"
+        Component game as "Game Service"
+        Component friends as "Friends Service"
+        Component history as "UserData Service"
+        Database d as "MariaDB"
+    }
+
+    Component ui as "User Interface"
+
+
+    ui -down-> auth
+    ui -down-> game
+    ui -down-> history
+    ui -down-> friends
+
+
+
+    auth <-down-> d
+    game <-down-> d
+    friends <-down-> d
+    history <-down-> d
 }
 
-Component ui as "User Interface"
-Database d as "MariaDB"
 Component w as "Wikidata"
-
-ui -down-> auth
-ui -down-> game
-ui -down-> history
-ui -down-> friends
 
 game -down-> questions: generates question
 questions <-down- w: provides trivia data
-
-auth <-down-> d
-game <-down-> d
-friends <-down-> d
-history <-down-> d
 ----
 
 Motivation::
