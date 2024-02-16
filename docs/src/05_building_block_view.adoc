@@ -46,7 +46,7 @@ ms <--> d: Reads user and question data
 ms <- w: Provide trivia data
 ----
 Motivation::
-This shows the main data flow of the application (Towards the MicroServices) and also the architectural decision to use microservices to wich the UI will hook up to
+This shows the main data flow of the application (Towards the MicroServices) and also the architectural decision to use microservices to wich the UI will hook up to.
 
 Contained Building Blocks::
 [options="header",cols="1,3"]

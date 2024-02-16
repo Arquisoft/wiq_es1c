@@ -38,7 +38,7 @@ See https://docs.arc42.org/section-6/[Runtime View] in the arc42 documentation.
 ****
 
 === User plays a questions game
-When the users starts a game, it does so via the game service (which internally will use the questiosn service). The game service will provide questions until the end of the game.
+When the users starts a game, it does so via the game service (which internally will use the questions service). The game service will provide questions until the end of the game.
 [plantuml,"Start a game",png]
 ----
 actor a as "Alice"
@@ -55,19 +55,19 @@ q -> d: Registers the question
 d -->q
 q -> a: Returns the question 
 |||
-...Alice takes some time to awnser the question......
+...Alice takes some time to answer the question......
 |||
-a -> q: Sends the awnser
-q -> d: Registers awnser
+a -> q: Sends the answer
+q -> d: Registers answer
 d -->q
-q -> a: Confirms if the awnser was valid or not
+q -> a: Confirms if the answer was valid or not
 a -> q: Asks for next question
 end
 q -> a: Tells the user the game has ended, along with the stats
 ----
 
 === A new question is generated
-Other services can ask the questions service to generate a question, this serves as an abastraction over the WikiData API as we are only insterested in the questions and not the raw data.
+Other services can ask the questions service to generate a question, this serves as an abstraction over the WikiData API as we are only interested in the questions and not the raw data.
 [plantuml,"Generate a question",png]
 ----
 participant a as "other participants"
@@ -82,7 +82,7 @@ q -> a: Returns the question
 ----
 
 === User looks at his history
-The user can look at his history via the User data microservice which provices acces to all of the data of the user
+The user can look at his history via the User data microservice which provices access to all of the data of the user.
 [plantuml,"Look at history",png]
 ----
 actor a as "Alice"

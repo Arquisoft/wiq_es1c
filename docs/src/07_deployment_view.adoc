@@ -91,9 +91,12 @@ Mapping of Building Blocks to Infrastructure::
 |===
 | Element | Description
  
+| *_Azure Server_*
+| Where the application will be deployed.
+
 | *_WebApp_*
 | It is the frontend of our application. It runs the application.
  
-| *_Client Device_*
+| *_User Device_*
 | It is the device of the user. Will show us the execution of the webapp.
 |===
