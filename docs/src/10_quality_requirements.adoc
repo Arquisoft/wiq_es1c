@@ -53,7 +53,7 @@ In any case the tree should include links to the scenarios of the following sect
 | __ | _Easy to learn_ | _Game modes should be intuitive._ | __
 | _Maintainability_ | _Robustness_ | _The application must be able to respond to user requests first._ | _SC2_
 | __ | _Persistence_ | _There will be no partial loss of user information and data._ | __
-| _Performance efficiency_ | _Response time_ | _La aplicación no deberá superar los 3 segundos de tiempo de espera_ | _SC3_
+| _Performance efficiency_ | _Response time_ | _The application should not exceed 3 seconds of waiting time._ | _SC3_
 | _Security_ | _Integrity_ | _User data must be kept confidential and secure at all times._ | __
 | _Cultural and Regional_ | _Multi-language_ | _The application texts must be displayed in English._ | _SC4_
 |===
@@ -89,6 +89,6 @@ Tabular or free form text.
 |Id|Scenario
 | _SC1_ | _A new user registers in the application and can start playing without the need to view a user guide._
 | _SC2_ | _A user performs an action in the application that results in an internal error, but the user can still use the application normally._
-| _SC3_ | _Un usuario jugando irá visualizando las diferentes preguntas con un tiempo de espera bajo o inexistente._
-| _SC4_ | _Un usuario de habla inglesa podrá usar y jugar con la aplicación sin suponerle ningún problema._
+| _SC3_ | _A playing user will be viewing the different questions with little or no waiting time._
+| _SC4_ | _An English-speaking user will be able to use and play with the application without any problems._
 |===
