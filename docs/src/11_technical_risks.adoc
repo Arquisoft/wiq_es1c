@@ -23,3 +23,18 @@ List of risks and/or technical debts, probably including suggested measures to m
 See https://docs.arc42.org/section-11/[Risks and Technical Debt] in the arc42 documentation.
 
 ****
+
+=== 11.1 Technical risks
+[options="header",cols="1,3,3"]
+|===
+|Id|Scenario
+| _Slow to display questions_ | _In case of having a large number of users using the application at the same time, our API can generate a bottleneck when generating requests to Wikidata._ | _Use a container orchestrator such as Kubernetes to replicate our API and thus balance the load of requests. Another possible solution would be to store the queries requested to Wikidata for later use without having to make the request at that instant._
+| _Obsolescence of questions_ | _In case of storing the requested questions to Wikidata it is possible that some of them may become obsolete._ | _A separate microservice could be made whose purpose is to update the answers to the questions from time to time._
+|===
+
+=== 11.2 Commercial or domain risks
+[options="header",cols="1,3,3"]
+|===
+|Id|Scenario
+| _Wikidata could limit the use of its API_ | _In case of having a large number of users using the application at the same time, Wikidata itself may limit the number of requests or even ban us from using it._ | _Store queries requested to Wikidata for later use without the need to make the request at the time._
+|===
