@@ -84,7 +84,7 @@ the questions which are asked to the user and his answers. For this we will use 
 
 === Security & Safety
 
-To ensure customer safety we will apply encryption to their passwords when saving registration or login data.
+To ensure customer safety we will store their password using a password safe hash such as bCrypt 
 
 === Testing
 
