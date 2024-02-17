@@ -55,7 +55,6 @@ image::08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutti
 See https://docs.arc42.org/section-8/[Concepts] in the arc42 documentation.
 ****
 
-
 === Microservices architecture
 
 We have decided that our architecture will be based on microservices, which means that every part of the
@@ -64,22 +63,17 @@ aplication will be divided in a service that performs a specific function. The s
 
 === User Experience
 
-The application will consist of a website where the user will be able to play our asking game, however as we
+The application will consist of a website where the user will be able to play our WIQ game, however as we
 have not started coding yet we do not have a clear idea of how it will look or if we are adding extra
-functionality to the webpage.
-
+functionality to the webpage. 
 
 === Session handling
 
-The application will include a system to control the user access to keep track of their games. This Information
-will be saved in a database.
-
+The application will include a system to control the user access to keep track of their games (And other data), this system will work be based on the token pattern rather than the session pattern. For now we have decided to use JsonWebToken for the token generation and validation
 
 === Persistence
 
-The persistence module of this application is related to save user credentials and in addition register
-the questions which are asked to the user and his answers. For this we will use a relational database.
-
+The persistence between the many microservices of the application will be dealt with using a SQL relational database (Specifically MariaDB) which will help to communicate and sync the different microservices
 
 === Security & Safety
 
@@ -88,9 +82,10 @@ To ensure customer safety we will store their password using a password safe has
 === Testing
 
 In order to avoid errors in our aplication we will include a bunch of tests that cover both the frontend
-and backend areas.
+and backend areas. (With special attention to e2e tests, unit tests and integration tests)
 
 === Internationalization
 
 At this point of the proyect we are not sure if we will implement Internationalization, it's a decision that
 we will take as the proyect progresses.
+*role="textbox", aria-multiline="true"**aria-labelledby="codemirror-label focus-trap-help-panel"*
