@@ -88,4 +88,3 @@ and backend areas. (With special attention to e2e tests, unit tests and integrat
 
 At this point of the proyect we are not sure if we will implement Internationalization, it's a decision that
 we will take as the proyect progresses.
-*role="textbox", aria-multiline="true"**aria-labelledby="codemirror-label focus-trap-help-panel"*
