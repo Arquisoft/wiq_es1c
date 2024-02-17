@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Template</title>
+<title>WIQ Documentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -435,10 +435,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> Template</h1>
+<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> WIQ Documentation</h1>
 <div class="details">
-<span id="revnumber">version 8.2 EN,</span>
-<span id="revdate">January 2023</span>
+<span id="revnumber">version 8.3 EN,</span>
+<span id="revdate">February 2023</span>
 <br><span id="revremark">(based upon AsciiDoc version)</span>
 </div>
 <div id="toc" class="toc">
@@ -487,13 +487,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_microservices_architecture">8.1. <em>&lt;Microservices architecture&gt;</em></a></li>
-<li><a href="#_user_experience">8.2. <em>&lt;User Experience&gt;</em></a></li>
-<li><a href="#_session_handling">8.3. <em>&lt;Session handling&gt;</em></a></li>
-<li><a href="#_persistence">8.4. <em>&lt;Persistence&gt;</em></a></li>
-<li><a href="#_security_safety">8.5. <em>&lt;Security &amp; Safety&gt;</em></a></li>
-<li><a href="#_testing">8.6. <em>&lt;Testing&gt;</em></a></li>
-<li><a href="#_internationalitasion">8.7. <em>&lt;Internationalitasion&gt;</em></a></li>
+<li><a href="#_microservices_architecture">8.1. Microservices architecture</a></li>
+<li><a href="#_user_experience">8.2. User Experience</a></li>
+<li><a href="#_session_handling">8.3. Session handling</a></li>
+<li><a href="#_persistence">8.4. Persistence</a></li>
+<li><a href="#_security_safety">8.5. Security &amp; Safety</a></li>
+<li><a href="#_testing">8.6. Testing</a></li>
+<li><a href="#_internationalization">8.7. Internationalization</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a></li>
@@ -503,7 +503,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_quality_scenarios">10.2. Quality Scenarios</a></li>
 </ul>
 </li>
-<li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
+<li><a href="#section-technical-risks">11. Risks and Technical Debts</a>
+<ul class="sectlevel2">
+<li><a href="#_11_1_technical_risks">11.1. 11.1 Technical risks</a></li>
+<li><a href="#_11_2_commercial_or_domain_risks">11.2. 11.2 Commercial or domain risks</a></li>
+</ul>
+</li>
 <li><a href="#section-glossary">12. Glossary</a></li>
 </ul>
 </div>
@@ -527,7 +532,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>arc42, the template for documentation of software and system architecture.</p>
 </div>
 <div class="paragraph">
-<p>Template Version 8.2 EN. (based upon AsciiDoc version), January 2023</p>
+<p>Template Version 8.3 EN. (based upon AsciiDoc version), February 2023</p>
 </div>
 <div class="paragraph">
 <p>Created, maintained and &#169; by Dr. Peter Hruschka, Dr. Gernot Starke and contributors.
@@ -1205,7 +1210,7 @@ Refer to details in the following sections.</p>
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>This shows the main data flow of the application (Towards the MicroServices) and also the architectural decision to use microservices to wich the UI will hook up to</p>
+<p>This shows the main data flow of the application (Towards the MicroServices) and also the architectural decision to use microservices to wich the UI will hook up to.</p>
 </dd>
 <dt class="hdlist1">Contained Building Blocks</dt>
 </dl>
@@ -1241,7 +1246,7 @@ Refer to details in the following sections.</p>
 <h3 id="_level_3">5.3. Level 3</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/BlackBox%20Level%203.png" alt="BlackBox Level 3" width="789" height="443">
+<img src="./images/BlackBox%20Level%203.png" alt="BlackBox Level 3" width="736" height="503">
 </div>
 </div>
 <div class="dlist">
@@ -1359,7 +1364,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <div class="sect2">
 <h3 id="_user_plays_a_questions_game">6.1. User plays a questions game</h3>
 <div class="paragraph">
-<p>When the users starts a game, it does so via the game service (which internally will use the questiosn service). The game service will provide questions until the end of the game.</p>
+<p>When the users starts a game, it does so via the game service (which internally will use the questions service). The game service will provide questions until the end of the game.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1370,7 +1375,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <div class="sect2">
 <h3 id="_a_new_question_is_generated">6.2. A new question is generated</h3>
 <div class="paragraph">
-<p>Other services can ask the questions service to generate a question, this serves as an abastraction over the WikiData API as we are only insterested in the questions and not the raw data.</p>
+<p>Other services can ask the questions service to generate a question, this serves as an abstraction over the WikiData API as we are only interested in the questions and not the raw data.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1381,7 +1386,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <div class="sect2">
 <h3 id="_user_looks_at_his_history">6.3. User looks at his history</h3>
 <div class="paragraph">
-<p>The user can look at his history via the User data microservice which provices acces to all of the data of the user</p>
+<p>The user can look at his history via the User data microservice which provices access to all of the data of the user.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1479,14 +1484,14 @@ when your infrastructure is more complex.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/infrastructure-level1.png" alt="infrastructure level1" width="290" height="427">
+<img src="./images/infrastructure-level1.png" alt="infrastructure level1" width="504" height="500">
 </div>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Motivation</dt>
 <dd>
-<p>In the development stage the application will be running on each developer machine using Docker containers. However, in the production stage the application will be running on a Docker environment hosted on Azure, which will be available 24 hours a day. Our goal is to learn how to use docker properly on a server open 24 hours a day.</p>
+<p>While developing and testing the app it will be run on the developer&#8217;s localhost enviroment (Using docker for standarization). However, in the production stage we aim for the aplication to be running on a Azure Server. We hope for a high avaiability of the aplication (95% would suffice for our needs).</p>
 </dd>
 <dt class="hdlist1">Quality and/or Performance Features</dt>
 <dd>
@@ -1508,12 +1513,24 @@ when your infrastructure is more complex.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><em>WebApp</em></strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It is the frontend of our application. It runs the application.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Azure Server</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where the application will be deployed.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><em>Client Device</em></strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">It is the device of the user. Will show us the execution of the webapp.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Docker Engine</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Daemon inside the azure server which will run our docker containers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WebApp</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is the frontend of our application.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>MicroServices</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They create the backend of the application, they manage every aspect of the application.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WikiData</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is an external service which will provide the necessary data for the application to work properly.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1624,52 +1641,49 @@ on this list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_microservices_architecture">8.1. <em>&lt;Microservices architecture&gt;</em></h3>
+<h3 id="_microservices_architecture">8.1. Microservices architecture</h3>
 <div class="paragraph">
-<p>We have decided that our architecture will be based on microservices, what means that every part of the
-aplication will be divided in a service that performs a specific function. The service is reponsible for both
-logic and database access and all the services are connected by an API.</p>
+<p>We have decided that our architecture will be based on microservices, which means that every part of the
+aplication will be divided in a service that performs a specific function. The services can communicate witch eachother using their repective APIs or via the shared database</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_user_experience">8.2. <em>&lt;User Experience&gt;</em></h3>
+<h3 id="_user_experience">8.2. User Experience</h3>
 <div class="paragraph">
-<p>The application will consist of a website where the user will be able to play our asking game, however as we
+<p>The application will consist of a website where the user will be able to play our WIQ game, however as we
 have not started coding yet we do not have a clear idea of how it will look or if we are adding extra
 functionality to the webpage.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_session_handling">8.3. <em>&lt;Session handling&gt;</em></h3>
+<h3 id="_session_handling">8.3. Session handling</h3>
 <div class="paragraph">
-<p>The application will include a system to control the user access to keep track of their games. This Information
-will be saved in a database.</p>
+<p>The application will include a system to control the user access to keep track of their games (And other data), this system will work be based on the token pattern rather than the session pattern. For now we have decided to use JsonWebToken for the token generation and validation</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_persistence">8.4. <em>&lt;Persistence&gt;</em></h3>
+<h3 id="_persistence">8.4. Persistence</h3>
 <div class="paragraph">
-<p>The persistence module of this application is related to save user credentials and in addition register
-the questions which are asked to the user. For this we will use a relational database.</p>
+<p>The persistence between the many microservices of the application will be dealt with using a SQL relational database (Specifically MariaDB) which will help to communicate and sync the different microservices</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_security_safety">8.5. <em>&lt;Security &amp; Safety&gt;</em></h3>
+<h3 id="_security_safety">8.5. Security &amp; Safety</h3>
 <div class="paragraph">
-<p>To enure customer safety we will apply encryption to their passwords when saving registration or login data.</p>
+<p>To ensure customer safety we will store their password using a password safe hash such as bCrypt</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_testing">8.6. <em>&lt;Testing&gt;</em></h3>
+<h3 id="_testing">8.6. Testing</h3>
 <div class="paragraph">
 <p>In order to avoid errors in our aplication we will include a bunch of tests that cover both the frontend
-and backend areas.</p>
+and backend areas. (With special attention to e2e tests, unit tests and integration tests)</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_internationalitasion">8.7. <em>&lt;Internationalitasion&gt;</em></h3>
+<h3 id="_internationalization">8.7. Internationalization</h3>
 <div class="paragraph">
-<p>At this point of the proyect we are not sure if we will implement internationalitasion, it&#8217;s a decision that
+<p>At this point of the proyect we are not sure if we will implement Internationalization, it&#8217;s a decision that
 we will take as the proyect progresses.</p>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1751,6 +1765,9 @@ There you will find links and examples about ADR.</p>
 </li>
 <li>
 <p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-08-(Reacr%E2%80%90router%E2%80%90dom)">ADR 08</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-09-%28Sequelize-ORM%29">ADR 09</a></p>
 </li>
 </ul>
 </div>
@@ -1856,7 +1873,7 @@ concrete and measurable.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Performance efficiency</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Response time</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>La aplicación no deberá superar los 3 segundos de tiempo de espera</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The application should not exceed 3 seconds of waiting time.</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC3</em></p></td>
 </tr>
 <tr>
@@ -1936,11 +1953,11 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC3</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Un usuario jugando irá visualizando las diferentes preguntas con un tiempo de espera bajo o inexistente.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A playing user will be viewing the different questions with little or no waiting time.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>SC4</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Un usuario de habla inglesa podrá usar y jugar con la aplicación sin suponerle ningún problema.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>An English-speaking user will be able to use and play with the application without any problems.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1974,7 +1991,60 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_11_1_technical_risks">11.1. 11.1 Technical risks</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 42.8571%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Risk</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Possible measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Slow to display questions</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>In case of having a large number of users using the application at the same time, our API can generate a bottleneck when generating requests to Wikidata.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Use a container orchestrator such as Kubernetes to replicate our API and thus balance the load of requests. Another possible solution would be to store the queries requested to Wikidata for later use without having to make the request at that instant.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Obsolescence of questions</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>In case of storing the requested questions to Wikidata it is possible that some of them may become obsolete.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A separate microservice could be made whose purpose is to update the answers to the questions from time to time.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_11_2_commercial_or_domain_risks">11.2. 11.2 Commercial or domain risks</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 42.8571%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Risk</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Possible measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wikidata could limit the use of its API</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>In case of having a large number of users using the application at the same time, Wikidata itself may limit the number of requests or even ban us from using it.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Store queries requested to Wikidata for later use without the need to make the request at the time.</em></p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2029,12 +2099,16 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Term-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wikidata</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Collaborative platform for storing structured data, supporting multilingual information and facilitating connections between different pieces of knowledge.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Term-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Kanban</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Work methodology focused on limiting work in progress, managing flow and continuosly improving processes.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Microservices</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Small, independent services that handle specific business functions. Each one operates independently.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -2043,8 +2117,8 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 8.2 EN<br>
-Last updated 2024-01-30 13:22:39 +0100
+Version 8.3 EN<br>
+Last updated 2024-02-17 19:30:28 +0100
 </div>
 </div>
 </body>
