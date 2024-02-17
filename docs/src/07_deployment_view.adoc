@@ -59,27 +59,37 @@ For multiple environments or alternative deployments please copy and adapt this 
 [plantuml, "infrastructure-level1", png]
 ----
 node AzureServer{
-    node DockerContainer {
-        component WebApp
+    node DockerEngine {
+      node DockerContainers {
+          component Microservices
+      }
     }
 }
 
+node ExternalServer{
+    component WikiData
+}
+
+
 node UserDevice {
-    node WebBrowser {
-        component WebAppImage
+    node UserAgent {
+        component WebApp
     }
 }
 
 Actor User
 
 
-WebApp -d-> WebAppImage : "shows on user device"
-WebAppImage <-l- User
+User -right-> WebApp : "Interacts with"
+
+WebApp -up-> Microservices: "Uses"
+
+WikiData -up-> Microservices : "Provides info"
 ----
 
 Motivation::
 
-In the development stage the application will be running on each developer machine using Docker containers. However, in the production stage the application will be running on a Docker environment hosted on Azure, which will be available 24 hours a day. Our goal is to learn how to use docker properly on a server open 24 hours a day.
+While developing and testing the app it will be run on the developer's localhost enviroment (Using docker for standarization). However, in the production stage we aim for the aplication to be running on a Azure Server. We hope for a high avaiability of the aplication (95% would suffice for our needs).
 
 Quality and/or Performance Features::
 
@@ -91,12 +101,18 @@ Mapping of Building Blocks to Infrastructure::
 |===
 | Element | Description
  
-| *_Azure Server_*
+| *Azure Server*
 | Where the application will be deployed.
 
-| *_WebApp_*
-| It is the frontend of our application. It runs the application.
+| *Docker Engine*
+| Daemon inside the azure server which will run our docker containers
+
+| *WebApp*
+| It is the frontend of our application. 
  
-| *_User Device_*
-| It is the device of the user. Will show us the execution of the webapp.
+| *MicroServices*
+| They create the backend of the application, they manage every aspect of the application.
+
+| *WikiData*
+| It is an external service which will provide the necessary data for the application to work properly.
 |===
