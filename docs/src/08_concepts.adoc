@@ -58,9 +58,8 @@ See https://docs.arc42.org/section-8/[Concepts] in the arc42 documentation.
 
 === Microservices architecture
 
-We have decided that our architecture will be based on microservices, what means that every part of the
-aplication will be divided in a service that performs a specific function. The service is reponsible for both
-logic and database access and all the services are connected by an API.
+We have decided that our architecture will be based on microservices, which means that every part of the
+aplication will be divided in a service that performs a specific function. The services can communicate witch eachother using their repective APIs or via the shared database
 
 
 === User Experience
