@@ -6,9 +6,9 @@
 // configure EN settings for asciidoc
 include::src/config.adoc[]
 
-= image:arc42-logo.png[arc42] Template
-:revnumber: 8.2 EN
-:revdate: January 2023
+= image:arc42-logo.png[arc42] WIQ Documentation
+:revnumber: 8.3 EN
+:revdate: February 2023
 :revremark: (based upon AsciiDoc version)
 // toc-title definition MUST follow document title without blank line!
 :toc-title: Table of Contents
