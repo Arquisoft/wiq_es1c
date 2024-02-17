@@ -44,4 +44,6 @@ We have added the ADRs to the Wiki section in the GitHub page, so we provide the
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-06-(Material-UI)[ADR 06]
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-07-(Testing-react-library)[ADR 07]
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-08-(Reacr%E2%80%90router%E2%80%90dom)[ADR 08]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-09-%28Sequelize-ORM%29[ADR 09]
+
 
