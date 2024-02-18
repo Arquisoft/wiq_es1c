@@ -84,4 +84,6 @@ Pending.
 
 * We use a Kanban project in Github to quickly see the current state of the project and see what everyone is working on and what there is to do.
 
-* Communication between team members is mostly made through Github, using issues to create and assign tasks, Whatsapp, to ask the rest of the team for help if needed for quick advice, and meetings, where we decide which way we are going to go with the project and discuss about work methodology. 
+* Communication between team members is mostly made through Github, using issues to create and assign tasks, Whatsapp, to ask the rest of the team for help if needed for quick advice, and meetings.
+
+* The work methodology is based on the Agile methodology, specifically we will use SCRUM, which will allow us to divide the work equitably and have constant development. In addition, we have used it previously and we are accustomed to its use.

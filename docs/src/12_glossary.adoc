@@ -46,4 +46,10 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |API
 |Application Programming Interface is a set of commands, functions, protocols, and objects that programmers use to create software or interact with an external system.
 
+|Agile Methodology
+|A set of principles, defined in the agile manifesto, for software development under which requirements and solutions evolve through the collaborative effort of self-organizing cross-functional teams.
+
+|SCRUM
+|A framework for developing which implements the Agile Principles, delivering, and sustaining complex products, with an initial emphasis on software development.
+
 |===
