@@ -43,4 +43,7 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |Microservices
 |Small, independent services that handle specific business functions. Each one operates independently.
 
+|API
+|Application Programming Interface is a set of commands, functions, protocols, and objects that programmers use to create software or interact with an external system.
+
 |===
