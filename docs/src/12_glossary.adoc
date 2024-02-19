@@ -34,9 +34,22 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |===
 |Term |Definition
 
-|<Term-1>
-|<definition-1>
+|Wikidata
+|Collaborative platform for storing structured data, supporting multilingual information and facilitating connections between different pieces of knowledge.
 
-|<Term-2>
-|<definition-2>
+|Kanban
+|Work methodology focused on limiting work in progress, managing flow and continuosly improving processes.
+
+|Microservices
+|Small, independent services that handle specific business functions. Each one operates independently.
+
+|API
+|Application Programming Interface is a set of commands, functions, protocols, and objects that programmers use to create software or interact with an external system.
+
+|Agile Methodology
+|A set of principles, defined in the agile manifesto, for software development under which requirements and solutions evolve through the collaborative effort of self-organizing cross-functional teams.
+
+|SCRUM
+|A framework for developing which implements the Agile Principles, delivering, and sustaining complex products, with an initial emphasis on software development.
+
 |===

@@ -56,39 +56,63 @@ Describe (usually in a combination of diagrams, tables, and text):
 For multiple environments or alternative deployments please copy and adapt this section of arc42 for all relevant environments.
 ****
 
-_**<Overview Diagram>**_
+[plantuml, "infrastructure-level1", png]
+----
+node AzureServer{
+    node DockerEngine {
+      node DockerContainers {
+          component Microservices
+      }
+    }
+}
+
+node ExternalServer{
+    component WikiData
+}
+
+
+node UserDevice {
+    node UserAgent {
+        component WebApp
+    }
+}
+
+Actor User
+
+
+User -right-> WebApp : "Interacts with"
+
+WebApp -up-> Microservices: "Uses"
+
+WikiData -up-> Microservices : "Provides info"
+----
 
 Motivation::
 
-_<explanation in text form>_
+While developing and testing the app it will be run on the developer's localhost enviroment (Using docker for standarization). However, in the production stage we aim for the aplication to be running on a Azure Server. We hope for a high avaiability of the aplication (95% would suffice for our needs).
 
 Quality and/or Performance Features::
 
-_<explanation in text form>_
+We have not tested the application performance so we can't analyze it yet
 
 Mapping of Building Blocks to Infrastructure::
-_<description of the mapping>_
 
+[options="header",cols="1,3"]
+|===
+| Element | Description
+ 
+| *Azure Server*
+| Where the application will be deployed.
 
-=== Infrastructure Level 2
+| *Docker Engine*
+| Daemon inside the azure server which will run our docker containers
 
-[role="arc42help"]
-****
-Here you can include the internal structure of (some) infrastructure elements from level 1.
+| *WebApp*
+| It is the frontend of our application. 
+ 
+| *MicroServices*
+| They create the backend of the application, they manage every aspect of the application.
 
-Please copy the structure from level 1 for each selected element.
-****
-
-==== _<Infrastructure Element 1>_
-
-_<diagram + explanation>_
-
-==== _<Infrastructure Element 2>_
-
-_<diagram + explanation>_
-
-...
-
-==== _<Infrastructure Element n>_
-
-_<diagram + explanation>_
+| *WikiData*
+| It is an external service which will provide the necessary data for the application to work properly.
+|===

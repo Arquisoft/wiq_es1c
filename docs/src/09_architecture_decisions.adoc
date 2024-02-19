@@ -33,3 +33,17 @@ See https://docs.arc42.org/section-9/[Architecture Decisions] in the arc42 docum
 There you will find links and examples about ADR.
 
 ****
+
+We have added the ADRs to the Wiki section in the GitHub page, so we provide the links to them:
+
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-01-(JavaScript)[ADR 01]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-02-(React)[ADR 02]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-03-(MariaDB)[ADR 03]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-04-(Docker)[ADR 04]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-05-(Tailwind-CSS)[ADR 05]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-06-(Material-UI)[ADR 06]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-07-(Testing-react-library)[ADR 07]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-08-(Reacr%E2%80%90router%E2%80%90dom)[ADR 08]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-09-%28Sequelize-ORM%29[ADR 09]
+
+
