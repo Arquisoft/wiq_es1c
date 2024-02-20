@@ -5,14 +5,14 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 We have added the ADRs to the Wiki section in the GitHub page, so we provide the links to them:
 
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-01-(JavaScript)[ADR 01]
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-02-(React)[ADR 02]
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-03-(MariaDB)[ADR 03]
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-04-(Docker)[ADR 04]
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-05-(Tailwind-CSS)[ADR 05]
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-06-(Material-UI)[ADR 06]
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-07-(Testing-react-library)[ADR 07]
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-08-(Reacr%E2%80%90router%E2%80%90dom)[ADR 08]
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-09-%28Sequelize-ORM%29[ADR 09]
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-01-(JavaScript)[ADR 01] -> JavaScript 
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-02-(React)[ADR 02] -> React
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-03-(MariaDB)[ADR 03]  ->MariaDB
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-04-(Docker)[ADR 04] -> Docker
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-05-(Tailwind-CSS)[ADR 05] -> Tailwind-CSS
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-06-(Material-UI)[ADR 06] -> Material UI
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-07-(Testing-react-library)[ADR 07] -> Testing react library
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-08-%28React-router-dom%29[ADR 08] -> React-router-dom
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-09-%28Sequelize-ORM%29[ADR 09] -> Sequelize ORM
 
 
