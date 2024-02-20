@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
 const privateKey = "ChangeMePlease!!!!"
 
@@ -40,14 +41,14 @@ const getCurrentQuestion = async (user) => {
 }
 
 const requestQuestion = async() => {
+  let res = (await axios.post("http://question:8002/api/questions/generate")).data;
+
+  console.log(res);
+
   return {
-    "title": `Cual es la capital de MA`,
-    "awnser": "MA",
-    "fake" : [
-       "A",
-       "B",
-       "C"
-    ]
+    "title": res.title,
+    "awnser": res.awnser,
+    "fake" : res.fake
   }
 }
 
@@ -83,10 +84,10 @@ app.post('/api/game/next', async (req, res) => {
   res.status(200).json({
     title: questionRaw.title,
     awnsers: [
-      questionRaw.awnser,
-      questionRaw.fake[0],
-      questionRaw.fake[1],
-      questionRaw.fake[2]
+      ""+questionRaw.awnser,
+      ""+questionRaw.fake[0],
+      ""+questionRaw.fake[1],
+      ""+questionRaw.fake[2]
     ]
   });
 });
