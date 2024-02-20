@@ -101,13 +101,13 @@ app.post('/api/game/awnser', async (req, res) => {
 
   let awnser = req.body.awnser;
 
-  let q = await getCurrentQuestion(user);
+  let question = await getCurrentQuestion(user);
 
-  q.user_answer = awnser;
+  question.user_answer = awnser;
 
-  q.save();
+  question.save();
   
-  res.status(200).send(q.answer);
+  res.status(200).send(question.answer);
 });
 
 // Start the server

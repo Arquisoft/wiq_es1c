@@ -24,6 +24,11 @@ const Question = database.define('Question', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+},{
+    timestamps: true,
+    defaultScope: {
+        order: [['createdAt', 'DESC']], // Order by createdAt in descending order
+    },
 });
 
 
