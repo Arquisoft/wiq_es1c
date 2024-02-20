@@ -10,7 +10,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 component "WIQ" as wiq #LightGray
 component "Wikidata API" as data #Cyan
 [wiq] --> [data]: Uses
-[data] --> [wiq]: Generates questions
+[data] --> [wiq]: Gives information about the questions
 :User: --> [wiq]: Answers
 wiq --> User: Asks questions
 
