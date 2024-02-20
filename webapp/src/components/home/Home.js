@@ -11,8 +11,6 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import {Link} from "react-router-dom";
 import React from "react";
 
-// const userService = require("../../services/user.service");
-
 const Home = () => {
     return (
         <Container
