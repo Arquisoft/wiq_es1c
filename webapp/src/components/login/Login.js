@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/user.service";
 
 const Login = () => 
@@ -23,6 +23,8 @@ const Login = () =>
   const [validUsername, setValidUsername] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) =>
   {
@@ -38,6 +40,8 @@ const Login = () =>
 
       if (res !== '')
         setError(res);
+      else
+        navigate("/home");
 
       return;
     }
