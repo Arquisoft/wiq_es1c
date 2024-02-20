@@ -9,9 +9,28 @@ import {
 } from "@mui/material";
 import QuizIcon from '@mui/icons-material/Quiz';
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {getCurrentUser} from "../../services/user.service";
+
+
+const getUserName = async () => {
+    const res = await getCurrentUser();
+    return res.user;
+}
 
 const Home = () => {
+
+    const [username, setUsername] = useState("No identificado");
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            const user = await getUserName();
+            setUsername(user);
+        };
+        fetchUserName();
+    }, []);
+
+
     return (
         <Container
             component="main"
@@ -40,7 +59,7 @@ const Home = () => {
                         ¡Bienvenido a WIQ!
                     </Typography>
                     <Typography component="h2" variant="h6">
-                        Estás conectado como:
+                        Estás conectado como: {username}
                         </Typography>
                     <Link to={ '/login' }>
                         <Button variant="contained">Jugar</Button>

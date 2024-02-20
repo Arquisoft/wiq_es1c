@@ -21,6 +21,7 @@ const login = async (username, password) =>
 const register = async (username, password) =>
 {
     try {
+
       const response = await axios.post(`${apiEndpoint}:8001/api/auth/register`, { username, password });
 
       if ( response.status === 200 )
@@ -33,7 +34,20 @@ const register = async (username, password) =>
     }
 }
 
+const getCurrentUser = async () =>
+{
+
+    try {
+        const response = await axios.get(`${apiEndpoint}:8001/user`);
+        const user = response.data;
+        return user;
+    } catch(error) {
+        return error.response.data.error;
+    }
+
+}
+
 const isLoggedIn = async (username, password) => token !== undefined;
 const getToken = async () => token;
 
-export {login, register, isLoggedIn, getToken};
+export {login, register, isLoggedIn, getToken, getCurrentUser};
