@@ -22,6 +22,11 @@ const User = database.define('User', {
         defaultValue: DataTypes.NOW,
         allowNull: false,
     },
+    ingame: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    }
 });
 
 const hashPassword = async (user) => {

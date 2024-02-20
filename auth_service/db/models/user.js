@@ -22,13 +22,17 @@ const User = database.define('User', {
         defaultValue: DataTypes.NOW,
         allowNull: false,
     },
+    ingame: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    }
 });
 
 const hashPassword = async (user) => {
     user.password = await bcrypt.hash(user.password, 15);
 }
 
-User.beforeUpdate(hashPassword)
 User.beforeCreate(hashPassword)
 
 module.exports = User;
