@@ -17,7 +17,11 @@ app.use(authMiddleware); // Auth middleware for the questions API
 
 // Api endpoints
 // Question endpoints
-app.post('/api/questions/generate', async (req, res) => {
+app.post('/api/game/next', async (req, res) => {
+  res.status(200).text("ok")
+});
+
+app.post('/api/game/awnser', async (req, res) => {
   res.status(200).text("ok")
 });
 
