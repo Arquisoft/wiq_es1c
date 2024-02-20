@@ -5,8 +5,6 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 
-const privateKey = "ChangeMePlease!!!!"
-
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
 const sync = require("./db/sync");

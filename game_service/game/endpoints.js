@@ -4,6 +4,8 @@ const User = require("../db/models/user")
 const Game = require("../db/models/game")
 const Question = require("../db/models/question")
 
+const privateKey = "ChangeMePlease!!!!"
+
 const {validate, getCurrentQuestion, requestQuestion} = require("./verification")
 
 const next = async (req,res) => {
@@ -88,19 +90,19 @@ const awnser = async (req,res) => {
         id: userId
       }
     })
-  
+
     if(user == null){
       res.status(400).send();
       return;
     }
-  
-    if(!validate(req,"awnser")){
+
+    if(!validate(req,['awnser'])){
       res.status(400).send();
       return;
     }
+    
   
     let awnser = req.body.awnser;
-  
     let question = await getCurrentQuestion(user);
   
     if(question == null){
