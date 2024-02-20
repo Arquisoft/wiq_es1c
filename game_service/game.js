@@ -43,8 +43,6 @@ const getCurrentQuestion = async (user) => {
 const requestQuestion = async() => {
   let res = (await axios.post("http://question:8002/api/questions/generate")).data;
 
-  console.log(res);
-
   return {
     "title": res.title,
     "awnser": res.awnser,
