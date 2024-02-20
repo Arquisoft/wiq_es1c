@@ -23,19 +23,30 @@ app.use(cors()) // This api is listening on a different port from the frontend
 app.use(authMiddleware); // Auth middleware for the questions API
 
 //Helper functions 
-const startGame = async (user) => {
-  //Set him to be ingame
-  user.ingame = true;
-
-  await Game.create({
-    UserId: user.id
-  })
-
-  await user.save();
+function validateRequiredFields(req, requiredFields) {
+  for (const field of requiredFields) {
+    if (!(field in req.body)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 const getCurrentQuestion = async (user) => {
-  let question = (await (await user.getGames())[0].getQuestions())[0]
+
+  let games = await user.getGames();
+  if(games == null || games.length < 1)
+    return null;
+
+  let game = games[0];  
+
+  let questions = await game.getQuestions();
+  if(questions == null || questions.length < 1)
+    return null;
+
+  let question = questions[0]
+  if(question.user_answer != null)
+    return null;
 
   return question
 }
@@ -51,7 +62,31 @@ const requestQuestion = async() => {
 }
 
 // Api endpoints
-// Question endpoints
+app.post('/api/game/new', async (req, res) => {
+  let userId = jwt.verify(req.body.token, privateKey).user_id;
+
+  let user = await User.findOne({
+    where: {
+      id: userId
+    }
+  })
+
+  if(user == null){
+    res.status(400).send();
+    return;
+  }
+
+  user.ingame = true;
+
+  await Game.create({
+    UserId: user.id
+  })
+
+  await user.save();
+
+  res.status(200).send();
+});
+
 app.post('/api/game/next', async (req, res) => {
   let userId = jwt.verify(req.body.token, privateKey).user_id;
 
@@ -61,12 +96,23 @@ app.post('/api/game/next', async (req, res) => {
     }
   })
 
-  //If he his ingame we dont have to create a new game
-  if(!user.ingame){
-    await startGame(user)
+  if(user == null){
+    res.status(400).send();
+    return;
   }
 
-  //TODO: Check he isnt already in a question.
+  //If he is ingame we dont have to create a new game
+  if(!user.ingame){
+    res.status(400).send();
+    return;
+  }
+
+  let question = await getCurrentQuestion(user);
+  if(question != null){
+    res.status(400).send();
+    return; 
+  }
+
   let questionRaw = await requestQuestion();
 
   let games = await user.getGames();
@@ -99,9 +145,24 @@ app.post('/api/game/awnser', async (req, res) => {
     }
   })
 
+  if(user == null){
+    res.status(400).send();
+    return;
+  }
+
+  if(!validateRequiredFields(req,"awnser")){
+    res.status(400).send();
+    return;
+  }
+
   let awnser = req.body.awnser;
 
   let question = await getCurrentQuestion(user);
+
+  if(question == null){
+    res.status(400).send();
+    return;
+  }
 
   question.user_answer = awnser;
 
