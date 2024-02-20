@@ -3,7 +3,7 @@
 [![Deploy on release](https://github.com/Arquisoft/wiq_es1c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es1c/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es1c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es1c)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es1c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es1c)
-[![Website](https://github.com/Arquisoft/wiq_es1c/blob/readme-modify-web-icon/media/webapp.svg)](http://wiqgame.run.place/)
+[![Website](https://github.com/Arquisoft/wiq_es1c/blob/readme-modify-web-icon/media/webapp.png)](http://wiqgame.run.place/)
 
 This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
 
