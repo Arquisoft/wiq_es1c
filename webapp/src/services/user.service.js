@@ -11,6 +11,8 @@ const login = async (username, password) =>
 
       token = response.data.token;
 
+      localStorage.setItem('token', token);
+
       return "";
 
     } catch (error) {
