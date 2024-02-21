@@ -3,7 +3,9 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import Login from "../components/login/Login";
 import AddUser from "../components/register/AddUser";
 import Error404 from "../components/error/Error404";
-import Home from "../components/home/Home"
+import { PrivateRoute } from "./PrivateRoute";
+import { AuthRoute } from "./AuthRoute";
+import { Home } from "../components/home/Home";
 
 const router = createBrowserRouter([
     {
@@ -12,15 +14,21 @@ const router = createBrowserRouter([
     },
     {
         path: "/home",
-        element: <Home />
+        element: <PrivateRoute>
+                    <Home />
+                </PrivateRoute> 
     },
     {
         path: "/login",
-        element: <Login />
+        element: <AuthRoute>
+                    <Login />
+                </AuthRoute>
     },
     {
         path: "/register",
-        element: <AddUser />
+        element: <AuthRoute>
+                    <AddUser />
+                </AuthRoute>
     },
     {
         path: "*",

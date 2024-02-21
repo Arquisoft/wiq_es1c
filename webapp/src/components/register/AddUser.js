@@ -11,7 +11,7 @@ import {
   Avatar,
 } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { register } from "../../services/user.service";
 
 const AddUser = () => 
@@ -23,6 +23,7 @@ const AddUser = () =>
   const [validPassword, setValidPassword] = useState(true);
   const [validConfirmPassword, setValidConfirmPassword] = useState(true);
   const [error, setError] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const doRegister = async (e) => {
     e.preventDefault();
@@ -37,6 +38,10 @@ const AddUser = () =>
 
       if (error !== '')
         setError(error);
+      else
+        setLoggedIn(true);
+
+      return;
     }
 
     if ( username === '' )
@@ -68,7 +73,12 @@ const AddUser = () =>
   }
   
   return (
-    <Container 
+    <>
+    { loggedIn
+    ?
+    ( <Navigate to='/home' /> )
+    :
+    ( <Container 
       component="main"
       maxWidth="sm"
       sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
@@ -167,7 +177,8 @@ const AddUser = () =>
           </Box>
         </Box>
       </Container>
-    </Container>
+    </Container> )}
+    </>
   );
 };
 
