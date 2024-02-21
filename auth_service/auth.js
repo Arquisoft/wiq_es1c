@@ -21,7 +21,6 @@ app.post("/api/auth/verify", auth.verify);
 app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
-app.get('/user' , auth.currentUser);
 
 
 // Start the server

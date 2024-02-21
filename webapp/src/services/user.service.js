@@ -42,11 +42,14 @@ const register = async (username, password) =>
 
 const getCurrentUser = async () =>
 {
-
     try {
-        const response = await axios.get(`${apiEndpoint}:8001/user`);
-        const user = response.data;
-        return user;
+
+        const response = await axios.post(`${apiEndpoint}:8003/api/userdetails/name`, { token });
+        if ( response.status === 200 )
+            return response.data;
+        else
+            return response.data.error;
+
     } catch(error) {
         return error.response.data.error;
     }
