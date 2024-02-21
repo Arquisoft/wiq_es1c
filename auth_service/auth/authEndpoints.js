@@ -91,12 +91,22 @@ const register = async (req, res) => {
 
         let password = req.body.password
 
-        user.create({
+        await user.create({
             name: name,
             password: password 
         })
 
-        res.status(201).send()
+        // get Id for token
+        u = await user.findOne({
+            where: {
+                name: name
+            }
+        })
+
+        res
+            .status(201)
+            .json({token: jwt.sign({user_id: u.id}, privateKey)})
+            .send()
     }catch (e){
         console.log(e)
         res.status(500).send();
