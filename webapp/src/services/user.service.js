@@ -44,7 +44,7 @@ const getCurrentUser = async () =>
 {
     try {
 
-        const response = await axios.post(`${apiEndpoint}:8003/api/userdetails/name`, { token });
+        const response = await axios.post(`${apiEndpoint}:8004/api/userdetails/name`, { token });
         if ( response.status === 200 )
             return response.data;
         else
