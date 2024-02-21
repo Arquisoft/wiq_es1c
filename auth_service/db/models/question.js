@@ -24,6 +24,16 @@ const Question = database.define('Question', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    duration: {
+        type: DataTypes.INTEGER,
+        defaultValue: 20,
+        allowNull: false
+    },
+    onTime : {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+    }
 },{
     timestamps: true,
     defaultScope: {

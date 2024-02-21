@@ -21,22 +21,14 @@ const next = async (req,res) => {
       res.status(400).send();
       return;
     }
-  
-    //If he is ingame we dont have to create a new game
-    if(!user.ingame){
+    
+    let games = await user.getGames();
+    if(games == null || games.length < 1){
       res.status(400).send();
       return;
     }
   
-    let question = await getCurrentQuestion(user);
-    if(question != null){
-      res.status(400).send();
-      return; 
-    }
-  
     let questionRaw = await requestQuestion();
-  
-    let games = await user.getGames();
     let game = games[0];
   
     Question.create({
@@ -57,6 +49,40 @@ const next = async (req,res) => {
     });
 }
 
+const update = async (req, res) => {
+    let userId = jwt.verify(req.body.token, privateKey).user_id;
+
+    let user = await User.findOne({
+      where: {
+        id: userId
+      }
+    })
+
+    if(user == null){
+      res.status(400).send();
+      return;
+    }
+    
+    let question = await getCurrentQuestion(user);
+
+    if(question == null){
+      res.status(400).send();
+      return;
+    }
+
+    res.status(200).json({
+      title: question.title,
+      awnsers: [
+        String(question.answer),
+        String(question.fake[0]),
+        String(question.fake[1]),
+        String(question.fake[2])
+      ],
+      created: String(question.createdAt.getTime()),
+      duration: String(question.duration)
+    });
+}
+
 const newGame = async (req,res) => {
     let userId = jwt.verify(req.body.token, privateKey).user_id;
 
@@ -71,13 +97,9 @@ const newGame = async (req,res) => {
       return;
     }
   
-    user.ingame = true;
-  
     await Game.create({
       UserId: user.id
     })
-  
-    await user.save();
   
     res.status(200).send();
 }
@@ -111,10 +133,15 @@ const awnser = async (req,res) => {
     }
   
     question.user_answer = awnser;
-  
+    question.onTime = (
+      (new Date().getTime() - question.createdAt.getTime()) 
+      < 
+      (question.duration * 1000)
+    )
+
     question.save();
     
     res.status(200).send(question.answer);
 }
 
-module.exports = {newGame, next, awnser}
+module.exports = {newGame, next, awnser, update}

@@ -21,11 +21,6 @@ const User = database.define('User', {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
         allowNull: false,
-    },
-    ingame: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
     }
 });
 

@@ -8,7 +8,7 @@ const axios = require('axios');
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
 const sync = require("./db/sync");
-const {newGame, next, awnser} = require("./game/endpoints");
+const {newGame, next, awnser, update} = require("./game/endpoints");
 
 const port = 8003;
 const app = express();
@@ -22,6 +22,7 @@ app.use(authMiddleware); // Auth middleware for the questions API
 app.post('/api/game/new', newGame);
 app.post('/api/game/next', next);
 app.post('/api/game/awnser', awnser);
+app.post('/api/game/update', update);
 
 // Start the server
 const server = app.listen(port, () => {
