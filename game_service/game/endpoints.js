@@ -49,10 +49,10 @@ const next = async (req,res) => {
     res.status(200).json({
       title: questionRaw.title,
       awnsers: [
-        ""+questionRaw.awnser,
-        ""+questionRaw.fake[0],
-        ""+questionRaw.fake[1],
-        ""+questionRaw.fake[2]
+        String(questionRaw.awnser),
+        String(questionRaw.fake[0]),
+        String(questionRaw.fake[1]),
+        String(questionRaw.fake[2])
       ]
     });
 }
