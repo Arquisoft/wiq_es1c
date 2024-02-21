@@ -28,6 +28,10 @@ const register = async (username, password) =>
       if ( response.status === 200 )
         return response.data.error;
 
+      token = response.data.token;
+
+      localStorage.setItem('token', token);
+
       return "";
 
     } catch (error) {
