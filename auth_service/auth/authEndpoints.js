@@ -128,14 +128,4 @@ const verify = async (req, res) => {
     }
 }
 
-const currentUser = async (req, res) => {
-    res.json({user: "El pepe"});
-    try{
-        jwt.verify(req.body.token, privateKey);
-        res.status(200).send();
-    }catch(err){
-        res.status(401).send();
-    }
-}
-
-module.exports = {login, register, verify, currentUser}
+module.exports = {login, register, verify}
