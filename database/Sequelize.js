@@ -1,3 +1,4 @@
+// This scheme implements the data model of: https://miro.com/app/board/uXjVN9ntiDg=/?share_link_id=860127407399
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize({
