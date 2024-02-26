@@ -2,116 +2,98 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize({
   dialect: 'mariadb',
-  host: 'wiq_es1c-mariadb-run-b01e5d88df91',
+  host: 'localhost',
   port: 3306,
   database: 'db', // Reemplazar con el nombre de la base de datos
   username: 'root', // Reemplazar con el nombre de usuario
   password: ''
 });
 
-//Definir modelos de la base de datos
-const Usuario = sequelize.define('usuario', {
-  id: {
+const User = sequelize.define('User', {
+  userId: {
+    type: Sequelize.UUIDV4,
+    defaultValue: () => uuidv4(),
+    primaryKey: true
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  role: {
+    type: Sequelize.ENUM('admin', 'player'),
+    defaultValue: 'player',
+  },
+  points: {
     type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  nombre: {
-    type: Sequelize.STRING
-  },
-  email: {
-    type: Sequelize.STRING
-  },
-  avatar: {
-    type: Sequelize.STRING
-  },
-  puntos: {
-    type: Sequelize.INTEGER
+    defaultValue: 0
   }
 });
 
-const Pregunta = sequelize.define('pregunta', {
-  id: {
+const Question = sequelize.define('Question', {
+  questionId: {
+    type: Sequelize.UUIDV4,
+    defaultValue: () => uuidv4(),
+    primaryKey: true
+  },
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  answer: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  fake: {
+    type: Sequelize.JSON,
+    allowNull: false,
+  },
+  user_answer: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  duration: {
     type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+    defaultValue: 20,
+    allowNull: false
   },
-  pregunta: {
-    type: Sequelize.STRING
-  },
-  respuesta_correcta: {
-    type: Sequelize.STRING
-  },
-  respuesta_incorrecta_1: {
-    type: Sequelize.STRING
-  },
-  respuesta_incorrecta_2: {
-    type: Sequelize.STRING
-  },
-  respuesta_incorrecta_3: {
-    type: Sequelize.STRING
-  },
-  dificultad: {
-    type: Sequelize.STRING
-  },
-  tema: {
-    type: Sequelize.STRING
+  onTime:{
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
   }
 });
 
-const Partida = sequelize.define('partida', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+const Game = sequelize.define('Game', {
+  gameId: {
+    type: Sequelize.UUIDV4,
+    defaultValue: () => uuidv4(),
+    primaryKey: true
   },
-  nombre: {
-    type: Sequelize.STRING
+  difficulty: {
+    type: Sequelize.ENUM('easy', 'medium', 'hard'),
+    defaultValue: 'easy',
   },
-  codigo: {
-    type: Sequelize.STRING
-  },
-  fecha_inicio: {
+  startDate: {
     type: Sequelize.DATE
   },
-  fecha_fin: {
+  endDate: {
     type: Sequelize.DATE
   },
-  estado: {
-    type: Sequelize.STRING
-  },
-  id_usuario_creador: {
-    type: Sequelize.INTEGER
+  state: {
+    type: Sequelize.ENUM('active', 'inactive'),
   }
 });
 
-const Resultado = sequelize.define('resultado', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  id_partida: {
-    type: Sequelize.INTEGER
-  },
-  id_jugador: {
-    type: Sequelize.INTEGER
-  },
-  puntuacion: {
-    type: Sequelize.INTEGER
-  },
-  posicion: {
-    type: Sequelize.INTEGER
-  }
-});
+// Define las relaciones entre las entidades
+User.hasMany(Game, {foreignKey: 'userId'});
+Game.belongsTo(User, {foreignKey: 'userId'});
 
-// Definir las relaciones entre los modelos
-Usuario.hasMany(Partida, {foreignKey: 'id_usuario_creador'});
-Partida.belongsTo(Usuario, {foreignKey: 'id_usuario_creador'});
-Partida.hasMany(Resultado, {foreignKey: 'id_partida'});
-Resultado.belongsTo(Partida, {foreignKey: 'id_partida'});
-Usuario.hasMany(Resultado, {foreignKey: 'id_jugador'});
-Resultado.belongsTo(Usuario, {foreignKey: 'id_jugador'});
+Game.hasMany(Question, {foreignKey: 'gameId'});
+Question.belongsTo(Game, {foreignKey: 'gameId'});
 
 //Sincroniza modelos con la base de datos
 sequelize.sync();
