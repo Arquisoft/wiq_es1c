@@ -1,22 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {Button, Box, Container, CssBaseline,Typography,} from "@mui/material";
+import './Game.css';
 
 export const Game = () => {
     //let pregunta = "pregunta nº 1";
     //let respuestas = ["respuesta1", "respuesta2", "respuesta3", "respuesta4"];
 
-    const [pregunta, setPregunta] = useState();
-    const [respuestas, setRespuestas] = useState();
-    const [correcta, setCorrecta] = useState();
+    const [pregunta, setPregunta] = useState("pregunta nº 1");
+    const [respuestas, setRespuestas] = useState(["respuesta1", "respuesta2", "respuesta3", "respuesta4"]);
+    const [correcta, setCorrecta] = useState(1);
 
-    const obtenerPregunta = () => {
-        setPregunta("pregunta nº 1");
-        setRespuestas(["respuesta1", "respuesta2", "respuesta3", "respuesta4"]); 
-        setCorrecta("respuesta1");
-    };
+    const boxRefs = useRef([]);
 
     const comprobarPregunta = () => {
+
+        boxRefs.current.forEach((boxRef, indice) => {
+            if(boxRef.dataset.state === "selected"){
+                if(boxRef.dataset.question == correcta){
+                    alert("Pregunta acertada");
+                }else{
+                    alert("Pregunta fallada");
+                }
+                boxRef.dataset.state = "unselected";
+            }
+        });
+
+
         setPregunta("pregunta nº 2");
+        setCorrecta(2);
+    };
+
+    const seleccionarRespuesta = (element) => {
+        boxRefs.current.forEach((boxRef, indice) => {
+            boxRef.dataset.state = "unselected";
+        });
+        
+        element.target.dataset.state = "selected";
+
     };
 
   return (
@@ -41,7 +61,6 @@ export const Game = () => {
                 }}
             >
                 <Typography component="h1" variant="h5">
-                    {obtenerPregunta()}
                     {pregunta}
                 </Typography>
             </Box>
@@ -55,9 +74,23 @@ export const Game = () => {
                 <ul>
                     {
                         respuestas.map((respuesta, indice) => {
-                            return (<li key={indice}>
+                            return (
+                                <Box data-question={indice} data-state='unselected'
+                                 sx={{
+                                    padding: 1,
+                                    margin: 1,
+                                    border: '2px solid blue',
+                                    borderRadius: '10px',
+                                }}
+                                onClick={e => seleccionarRespuesta(e)}
+                                ref={(e) => (boxRefs.current[indice] = e)}
+                            >
+                                <li key={indice}>
                                 {respuesta}
-                            </li>)
+                                </li>
+                            </Box>
+                            
+                            )
                         })
                     }
                 </ul>
