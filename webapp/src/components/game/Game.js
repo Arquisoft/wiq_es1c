@@ -1,22 +1,61 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography,} from "@mui/material";
 import './Game.css';
 
 export const Game = () => {
-    //let pregunta = "pregunta nº 1";
-    //let respuestas = ["respuesta1", "respuesta2", "respuesta3", "respuesta4"];
+    const token = "eyDVhZGFkODgtMjUyiaWTQQ8";
 
-    const [pregunta, setPregunta] = useState("pregunta nº 1");
-    const [respuestas, setRespuestas] = useState(["respuesta1", "respuesta2", "respuesta3", "respuesta4"]);
-    const [correcta, setCorrecta] = useState(1);
+    const [pregunta, setPregunta] = useState(null);
+    const [respuestas, setRespuestas] = useState(null);
+    const [correcta, setCorrecta] = useState(null);
 
     const boxRefs = useRef([]);
+
+    const startNewGame = async () => {
+        try {
+          const response = await fetch("/api/game/new", {
+            "token": token 
+          });
+  
+          const result = await response.json();
+        } catch (error) {
+          console.error("Error al obtener datos de la API:", error);
+        }
+    };
+
+    const nextQuestion = async () => {
+        try {
+          const response = await fetch("/api/game/next", {
+            "token": token 
+          });
+  
+          const result = await response.json();
+          setPregunta(result.title);
+          setRespuestas(result.awnsers);
+        } catch (error) {
+          console.error("Error al obtener datos de la API:", error);
+        }
+    };
+
+    const awnser = async (awnser) => {
+        try {
+          const response = await fetch("/api/game/awnser", {
+            "token": token,
+            "awnser": "Arzew"
+          });
+  
+          const result = await response.json();
+          setCorrecta(result);
+        } catch (error) {
+          console.error("Error al obtener datos de la API:", error);
+        }
+    };
 
     const comprobarPregunta = () => {
 
         boxRefs.current.forEach((boxRef, indice) => {
             if(boxRef.dataset.state === "selected"){
-                if(boxRef.dataset.question == correcta){
+                if(boxRef.dataset.question === correcta){
                     alert("Pregunta acertada");
                 }else{
                     alert("Pregunta fallada");
@@ -26,8 +65,8 @@ export const Game = () => {
         });
 
 
-        setPregunta("pregunta nº 2");
-        setCorrecta(2);
+        nextQuestion();
+        awnser();
     };
 
     const seleccionarRespuesta = (element) => {
@@ -38,6 +77,10 @@ export const Game = () => {
         element.target.dataset.state = "selected";
 
     };
+
+    startNewGame();
+    nextQuestion();
+    awnser();
 
   return (
     <Container
@@ -75,7 +118,7 @@ export const Game = () => {
                     {
                         respuestas.map((respuesta, indice) => {
                             return (
-                                <Box data-question={indice} data-state='unselected'
+                                <Box data-question={respuesta} data-state='unselected'
                                  sx={{
                                     padding: 1,
                                     margin: 1,
