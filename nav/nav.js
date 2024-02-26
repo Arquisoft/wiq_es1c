@@ -1,13 +1,16 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import {
+  AppBar,
+  Typography,
+  Box,
+  Toolbar,
+  IconButton,
+  MenuIcon,
+  AccountCircle,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import { Link } from 'react-router-dom';
 
 export default function MenuAppBar() {
   const [menuJuegosAnchorEl, setMenuJuegosAnchorEl] = React.useState(null);
@@ -78,7 +81,7 @@ export default function MenuAppBar() {
           >
             <MenuItem onClick={handleMenuAccountClose}>Perfil</MenuItem>
             <MenuItem onClick={handleMenuAccountClose}>Historial</MenuItem>
-            <MenuItem onClick={handleMenuAccountClose}>Desconectarse</MenuItem>
+            <MenuItem component={Link} to="/login" >Desconectarse</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
