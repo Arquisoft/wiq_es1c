@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography,} from "@mui/material";
 import './Game.css';
+import { startNewGame, nextQuestion, awnser } from "../../services/game.service";
 
 export const Game = () => {
     const token = "eyDVhZGFkODgtMjUyiaWTQQ8";
@@ -11,62 +12,35 @@ export const Game = () => {
 
     const boxRefs = useRef([]);
 
-    const startNewGame = async () => {
-        try {
-          const response = await fetch("/api/game/new", {
-            "token": token 
-          });
-  
-          const result = await response.json();
-        } catch (error) {
-          console.error("Error al obtener datos de la API:", error);
-        }
-    };
-
-    const nextQuestion = async () => {
-        try {
-          const response = await fetch("/api/game/next", {
-            "token": token 
-          });
-  
-          const result = await response.json();
-          setPregunta(result.title);
-          setRespuestas(result.awnsers);
-        } catch (error) {
-          console.error("Error al obtener datos de la API:", error);
-        }
-    };
-
-    const awnser = async (awnser) => {
-        try {
-          const response = await fetch("/api/game/awnser", {
-            "token": token,
-            "awnser": "Arzew"
-          });
-  
-          const result = await response.json();
-          setCorrecta(result);
-        } catch (error) {
-          console.error("Error al obtener datos de la API:", error);
-        }
+    const startGame = () => {
+        startNewGame(token);
+        const respuesta = nextQuestion(token);
+        setPregunta(respuesta.title);
+        setRespuestas(respuesta.awnsers);
     };
 
     const comprobarPregunta = () => {
 
+        let respuesta = null;
+
         boxRefs.current.forEach((boxRef, indice) => {
             if(boxRef.dataset.state === "selected"){
-                if(boxRef.dataset.question === correcta){
-                    alert("Pregunta acertada");
-                }else{
-                    alert("Pregunta fallada");
-                }
+                respuesta = boxRef.dataset.question;
                 boxRef.dataset.state = "unselected";
             }
         });
 
+        setCorrecta(awnser(token, respuesta));
 
-        nextQuestion();
-        awnser();
+        if(respuesta === correcta){
+            alert("Pregunta acertada");
+        }else{
+            alert("Pregunta fallada");
+        }
+
+        respuesta = nextQuestion(token);
+        setPregunta(respuesta.title);
+        setRespuestas(respuesta.awnsers);
     };
 
     const seleccionarRespuesta = (element) => {
@@ -78,9 +52,7 @@ export const Game = () => {
 
     };
 
-    startNewGame();
-    nextQuestion();
-    awnser();
+    startGame();
 
   return (
     <Container
