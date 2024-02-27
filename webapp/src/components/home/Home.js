@@ -65,7 +65,7 @@ export const Home = () =>
                         <Typography component="h2" variant="h6">
                             Estás conectado como: {username}
                         </Typography>
-                        <Link to={ '/login' }>
+                        <Link to={ '/game' }>
                             <Button variant="contained">Jugar</Button>
                         </Link>
 
