@@ -5,9 +5,9 @@ import './Game.css';
 export const Game = () => {
     const token = "eyDVhZGFkODgtMjUyiaWTQQ8";
 
-    const [pregunta, setPregunta] = useState(null);
-    const [respuestas, setRespuestas] = useState(null);
-    const [correcta, setCorrecta] = useState(null);
+    const [pregunta, setPregunta] = useState("Pregunta nº 1");
+    const [respuestas, setRespuestas] = useState(["respuesta1","respuesta2","respuesta3","respuesta4"]);
+    const [correcta, setCorrecta] = useState("respuesta1");
 
     const boxRefs = useRef([]);
 
