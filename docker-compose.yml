@@ -26,6 +26,19 @@ services:
     networks:
       - mynetwork
 
+  userdetails:
+    container_name: userdetails-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/userdetails:latest
+    profiles: [ "dev", "prod" ]
+    build: ./userdetails_service
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "8004:8004"
+    networks:
+      - mynetwork
+
   mariadb:
     container_name: mariadb-${teamname:-defaultASW}
     image: mariadb
