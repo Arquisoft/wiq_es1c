@@ -33,13 +33,9 @@ const router = createBrowserRouter([
     },
     {
         path: "/game",
-        element: <AuthRoute>
+        element: <PrivateRoute>
                     <Game />
-                </AuthRoute>       
-    },
-    {
-        path: "/game",
-        element: <Game />
+                </PrivateRoute>       
     },
     {
         path: "*",
