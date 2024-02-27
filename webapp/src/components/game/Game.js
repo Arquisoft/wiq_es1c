@@ -6,17 +6,18 @@ import { startNewGame, nextQuestion, awnser } from "../../services/game.service"
 export const Game = () => {
     const token = localStorage.getItem("token");
 
-    const [pregunta, setPregunta] = useState("Pregunta nº 1");
-    const [respuestas, setRespuestas] = useState(["respuesta1","respuesta2","respuesta3","respuesta4"]);
-    const [correcta, setCorrecta] = useState("respuesta1");
+    const [pregunta, setPregunta] = useState("Cargando pregunta...");
+    const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
 
     const boxRefs = useRef([]);
 
     const startGame = () => {
-        startNewGame(token);
-        const respuesta = nextQuestion(token);
-        setPregunta(respuesta.title);
-        setRespuestas(respuesta.awnsers);
+        startNewGame(token).then(() =>
+            nextQuestion(token).then((respuesta) => {
+                setPregunta(respuesta.title);
+                setRespuestas(respuesta.awnsers);
+            })
+        );
     };
 
     const comprobarPregunta = () => {
@@ -30,17 +31,19 @@ export const Game = () => {
             }
         });
 
-        setCorrecta(awnser(token, respuesta));
+        awnser(token, respuesta).then((correcta) => {
 
-        if(respuesta === correcta){
-            alert("Pregunta acertada");
-        }else{
-            alert("Pregunta fallada");
-        }
-
-        respuesta = nextQuestion(token);
-        setPregunta(respuesta.title);
-        setRespuestas(respuesta.awnsers);
+            if(respuesta == correcta){
+                alert("Pregunta acertada");
+            }else{
+                alert("Pregunta fallada");
+            }
+    
+            nextQuestion(token).then((respuesta) => {
+                setPregunta(respuesta.title);
+                setRespuestas(respuesta.awnsers);
+            });
+        })
     };
 
     const seleccionarRespuesta = (element) => {
@@ -49,10 +52,10 @@ export const Game = () => {
         });
         
         element.target.dataset.state = "selected";
-
     };
 
-    startGame();
+    //Call start only once
+    useEffect(startGame, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
   return (
     <Container
