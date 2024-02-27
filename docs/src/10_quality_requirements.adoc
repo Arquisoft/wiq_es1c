@@ -46,6 +46,18 @@ In any case the tree should include links to the scenarios of the following sect
 
 ****
 
+[options="header",cols="1,2,2,1"]
+|===
+|Quality Category|Quality|Description|Scenario
+| _Usability_ | _Easy to use_ | _Ease of use by the user when playing games or moving around the application._ | _SC1_
+| __ | _Easy to learn_ | _Game modes should be intuitive._ | __
+| _Maintainability_ | _Robustness_ | _The application must be able to respond to user requests first._ | _SC2_
+| __ | _Persistence_ | _There will be no partial loss of user information and data._ | __
+| _Performance efficiency_ | _Response time_ | _The application should not exceed 3 seconds of waiting time._ | _SC3_
+| _Security_ | _Integrity_ | _User data must be kept confidential and secure at all times._ | __
+| _Cultural and Regional_ | _Multi-language_ | _The application texts must be displayed in English._ | _SC4_
+|===
+
 === Quality Scenarios
 
 [role="arc42help"]
@@ -71,3 +83,12 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 .Form
 Tabular or free form text.
 ****
+
+[options="header",cols="1,4"]
+|===
+|Id|Scenario
+| _SC1_ | _A new user registers in the application and can start playing without the need to view a user guide._
+| _SC2_ | _A user performs an action in the application that results in an internal error, but the user can still use the application normally._
+| _SC3_ | _A playing user will be viewing the different questions with little or no waiting time._
+| _SC4_ | _An English-speaking user will be able to use and play with the application without any problems._
+|===

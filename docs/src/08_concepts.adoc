@@ -55,19 +55,36 @@ image::08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutti
 See https://docs.arc42.org/section-8/[Concepts] in the arc42 documentation.
 ****
 
+=== Microservices architecture
 
-=== _<Concept 1>_
-
-_<explanation>_
-
+We have decided that our architecture will be based on microservices, which means that every part of the
+aplication will be divided in a service that performs a specific function. The services can communicate witch eachother using their repective APIs or via the shared database
 
 
-=== _<Concept 2>_
+=== User Experience
 
-_<explanation>_
+The application will consist of a website where the user will be able to play our WIQ game, however as we
+have not started coding yet we do not have a clear idea of how it will look or if we are adding extra
+functionality to the webpage. 
 
-...
+=== Session handling
 
-=== _<Concept n>_
+The application will include a system to control the user access to keep track of their games (And other data), this system will work be based on the token pattern rather than the session pattern. For now we have decided to use JsonWebToken for the token generation and validation
 
-_<explanation>_
+=== Persistence
+
+The persistence between the many microservices of the application will be dealt with using a SQL relational database (Specifically MariaDB) which will help to communicate and sync the different microservices
+
+=== Security & Safety
+
+To ensure customer safety we will store their password using a password safe hash such as bCrypt 
+
+=== Testing
+
+In order to avoid errors in our aplication we will include a bunch of tests that cover both the frontend
+and backend areas. (With special attention to e2e tests, unit tests and integration tests)
+
+=== Internationalization
+
+At this point of the proyect we are not sure if we will implement Internationalization, it's a decision that
+we will take as the proyect progresses.
