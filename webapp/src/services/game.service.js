@@ -19,7 +19,7 @@ const nextQuestion = async (token) =>
     try {
       const response = await axios.post(`${apiEndpoint}:8003/api/game/next`, { "token": token });
 
-      return response;
+      return response.data;
 
     } catch (error) {
       return error.response.data.error;
@@ -31,7 +31,7 @@ const awnser = async (token, awnser) =>
     try {
       const response = await axios.post(`${apiEndpoint}:8003/api/game/next`, { "token": token, "awnser":awnser });
 
-      return response;
+      return response.data;
 
     } catch (error) {
       return error.response.data.error;
