@@ -3,6 +3,9 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import Login from "../components/login/Login";
 import AddUser from "../components/register/AddUser";
 import Error404 from "../components/error/Error404";
+import { PrivateRoute } from "./PrivateRoute";
+import { AuthRoute } from "./AuthRoute";
+import { Home } from "../components/home/Home";
 import Game from "../components/game/Game";
 
 const router = createBrowserRouter([
@@ -12,15 +15,27 @@ const router = createBrowserRouter([
     },
     {
         path: "/home",
-        element: <h1 className="text-white text-5xl text-center">Pantalla del juego</h1>
+        element: <PrivateRoute>
+                    <Home />
+                </PrivateRoute> 
     },
     {
         path: "/login",
-        element: <Login />
+        element: <AuthRoute>
+                    <Login />
+                </AuthRoute>
     },
     {
         path: "/register",
-        element: <AddUser />
+        element: <AuthRoute>
+                    <AddUser />
+                </AuthRoute>
+    },
+    {
+        path: "/game",
+        element: <AuthRoute>
+                    <Game />
+                </AuthRoute>       
     },
     {
         path: "/game",
