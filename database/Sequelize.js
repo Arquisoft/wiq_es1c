@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize({
   dialect: 'mariadb',
-  host: 'localhost',
+  host: 'mariadb',
   port: 3306,
   database: 'db', // Reemplazar con el nombre de la base de datos
   username: 'root', // Reemplazar con el nombre de usuario
