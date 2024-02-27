@@ -20,6 +20,7 @@
     "sequelize": "^6.36.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
+    "supertest": "^6.3.4",
     "uuid": "^9.0.1"
   }
 }
