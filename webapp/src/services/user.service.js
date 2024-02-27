@@ -11,6 +11,8 @@ const login = async (username, password) =>
 
       token = response.data.token;
 
+      localStorage.setItem('token', token);
+
       return "";
 
     } catch (error) {
@@ -25,6 +27,10 @@ const register = async (username, password) =>
 
       if ( response.status === 200 )
         return response.data.error;
+
+      token = response.data.token;
+
+      localStorage.setItem('token', token);
 
       return "";
 
