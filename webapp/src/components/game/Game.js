@@ -4,7 +4,7 @@ import './Game.css';
 import { startNewGame, nextQuestion, awnser } from "../../services/game.service";
 
 export const Game = () => {
-    const token = "eyDVhZGFkODgtMjUyiaWTQQ8";
+    const token = localStorage.getItem("token");
 
     const [pregunta, setPregunta] = useState("Pregunta nº 1");
     const [respuestas, setRespuestas] = useState(["respuesta1","respuesta2","respuesta3","respuesta4"]);
