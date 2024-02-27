@@ -29,7 +29,7 @@ const nextQuestion = async (token) =>
 const awnser = async (token, awnser) =>
 {
     try {
-      const response = await axios.post(`${apiEndpoint}:8003/api/game/next`, { "token": token, "awnser":awnser });
+      const response = await axios.post(`${apiEndpoint}:8003/api/game/awnser`, { "token": token, "awnser":awnser });
 
       return response.data;
 
