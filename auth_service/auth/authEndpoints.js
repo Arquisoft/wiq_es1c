@@ -120,7 +120,19 @@ const verify = async (req, res) => {
     }
 
     try{
-        jwt.verify(req.body.token, privateKey);
+        let userId = jwt.verify(req.body.token, privateKey).user_id;
+
+        let user = await User.findOne({
+            where: {
+                id: userId
+            }
+        })
+    
+        if(user == null){
+            res.status(400).send();
+            return;
+        }
+        
         res.status(200).send();
     }catch(err){
         res.status(401).send();
