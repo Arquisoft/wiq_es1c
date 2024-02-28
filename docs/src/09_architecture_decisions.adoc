@@ -7,7 +7,7 @@ We have added the ADRs to the Wiki section in the GitHub page, so we provide the
 
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-01-(JavaScript)[ADR 01] -> JavaScript 
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-02-(React)[ADR 02] -> React
-* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-03-(MariaDB)[ADR 03]  ->MariaDB
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-03-(MariaDB)[ADR 03] -> MariaDB
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-04-(Docker)[ADR 04] -> Docker
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-05-(Tailwind-CSS)[ADR 05] -> Tailwind-CSS
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-06-(Material-UI)[ADR 06] -> Material UI

@@ -56,6 +56,7 @@ The functional requirements that the application will have:
 | _Students_ | _Manuel González Santos, Noel Expósito Espina,Yago Fernández López, Manuel de la Uz González, Rubén Fernández Valdés, Javier Monteserín Rodríguez_ | Passing the subject as the main objective, and creating a project we can be proud of
 | _Teachers_ | _José Emilio Labra Gayo_ | To ensure that we learn the contents of the subject, especially that we learn to work as a team
 | _Users_ | _Any user of the application_ | That the application is easy to use and that it is fun to use
-| _WikiData Community_ | _Wikidata_ | They are interested in people using their services and new developers can discover it thanks to this proyect.
+| _WikiData Community_ | _Wikimedia Deutschland_ | They are interested in people using their services and new developers can discover it thanks to this proyect.
+| _RTVE_ | _RTVE_ | This project can serve as some type of publicity, with the possibility of people getting interested in the actual show through the game.
 |===
 
