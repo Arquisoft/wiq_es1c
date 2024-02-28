@@ -15,6 +15,8 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link, Navigate } from "react-router-dom";
 import { login } from "../../services/user.service";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Login = () => 
 {
@@ -24,6 +26,7 @@ const Login = () =>
   const [validPassword, setValidPassword] = useState(true);
   const [error, setError] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) =>
   {
@@ -35,12 +38,15 @@ const Login = () =>
       setValidUsername(true);
       setValidPassword(true);
 
+      setLoading(true)
       const res = await login(username, password);
 
-      if (res !== '')
+      if (res !== ''){
+        setLoading(false)
         setError(res);
-      else
+      }else{
         setLoggedIn(true);
+      }
 
       return;
     }
@@ -76,6 +82,13 @@ const Login = () =>
       sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
       className="min-h-screen flex justify-center align-middle"
     >
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
       <Container
         className="bg-white rounded-lg"
         component="main"
