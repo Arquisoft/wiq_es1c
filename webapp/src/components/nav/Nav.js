@@ -5,8 +5,6 @@ import {
   Box,
   Toolbar,
   IconButton,
-  MenuIcon,
-  AccountCircle,
   Menu,
   MenuItem,
 } from "@mui/material";
@@ -14,6 +12,7 @@ import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 export default function MenuAppBar() {
  
@@ -31,11 +30,11 @@ export default function MenuAppBar() {
 
   const logout = async () => {
     await localStorage.system("token",null);
-    {Link} to ="/login"
+    <Link to='/login' />
   };
 
   const goHome = ()=>{
-    {Link} to ="/home"
+    <Link to='/home' />
   };
   const doNothing = ()=>{
 
