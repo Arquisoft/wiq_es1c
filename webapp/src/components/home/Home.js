@@ -29,14 +29,7 @@ export const Home = () =>
     
     return (
         <>
-        {
-            !loggedIn
-        ?
-        (
-            <Navigate to='/login' replace />
-        )
-        :
-        (
+        {(
             <Container
                 component="main"
                 maxWidth="sm"
