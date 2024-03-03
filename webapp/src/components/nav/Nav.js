@@ -11,18 +11,15 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Link } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function MenuAppBar() {
-  const [menuJuegosAnchorEl, setMenuJuegosAnchorEl] = React.useState(null);
+ 
   const [menuCuentaAnchorEl, setmenuCuentaAnchorEl] = React.useState(null);
 
-  const handleMenuJuegosOpen = (event) => {
-    setMenuJuegosAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuJuegosClose = () => {
-    setMenuJuegosAnchorEl(null);
-  };
+  
 
   const handleMenuAccountOpen = (event) => {
     setmenuCuentaAnchorEl(event.currentTarget);
@@ -32,35 +29,43 @@ export default function MenuAppBar() {
     setmenuCuentaAnchorEl(null);
   };
 
+  const logout = async () => {
+    await localStorage.system("token",null);
+    {Link} to ="/login"
+  };
+
+  const goHome = ()=>{
+    {Link} to ="/home"
+  };
+  const doNothing = ()=>{
+
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          {/* Botón de menú */}
-          <IconButton
+        <IconButton
             size="large"
-            edge="start"
             color="inherit"
-            aria-label="menu"
-            onClick={handleMenuJuegosOpen}
-            sx={{ mr: 2 }}
+            onClick={goHome}
           >
-            <MenuIcon />
+            <HomeIcon />
           </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={menuJuegosAnchorEl}
-            open={Boolean(menuJuegosAnchorEl)}
-            onClose={handleMenuJuegosClose}
-          >
-            <MenuItem onClick={handleMenuJuegosClose}>Juego1</MenuItem>
-            <MenuItem onClick={handleMenuJuegosClose}>Juego2</MenuItem>
-          </Menu>
+         
 
           {/* Título */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             WIQ
           </Typography>
+
+          <IconButton
+            size="large"
+            color="inherit"
+            onClick={doNothing}
+          >
+            <SettingsIcon />
+          </IconButton>
 
           {/* Botón de cuenta */}
           <IconButton
@@ -81,8 +86,14 @@ export default function MenuAppBar() {
           >
             <MenuItem onClick={handleMenuAccountClose}>Perfil</MenuItem>
             <MenuItem onClick={handleMenuAccountClose}>Historial</MenuItem>
-            <MenuItem component={Link} to="/login" >Desconectarse</MenuItem>
           </Menu>
+          <IconButton
+            size="large"
+            color="inherit"
+            onClick={logout}
+          >
+            <LogoutIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
