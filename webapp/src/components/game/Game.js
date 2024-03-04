@@ -56,8 +56,9 @@ export const Game = () => {
                     let trans = (new Date().getTime()) - time.start;
 
                     let percentage =  (trans/total) * 100;
-
-                    setRemTime(100 - Number(percentage));
+                    let invertedPercentage = 100 - Number(percentage);
+                    
+                    setRemTime((invertedPercentage/100)*110);
 
                     if(percentage > 100){
                         alert("tiempo agotado!");
