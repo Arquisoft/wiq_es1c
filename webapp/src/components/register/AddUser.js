@@ -63,19 +63,16 @@ const AddUser = () =>
   const checkUsername = (e) =>
   {
     setUsername(e.target.value.trim());
-    setValidUsername(true);
   }
 
   const checkPassword = (e) =>
   {
     setPassword(e.target.value.trim());
-    setValidPassword(true);
   }
 
   const checkConfirmPassword = (e) =>
   {
     setConfirmPassword(e.target.value.trim());
-    setValidConfirmPassword(true);
   }
   
   return (
