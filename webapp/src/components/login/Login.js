@@ -20,13 +20,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const Login = () => 
 {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [validUsername, setValidUsername] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
-  const [error, setError] = useState('');
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [validUsername, setValidUsername] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  
+  //Error handling
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) =>
   {
