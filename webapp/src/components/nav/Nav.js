@@ -83,6 +83,7 @@ export const Nav = () => {
             size="large"
             color="inherit"
             onClick={logout}
+            data-testid="logout"
           >
             <LogoutIcon />
           </IconButton>
