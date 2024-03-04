@@ -18,8 +18,6 @@ export default function MenuAppBar() {
  
   const [menuCuentaAnchorEl, setmenuCuentaAnchorEl] = React.useState(null);
 
-  
-
   const handleMenuAccountOpen = (event) => {
     setmenuCuentaAnchorEl(event.currentTarget);
   };
@@ -28,29 +26,18 @@ export default function MenuAppBar() {
     setmenuCuentaAnchorEl(null);
   };
 
-  const logout = async () => {
-    await localStorage.system("token",null);
-    <Link to='/login' />
-  };
-
-  const goHome = ()=>{
-    <Link to='/home' />
-  };
-  const doNothing = ()=>{
-
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-        <IconButton
-            size="large"
-            color="inherit"
-            onClick={goHome}
-          >
-            <HomeIcon />
-          </IconButton>
+          <Link to='/home' >
+            <IconButton
+                size="large"
+                color="inherit"
+            >
+              <HomeIcon />
+            </IconButton>
+          </Link>
          
 
           {/* Título */}
@@ -61,7 +48,6 @@ export default function MenuAppBar() {
           <IconButton
             size="large"
             color="inherit"
-            onClick={doNothing}
           >
             <SettingsIcon />
           </IconButton>
@@ -89,7 +75,6 @@ export default function MenuAppBar() {
           <IconButton
             size="large"
             color="inherit"
-            onClick={logout}
           >
             <LogoutIcon />
           </IconButton>
