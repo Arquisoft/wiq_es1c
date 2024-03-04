@@ -26,7 +26,7 @@ const Question = database.define('Question', {
     },
     duration: {
         type: DataTypes.INTEGER,
-        defaultValue: 20,
+        defaultValue: 10,
         allowNull: false
     },
     onTime : {
