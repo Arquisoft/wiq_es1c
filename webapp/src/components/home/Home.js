@@ -29,13 +29,7 @@ export const Home = () =>
     
     return (
         <>
-        { !loggedIn
-        ?
-        ( 
-            <Navigate to='/login' replace /> 
-        )
-        :
-        (
+        {(
             <Container
                 component="main"
                 maxWidth="sm"
@@ -59,9 +53,7 @@ export const Home = () =>
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <QuizIcon />
                         </Avatar>
-                        <Typography component="h1" variant="h5">
-                            ¡Bienvenido a WIQ!
-                        </Typography>
+                        <Typography component="h1" variant="h5">¡Bienvenido a WIQ!</Typography>
                         <Typography component="h2" variant="h6">
                             Estás conectado como: {username}
                         </Typography>
