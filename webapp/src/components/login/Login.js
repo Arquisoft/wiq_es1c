@@ -85,18 +85,18 @@ const Login = () =>
       sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
       className="min-h-screen flex justify-center align-middle"
     >
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
 
       <Container
         className="bg-white rounded-lg"
         component="main"
         maxWidth="sm"
       >
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <CssBaseline />
         <Box
           sx={{
