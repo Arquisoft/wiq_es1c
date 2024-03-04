@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+
 import {
   AppBar,
   Typography,
@@ -8,14 +9,15 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
-export default function MenuAppBar() {
- 
+export const Nav = () => {
+  const navigate = useNavigate();
+
   const [menuCuentaAnchorEl, setmenuCuentaAnchorEl] = React.useState(null);
 
   const handleMenuAccountOpen = (event) => {
@@ -25,6 +27,11 @@ export default function MenuAppBar() {
   const handleMenuAccountClose = () => {
     setmenuCuentaAnchorEl(null);
   };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -75,6 +82,7 @@ export default function MenuAppBar() {
           <IconButton
             size="large"
             color="inherit"
+            onClick={logout}
           >
             <LogoutIcon />
           </IconButton>
