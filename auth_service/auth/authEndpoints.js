@@ -122,13 +122,13 @@ const verify = async (req, res) => {
     try{
         let userId = jwt.verify(req.body.token, privateKey).user_id;
 
-        let user = await User.findOne({
+        let u = await user.findOne({
             where: {
                 id: userId
             }
         })
-    
-        if(user == null){
+        
+        if(u == null){
             res.status(400).send();
             return;
         }
