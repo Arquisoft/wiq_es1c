@@ -14,6 +14,21 @@ const startNewGame = async (token) =>
     }
 }
 
+const getEndTime = async (token) =>
+{
+  try {
+    const response = await axios.post(`${apiEndpoint}:8003/api/game/update`, { "token": token });
+
+    return {
+      end: (Number(response.data.created) + (Number(response.data.duration) * 1000)),
+      start: response.data.created
+    };
+
+  } catch (error) {
+    return undefined;
+  }
+}
+
 const nextQuestion = async (token) =>
 {
     try {
@@ -38,4 +53,4 @@ const awnser = async (token, awnser) =>
     }
 }
 
-export {startNewGame, nextQuestion, awnser};
+export {startNewGame, nextQuestion, awnser, getEndTime};
