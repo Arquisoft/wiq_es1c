@@ -23,7 +23,7 @@ export const Game = () => {
 
             loadNextQuestion();
 
-            if(respuesta == correcta){
+            if(respuesta === correcta){
                 alert("Pregunta acertada");
             }else{
                 alert("Pregunta fallada");
@@ -51,7 +51,7 @@ export const Game = () => {
     useEffect(() => {
         let interval = setInterval(() => {
             setTime((time) => {
-                if(time != undefined){
+                if(time !== undefined){
                     let total = time.end - time.start;
                     let trans = (new Date().getTime()) - time.start;
 
