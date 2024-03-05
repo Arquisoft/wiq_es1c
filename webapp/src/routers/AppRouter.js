@@ -8,6 +8,7 @@ import { AuthRoute } from "./AuthRoute";
 import { Home } from "../components/home/Home";
 import { Nav } from "../components/nav/Nav";
 import Game from "../components/game/Game";
+import { History } from "../components/history/History";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,13 @@ const router = createBrowserRouter([
         element: <PrivateRoute>
                     <Nav/>
                     <Home />
+                </PrivateRoute> 
+    },
+    {
+        path: "/history",
+        element: <PrivateRoute>
+                    <Nav/>
+                    <History />
                 </PrivateRoute> 
     },
     {
