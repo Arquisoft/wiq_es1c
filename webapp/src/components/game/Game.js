@@ -61,6 +61,7 @@ export const Game = () => {
                     setRemTime((invertedPercentage/100)*110);
 
                     if(percentage > 100){
+                        time = undefined;
                         alert("tiempo agotado!");
                         comprobarPregunta("");
                     }
