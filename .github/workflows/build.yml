@@ -15,16 +15,12 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm --prefix userdetails_service ci
     - run: npm --prefix question_service ci
     - run: npm --prefix auth_service ci
     - run: npm --prefix webapp ci
-    - run: npm --prefix game_service ci
-    - run: npm --prefix userdetails_service test -- --coverage
     - run: npm --prefix question_service test -- --coverage
     - run: npm --prefix auth_service test -- --coverage
     - run: npm --prefix webapp test -- --coverage
-    - run: npm --prefix game_service test -- --coverage
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       env:

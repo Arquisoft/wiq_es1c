@@ -4,7 +4,7 @@ COPY . /app
 WORKDIR /app
 
 #Install the dependencies
-RUN npm install --force
+RUN npm install
 
 ARG API_URI="http://localhost"
 ENV REACT_APP_API_ENDPOINT=$API_URI

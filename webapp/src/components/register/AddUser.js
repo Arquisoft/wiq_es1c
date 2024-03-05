@@ -13,8 +13,6 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link, Navigate } from "react-router-dom";
 import { register } from "../../services/user.service";
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
 
 const AddUser = () => 
 {
@@ -26,7 +24,6 @@ const AddUser = () =>
   const [validConfirmPassword, setValidConfirmPassword] = useState(true);
   const [error, setError] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const doRegister = async (e) => {
     e.preventDefault();
@@ -36,16 +33,13 @@ const AddUser = () =>
       setError('');
       setValidUsername(true);
       setValidPassword(true);
-      
-      setLoading(true);
+
       const error = await register(username,password)
 
-      if (error !== ''){
-        setLoading(false);
+      if (error !== '')
         setError(error);
-      } else {
+      else
         setLoggedIn(true);
-      }
 
       return;
     }
@@ -63,16 +57,19 @@ const AddUser = () =>
   const checkUsername = (e) =>
   {
     setUsername(e.target.value.trim());
+    setValidUsername(true);
   }
 
   const checkPassword = (e) =>
   {
     setPassword(e.target.value.trim());
+    setValidPassword(true);
   }
 
   const checkConfirmPassword = (e) =>
   {
     setConfirmPassword(e.target.value.trim());
+    setValidConfirmPassword(true);
   }
   
   return (
@@ -87,13 +84,6 @@ const AddUser = () =>
       sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
       className="min-h-screen flex justify-center align-middle"
     >
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-
       <Container
         className="bg-white rounded-lg"
         component="main"
