@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
 import './Game.css';
 import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
@@ -9,7 +9,7 @@ export const Game = () => {
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
     const [loading, setLoading] = useState(true);
-    const [time, setTime] = useState(undefined);
+    const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
 
     const startGame = () => {
