@@ -19,8 +19,10 @@ export const Nav = () => {
   const navigate = useNavigate();
 
   const [openMenu, setOpenMenu] = React.useState(false);
+  const [userAnchor, setUserAnchor] = React.useState(undefined);
 
   const handleMenuAccountOpen = (event) => {
+    setUserAnchor(event.currentTarget);
     setOpenMenu(true);
   };
 
@@ -31,6 +33,11 @@ export const Nav = () => {
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
+  }
+
+  const history = () => {
+    handleMenuAccountClose();
+    navigate("/history");
   }
 
   return (
@@ -70,14 +77,17 @@ export const Nav = () => {
           >
             <AccountCircle />
           </IconButton>
+
           <Menu
             id="account-appbar"
             open={openMenu}
             onClose={handleMenuAccountClose}
+            anchorEl={userAnchor}
           >
-            <MenuItem onClick={handleMenuAccountClose}>Perfil</MenuItem>
-            <MenuItem onClick={handleMenuAccountClose}>Historial</MenuItem>
+              <MenuItem onClick={handleMenuAccountClose}>Perfil</MenuItem>
+              <MenuItem onClick={history}>Historial</MenuItem>
           </Menu>
+
           <IconButton
             size="large"
             color="inherit"
