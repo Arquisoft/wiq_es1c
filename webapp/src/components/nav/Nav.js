@@ -18,14 +18,14 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 export const Nav = () => {
   const navigate = useNavigate();
 
-  const [menuCuentaAnchorEl, setmenuCuentaAnchorEl] = React.useState(null);
+  const [openMenu, setOpenMenu] = React.useState(false);
 
   const handleMenuAccountOpen = (event) => {
-    setmenuCuentaAnchorEl(event.currentTarget);
+    setOpenMenu(true);
   };
 
   const handleMenuAccountClose = () => {
-    setmenuCuentaAnchorEl(null);
+    setOpenMenu(false);
   };
 
   const logout = () => {
@@ -72,8 +72,7 @@ export const Nav = () => {
           </IconButton>
           <Menu
             id="account-appbar"
-            anchorEl={menuCuentaAnchorEl}
-            open={Boolean(menuCuentaAnchorEl)}
+            open={openMenu}
             onClose={handleMenuAccountClose}
           >
             <MenuItem onClick={handleMenuAccountClose}>Perfil</MenuItem>

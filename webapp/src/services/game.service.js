@@ -5,7 +5,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost';
 const startNewGame = async (token) =>
 {
     try {
-      const response = await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token });
+      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token });
 
       return "";
 

@@ -7,6 +7,12 @@ jest.mock('../../services/game.service', () => ({
   startNewGame: () => Promise.resolve(""),
   nextQuestion: () => Promise.resolve({ title: 'Pregunta de prueba', awnsers: ['Respuesta 1', 'Respuesta 2', 'Respuesta 3', 'Respuesta 4'] }),
   awnser: () => Promise.resolve('Respuesta 1'),
+  getEndTime: () => Promise.resolve(
+    {
+      end: 10,
+      start: 0
+    }
+  )
 }));
 
 jest.spyOn(window, 'alert').mockImplementation(() => {});

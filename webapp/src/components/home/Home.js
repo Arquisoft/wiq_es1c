@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Link, Navigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Avatar, Box, Container, CssBaseline,Typography, Button } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
 import QuizIcon from '@mui/icons-material/Quiz';
