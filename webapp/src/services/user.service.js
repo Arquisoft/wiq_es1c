@@ -74,4 +74,4 @@ const getHistory = async () =>
 const isLoggedIn = async (username, password) => token !== undefined;
 const getToken = async () => token;
 
-export {login, register, isLoggedIn, getToken, getCurrentUser};
+export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory};
