@@ -6,10 +6,11 @@ class WikiUtils {
     
     static async getRandomCountry() {
         const query = `
-            SELECT ?countryLabel ?capitalLabel ?population WHERE {
+            SELECT ?countryLabel ?capitalLabel ?population ?language WHERE {
                 ?country wdt:P31 wd:Q6256.
                 ?country wdt:P36 ?capital.
                 ?country wdt:P1082 ?population.
+                ?country wtd:37 ?language
                 SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
             }
         `;
@@ -20,6 +21,7 @@ class WikiUtils {
             name: results['countryLabel'],
             capital: results['capitalLabel'],
             population: results['population'],
+            language: results['language'],
         };
     
 
@@ -59,6 +61,67 @@ class WikiUtils {
 
         return pop
     }
+
+    static async getRandomLanguage(){
+        const query = `
+        SELECT ?languageLabel  WHERE {
+            ?country wdt:P31 wd:Q6256.
+            ?country wdt:P37 ?language.
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        }
+    `;
+    
+      return rand(await wikidata(query))['languageLabel'];
+    }
+
+    static getRandomLanguageExclude(exclude) {
+        let lan = this.getRandomLanguage()
+
+        while(lan == exclude || /^Q[0-9]*/.test(lan)){
+            lan = this.getRandomLanguage();
+        }
+
+        return lan
+    }
+
+    static async getRandomElement(){
+        const query=`SELECT ?elementLabel ?symbol WHERE {
+            ?element wdt:P31 wd:Q11344.
+            ?element wdt:P1086 ?symbol.
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+          }`;
+
+          const results = rand(await wikidata(query));
+
+          return {
+            name: results['elementLabel'],
+            symbol: results['symbol'],
+        };
+    }
+
+    static async getRandomElementSymbol(){
+        const query=`SELECT ?symbol WHERE {
+            ?element wdt:P31 wd:Q11344.
+            ?element wdt:P1086 ?symbol.
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+          }`;
+           
+          return rand(await wikidata(query))['symbol'];
+
+    }
+
+    static async getRandomElementSymbolWithExclude(excludeSymbol) {
+        let randomSymbol = await this.getRandomElement();
+    
+        while (randomSymbol === excludeSymbol || /^Q[0-9]*/.test(randomSymbol)) {
+            randomSymbol = await this.getRandomElement();
+        }
+    
+        return randomSymbol;
+    }
+
+
+    
 }
 
 module.exports = WikiUtils

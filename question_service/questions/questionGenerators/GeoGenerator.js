@@ -25,6 +25,18 @@ const templates = [
             ]
         }
     },
+    async () => {
+        const country = await WikiUtils.getRandomCountry()
+        return {
+            "title": `Qué idioma se habla en ${country.name}?`,
+            "awnser": country.language,
+            "fake" : [
+               await WikiUtils.getRandomLanguageExclude(country.language),
+               await WikiUtils.getRandomLanguageExclude(country.language),
+               await WikiUtils.getRandomLanguageExclude(country.language)
+            ]
+        }
+    },
 ]
 
 module.exports = () => templates[Math.floor(Math.random()*templates.length)]()

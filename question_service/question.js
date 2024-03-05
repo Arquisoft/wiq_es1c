@@ -5,6 +5,9 @@ const cors = require('cors');
 
 // My own libs
 const geoGen = require('./questions/questionGenerators/GeoGenerator');
+const sciGen = require('./questions/questionGenerators/ScienceGenerator');
+const generatorsArray = [geoGen, sciGen];
+const randomGenerator = generatorsArray[Math.floor(Math.random() * generatorsArray.length)];
 //const authMiddleware = require('./auth/authMiddleware');
 
 const port = 8002;
@@ -18,7 +21,7 @@ app.use(cors()) // This api is listening on a different port from the frontend
 // Api endpoints
 // Question endpoints
 app.post('/api/questions/generate', async (req, res) => {
-  res.status(200).json(await geoGen())
+  res.status(200).json(await randomGenerator())
 });
 
 // Start the server
