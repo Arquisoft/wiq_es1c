@@ -6,7 +6,7 @@ const cors = require('cors');
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
 const sync = require("./db/sync");
-const {getUsername} = require("./userdetails/endpoints");
+const {getUsername, getHistory} = require("./userdetails/endpoints");
 
 const port = 8004;
 const app = express();
@@ -18,6 +18,7 @@ app.use(authMiddleware); // Auth middleware for the user details API
 
 // Api endpoints
 app.post('/api/userdetails/name', getUsername);
+app.post('/api/userdetails/history', getHistory);
 
 // Start the server
 const server = app.listen(port, () => {
