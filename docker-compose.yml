@@ -13,16 +13,46 @@ services:
     networks:
       - mynetwork
 
+  game:
+    container_name: game-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/game:latest
+    profiles: ["dev", "prod"]
+    build: ./game_service
+    environment:
+      - DB_URL=set
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "8003:8003"
+    networks:
+      - mynetwork
+
   auth:
     container_name: auth-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/auth:latest
     profiles: ["dev", "prod"]
     build: ./auth_service
+    environment:
+      - DB_URL=set
     depends_on:
       mariadb:
         condition: service_healthy
     ports:
       - "8001:8001"
+    networks:
+      - mynetwork
+
+  userdetails:
+    container_name: userdetails-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/userdetails:latest
+    profiles: [ "dev", "prod" ]
+    build: ./userdetails_service
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "8004:8004"
     networks:
       - mynetwork
 
