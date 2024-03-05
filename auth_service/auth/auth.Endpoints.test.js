@@ -218,7 +218,11 @@ describe('verify function', () => {
     const res = mockResponse();
 
     // Mocking validateRequiredFields to return true
-    jwt.verify.mockImplementation(() => {});
+    jwt.verify.mockImplementation(() => {
+      return {user_id: "something"}
+    });
+
+    user.findOne.mockImplementation(() => "user")
 
     await verify(req, res);
 

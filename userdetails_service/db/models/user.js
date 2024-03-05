@@ -21,13 +21,14 @@ const User = database.define('User', {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
         allowNull: false,
-    }
+    },
 });
 
 const hashPassword = async (user) => {
     user.password = await bcrypt.hash(user.password, 15);
 }
 
+User.beforeUpdate(hashPassword)
 User.beforeCreate(hashPassword)
 
 module.exports = User;
