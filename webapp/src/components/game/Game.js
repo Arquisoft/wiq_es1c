@@ -1,41 +1,79 @@
-import React, { useState, useRef, useEffect } from 'react';
-import {Button, Box, Container, CssBaseline,Typography, Grid, Paper,} from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
 import './Game.css';
-import { startNewGame, nextQuestion, awnser } from "../../services/game.service";
+import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
 
 export const Game = () => {
     const token = localStorage.getItem("token");
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
+    const [loading, setLoading] = useState(true);
+    const [time , setTime] = useState(undefined);
+    const [remTime, setRemTime] = useState(0);
 
     const startGame = () => {
         startNewGame(token).then(() =>
-            nextQuestion(token).then((respuesta) => {
-                setPregunta(respuesta.title);
-                setRespuestas(respuesta.awnsers);
-            })
+            loadNextQuestion()
         );
     };
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
+            loadNextQuestion();
+
             if(respuesta == correcta){
                 alert("Pregunta acertada");
             }else{
                 alert("Pregunta fallada");
             }
-    
-            nextQuestion(token).then((respuesta) => {
-                setPregunta(respuesta.title);
-                setRespuestas(respuesta.awnsers);
-            });
         })
     };
 
+    const loadNextQuestion = () => {
+        setPregunta("Cargando pregunta...")
+        setRespuestas(["...","...","...","..."])
+        setLoading(true);
+        setTime(undefined)
+
+        nextQuestion(token).then((respuesta) => {
+            setPregunta(respuesta.title);
+            setRespuestas(respuesta.awnsers);
+            setLoading(false);
+            getEndTime(token).then((time) => {
+                setTime(time);
+            })
+        });
+    }
+
     //Call start only once
-    useEffect(startGame, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
+    useEffect(() => {
+        let interval = setInterval(() => {
+            setTime((time) => {
+                if(time != undefined){
+                    let total = time.end - time.start;
+                    let trans = (new Date().getTime()) - time.start;
+
+                    let percentage =  (trans/total) * 100;
+                    let invertedPercentage = 100 - Number(percentage);
+                    
+                    setRemTime((invertedPercentage/100)*110);
+
+                    if(percentage > 100){
+                        time = undefined;
+                        alert("tiempo agotado!");
+                        comprobarPregunta("");
+                    }
+                }
+                return time;
+            })
+        }, 20);
+
+        startGame();
+
+        return () => clearInterval(interval);
+    }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
   return (
     <Container
@@ -88,6 +126,13 @@ export const Game = () => {
                         ))
                     }
                 </Grid>
+            </Box>
+
+            <Box sx={{ 
+                width: '100%',
+                padding: 3
+            }}>
+                <LinearProgress variant={loading? "indeterminate" : "determinate"} value={remTime} />
             </Box>
         </Container>
     </Container>
