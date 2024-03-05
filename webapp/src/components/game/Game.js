@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
+import Swal from 'sweetalert2'
+
 import './Game.css';
 import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
 
@@ -24,9 +26,15 @@ export const Game = () => {
             loadNextQuestion();
 
             if(respuesta === correcta){
-                alert("Pregunta acertada");
-            }else{
-                alert("Pregunta fallada");
+                Swal.fire({
+                    title: "Respuesta correcta",
+                    icon: "success"
+                });
+            } else if (remTime > 0){
+                Swal.fire({
+                    title: "Respuesta incorrecta",
+                    icon: "error"
+                });
             }
         })
     };
@@ -62,7 +70,10 @@ export const Game = () => {
 
                     if(percentage > 100){
                         time = undefined;
-                        alert("tiempo agotado!");
+                        Swal.fire({
+                            title: "tiempo agotado!",
+                            icon: "error"
+                        });
                         comprobarPregunta("");
                     }
                 }
