@@ -26,15 +26,9 @@ export const Game = () => {
             loadNextQuestion();
 
             if(respuesta === correcta){
-                Swal.fire({
-                    title: "Respuesta correcta",
-                    icon: "success"
-                });
+                alert("Pregunta acertada");
             } else if (remTime > 0){
-                Swal.fire({
-                    title: "Respuesta incorrecta",
-                    icon: "error"
-                });
+                alert("Pregunta fallada");
             }
         })
     };
