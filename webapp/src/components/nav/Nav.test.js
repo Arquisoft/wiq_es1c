@@ -33,8 +33,6 @@ describe("Home component", () => {
     });
 
     test("opens menu properly",async () => {
-        const history = createMemoryHistory();
-
         render(<MemoryRouter><Nav/></MemoryRouter>);
     
         screen.getByTestId('open-account-menu').click();

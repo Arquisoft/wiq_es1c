@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress, TableHead, TableRow, Table, TableContainer, TableBody, TableCell,} from "@mui/material";
+import {Container, Paper, TableHead, TableRow, Table, TableContainer, TableBody, TableCell,} from "@mui/material";
 import { getHistory } from "../../services/user.service"
 
 export const History = () => {
