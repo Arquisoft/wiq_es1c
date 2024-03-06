@@ -74,6 +74,7 @@ export const Nav = () => {
             aria-haspopup="true"
             onClick={handleMenuAccountOpen}
             color="inherit"
+            data-testid="open-account-menu"
           >
             <AccountCircle />
           </IconButton>
