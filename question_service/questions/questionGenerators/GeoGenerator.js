@@ -25,6 +25,18 @@ const templates = [
             ]
         }
     },
+    async () => {
+        const country = await WikiUtils.getRandomFlagAndCountry()
+        return {
+            "title": `Cual es el pais de esta bandera ${country.flag}`,
+            "awnser": country.capital,
+            "fake" : [
+               await WikiUtils.getRandomCountryWithExclude(country.name),
+               await WikiUtils.getRandomCountryWithExclude(country.name),
+               await WikiUtils.getRandomCountryWithExclude(country.name)
+            ]
+        }
+    },
 ]
 
 module.exports = () => templates[Math.floor(Math.random()*templates.length)]()
