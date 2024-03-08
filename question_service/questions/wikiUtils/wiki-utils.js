@@ -72,13 +72,13 @@ class WikiUtils {
         `;
         const results = rand(await wikidata(query));
         return {
-            name: results['countryLabel'],
-            flag: results['flagLabel'],
+            name: results['paisLabel'],
+            flag: results['banderaLabel'],
         };
     }
     static async getRandomArtWorkAndAuthor() {
         const query = `
-            SELECT ?obra ?obraLabel ?autor ?autorLabel ?imagen ?ubicacion ?ubicacionLabel WHERE {
+            SELECT ?obra ?obraLabel ?autor ?autorLabel ?imagen ?imagenLabel ?ubicacion ?ubicacionLabel WHERE {
                 ?obra wdt:P31 wd:Q3305213;       # Obras de arte
                     wdt:P170 ?autor;           # Propiedad de autor
                     wdt:P495 wd:Q29;           # Obras de arte europeas
@@ -92,6 +92,7 @@ class WikiUtils {
             author: results['autorLabel'],
             artWork: results['obraLabel'],
             ubication: results['ubicacionLabel'],
+            image: results['imagenLabel']
         };
     }
     static async getRandomSpanishAuthor() {

@@ -3,12 +3,12 @@ const templates = [
     async () => {
         const artWork = await WikiUtils.getRandomArtWorkAndAuthor()
         return {
-            "title": `Quien es el autor de ${artWork.obraLabel} que está en ${artWork.ubicacionLabel}`,
-            "awnser": artWork.authorLabel,
+            "title": `Quien es el autor de ${artWork.image} ${artWork.artWork} que está en ${artWork.ubication}`,
+            "awnser": artWork.author,
             "fake" : [
-               await WikiUtils.getRandomSpanishAuthorWithExclude(artWork.authorLabel),
-               await WikiUtils.getRandomSpanishAuthorWithExclude(artWork.authorLabel),
-               await WikiUtils.getRandomSpanishAuthorWithExclude(artWork.authorLabel)
+               await WikiUtils.getRandomSpanishAuthorWithExclude(artWork.author),
+               await WikiUtils.getRandomSpanishAuthorWithExclude(artWork.author),
+               await WikiUtils.getRandomSpanishAuthorWithExclude(artWork.author)
             ]
         }
     },

@@ -28,8 +28,10 @@ const templates = [
     async () => {
         const country = await WikiUtils.getRandomFlagAndCountry()
         return {
+            //mandar contry.flag en atributo aparte 
+            //Mirar desde el frontend que hay un atributo de imagen y añadir 
             "title": `Cual es el pais de esta bandera ${country.flag}`,
-            "awnser": country.capital,
+            "awnser": country.name,
             "fake" : [
                await WikiUtils.getRandomCountryWithExclude(country.name),
                await WikiUtils.getRandomCountryWithExclude(country.name),
