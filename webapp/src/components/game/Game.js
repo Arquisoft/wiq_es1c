@@ -25,8 +25,10 @@ export const Game = () => {
 
             if(respuesta == correcta){
                 alert("Pregunta acertada");
+                this.style.backgroundColor = 'green';
             }else{
                 alert("Pregunta fallada");
+                this.style.backgroundColor = 'red';
             }
         })
     };
