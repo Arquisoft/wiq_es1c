@@ -30,9 +30,11 @@ const next = async (req,res) => {
   
     let questionRaw = await requestQuestion();
     let game = games[0];
+    
   
     Question.create({
       title: questionRaw.title,
+      imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
       answer: questionRaw.awnser,
       fake: questionRaw.fake,
       GameId: game.id
@@ -40,6 +42,7 @@ const next = async (req,res) => {
   
     res.status(200).json({
       title: questionRaw.title,
+      imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
       awnsers: [
         String(questionRaw.awnser),
         String(questionRaw.fake[0]),
@@ -72,6 +75,7 @@ const update = async (req, res) => {
 
     res.status(200).json({
       title: question.title,
+      imageUrl: question.imageUrl ? question.imageUrl : "",
       awnsers: [
         String(question.answer),
         String(question.fake[0]),

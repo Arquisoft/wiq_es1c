@@ -29,9 +29,9 @@ const getCurrentQuestion = async (user) => {
   
 const requestQuestion = async() => {
     let res = (await axios.post("http://question:8002/api/questions/generate")).data;
-  
     return {
       "title": res.title,
+      "imageUrl": res.hasOwnProperty('imageUrl') ? res.imageUrl : "",
       "awnser": res.awnser,
       "fake" : res.fake
     }
