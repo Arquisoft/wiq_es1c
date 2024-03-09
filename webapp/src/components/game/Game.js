@@ -25,10 +25,14 @@ export const Game = () => {
 
             if(respuesta == correcta){
                 alert("Pregunta acertada");
-                this.style.backgroundColor = 'green';
+                const botonCorrecto = document.getElementById(correcta);
+                botonCorrecto.style.backgroundColor = 'green';
             }else{
                 alert("Pregunta fallada");
-                this.style.backgroundColor = 'red';
+                const botonCorrecto = document.getElementById(correcta);
+                const botonIncorrecto = document.getElementById(respuesta);
+                botonCorrecto.style.backgroundColor = 'green';
+                botonIncorrecto.style.backgroundColor = 'red';
             }
         })
     };
@@ -120,6 +124,7 @@ export const Game = () => {
                                         fullWidth
                                         variant="contained"
                                         onClick={comprobarPregunta.bind(this, respuesta)}
+                                        id={respuesta}
                                     >
                                         {respuesta}
                                     </Button>
