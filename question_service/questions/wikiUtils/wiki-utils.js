@@ -25,7 +25,7 @@ class WikiUtils {
     static async getRandomCountryWithExclude(excludeCountry) {
         let randomCountry = await this.getRandomCountry();
     
-        while (randomCountry === excludeCountry || /^Q[0-9]*/.test(randomCountry)) {
+        while (randomCountry.name === excludeCountry.name || /^Q[0-9]*/.test(randomCountry.name)) {
             randomCountry = await this.getRandomCountry();
         }
         return randomCountry;
@@ -47,12 +47,9 @@ class WikiUtils {
         }
         return randomCity;
     }
-
-
     static getRandomPopulation() {
         return (Math.floor(Math.random()*100) + 40)*1000000
     }
-
     static getRandomPopulationExclude(exclude) {
         let pop = this.getRandomPopulation()
 
@@ -64,16 +61,16 @@ class WikiUtils {
     }
     static async getRandomFlagAndCountry() {
         const query = `
-            SELECT ?bandera ?banderaLabel ?pais ?paisLabel WHERE {
-                ?pais wdt:P31 wd:Q6256; # Países
-                    wdt:P41 ?bandera. # Propiedad para la bandera
+            SELECT ?flag ?flagLabel ?country ?countryLabel WHERE {
+                ?country wdt:P31 wd:Q6256; # Countries
+                    wdt:P41 ?flag. # Property for flag
                 SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
             }
         `;
         const results = rand(await wikidata(query));
         return {
-            name: results['paisLabel'],
-            flag: results['banderaLabel'],
+            name: results['countryLabel'],
+            flag: results['flagLabel'],
         };
     }
     static async getRandomArtWorkAndAuthor() {
@@ -97,7 +94,7 @@ class WikiUtils {
     }
     static async getRandomSpanishAuthor() {
         const query = `
-            SELECT DISTINCT ?autor ?autorLabel WHERE {
+            SELECT DISTINCT ?autorLabel WHERE {
                 ?obra wdt:P31 wd:Q3305213;       # Obras de arte
                     wdt:P170 ?autor;           # Propiedad de autor
                     wdt:P495 wd:Q29.           # Obras de arte europeas
