@@ -6,7 +6,8 @@ const cors = require('cors');
 // My own libs
 const geoGen = require('./questions/questionGenerators/GeoGenerator');
 const sciGen = require('./questions/questionGenerators/ScienceGenerator');
-const generatorsArray = [geoGen, sciGen];
+const filmGen = require('./questions/questionGenerators/FilmGenerator');
+const generatorsArray = [geoGen, sciGen,filmGen];
 const randomGenerator = generatorsArray[Math.floor(Math.random() * generatorsArray.length)];
 //const authMiddleware = require('./auth/authMiddleware');
 
