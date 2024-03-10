@@ -75,6 +75,16 @@ services:
     networks:
       - mynetwork
 
+  mongodb:
+    container_name: mongodb-${teamname:-defaultASW}
+    image: mongo
+    restart: always
+    profiles: [ "dev", "prod" ]
+    ports:
+      - 27017:27017
+    networks:
+      - mynetwork
+
   webapp:
     container_name: webapp-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/webapp:latest
