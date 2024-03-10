@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
-import './Game.css';
 import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
+import { Nav } from '../nav/Nav';
 
 export const Game = () => {
     const token = localStorage.getItem("token");
@@ -79,10 +79,12 @@ export const Game = () => {
     }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
   return (
+    <>
+    <Nav/>
     <Container
         component="main"
         maxWidth="sm"
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "85vh" }}
         className="min-h-screen flex justify-center align-middle"
     >
         <Container
@@ -99,10 +101,29 @@ export const Game = () => {
                     alignItems: "center",
                 }}
             >
-                <Typography component="h1" variant="h5">
+                <Typography component="h1" variant="h5" 
+                    sx={{
+                        paddingBottom: 3,
+                    }}
+                >
                     {pregunta}
                 </Typography>
-                <img src={questionImage} />
+                {
+                    questionImage!=""
+                    ?
+                    <Paper elevation={20} >
+                        <Box
+                            component="img"
+                            sx={{
+                                height: '30vh',
+                                width: 'auto',
+                            }}
+                            src={questionImage}
+                        />
+                    </Paper>
+                    : 
+                    <></>
+                }
             </Box>
 
             <Box
@@ -140,6 +161,7 @@ export const Game = () => {
             </Box>
         </Container>
     </Container>
+    </>
   )
 }
 
