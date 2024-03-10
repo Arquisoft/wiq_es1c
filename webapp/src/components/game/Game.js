@@ -22,20 +22,21 @@ export const Game = () => {
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
-            loadNextQuestion();
 
-            if(respuesta === correcta){
-                alert("Pregunta acertada");
+            if(respuesta == correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.style.backgroundColor = 'green';
             }else{
-                alert("Pregunta fallada");
                 const botonCorrecto = document.getElementById(correcta);
                 const botonIncorrecto = document.getElementById(respuesta);
                 botonCorrecto.style.backgroundColor = 'green';
-                botonIncorrecto.style.backgroundColor = 'red';
+
+                if(botonIncorrecto != null)
+                    botonIncorrecto.style.backgroundColor = 'red';
             }
-        })
+
+            setTimeout(loadNextQuestion, 1000);
+        })  
     };
 
     const loadNextQuestion = () => {
@@ -44,6 +45,9 @@ export const Game = () => {
         setRespuestas(["...","...","...","..."])
         setLoading(true);
         setTime(undefined)
+        document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
+            btn.style.backgroundColor = 'rgb(25, 118, 210)';
+        })
 
         nextQuestion(token).then((respuesta) => {
             setPregunta(respuesta.title);
@@ -71,7 +75,6 @@ export const Game = () => {
 
                     if(percentage > 100){
                         time = undefined;
-                        alert("tiempo agotado!");
                         comprobarPregunta("");
                     }
                 }
@@ -150,6 +153,7 @@ export const Game = () => {
                                         variant="contained"
                                         onClick={comprobarPregunta.bind(this, respuesta)}
                                         id={respuesta}
+                                        data-buton="btn"
                                     >
                                         {respuesta}
                                     </Button>
