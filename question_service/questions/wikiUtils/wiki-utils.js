@@ -39,10 +39,11 @@ class WikiUtils {
           SELECT ?cityLabel WHERE {
             ?city wdt:P31 wd:Q515.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-          } ORDER BY ?cityLabel
+          }
         `;
         return rand(await wikidata(query))['cityLabel'];
     }
+
     static async getRandomCityWithExclude(excludeCity) {
         let randomCity = await this.getRandomCity();
 
@@ -51,9 +52,11 @@ class WikiUtils {
         }
         return randomCity;
     }
+
     static getRandomPopulation() {
-        return (Math.floor(Math.random() * 100) + 40) * 1000000
+        return Math.floor(Math.random() * 100000000) 
     }
+
     static getRandomPopulationExclude(exclude) {
         let pop = this.getRandomPopulation()
 
@@ -63,6 +66,7 @@ class WikiUtils {
 
         return pop
     }
+
     static async getRandomFlagAndCountry() {
         const query = `
             SELECT ?flag ?flagLabel ?country ?countryLabel WHERE {
@@ -77,6 +81,7 @@ class WikiUtils {
             flag: results['flagLabel'],
         };
     }
+
     static async getRandomArtWorkAndAuthor() {
         const query = `
             SELECT ?obra ?obraLabel ?autor ?autorLabel ?imagen ?imagenLabel ?ubicacion ?ubicacionLabel WHERE {
@@ -96,6 +101,7 @@ class WikiUtils {
             image: results['imagenLabel']
         };
     }
+
     static async getRandomSpanishAuthor() {
         const query = `
             SELECT DISTINCT ?autorLabel WHERE {
@@ -111,6 +117,7 @@ class WikiUtils {
             author: results['autorLabel']
         };
     }
+
     static async getRandomSpanishAuthorWithExclude(excludeAuthor) {
         let randomSpanishAuthor = await this.getRandomSpanishAuthor();
 
@@ -119,8 +126,6 @@ class WikiUtils {
         }
         return randomSpanishAuthor;
     }
-
-
 
     static async getRandomLanguage() {
         const query = `
@@ -150,7 +155,7 @@ class WikiUtils {
             ?element wdt:P246 ?symbol.
             ?element wdt:P2101 ?melting.
             ?element wdt:P2102 ?boiling.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
           }`;
 
         const results = rand(await wikidata(query));
@@ -168,7 +173,7 @@ class WikiUtils {
         const query = `SELECT ?symbol WHERE {
             ?element wdt:P31 wd:Q11344.
             ?element wdt:P246 ?symbol.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
           }`;
 
         return rand(await wikidata(query))['symbol'];
@@ -281,12 +286,6 @@ class WikiUtils {
 
         return randomPlot;
     }
-
-
-
-
-
-
 }
 
 module.exports = WikiUtils
