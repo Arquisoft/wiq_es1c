@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {Game} from './Game';
+import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('../../services/game.service', () => ({
   startNewGame: () => Promise.resolve(""),
@@ -20,7 +21,7 @@ jest.spyOn(window, 'alert').mockImplementation(() => {});
 describe('Game Component', () => {
 
   test("renders component",async () => {
-    render(<Game/>);
+    render(<MemoryRouter><Game/></MemoryRouter>);
     
     await act(async () => {});
 
@@ -29,7 +30,7 @@ describe('Game Component', () => {
   });
   
   it('shows alert on button click', async () => {
-    render(<Game />);
+    render(<MemoryRouter><Game/></MemoryRouter>);
 
     // Espera a que la pregunta se cargue y se renderice
     await act(async () => {});

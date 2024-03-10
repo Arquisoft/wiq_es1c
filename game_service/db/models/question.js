@@ -12,6 +12,10 @@ const Question = database.define('Question', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    imageUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     answer: {
         type: DataTypes.STRING,
         allowNull: false,

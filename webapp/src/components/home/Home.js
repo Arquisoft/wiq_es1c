@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {Avatar, Box, Container, CssBaseline,Typography, Button } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
 import QuizIcon from '@mui/icons-material/Quiz';
+import { Nav } from '../nav/Nav';
 
 export const Home = () => 
 {
@@ -29,11 +30,12 @@ export const Home = () =>
     
     return (
         <>
+        <Nav/>
         {(
             <Container
                 component="main"
                 maxWidth="sm"
-                sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
+                sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "80vh" }}
                 className="min-h-screen flex justify-center align-middle"
             >
                 <Container
