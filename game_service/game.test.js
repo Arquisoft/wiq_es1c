@@ -101,7 +101,6 @@ describe('Game Service', () => {
         const response = await request(app)
             .post('/api/game/awnser')
             .send({ token: validToken, awnser: "Santiago" });
-            console.log(response)
 
         expect(response.statusCode).toBe(200);
         expect(response.text).toBe("Santiago");

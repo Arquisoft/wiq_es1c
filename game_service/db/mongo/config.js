@@ -1,12 +1,20 @@
 const mongoose = require("mongoose");
-
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const connect = async() =>
 {
     try 
     {
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://mongodb:27017/wiq');
-        //await mongoose.connect('mongodb://localhost:27017/wiq');
+        if (process.env.DB_URL) {
+            await mongoose.connect('mongodb://mongodb:27017/wiq')
+            console.log("MongoDB Server Selected")
+        } else {
+            const mongoServer = await MongoMemoryServer.create();
+            const mongoUri = mongoServer.getUri();
+            await mongoose.connect(mongoUri)
+            
+            console.log("MongoDB RAM MEMORY SERVER Selected")
+        }
 
         console.log('MongoDB connected');
     } 
