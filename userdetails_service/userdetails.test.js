@@ -45,4 +45,29 @@ describe('userDetails Service', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.name).toBe("Jazz");
     })
+
+    it("History Should return 400 with an invalid user", async () => {
+        const response = await request(app)
+            .post('/api/userdetails/history')
+            .send({ token: invalidToken });
+
+        expect(response.statusCode).toBe(400);
+    })
+
+    it("History return 403 with an invalid token", async () => {
+        const response = await request(app)
+            .post('/api/userdetails/history')
+            .send({ token: "NotValid!" });
+
+        expect(response.statusCode).toBe(401);
+    })
+
+    it("History return History with an valid token", async () => {
+        const response = await request(app)
+            .post('/api/userdetails/history')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
+        expect(String(response.body)).toBe("");
+    })
 });

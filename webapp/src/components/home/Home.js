@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {Avatar, Box, Container, CssBaseline,Typography, Button } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
 import banner from '../../media/wiq_banner.png';
+import { Nav } from '../nav/Nav';
 
 export const Home = () => 
 {
@@ -29,20 +30,20 @@ export const Home = () =>
     
     return (
         <>
+        <Nav/>
         {(
             <Container
                 component="main"
                 maxWidth="md"
                 sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "100vh", color:'white', fontFamily:"monospace"}}
                 className="min-h-screen flex  justify-center place-content-between"
-            > 
+            >
                 <Container
                     className="bg-zinc-800 rounded-lg flex"
                     component="main"
                     maxWidth="sm"
-
                 >
-                    <CssBaseline/>
+                    <CssBaseline />
                     <Box
                         sx={{
                             padding: 3,
@@ -99,7 +100,6 @@ export const Home = () =>
 
                     </Box>
                 </Container>
-
             </Container>
         )}
         </>
