@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {History} from './History';
+import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('../../services/user.service', () => ({
     getHistory: () => Promise.resolve(
@@ -37,7 +38,7 @@ jest.mock('../../services/user.service', () => ({
 describe('Game Component', () => {
 
   test("renders component",async () => {
-    render(<History/>);
+    render(<MemoryRouter><History/></MemoryRouter>);
     
     await act(async () => {});
 

@@ -23,7 +23,6 @@ const router = createBrowserRouter([
     {
         path: "/history",
         element: <PrivateRoute>
-                    <Nav/>
                     <History />
                 </PrivateRoute> 
     },

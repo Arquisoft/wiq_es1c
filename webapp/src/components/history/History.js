@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Container, Paper, TableHead, TableRow, Table, TableContainer, TableBody, TableCell,} from "@mui/material";
 import { getHistory } from "../../services/user.service"
+import { Nav } from '../nav/Nav';
 
 export const History = () => {
 
@@ -18,6 +19,8 @@ export const History = () => {
     }, [])
 
     return (
+        <>
+        <Nav/>
         <Container
             component="main"
             maxWidth="sm"
@@ -61,5 +64,6 @@ export const History = () => {
                         </Table>
                     </TableContainer>
         </Container>
+        </>
     )
 }
