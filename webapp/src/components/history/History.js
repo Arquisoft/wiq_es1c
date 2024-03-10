@@ -24,7 +24,7 @@ export const History = () => {
         <Container
             component="main"
             maxWidth="sm"
-            sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
+            sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "85vh" }}
             className="min-h-screen flex justify-center align-middle"
             >
                     <TableContainer component={Paper}>

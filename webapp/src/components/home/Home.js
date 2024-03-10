@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
-import {Avatar, Box, Container, CssBaseline,Typography, Button } from "@mui/material";
+import {Box, Container, CssBaseline,Typography, Button } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
 import banner from '../../media/wiq_banner.png';
 import { Nav } from '../nav/Nav';
@@ -35,7 +35,7 @@ export const Home = () =>
             <Container
                 component="main"
                 maxWidth="md"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "100vh", color:'white', fontFamily:"monospace"}}
+                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace"}}
                 className="min-h-screen flex  justify-center place-content-between"
             >
                 <Container

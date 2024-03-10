@@ -46,7 +46,7 @@ export const Game = () => {
         setLoading(true);
         setTime(undefined)
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
-            btn.style.backgroundColor = 'rgb(25, 118, 210)';
+            btn.style.backgroundColor = 'purple';
         })
 
         nextQuestion(token).then((respuesta) => {
@@ -97,7 +97,7 @@ export const Game = () => {
         className="min-h-screen flex justify-center align-middle"
     >
         <Container
-            className="bg-white rounded-lg"
+            className="bg-zinc-800 rounded-lg flex"
             component="main"
             maxWidth="sm"
         >
@@ -110,7 +110,7 @@ export const Game = () => {
                     alignItems: "center",
                 }}
             >
-                <Typography component="h1" variant="h5" 
+                <Typography fontFamily="monospace" color="white" component="h1" variant="h5" 
                     sx={{
                         paddingBottom: 3,
                     }}
@@ -153,7 +153,9 @@ export const Game = () => {
                                         variant="contained"
                                         onClick={comprobarPregunta.bind(this, respuesta)}
                                         id={respuesta}
+                                        backgroundColor="purple"
                                         data-buton="btn"
+                                        fontFamily="monospace"
                                     >
                                         {respuesta}
                                     </Button>
@@ -168,7 +170,7 @@ export const Game = () => {
                 width: '100%',
                 padding: 3
             }}>
-                <LinearProgress variant={loading? "indeterminate" : "determinate"} value={remTime} />
+                <LinearProgress color="secondary" variant={loading? "indeterminate" : "determinate"} value={remTime} />
             </Box>
         </Container>
     </Container>
