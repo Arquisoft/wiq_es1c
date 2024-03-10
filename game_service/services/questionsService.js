@@ -19,7 +19,8 @@ const saveQuestion = async() =>
     const question = new Question({
         title: res.title,
         answer: res.awnser,
-        fakes: [res.fake[0], res.fake[1], res.fake[2]]
+        fakes: [res.fake[0], res.fake[1], res.fake[2]],
+        imageUrl: res.imageUrl
     });
 
     question.save();
