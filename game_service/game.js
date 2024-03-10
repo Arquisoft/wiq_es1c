@@ -1,9 +1,11 @@
 // External libs
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
+const mongodb = require('./db/mongo/config');
 
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
@@ -23,6 +25,9 @@ app.post('/api/game/new', newGame);
 app.post('/api/game/next', next);
 app.post('/api/game/awnser', awnser);
 app.post('/api/game/update', update);
+
+// Connect with mongodb
+mongodb();
 
 // Start the server
 const server = app.listen(port, () => {

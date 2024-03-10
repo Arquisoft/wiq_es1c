@@ -75,6 +75,16 @@ services:
     networks:
       - mynetwork
 
+  mongodb:
+    container_name: mongodb-${teamname:-defaultASW}
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+
   webapp:
     container_name: webapp-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/webapp:latest
