@@ -27,20 +27,5 @@ async function query(SPARQL) {
     return resultados
 }
 
-const surroundWithCache = (func) => {
-    let cache = {}
 
-    return (param) => {
-        if(param in cache) {
-            return cache[param]
-        }
-
-        let res = func(param)
-
-        cache[param] = res
-
-        return res
-    }
-}
-
-module.exports = surroundWithCache(query);
+module.exports = query;
