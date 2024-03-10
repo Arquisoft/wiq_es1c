@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import {Avatar, Box, Container, CssBaseline,Typography, Button } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
-import QuizIcon from '@mui/icons-material/Quiz';
+import banner from '../../media/wiq_banner.png';
 import { Nav } from '../nav/Nav';
 
 export const Home = () => 
@@ -34,12 +34,12 @@ export const Home = () =>
         {(
             <Container
                 component="main"
-                maxWidth="sm"
-                sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "80vh" }}
-                className="min-h-screen flex justify-center align-middle"
+                maxWidth="md"
+                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "100vh", color:'white', fontFamily:"monospace"}}
+                className="min-h-screen flex  justify-center place-content-between"
             >
                 <Container
-                    className="bg-white rounded-lg"
+                    className="bg-zinc-800 rounded-lg flex"
                     component="main"
                     maxWidth="sm"
                 >
@@ -49,18 +49,53 @@ export const Home = () =>
                             padding: 3,
                             display: "flex",
                             flexDirection: "column",
-                            alignItems: "center",
+                            alignItems: "left",
+
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <QuizIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">¡Bienvenido a WIQ!</Typography>
-                        <Typography component="h2" variant="h6">
-                            Estás conectado como: {username}
-                        </Typography>
-                        <Link to={ '/game' }>
-                            <Button variant="contained">Jugar</Button>
+                        <img src={banner} alt="WiQ"/>
+                        <div className="flex p-4 place-content-between">
+                            <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
+                                Home
+                            </Typography>
+
+                            <Typography component="h3" variant="h5" fontFamily="monospace" alignSelf="center">
+                                ¡Bienvenido, {username}!
+                            </Typography>
+
+                        </div>
+
+                        <div className="p-2 m-1">
+                            <Typography component="h3" variant="h6" fontFamily="monospace" fontWeight="bold" alignSelf="center">
+                                Cómo jugar
+                            </Typography>
+                            <Typography component="p" variant="p">
+                                Cuando pulses en el botón de jugar, se te irán mostrando preguntas junto con 4 posibles
+                                respuestas, sólo una de ellas es verdadera, haz click sobre la respuesta correcta para
+                                ganar puntos.
+                            </Typography>
+                            <Typography component="p" variant="p">
+                                El tiempo para contestar es limitado. La barra en la parte inferior muestra el tiempo
+                                restante. Si el tiempo se termina, la pregunta contará como fallada y se pasará a la
+                                siguiente.
+                            </Typography>
+                            <Typography component="p" variant="h6" fontFamily="monospace" fontWeight="bold" className="text-center p-3">
+                                ¡Mucha suerte y demuestra lo que sabes!
+                            </Typography>
+                        </div>
+
+                        <Link to={'/game'} className="self-center" >
+                            <Button variant="contained" size="large"
+                                    sx={{
+                                        backgroundColor: "purple",
+                                        width:"32rem",
+                                        height:"3rem",
+                                        fontSize:"2rem",
+                                        fontWeight:"bold",
+                                        fontFamily:"monospace"
+                                    }}>
+                                Jugar
+                            </Button>
                         </Link>
 
                     </Box>

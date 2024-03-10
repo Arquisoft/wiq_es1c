@@ -16,6 +16,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NightlightIcon from '@mui/icons-material/Nightlight';
 
+
 export const Nav = () => {
   const navigate = useNavigate();
 
@@ -52,9 +53,9 @@ export const Nav = () => {
   }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className="bg-zinc-800">
           <Link to='/home' >
             <IconButton
                 size="large"
