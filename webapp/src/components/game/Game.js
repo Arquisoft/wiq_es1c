@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
 import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
@@ -13,17 +13,17 @@ export const Game = () => {
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
 
-    const startGame = () => {
+    const startGame = useCallback(() => {
         startNewGame(token).then(() =>
             loadNextQuestion()
         );
-    };
+    });
 
-    const comprobarPregunta = (respuesta) => {
+    const comprobarPregunta = useCallback((respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
 
-            if(respuesta == correcta){
+            if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.style.backgroundColor = 'green';
             }else{
@@ -31,13 +31,13 @@ export const Game = () => {
                 const botonIncorrecto = document.getElementById(respuesta);
                 botonCorrecto.style.backgroundColor = 'green';
 
-                if(botonIncorrecto != null)
+                if(botonIncorrecto !== null)
                     botonIncorrecto.style.backgroundColor = 'red';
             }
 
             setTimeout(loadNextQuestion, 1000);
         })  
-    };
+    });
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
@@ -85,7 +85,7 @@ export const Game = () => {
         startGame();
 
         return () => clearInterval(interval);
-    }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
+    }, [comprobarPregunta, startGame]) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
   return (
     <>
@@ -118,7 +118,7 @@ export const Game = () => {
                     {pregunta}
                 </Typography>
                 {
-                    questionImage!=""
+                    questionImage!==""
                     ?
                     <Paper elevation={20} >
                         <Box

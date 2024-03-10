@@ -9,7 +9,7 @@ export const History = () => {
     
     const countAwnsers = (Questions) => {
         return Questions.reduce(
-            (val, question) => val + ((question.onTime&&question.answer==question.user_answer)?1:0),
+            (val, question) => val + ((question.onTime&&question.answer===question.user_answer)?1:0),
             0
         )
     }
