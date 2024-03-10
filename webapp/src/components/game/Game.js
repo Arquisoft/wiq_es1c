@@ -7,6 +7,7 @@ export const Game = () => {
     const token = localStorage.getItem("token");
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
+    const [questionImage, setQuestionImage] = useState("");
     const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
     const [loading, setLoading] = useState(true);
     const [time , setTime] = useState(undefined);
@@ -33,12 +34,14 @@ export const Game = () => {
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
+        setQuestionImage("");
         setRespuestas(["...","...","...","..."])
         setLoading(true);
         setTime(undefined)
 
         nextQuestion(token).then((respuesta) => {
             setPregunta(respuesta.title);
+            setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
             setLoading(false);
             getEndTime(token).then((time) => {
@@ -99,6 +102,7 @@ export const Game = () => {
                 <Typography component="h1" variant="h5">
                     {pregunta}
                 </Typography>
+                <img src={questionImage} />
             </Box>
 
             <Box

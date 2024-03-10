@@ -23,10 +23,15 @@ class WikiUtils {
             population: results['population'],
             language: results['language'],
         };
+    }
+    static async getRandomCountryWithExclude(excludeCountry) {
+        let randomCountry = await this.getRandomCountry();
     
-
-    }    
-
+        while (randomCountry.name === excludeCountry.name || /^Q[0-9]*/.test(randomCountry.name)) {
+            randomCountry = await this.getRandomCountry();
+        }
+        return randomCountry;
+    }
     static async getRandomCity() {
         const query = `
           SELECT ?cityLabel WHERE {
@@ -34,24 +39,19 @@ class WikiUtils {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
           } ORDER BY ?cityLabel
         `;
-      
         return rand(await wikidata(query))['cityLabel'];
     }
-
     static async getRandomCityWithExclude(excludeCity) {
         let randomCity = await this.getRandomCity();
     
         while (randomCity === excludeCity || /^Q[0-9]*/.test(randomCity)) {
             randomCity = await this.getRandomCity();
         }
-    
         return randomCity;
     }
-
     static getRandomPopulation() {
         return (Math.floor(Math.random()*100) + 40)*1000000
     }
-
     static getRandomPopulationExclude(exclude) {
         let pop = this.getRandomPopulation()
 
@@ -61,6 +61,64 @@ class WikiUtils {
 
         return pop
     }
+    static async getRandomFlagAndCountry() {
+        const query = `
+            SELECT ?flag ?flagLabel ?country ?countryLabel WHERE {
+                ?country wdt:P31 wd:Q6256; # Countries
+                    wdt:P41 ?flag. # Property for flag
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+            }
+        `;
+        const results = rand(await wikidata(query));
+        return {
+            name: results['countryLabel'],
+            flag: results['flagLabel'],
+        };
+    }
+    static async getRandomArtWorkAndAuthor() {
+        const query = `
+            SELECT ?obra ?obraLabel ?autor ?autorLabel ?imagen ?imagenLabel ?ubicacion ?ubicacionLabel WHERE {
+                ?obra wdt:P31 wd:Q3305213;       # Obras de arte
+                    wdt:P170 ?autor;           # Propiedad de autor
+                    wdt:P495 wd:Q29;           # Obras de arte europeas
+                    wdt:P18 ?imagen;           # Propiedad de imagen
+                    wdt:P195 ?ubicacion.       # Propiedad de ubicación (donde está expuesta)
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+            }
+         `;
+        const results = rand(await wikidata(query));
+        return {
+            author: results['autorLabel'],
+            artWork: results['obraLabel'],
+            ubication: results['ubicacionLabel'],
+            image: results['imagenLabel']
+        };
+    }
+    static async getRandomSpanishAuthor() {
+        const query = `
+            SELECT DISTINCT ?autorLabel WHERE {
+                ?obra wdt:P31 wd:Q3305213;       # Obras de arte
+                    wdt:P170 ?autor;           # Propiedad de autor
+                    wdt:P495 wd:Q29.           # Obras de arte europeas
+                ?autor wdt:P27 wd:Q29.           # Nacionalidad española
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+            }
+         `;
+        const results = rand(await wikidata(query));
+        return {
+            author: results['autorLabel']
+        };
+    }
+    static async getRandomSpanishAuthorWithExclude(excludeAuthor) {
+        let randomSpanishAuthor = await this.getRandomSpanishAuthor();
+    
+        while (randomSpanishAuthor === excludeAuthor || /^Q[0-9]*/.test(randomSpanishAuthor)) {
+            randomSpanishAuthor = await this.getRandomSpanishAuthor();
+        }
+        return randomSpanishAuthor;
+    }
+
+    
 
     static async getRandomLanguage(){
         const query = `

@@ -26,6 +26,20 @@ const templates = [
         }
     },
     async () => {
+        const country = await WikiUtils.getRandomFlagAndCountry()
+        return {
+            "title": `Cual es el pais de esta bandera `,
+            "imageUrl": country.flag,
+            "awnser": country.name,
+            "fake" : [
+               (await WikiUtils.getRandomCountryWithExclude(country.name)).name,
+               (await WikiUtils.getRandomCountryWithExclude(country.name)).name,
+               (await WikiUtils.getRandomCountryWithExclude(country.name)).name
+            ]
+
+        }
+    },
+    async () => {
         const country = await WikiUtils.getRandomCountry()
         return {
             "title": `Qué idioma se habla en ${country.name}?`,
