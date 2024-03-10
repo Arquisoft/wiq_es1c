@@ -1,7 +1,0 @@
-div[data-state='unselected'] {
-    border: 2px solid blue
-}
-
-div[data-state='selected'] {
-    border: 2px solid orange
-}

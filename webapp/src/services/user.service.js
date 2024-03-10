@@ -56,7 +56,22 @@ const getCurrentUser = async () =>
 
 }
 
+const getHistory = async () =>
+{
+    try {
+
+        const response = await axios.post(`${apiEndpoint}:8004/api/userdetails/history`, { token: localStorage.getItem("token") });
+        if ( response.status === 200 )
+            return response.data;
+        else 
+            return "Cant load history";
+    } catch(error) {
+        return "Cant load history";
+    }
+
+}
+
 const isLoggedIn = async (username, password) => token !== undefined;
 const getToken = async () => token;
 
-export {login, register, isLoggedIn, getToken, getCurrentUser};
+export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory};

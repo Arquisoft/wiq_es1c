@@ -28,19 +28,24 @@ async function query(SPARQL) {
 }
 
 const surroundWithCache = (func) => {
-    let cache = {}
+    let cache = {};
 
     return (param) => {
-        if(param in cache) {
-            return cache[param]
+        const now = new Date().getTime();
+
+        if (param in cache && now - cache[param].timestamp < 30 * 60 * 1000) {
+            return cache[param].data;
         }
 
-        let res = func(param)
+        let res = func(param);
 
-        cache[param] = res
+        cache[param] = {
+            data: res,
+            timestamp: now,
+        };
 
-        return res
-    }
-}
+        return res;
+    };
+};
 
 module.exports = surroundWithCache(query);
