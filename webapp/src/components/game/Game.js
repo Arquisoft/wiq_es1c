@@ -13,17 +13,10 @@ export const Game = () => {
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
 
-    const startGame = () => {
-        startNewGame(token).then(() =>
-            loadNextQuestion()
-        );
-    };
-
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
-
-            if(respuesta == correcta){
+            if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.style.backgroundColor = 'green';
             }else{
@@ -31,7 +24,7 @@ export const Game = () => {
                 const botonIncorrecto = document.getElementById(respuesta);
                 botonCorrecto.style.backgroundColor = 'green';
 
-                if(botonIncorrecto != null)
+                if(botonIncorrecto !== null)
                     botonIncorrecto.style.backgroundColor = 'red';
             }
 
@@ -63,26 +56,27 @@ export const Game = () => {
     //Call start only once
     useEffect(() => {
         let interval = setInterval(() => {
-            setTime((time) => {
-                if(time !== undefined){
-                    let total = time.end - time.start;
-                    let trans = (new Date().getTime()) - time.start;
 
-                    let percentage =  (trans/total) * 100;
-                    let invertedPercentage = 100 - Number(percentage);
-                    
-                    setRemTime((invertedPercentage/100)*110);
+            if(time !== undefined){
+                let total = time.end - time.start;
+                let trans = (new Date().getTime()) - time.start;
 
-                    if(percentage > 100){
-                        time = undefined;
-                        comprobarPregunta("");
-                    }
+                let percentage =  (trans/total) * 100;
+                let invertedPercentage = 100 - Number(percentage);
+                
+                setRemTime((invertedPercentage/100)*110);
+
+                if(percentage > 100){
+                    setTime(undefined);
+                    comprobarPregunta("");
                 }
-                return time;
-            })
+            }
+
         }, 20);
 
-        startGame();
+        startNewGame(token).then(() =>
+            loadNextQuestion()
+        );
 
         return () => clearInterval(interval);
     }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
@@ -118,7 +112,7 @@ export const Game = () => {
                     {pregunta}
                 </Typography>
                 {
-                    questionImage!=""
+                    questionImage!==""
                     ?
                     <Paper elevation={20} >
                         <Box

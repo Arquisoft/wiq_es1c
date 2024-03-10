@@ -34,6 +34,11 @@ const loadInitialQuestions = () =>
 
 const saveQuestionsInDB = async () =>
 {
+    const questions = await Question.find({});
+
+    if (questions.length > 1000)
+        return;
+
     for (let i = 0; i < NUM_QUESTIONS; i++)
         await saveQuestion();
 }
