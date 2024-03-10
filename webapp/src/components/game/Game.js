@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
 import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
@@ -13,15 +13,8 @@ export const Game = () => {
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
 
-    const startGame = useCallback(() => {
-        startNewGame(token).then(() =>
-            loadNextQuestion()
-        );
-    });
-
-    const comprobarPregunta = useCallback((respuesta) => {
+    const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
-
 
             if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
@@ -37,7 +30,7 @@ export const Game = () => {
 
             setTimeout(loadNextQuestion, 1000);
         })  
-    });
+    };
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
@@ -63,29 +56,30 @@ export const Game = () => {
     //Call start only once
     useEffect(() => {
         let interval = setInterval(() => {
-            setTime((time) => {
-                if(time !== undefined){
-                    let total = time.end - time.start;
-                    let trans = (new Date().getTime()) - time.start;
 
-                    let percentage =  (trans/total) * 100;
-                    let invertedPercentage = 100 - Number(percentage);
-                    
-                    setRemTime((invertedPercentage/100)*110);
+            if(time !== undefined){
+                let total = time.end - time.start;
+                let trans = (new Date().getTime()) - time.start;
 
-                    if(percentage > 100){
-                        time = undefined;
-                        comprobarPregunta("");
-                    }
+                let percentage =  (trans/total) * 100;
+                let invertedPercentage = 100 - Number(percentage);
+                
+                setRemTime((invertedPercentage/100)*110);
+
+                if(percentage > 100){
+                    setTime(undefined);
+                    comprobarPregunta("");
                 }
-                return time;
-            })
+            }
+
         }, 20);
 
-        startGame();
+        startNewGame(token).then(() =>
+            loadNextQuestion()
+        );
 
         return () => clearInterval(interval);
-    }, [comprobarPregunta, startGame]) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
+    }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
   return (
     <>
