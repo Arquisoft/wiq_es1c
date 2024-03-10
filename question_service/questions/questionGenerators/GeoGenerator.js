@@ -7,9 +7,9 @@ const templates = [
             "title": `Cual es la poblacion de ${country.name}`,
             "awnser": country.population,
             "fake" : [
-               await WikiUtils.getRandomPopulationExclude(country.population),
-               await WikiUtils.getRandomPopulationExclude(country.population),
-               await WikiUtils.getRandomPopulationExclude(country.population)
+               WikiUtils.getRandomPopulationExclude(country.population),
+               WikiUtils.getRandomPopulationExclude(country.population),
+               WikiUtils.getRandomPopulationExclude(country.population)
             ]
         }
     },
@@ -22,6 +22,32 @@ const templates = [
                await WikiUtils.getRandomCityWithExclude(country.capital),
                await WikiUtils.getRandomCityWithExclude(country.capital),
                await WikiUtils.getRandomCityWithExclude(country.capital)
+            ]
+        }
+    },
+    async () => {
+        const country = await WikiUtils.getRandomFlagAndCountry()
+        return {
+            "title": `Cual es el pais de esta bandera `,
+            "imageUrl": country.flag,
+            "awnser": country.name,
+            "fake" : [
+               (await WikiUtils.getRandomCountryWithExclude(country.name)).name,
+               (await WikiUtils.getRandomCountryWithExclude(country.name)).name,
+               (await WikiUtils.getRandomCountryWithExclude(country.name)).name
+            ]
+
+        }
+    },
+    async () => {
+        const country = await WikiUtils.getRandomCountry()
+        return {
+            "title": `Qué idioma se habla en ${country.name}?`,
+            "awnser": country.language,
+            "fake" : [
+               await WikiUtils.getRandomLanguageExclude(country.language),
+               await WikiUtils.getRandomLanguageExclude(country.language),
+               await WikiUtils.getRandomLanguageExclude(country.language)
             ]
         }
     },

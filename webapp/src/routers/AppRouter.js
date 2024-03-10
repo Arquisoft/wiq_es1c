@@ -6,8 +6,8 @@ import Error404 from "../components/error/Error404";
 import { PrivateRoute } from "./PrivateRoute";
 import { AuthRoute } from "./AuthRoute";
 import { Home } from "../components/home/Home";
-import { Nav } from "../components/nav/Nav";
 import Game from "../components/game/Game";
+import { History } from "../components/history/History";
 
 const router = createBrowserRouter([
     {
@@ -17,8 +17,13 @@ const router = createBrowserRouter([
     {
         path: "/home",
         element: <PrivateRoute>
-                    <Nav/>
                     <Home />
+                </PrivateRoute> 
+    },
+    {
+        path: "/history",
+        element: <PrivateRoute>
+                    <History />
                 </PrivateRoute> 
     },
     {
@@ -36,7 +41,6 @@ const router = createBrowserRouter([
     {
         path: "/game",
         element: <PrivateRoute>
-                    <Nav/>
                     <Game />
                 </PrivateRoute>       
     },

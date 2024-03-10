@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
-import './Game.css';
 import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
+import { Nav } from '../nav/Nav';
 
 export const Game = () => {
     const token = localStorage.getItem("token");
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
+    const [questionImage, setQuestionImage] = useState("");
     const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
     const [loading, setLoading] = useState(true);
     const [time , setTime] = useState(undefined);
@@ -21,24 +22,36 @@ export const Game = () => {
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
-            loadNextQuestion();
 
-            if(respuesta === correcta){
-                alert("Pregunta acertada");
+            if(respuesta == correcta){
+                const botonCorrecto = document.getElementById(correcta);
+                botonCorrecto.style.backgroundColor = 'green';
             }else{
-                alert("Pregunta fallada");
+                const botonCorrecto = document.getElementById(correcta);
+                const botonIncorrecto = document.getElementById(respuesta);
+                botonCorrecto.style.backgroundColor = 'green';
+
+                if(botonIncorrecto != null)
+                    botonIncorrecto.style.backgroundColor = 'red';
             }
-        })
+
+            setTimeout(loadNextQuestion, 1000);
+        })  
     };
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
+        setQuestionImage("");
         setRespuestas(["...","...","...","..."])
         setLoading(true);
         setTime(undefined)
+        document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
+            btn.style.backgroundColor = 'rgb(25, 118, 210)';
+        })
 
         nextQuestion(token).then((respuesta) => {
             setPregunta(respuesta.title);
+            setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
             setLoading(false);
             getEndTime(token).then((time) => {
@@ -62,7 +75,6 @@ export const Game = () => {
 
                     if(percentage > 100){
                         time = undefined;
-                        alert("tiempo agotado!");
                         comprobarPregunta("");
                     }
                 }
@@ -76,10 +88,12 @@ export const Game = () => {
     }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
   return (
+    <>
+    <Nav/>
     <Container
         component="main"
         maxWidth="sm"
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "85vh" }}
         className="min-h-screen flex justify-center align-middle"
     >
         <Container
@@ -96,9 +110,29 @@ export const Game = () => {
                     alignItems: "center",
                 }}
             >
-                <Typography component="h1" variant="h5">
+                <Typography component="h1" variant="h5" 
+                    sx={{
+                        paddingBottom: 3,
+                    }}
+                >
                     {pregunta}
                 </Typography>
+                {
+                    questionImage!=""
+                    ?
+                    <Paper elevation={20} >
+                        <Box
+                            component="img"
+                            sx={{
+                                height: '30vh',
+                                width: 'auto',
+                            }}
+                            src={questionImage}
+                        />
+                    </Paper>
+                    : 
+                    <></>
+                }
             </Box>
 
             <Box
@@ -118,6 +152,8 @@ export const Game = () => {
                                         fullWidth
                                         variant="contained"
                                         onClick={comprobarPregunta.bind(this, respuesta)}
+                                        id={respuesta}
+                                        data-buton="btn"
                                     >
                                         {respuesta}
                                     </Button>
@@ -136,6 +172,7 @@ export const Game = () => {
             </Box>
         </Container>
     </Container>
+    </>
   )
 }
 

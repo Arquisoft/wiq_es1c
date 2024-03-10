@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const User = require("../db/models/user")
 const Game = require("../db/models/game")
 const Question = require("../db/models/question")
+const suffle = require("./arrayShuffle")
+
 
 const privateKey = "ChangeMePlease!!!!"
 
@@ -33,6 +35,7 @@ const next = async (req,res) => {
     
     Question.create({
       title: questionRaw.title,
+      imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
       answer: questionRaw.answer,
       fake: questionRaw.fakes,
       GameId: game.id
@@ -40,12 +43,13 @@ const next = async (req,res) => {
   
     res.status(200).json({
       title: questionRaw.title,
-      awnsers: [
+      imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
+      awnsers: suffle([
         String(questionRaw.answer),
         String(questionRaw.fakes[0]),
         String(questionRaw.fakes[1]),
         String(questionRaw.fakes[2])
-      ]
+      ])
     });
 }
 
@@ -72,12 +76,13 @@ const update = async (req, res) => {
 
     res.status(200).json({
       title: question.title,
-      awnsers: [
+      imageUrl: question.imageUrl ? question.imageUrl : "",
+      awnsers: suffle([
         String(question.answer),
         String(question.fake[0]),
         String(question.fake[1]),
         String(question.fake[2])
-      ],
+      ]),
       created: String(question.createdAt.getTime()),
       duration: String(question.duration)
     });

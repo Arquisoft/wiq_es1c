@@ -31,4 +31,17 @@ describe("Home component", () => {
             expect(history.location.pathname).toBe('/login');
         });
     });
+
+    test("opens menu properly",async () => {
+        render(<MemoryRouter><Nav/></MemoryRouter>);
+    
+        screen.getByTestId('open-account-menu').click();
+
+        await act(async () => {});
+
+        waitFor(()=>{
+            expect(screen.getByText(/Perfil/i)).toBeInTheDocument();
+            expect(screen.getByText(/Historial/i)).toBeInTheDocument();
+        });
+    });
 });
