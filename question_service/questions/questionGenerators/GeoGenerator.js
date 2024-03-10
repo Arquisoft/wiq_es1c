@@ -7,9 +7,9 @@ const templates = [
             "title": `Cual es la poblacion de ${country.name}`,
             "awnser": country.population,
             "fake" : [
-               await WikiUtils.getRandomPopulationExclude(country.population),
-               await WikiUtils.getRandomPopulationExclude(country.population),
-               await WikiUtils.getRandomPopulationExclude(country.population)
+               WikiUtils.getRandomPopulationExclude(country.population),
+               WikiUtils.getRandomPopulationExclude(country.population),
+               WikiUtils.getRandomPopulationExclude(country.population)
             ]
         }
     },
