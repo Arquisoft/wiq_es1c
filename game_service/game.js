@@ -34,13 +34,12 @@ mongodb();
 loadInitialQuestions();
 
 //We dont want to do this in a test enviroment
-if (process.env.DB_URL) {
-  setInterval( async () =>
-  {
-    await deleteOlderQuestions();
-    await saveQuestionsInDB();
-  }, 24 * 60 * 60 * 1000);
-}
+
+setInterval( async () => {
+  await deleteOlderQuestions();
+  await saveQuestionsInDB();
+}, 24 * 60 * 60 * 1000);
+
 // Start the server
 const server = app.listen(port, () => {
   sync();

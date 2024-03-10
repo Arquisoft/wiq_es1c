@@ -16,7 +16,7 @@ beforeAll(async () => {
 }) 
 
 afterAll(async () => {
-    app.close();
+    await app.close();
 })
 
 jest.mock('axios')

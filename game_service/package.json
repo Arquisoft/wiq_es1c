@@ -4,7 +4,7 @@
   "description": "",
   "main": "game.js",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "jest --runInBand --forceExit"
   },
   "author": "",
   "license": "ISC",
