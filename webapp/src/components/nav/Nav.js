@@ -14,6 +14,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import NightlightIcon from '@mui/icons-material/Nightlight';
 
 export const Nav = () => {
   const navigate = useNavigate();
@@ -35,9 +36,19 @@ export const Nav = () => {
     navigate("/login");
   }
 
+
   const history = () => {
     handleMenuAccountClose();
     navigate("/history");
+  }
+  
+  const changeTheme = () => {
+    const htmlElement = document.querySelector('html');
+
+    if (htmlElement.classList.contains('dark')) 
+      htmlElement.classList.remove('dark');
+    else
+      htmlElement.classList.add('dark');
   }
 
   return (
@@ -58,6 +69,13 @@ export const Nav = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             WIQ
           </Typography>
+
+          <IconButton
+            size='large'
+            color='inherit'
+          >
+            <NightlightIcon onClick={changeTheme} />
+          </IconButton>
 
           <IconButton
             size="large"

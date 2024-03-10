@@ -84,6 +84,7 @@ describe('Utils Functions', () => {
       data: {
         title: 'Sample Question',
         awnser: 'Correct Answer',
+        imageUrl: "",
         fake: ['Fake 1', 'Fake 2', 'Fake 3'],
       },
     };
@@ -94,6 +95,7 @@ describe('Utils Functions', () => {
     expect(result).toEqual({
       title: 'Sample Question',
       awnser: 'Correct Answer',
+      imageUrl: "",
       fake: ['Fake 1', 'Fake 2', 'Fake 3'],
     });
   });
