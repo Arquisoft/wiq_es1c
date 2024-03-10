@@ -16,6 +16,10 @@ const Question = Schema
     fakes: {
         type: [String],
         required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 

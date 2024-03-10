@@ -1,50 +1,50 @@
 const jwt = require('jsonwebtoken');
-const axios = require('axios');
 const User = require("../db/models/user")
 const Game = require("../db/models/game")
 const Question = require("../db/models/question")
 
 const privateKey = "ChangeMePlease!!!!"
 
-const {validate, getCurrentQuestion, requestQuestion} = require("./verification")
+const {validate, getCurrentQuestion} = require("./verification");
+const { loadQuestion } = require('../services/questionsService');
 
 const next = async (req,res) => {
-    let userId = jwt.verify(req.body.token, privateKey).user_id;
+    const userId = jwt.verify(req.body.token, privateKey).user_id;
 
-    let user = await User.findOne({
+    const user = await User.findOne({
       where: {
         id: userId
       }
     })
-  
+
     if(user == null){
       res.status(400).send();
       return;
     }
     
-    let games = await user.getGames();
+    const games = await user.getGames();
     if(games == null || games.length < 1){
       res.status(400).send();
       return;
     }
   
-    let questionRaw = await requestQuestion();
-    let game = games[0];
-  
+    const questionRaw = await loadQuestion();
+    const game = games[0];
+    
     Question.create({
       title: questionRaw.title,
-      answer: questionRaw.awnser,
-      fake: questionRaw.fake,
+      answer: questionRaw.answer,
+      fake: questionRaw.fakes,
       GameId: game.id
     })
   
     res.status(200).json({
       title: questionRaw.title,
       awnsers: [
-        String(questionRaw.awnser),
-        String(questionRaw.fake[0]),
-        String(questionRaw.fake[1]),
-        String(questionRaw.fake[2])
+        String(questionRaw.answer),
+        String(questionRaw.fakes[0]),
+        String(questionRaw.fakes[1]),
+        String(questionRaw.fakes[2])
       ]
     });
 }

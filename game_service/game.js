@@ -11,6 +11,7 @@ const mongodb = require('./db/mongo/config');
 const authMiddleware = require('./auth/authMiddleware');
 const sync = require("./db/sync");
 const {newGame, next, awnser, update} = require("./game/endpoints");
+const { saveQuestionsInDB, deleteOlderQuestions, loadInitialQuestions } = require('./services/questionsService');
 
 const port = 8003;
 const app = express();
@@ -28,6 +29,15 @@ app.post('/api/game/update', update);
 
 // Connect with mongodb
 mongodb();
+
+// Save questions for each 24 hours
+loadInitialQuestions();
+
+setInterval( async () =>
+{
+  await deleteOlderQuestions();
+  await saveQuestionsInDB();
+}, 24 * 60 * 60 * 1000);
 
 // Start the server
 const server = app.listen(port, () => {
