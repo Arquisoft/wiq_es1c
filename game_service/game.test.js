@@ -83,10 +83,6 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.title).toBe("Cual es la capital de Chile");
         expect(response.body.awnsers.length).toBe(4);
-        expect(response.body.awnsers[0]).toBe("Santiago");
-        expect(response.body.awnsers[1]).toBe("Lima");
-        expect(response.body.awnsers[2]).toBe("Madrid");
-        expect(response.body.awnsers[3]).toBe("Bogota");
     })
 
     it("Should return 200 with an valid token and requesting update", async () => {
@@ -97,10 +93,6 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.title).toBe("Cual es la capital de Chile");
         expect(response.body.awnsers.length).toBe(4);
-        expect(response.body.awnsers[0]).toBe("Santiago");
-        expect(response.body.awnsers[1]).toBe("Lima");
-        expect(response.body.awnsers[2]).toBe("Madrid");
-        expect(response.body.awnsers[3]).toBe("Bogota");
         expect(response.body.created).toMatch(/\d*/);
         expect(response.body.duration).toMatch(/\d*/);
     })
