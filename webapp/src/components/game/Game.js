@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
-<<<<<<< HEAD
 import Swal from 'sweetalert2'
 
-import './Game.css';
-=======
->>>>>>> origin/develop
 import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
 
@@ -29,12 +25,6 @@ export const Game = () => {
         awnser(token, respuesta).then((correcta) => {
 
 
-<<<<<<< HEAD
-            if(respuesta === correcta){
-                alert("Pregunta acertada");
-            } else if (remTime > 0){
-                alert("Pregunta fallada");
-=======
             if(respuesta == correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.style.backgroundColor = 'green';
@@ -45,7 +35,6 @@ export const Game = () => {
 
                 if(botonIncorrecto != null)
                     botonIncorrecto.style.backgroundColor = 'red';
->>>>>>> origin/develop
             }
 
             setTimeout(loadNextQuestion, 1000);
@@ -88,13 +77,10 @@ export const Game = () => {
 
                     if(percentage > 100){
                         time = undefined;
-<<<<<<< HEAD
                         Swal.fire({
                             title: "tiempo agotado!",
                             icon: "error"
                         });
-=======
->>>>>>> origin/develop
                         comprobarPregunta("");
                     }
                 }
