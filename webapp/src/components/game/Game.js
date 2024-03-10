@@ -25,7 +25,7 @@ export const Game = () => {
         awnser(token, respuesta).then((correcta) => {
 
 
-            if(respuesta == correcta){
+            if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.style.backgroundColor = 'green';
             }else{
@@ -33,7 +33,7 @@ export const Game = () => {
                 const botonIncorrecto = document.getElementById(respuesta);
                 botonCorrecto.style.backgroundColor = 'green';
 
-                if(botonIncorrecto != null)
+                if(botonIncorrecto !== null)
                     botonIncorrecto.style.backgroundColor = 'red';
             }
 
@@ -77,10 +77,7 @@ export const Game = () => {
 
                     if(percentage > 100){
                         time = undefined;
-                        Swal.fire({
-                            title: "tiempo agotado!",
-                            icon: "error"
-                        });
+                        
                         comprobarPregunta("");
                     }
                 }
@@ -124,7 +121,7 @@ export const Game = () => {
                     {pregunta}
                 </Typography>
                 {
-                    questionImage!=""
+                    questionImage!==""
                     ?
                     <Paper elevation={20} >
                         <Box
