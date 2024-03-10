@@ -8,9 +8,10 @@ const geoGen = require('./questions/questionGenerators/GeoGenerator');
 const histGen = require('./questions/questionGenerators/HistoryGenerator');
 const sciGen = require('./questions/questionGenerators/ScienceGenerator');
 const filmGen = require('./questions/questionGenerators/FilmGenerator');
+
 const generatorsArray = [geoGen,sciGen,filmGen,histGen];
-const randomGenerator = generatorsArray[Math.floor(Math.random() * generatorsArray.length)];
-//const authMiddleware = require('./auth/authMiddleware');
+
+const randomGenerator = () => generatorsArray[Math.floor(Math.random() * generatorsArray.length)];
 
 const port = 8002;
 const app = express();
@@ -24,7 +25,7 @@ app.use(cors()) // This api is listening on a different port from the frontend
 // Question endpoints
 app.post('/api/questions/generate', async (req, res) => {
   try {
-    res.status(200).json(await randomGenerator()); 
+    res.status(200).json(await (randomGenerator())()); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to generate question' });

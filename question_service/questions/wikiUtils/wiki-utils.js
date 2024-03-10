@@ -1,37 +1,39 @@
 const wikidata = require("./wikidata");
 
-const rand = (array) => array[Math.floor(Math.random()*array.length)]
+const rand = (array) => array[Math.floor(Math.random() * array.length)]
 
 class WikiUtils {
-    
+
     static async getRandomCountry() {
         const query = `
-            SELECT ?countryLabel ?capitalLabel ?population ?language WHERE {
+            SELECT ?countryLabel ?capitalLabel ?population ?languageLabel WHERE {
                 ?country wdt:P31 wd:Q6256.
                 ?country wdt:P36 ?capital.
                 ?country wdt:P1082 ?population.
-                ?country wtd:37 ?language
+                ?country wdt:P37 ?language
                 SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
             }
         `;
-    
+
         const results = rand(await wikidata(query));
-    
+
         return {
             name: results['countryLabel'],
             capital: results['capitalLabel'],
             population: results['population'],
-            language: results['language'],
+            language: results['languageLabel'],
         };
     }
+
     static async getRandomCountryWithExclude(excludeCountry) {
         let randomCountry = await this.getRandomCountry();
-    
+
         while (randomCountry.name === excludeCountry.name || /^Q[0-9]*/.test(randomCountry.name)) {
             randomCountry = await this.getRandomCountry();
         }
         return randomCountry;
     }
+
     static async getRandomCity() {
         const query = `
           SELECT ?cityLabel WHERE {
@@ -43,19 +45,19 @@ class WikiUtils {
     }
     static async getRandomCityWithExclude(excludeCity) {
         let randomCity = await this.getRandomCity();
-    
+
         while (randomCity === excludeCity || /^Q[0-9]*/.test(randomCity)) {
             randomCity = await this.getRandomCity();
         }
         return randomCity;
     }
     static getRandomPopulation() {
-        return (Math.floor(Math.random()*100) + 40)*1000000
+        return (Math.floor(Math.random() * 100) + 40) * 1000000
     }
     static getRandomPopulationExclude(exclude) {
         let pop = this.getRandomPopulation()
 
-        while(pop == exclude){
+        while (pop == exclude) {
             pop = this.getRandomPopulation();
         }
 
@@ -111,16 +113,16 @@ class WikiUtils {
     }
     static async getRandomSpanishAuthorWithExclude(excludeAuthor) {
         let randomSpanishAuthor = await this.getRandomSpanishAuthor();
-    
+
         while (randomSpanishAuthor === excludeAuthor || /^Q[0-9]*/.test(randomSpanishAuthor)) {
             randomSpanishAuthor = await this.getRandomSpanishAuthor();
         }
         return randomSpanishAuthor;
     }
 
-    
 
-    static async getRandomLanguage(){
+
+    static async getRandomLanguage() {
         const query = `
         SELECT ?languageLabel  WHERE {
             ?country wdt:P31 wd:Q6256.
@@ -128,22 +130,22 @@ class WikiUtils {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         }
     `;
-    
-      return rand(await wikidata(query))['languageLabel'];
+
+        return rand(await wikidata(query))['languageLabel'];
     }
 
     static getRandomLanguageExclude(exclude) {
         let lan = this.getRandomLanguage()
 
-        while(lan == exclude || /^Q[0-9]*/.test(lan)){
+        while (lan == exclude || /^Q[0-9]*/.test(lan)) {
             lan = this.getRandomLanguage();
         }
 
         return lan
     }
 
-    static async getRandomElement(){
-        const query=`SELECT ?elementLabel ?symbol ?melting ?boiling WHERE {
+    static async getRandomElement() {
+        const query = `SELECT ?elementLabel ?symbol ?melting ?boiling WHERE {
             ?element wdt:P31 wd:Q11344.
             ?element wdt:P246 ?symbol.
             ?element wdt:P2101 ?melting.
@@ -151,9 +153,9 @@ class WikiUtils {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
           }`;
 
-          const results = rand(await wikidata(query));
+        const results = rand(await wikidata(query));
 
-          return {
+        return {
             name: results['elementLabel'],
             symbol: results['symbol'],
             melting: results['melting'],
@@ -162,24 +164,24 @@ class WikiUtils {
         };
     }
 
-    static async getRandomElementSymbol(){
-        const query=`SELECT ?symbol WHERE {
+    static async getRandomElementSymbol() {
+        const query = `SELECT ?symbol WHERE {
             ?element wdt:P31 wd:Q11344.
             ?element wdt:P246 ?symbol.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
           }`;
-           
-          return rand(await wikidata(query))['symbol'];
+
+        return rand(await wikidata(query))['symbol'];
 
     }
 
     static async getRandomElementSymbolWithExclude(excludeSymbol) {
-        let randomSymbol = await this.getRandomElement();
-    
+        let randomSymbol = await this.getRandomElementSymbol();
+
         while (randomSymbol === excludeSymbol || /^Q[0-9]*/.test(randomSymbol)) {
-            randomSymbol = await this.getRandomElement();
+            randomSymbol = await this.getRandomElementSymbol();
         }
-    
+
         return randomSymbol;
     }
 
@@ -187,21 +189,21 @@ class WikiUtils {
 
         const numeroDecimal = Math.random() * (max - min) + min;
         return parseFloat(numeroDecimal.toFixed(1));
-      }
+    }
 
-      static getRandomTemperaturWithExclude(min, max,exclude) {
+    static getRandomTemperaturWithExclude(min, max, exclude) {
 
-        let number = this.getRandomPopulation(min,max)
+        let number = this.getRandomPopulation(min, max)
 
-        while(number == exclude){
-            number = this.getRandomPopulation(min,max);
+        while (number == exclude) {
+            number = this.getRandomPopulation(min, max);
         }
 
         return number
-      }
+    }
 
-      static async getRandomFilm(){
-        const query=`SELECT DISTINCT ?filmLabel ?directorLabel ?release ?plotLabel WHERE {
+    static async getRandomFilm() {
+        const query = `SELECT DISTINCT ?filmLabel ?directorLabel ?release ?plotLabel WHERE {
             ?film wdt:P31 wd:Q11424.
             ?film wdt:P57 ?director.
             ?film wdt:P577 ?release.
@@ -209,82 +211,82 @@ class WikiUtils {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
           }LIMIT 100`;
 
-          const results = rand(await wikidata(query));
+        const results = rand(await wikidata(query));
 
-          return {
+        return {
             name: results['filmLabel'],
             director: results['directorLabel'],
             release: results['release'],
             plot: results['plotLabel'],
 
         };
-      }
+    }
 
-      static async getRandomDirector(){
-        const query=`SELECT DISTINCT ?filmLabel ?directorLabel WHERE {
+    static async getRandomDirector() {
+        const query = `SELECT DISTINCT ?filmLabel ?directorLabel WHERE {
             ?film wdt:P31 wd:Q11424.
             ?film wdt:P57 ?director.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
           }LIMIT 100`;
 
-          return rand(await wikidata(query))['directorLabel'];
-      }
+        return rand(await wikidata(query))['directorLabel'];
+    }
 
-      static async getRandomDirectorWithExclude(excludeDirector) {
+    static async getRandomDirectorWithExclude(excludeDirector) {
         let randomDirector = await this.getRandomDirector();
-    
+
         while (randomDirector === excludeDirector || /^Q[0-9]*/.test(randomDirector)) {
             randomDirector = await this.getRandomDirector();
         }
-    
+
         return randomDirector;
     }
 
-    static async getRandomRelease(){
-        const query=`SELECT DISTINCT ?filmLabel ?release WHERE {
+    static async getRandomRelease() {
+        const query = `SELECT DISTINCT ?filmLabel ?release WHERE {
             ?film wdt:P31 wd:Q11424.
             ?film wdt:P577 ?release.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
           }LIMIT 100`;
 
-          return rand(await wikidata(query))['release'];
-      }
+        return rand(await wikidata(query))['release'];
+    }
 
-      static async getRandomReleaseWithExclude(excludeRelease) {
+    static async getRandomReleaseWithExclude(excludeRelease) {
         let randomRelease = await this.getRandomRelease();
-    
+
         while (randomRelease === excludeRelease || /^Q[0-9]*/.test(randomRelease)) {
             randomRelease = await this.getRandomRelease();
         }
-    
-        return randomDirector;
+
+        return randomRelease;
     }
 
-    static async getRandomPlot(){
-        const query=`SELECT DISTINCT ?filmLabel ?plotLabel WHERE {
+    static async getRandomPlot() {
+        const query = `SELECT DISTINCT ?filmLabel ?plotLabel WHERE {
             ?film wdt:P31 wd:Q11424.
             ?film wdt:P921 ?plot.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
           }LIMIT 100`;
 
-          return rand(await wikidata(query))['plotLabel'];
-      }
+        return rand(await wikidata(query))['plotLabel'];
+    }
 
-      static async getRandomPlotWithExclude(excludePlot) {
+    static async getRandomPlotWithExclude(excludePlot) {
         let randomPlot = await this.getRandomPlot();
-    
+
         while (randomPlot === excludePlot || /^Q[0-9]*/.test(randomPlot)) {
             randomPlot = await this.getRandomPlot();
         }
-    
+
         return randomPlot;
     }
 
 
-     
 
 
-    
+
+
 }
 
 module.exports = WikiUtils
