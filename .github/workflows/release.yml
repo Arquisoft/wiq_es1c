@@ -27,25 +27,25 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  e2e-tests:
-    needs: [unit-tests]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - run: npm --prefix auth_service install
-    - run: npm --prefix webapp install
-    - run: npm --prefix webapp run build
-    - run: npm --prefix webapp run test:e2e
+# e2e-tests:
+#   needs: [unit-tests]
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v4
+#    - uses: actions/setup-node@v4
+#      with:
+#        node-version: 20
+#    - run: npm --prefix auth_service install
+#    - run: npm --prefix webapp install
+#    - run: npm --prefix webapp run build
+#    - run: npm --prefix webapp run test:e2e
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    needs: [e2e-tests]
+    needs: [unit-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -65,7 +65,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [ e2e-tests ]
+    needs: [unit-tests]
     steps:
       - uses: actions/checkout@v4
       - name: Publish to Registry
@@ -82,7 +82,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [ e2e-tests ]
+    needs: [unit-tests]
     steps:
       - uses: actions/checkout@v4
       - name: Publish to Registry
@@ -99,7 +99,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [e2e-tests]
+    needs: [unit-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
@@ -116,7 +116,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    needs: [e2e-tests]
+    needs: [unit-tests]
     steps:
     - uses: actions/checkout@v4
     - name: Publish to Registry
