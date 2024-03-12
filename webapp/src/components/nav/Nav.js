@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import {
   AppBar,
@@ -37,6 +38,20 @@ export const Nav = () => {
     navigate("/login");
   }
 
+  const showAlert = () =>{
+    Swal.fire({
+      title: "¿Quieres volver a la pantalla de inicio?, terminará tu partida.",
+      confirmButtonText: "Salir a la pantalla de inicio",
+      denyButtonText: "Seguir jugando"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/home")
+      } else if (result.isDenied) {
+        
+      }
+    });
+  }
+
 
   const history = () => {
     handleMenuAccountClose();
@@ -56,14 +71,15 @@ export const Nav = () => {
     <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static">
         <Toolbar className="bg-zinc-800">
-          <Link to='/home' >
+          
             <IconButton
                 size="large"
                 color="inherit"
+                onClick={showAlert}
             >
               <HomeIcon />
             </IconButton>
-          </Link>
+          
          
 
           {/* Título */}
