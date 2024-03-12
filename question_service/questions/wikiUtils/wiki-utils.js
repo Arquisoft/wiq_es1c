@@ -196,12 +196,14 @@ class WikiUtils {
         return parseFloat(numeroDecimal.toFixed(1));
     }
 
-    static getRandomTemperaturWithExclude(min, max, exclude) {
-
-        let number = this.getRandomPopulation(min, max)
+    static getRandomTemperaturWithExclude(exclude) {
+        const threshold = 0.5;
+        let min = exclude * threshold;
+        let max = exclude * (threshold + 1);
+        let number = this.getRandomTemperature(min, max)
 
         while (number == exclude) {
-            number = this.getRandomPopulation(min, max);
+            number = this.getRandomTemperature(min, max);
         }
 
         return number

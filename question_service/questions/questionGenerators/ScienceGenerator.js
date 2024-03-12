@@ -16,16 +16,14 @@ const templates = [
         }
     },
     async () => {
-        let min =-363;
-        let max =6170;
         const element = await WikiUtils.getRandomElement()
         return {
             "title": `Cuál es la temperatura de fusión del ${element.name}`,
             "awnser": element.melting,
             "fake" : [
-               await WikiUtils.getRandomTemperaturWithExclude(min,max,element.melting),
-               await WikiUtils.getRandomTemperaturWithExclude(min,max,element.melting),
-               await WikiUtils.getRandomTemperaturWithExclude(min,max,element.melting)
+               await WikiUtils.getRandomTemperaturWithExclude(element.melting),
+               await WikiUtils.getRandomTemperaturWithExclude(element.melting),
+               await WikiUtils.getRandomTemperaturWithExclude(element.melting)
             ]
         }
     },
