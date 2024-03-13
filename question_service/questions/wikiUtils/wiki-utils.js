@@ -64,7 +64,11 @@ class WikiUtils {
             pop = this.getRandomPopulation();
         }
 
-        return pop
+        return this.formatNumber(pop);
+    }
+
+    static formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
     static async getRandomFlagAndCountry() {
@@ -266,7 +270,13 @@ class WikiUtils {
             randomRelease = await this.getRandomRelease();
         }
 
-        return randomRelease;
+        return this.formatDate(randomRelease);
+    }
+
+    static formatDate(dateString) {
+        let yyyymmdd = dateString.split('T')[0].split('-');    // ignore the time
+
+        return new Date(Date.UTC(yyyymmdd[0], yyyymmdd[1], yyyymmdd[2])).toLocaleDateString();
     }
 
     static async getRandomPlot() {
