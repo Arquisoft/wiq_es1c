@@ -5,6 +5,7 @@ import { Nav } from '../nav/Nav';
 
 export const Game = () => {
     const token = localStorage.getItem("token");
+    const totalQuestions = 10;
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [questionImage, setQuestionImage] = useState("");
@@ -12,6 +13,8 @@ export const Game = () => {
     const [loading, setLoading] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
+    const [questionCounter, setQuestionCounter] = useState(0);
+    
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
@@ -28,7 +31,12 @@ export const Game = () => {
                     botonIncorrecto.style.backgroundColor = 'red';
             }
 
-            setTimeout(loadNextQuestion, 1000);
+            if(questionCounter >= totalQuestions){
+                alert("juego finalizado");
+            }else{
+                setTimeout(loadNextQuestion, 1000);
+            }
+
         })  
     };
 
@@ -38,6 +46,7 @@ export const Game = () => {
         setRespuestas(["...","...","...","..."])
         setLoading(true);
         setTime(undefined)
+        setQuestionCounter(questionCounter + 1);
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
             btn.style.backgroundColor = 'purple';
         })
@@ -111,6 +120,10 @@ export const Game = () => {
                     }}
                 >
                     {pregunta}
+                </Typography>
+
+                <Typography component="subtitle2" variant="subtitle2" fontFamily="monospace" alignSelf="left">
+                    {questionCounter}/{totalQuestions}
                 </Typography>
                 {
                     questionImage!==""
