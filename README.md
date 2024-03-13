@@ -5,7 +5,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es1c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es1c)
 
 
-[![Website](https://github.com/Arquisoft/wiq_es1c/blob/164-readme-update-the-logo-and-the-icon-of-the-app/media/img/wiq_banner_readme.png)](http://wiqgame.run.place/)
+[![Website](https://github.com/Arquisoft/wiq_es1c/blob/master/media/img/wiq_banner_readme.png)](http://wiqgame.run.place/)
 
 This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
 
