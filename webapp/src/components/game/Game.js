@@ -16,7 +16,7 @@ export const Game = () => {
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
-            if(respuesta === correcta){
+            if(respuesta == correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.style.backgroundColor = 'green';
             }else{
@@ -56,22 +56,23 @@ export const Game = () => {
     //Call start only once
     useEffect(() => {
         let interval = setInterval(() => {
+            setTime(time => {
+                if(time !== undefined){
+                    let total = time.end - time.start;
+                    let trans = (new Date().getTime()) - time.start;
 
-            if(time !== undefined){
-                let total = time.end - time.start;
-                let trans = (new Date().getTime()) - time.start;
+                    let percentage =  (trans/total) * 100;
+                    let invertedPercentage = 100 - Number(percentage);
+                    
+                    setRemTime((invertedPercentage/100)*110);
 
-                let percentage =  (trans/total) * 100;
-                let invertedPercentage = 100 - Number(percentage);
-                
-                setRemTime((invertedPercentage/100)*110);
-
-                if(percentage > 100){
-                    setTime(undefined);
-                    comprobarPregunta("");
+                    if(percentage > 100){
+                        comprobarPregunta("");
+                        time = undefined;
+                    }
                 }
-            }
-
+                return time;
+            });
         }, 20);
 
         startNewGame(token).then(() =>

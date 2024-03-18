@@ -31,6 +31,9 @@ app.post('/api/questions/generate', async (req, res) => {
     res.status(500).json({ error: 'Failed to generate question' });
   }
 });
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK' });
+});
 
 // Start the server
 const server = app.listen(port, () => {

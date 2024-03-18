@@ -20,8 +20,8 @@ const getEndTime = async (token) =>
     const response = await axios.post(`${apiEndpoint}:8003/api/game/update`, { "token": token });
 
     return {
-      end: (Number(response.data.created) + (Number(response.data.duration) * 1000)),
-      start: response.data.created
+      end: (Number(new Date().getTime()) + (Number(response.data.duration) * 1000)),
+      start: new Date().getTime()
     };
 
   } catch (error) {

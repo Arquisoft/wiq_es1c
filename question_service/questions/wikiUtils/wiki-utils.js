@@ -64,7 +64,11 @@ class WikiUtils {
             pop = this.getRandomPopulation();
         }
 
-        return pop
+        return this.formatNumber(pop);
+    }
+
+    static formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
     static async getRandomFlagAndCountry() {
@@ -196,12 +200,14 @@ class WikiUtils {
         return parseFloat(numeroDecimal.toFixed(1));
     }
 
-    static getRandomTemperaturWithExclude(min, max, exclude) {
-
-        let number = this.getRandomPopulation(min, max)
+    static getRandomTemperaturWithExclude(exclude) {
+        const threshold = 0.5;
+        let min = exclude * threshold;
+        let max = exclude * (threshold + 1);
+        let number = this.getRandomTemperature(min, max)
 
         while (number == exclude) {
-            number = this.getRandomPopulation(min, max);
+            number = this.getRandomTemperature(min, max);
         }
 
         return number
@@ -264,7 +270,13 @@ class WikiUtils {
             randomRelease = await this.getRandomRelease();
         }
 
-        return randomRelease;
+        return this.formatDate(randomRelease);
+    }
+
+    static formatDate(dateString) {
+        let yyyymmdd = dateString.split('T')[0].split('-');    // ignore the time
+
+        return new Date(Date.UTC(yyyymmdd[0], yyyymmdd[1], yyyymmdd[2])).toLocaleDateString();
     }
 
     static async getRandomPlot() {

@@ -17,7 +17,7 @@ const templates = [
         const film = await WikiUtils.getRandomFilm()
         return {
             "title": `En qué fecha se entrenó la película: ${film.name}`,
-            "awnser": film.release,
+            "awnser": WikiUtils.formatDate(film.release),
             "fake" : [
                await WikiUtils.getRandomReleaseWithExclude(film.release),
                await WikiUtils.getRandomReleaseWithExclude(film.release),

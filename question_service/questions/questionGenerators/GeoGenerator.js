@@ -5,7 +5,7 @@ const templates = [
         const country = await WikiUtils.getRandomCountry()
         return {
             "title": `Cual es la poblacion de ${country.name}`,
-            "awnser": country.population,
+            "awnser": WikiUtils.formatNumber(country.population),
             "fake" : [
                WikiUtils.getRandomPopulationExclude(country.population),
                WikiUtils.getRandomPopulationExclude(country.population),
