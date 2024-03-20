@@ -4,6 +4,7 @@ import {Box, Container, CssBaseline,Typography, Button } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
 import banner from '../../media/wiq_banner.png';
 import { Nav } from '../nav/Nav';
+import './Home.css';
 
 export const Home = () => 
 {
@@ -35,7 +36,7 @@ export const Home = () =>
             <Container
                 component="main"
                 maxWidth="md"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace"}}
+                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace", backgroundColor:"rgb(23 23 23 / var(--tw-bg-opacity))"}}
                 className="min-h-screen flex  justify-center place-content-between"
             >
                 <Container
@@ -83,20 +84,14 @@ export const Home = () =>
                                 ¡Mucha suerte y demuestra lo que sabes!
                             </Typography>
                         </div>
+                        <div className="flex align-middle justify-center flex-grow">
+                            <Link to={'/game'} className="self-center">
+                                <button className="gradient">
+                                    <span class="text">JUGAR</span>
+                                </button>
 
-                        <Link to={'/game'} className="self-center" >
-                            <Button variant="contained" size="large"
-                                    sx={{
-                                        backgroundColor: "purple",
-                                        width:"32rem",
-                                        height:"3rem",
-                                        fontSize:"2rem",
-                                        fontWeight:"bold",
-                                        fontFamily:"monospace"
-                                    }}>
-                                Jugar
-                            </Button>
-                        </Link>
+                            </Link>
+                        </div>
 
                     </Box>
                 </Container>
