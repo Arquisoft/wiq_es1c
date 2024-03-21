@@ -4,14 +4,12 @@ import {Box, Container, CssBaseline,Typography, Button } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
 import banner from '../../media/wiq_banner.png';
 import { Nav } from '../nav/Nav';
-import './Home.css';
+import './Home.scss';
 
 export const Home = () => 
 {
     const [loggedIn, setLoggedIn] = useState(true);
     const [username, setUsername] = useState("No identificado");
-
-
 
     useEffect(() =>
     {
@@ -31,6 +29,7 @@ export const Home = () =>
     
     return (
         <>
+
         <Nav/>
         {(
             <Container
@@ -86,7 +85,7 @@ export const Home = () =>
                         </div>
                         <div className="flex align-middle justify-center flex-grow">
                             <Link to={'/game'} className="self-center">
-                                <button className="gradient">
+                                <button className="buttonGradient">
                                     <span class="text">JUGAR</span>
                                 </button>
 
