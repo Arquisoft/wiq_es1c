@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
-import {Box, Container, CssBaseline,Typography, Button } from "@mui/material";
+import {Box, Container, CssBaseline,Typography } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
 import banner from '../../media/wiq_banner.png';
 import { Nav } from '../nav/Nav';
@@ -86,7 +86,7 @@ export const Home = () =>
                         <div className="flex align-middle justify-center flex-grow">
                             <Link to={'/game'} className="self-center">
                                 <button className="buttonGradient">
-                                    <span class="text">JUGAR</span>
+                                    <span className="text">JUGAR</span>
                                 </button>
 
                             </Link>
