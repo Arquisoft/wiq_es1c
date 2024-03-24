@@ -45,14 +45,14 @@
     {
         "question": "Qué idioma se habla en <countryLabel>?",
         "selector": "<languageLabel>",
-        "tags": ["country", "language"],
+        "tags": ["country", "text"],
         "lang": "es",
         "query": "SELECT ?countryLabel ?languageLabel WHERE { ?country wdt:P31 wd:Q6256. ?country wdt:P37 ?language. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
     },
     {
         "question": "Quien es el autor de <obraLabel> que está en <ubicacionLabel>",
         "selector": "<autorLabel>",
-        "tags": ["artwork", "author"],
+        "tags": ["artwork", "image"],
         "lang": "es",
         "query": " SELECT ?obraLabel ?autorLabel ?imagenLabel ?ubicacionLabel WHERE { ?obra wdt:P31 wd:Q3305213; wdt:P170 ?autor; wdt:P495 wd:Q29; wdt:P18 ?imagen; wdt:P195 ?ubicacion. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". }}",
         "imageurl": "<imagenLabel>"
@@ -60,21 +60,21 @@
     {
         "question": "Cuál es el símbolo químico de <elementLabel>",
         "selector": "<symbol>",
-        "tags": ["element", "symbol"],
+        "tags": ["element", "text"],
         "lang": "es",
         "query": "SELECT ?elementLabel ?symbol WHERE { ?element wdt:P31 wd:Q11344. ?element wdt:P246 ?symbol. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
     },
     {
         "question": "Cuál es la temperatura de fusión del <elementLabel>",
         "selector": "<melting>",
-        "tags": ["element", "melting"],
+        "tags": ["element", "text"],
         "lang": "es",
         "query": "SELECT ?elementLabel ?melting WHERE { ?element wdt:P31 wd:Q11344. ?element wdt:P2101 ?melting. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
     },
     {
         "question": "Cuál es la temperatura de ebullición del <elementLabel>",
         "selector": "<boiling>",
-        "tags": ["element", "boiling"],
+        "tags": ["element", "text"],
         "lang": "es",
         "query": "SELECT ?elementLabel ?boiling WHERE { ?element wdt:P31 wd:Q11344. ?element wdt:P2102 ?boiling. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
     }  
