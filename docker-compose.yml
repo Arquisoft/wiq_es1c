@@ -5,6 +5,8 @@ services:
     image: ghcr.io/arquisoft/wiq_es1c/question:latest
     profiles: ["dev", "prod"]
     build: ./question_service
+    environment:
+      - DB_URL=set
     depends_on:
       mariadb:
         condition: service_healthy
