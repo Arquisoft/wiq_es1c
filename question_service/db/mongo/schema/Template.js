@@ -21,7 +21,11 @@ const templateSchema = new Schema({
     query: {
         type: String,
         required: true
-    }
+    },
+    imageurl: {
+        type: String,
+        required: false
+    },
 });
 
 const Template = mongoose.model('Template', templateSchema);
