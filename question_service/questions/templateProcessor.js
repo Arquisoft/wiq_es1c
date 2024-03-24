@@ -1,5 +1,29 @@
 const wikiQuery = require("./wikiUtils/wikidata");
 
+// Function to extract three different random fake answers from an array of elements
+const extractRandomFake = (array, selector, answer) => {
+    // Pick three random elements from the array
+    let elements = pickRandomElements(array, 3);
+
+    // Check if any of the selected elements matches the correct answer
+    for (let i = 0; i < elements.length; i++) {
+        if (answer === elements[i][formatSelector(selector)]) {
+            // If any element matches, recursively call the function to find another fake answer
+            return extractRandomFake(array, selector, answer);
+        }
+    }
+
+    // Check if the selected fake answers are all different from each other
+    let fakeAnswers = elements.map(element => element[formatSelector(selector)]);
+    if (new Set(fakeAnswers).size !== 3) {
+        // If the fake answers are not all different, recursively call the function to find another set of fake answers
+        return extractRandomFake(array, selector, answer);
+    }
+
+    // Return an array of three selected elements as fake answers
+    return fakeAnswers;
+}
+
 // Function to format the selector by removing "<" and ">"
 const formatSelector = (selector) => {
     return selector.replace("<", "").replace(">", "");
@@ -43,13 +67,13 @@ const processTemplate = async (template) => {
     let formattedAnswers = filteredAnswers.map(formatFields);
 
     // Pick four random elements
-    let elements = pickRandomElements(formattedAnswers, 4);
+    let elements = pickRandomElements(formattedAnswers, 1);
 
     // Extract selectors from the template question
     let selectors = template.question.match(/<([^<>]+)>/g);
     let finalTitle = template.question;
 
-    // Replace selectors in the question template with actual data
+    // Replace placeholders in the final title with actual data
     selectors.forEach(selector => {
         finalTitle = finalTitle.replace(
             selector,
@@ -57,16 +81,28 @@ const processTemplate = async (template) => {
         );
     });
 
-    return {
-        "title": finalTitle,
-        "answer": elements[0][formatSelector(template.selector)],
-        "fake": [
-            elements[1][formatSelector(template.selector)],
-            elements[2][formatSelector(template.selector)],
-            elements[3][formatSelector(template.selector)]
-        ],
-        "tags": template.tags
+    // Retrieve the correct answer
+    let answer = elements[0][formatSelector(template.selector)];
+
+    // Generate three different fake answers
+    let fakeAnswers = extractRandomFake(formattedAnswers, template.selector, answer);
+
+    // Return the processed template object
+    // Define the base template object
+    let processedTemplate = {
+        "title": finalTitle, // Final title with placeholders replaced
+        "answer": answer, // Correct answer
+        "fake": fakeAnswers, // Three different fake answers
+        "tags": template.tags // Associated tags
+    };
+
+    // If an image URL is specified in the template, add it to the processed template object
+    if (template.imgurl !== undefined) {
+        processedTemplate.imgurl = elements[0][formatSelector(template.imgurl)];
     }
+
+    // Return the processed template object
+    return processedTemplate;
 }
 
 module.exports = processTemplate;
