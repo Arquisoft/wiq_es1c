@@ -18,9 +18,10 @@ const saveQuestion = async() =>
 
     const question = new Question({
         title: res.title,
-        answer: res.awnser,
+        answer: res.answer,
         fakes: [res.fake[0], res.fake[1], res.fake[2]],
-        imageUrl: res.imageUrl
+        imageUrl: res.imgurl,
+        tags: res.tags
     });
 
     question.save();
