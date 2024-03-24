@@ -25,7 +25,7 @@ describe('Game Service', () => {
     axios.post.mockImplementation((url,data) => {
         return Promise.resolve({ data: {
             "title": `Cual es la capital de Chile`,
-            "awnser": 'Santiago',
+            "answer": 'Santiago',
             "fake" : [
                "Lima",
                "Madrid",
