@@ -15,9 +15,12 @@ const loadQuestion = async(tags) =>
                 } 
             } 
         }]).sample(1);
-    } else {
+    } 
+
+    //Safety!
+    if(res === undefined)
         res = await Question.aggregate().sample(1);
-    }
+    
     
     const { _id, __v, createdAt, ...question } = res[0];
 
