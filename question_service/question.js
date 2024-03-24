@@ -19,7 +19,7 @@ app.use(cors()) // This api is listening on a different port from the frontend
 
 // Api endpoints
 // Question endpoints
-app.get('/api/questions/generate', async (req, res) => {
+app.post('/api/questions/generate', async (req, res) => {
   try {
     res.status(200).json((await processTemplate(await getRandomTemplate()))); 
   } catch (error) {
