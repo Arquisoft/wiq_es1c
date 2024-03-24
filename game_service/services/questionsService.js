@@ -18,7 +18,7 @@ const loadQuestion = async(tags) =>
     } 
 
     //Safety!
-    if(res === undefined)
+    if(res[0] === undefined)
         res = await Question.aggregate().sample(1);
     
     
