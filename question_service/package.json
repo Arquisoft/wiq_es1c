@@ -17,6 +17,8 @@
     "jest-mock-req-res": "^1.0.2",
     "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.2.3",
+    "mongodb-memory-server": "^9.1.7",
+    "moongose": "^1.0.0",
     "sequelize": "^6.36.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",

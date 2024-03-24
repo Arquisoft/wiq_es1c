@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 // My own libs
+const db = require("./db/mongo/config");
+const {loadInitialTemplates, getRandomTemplate} = require("./db/mongo/utils");
+
 const geoGen = require('./questions/questionGenerators/GeoGenerator');
 const histGen = require('./questions/questionGenerators/HistoryGenerator');
 const sciGen = require('./questions/questionGenerators/ScienceGenerator');
@@ -23,20 +26,23 @@ app.use(cors()) // This api is listening on a different port from the frontend
 
 // Api endpoints
 // Question endpoints
-app.post('/api/questions/generate', async (req, res) => {
+app.get('/api/questions/generate', async (req, res) => {
   try {
-    res.status(200).json(await (randomGenerator())()); 
+    res.status(200).json((await getRandomTemplate())); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to generate question' });
   }
 });
+
 app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
 
+
 // Start the server
 const server = app.listen(port, () => {
+  db().then(loadInitialTemplates);
   console.log(`Questions service listening at http://localhost:${port}`);
 });
 
