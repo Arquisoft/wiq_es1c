@@ -3,10 +3,22 @@ const { requestQuestion } = require("../game/verification");
 
 const NUM_QUESTIONS = 100;
 
-const loadQuestion = async() =>
+const loadQuestion = async(tags) =>
 {
-    const res = await Question.aggregate().sample(1);
-        
+    let res;
+
+    if(tags && tags.length > 0) {
+        res = await Question.aggregate([{ 
+            $match: { 
+                tags: { 
+                    $in: tags
+                } 
+            } 
+        }]).sample(1);
+    } else {
+        res = await Question.aggregate().sample(1);
+    }
+    
     const { _id, __v, createdAt, ...question } = res[0];
 
     return question;

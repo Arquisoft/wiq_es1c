@@ -30,8 +30,8 @@ const next = async (req,res) => {
       return;
     }
   
-    const questionRaw = await loadQuestion();
     const game = games[0];
+    const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
     
     Question.create({
       title: questionRaw.title,
