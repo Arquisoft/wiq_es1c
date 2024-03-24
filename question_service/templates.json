@@ -1,9 +1,9 @@
 [
     {
-        "question": "Quién es el director de la película: ?filmLabel",
-        "selector": "?directorLabel",
+        "question": "Quién es el director de la película: <filmLabel>",
+        "selector": "<directorLabel>",
         "tags": ["film", "text"],
         "lang": "es",
-        "query": "SELECT DISTINCT ?filmLabel ?directorLabel ?release ?plotLabel WHERE { ?film wdt:P31 wd:Q11424. ?film wdt:P57 ?director. ?film wdt:P577 ?release. ?film wdt:P921 ?plot SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }LIMIT 100"
+        "query": "SELECT DISTINCT ?filmLabel ?directorLabel ?release ?plotLabel WHERE { ?film wdt:P31 wd:Q11424. ?film wdt:P57 ?director. ?film wdt:P577 ?release. ?film wdt:P921 ?plot SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100"
     }
 ]
