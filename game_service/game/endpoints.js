@@ -101,9 +101,12 @@ const newGame = async (req,res) => {
       res.status(400).send();
       return;
     }
+
+    let tags = req.body.tags ?? "";
   
     await Game.create({
-      UserId: user.id
+      UserId: user.id,
+      tags: tags
     })
   
     res.status(200).send();
