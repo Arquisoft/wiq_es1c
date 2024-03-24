@@ -48,7 +48,7 @@ const pickRandomElements = (array, count) => {
 // Function to verify fields with 'Q' prefix in the JSON
 const verifyFields = (json) => {
     for (field in json) {
-        if (field.match(/Q\d*/)) {
+        if (json[field].match(/Q\d*/)) {
             return false;
         }
     }
@@ -96,7 +96,7 @@ const processTemplate = async (template) => {
         "fake": fakeAnswers, // Three different fake answers
         "tags": template.tags // Associated tags
     };
-
+    
     // If an image URL is specified in the template, add it to the processed template object
     if (template.imageurl !== undefined) {
         processedTemplate.imgurl = elements[0][formatSelector(template.imageurl)];
