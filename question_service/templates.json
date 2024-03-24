@@ -54,7 +54,7 @@
         "selector": "<autorLabel>",
         "tags": ["artwork", "author"],
         "lang": "es",
-        "query": " SELECT ?obra ?obraLabel ?autor ?autorLabel ?imagen ?imagenLabel ?ubicacion ?ubicacionLabel WHERE { ?obra wdt:P31 wd:Q3305213; wdt:P170 ?autor; wdt:P495 wd:Q29; wdt:P18 ?imagen; wdt:P195 ?ubicacion. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". }}",
+        "query": " SELECT ?obraLabel ?autorLabel ?imagenLabel ?ubicacionLabel WHERE { ?obra wdt:P31 wd:Q3305213; wdt:P170 ?autor; wdt:P495 wd:Q29; wdt:P18 ?imagen; wdt:P195 ?ubicacion. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". }}",
         "imageurl": "<imagenLabel>"
     },
     {
