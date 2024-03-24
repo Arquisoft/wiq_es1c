@@ -48,11 +48,11 @@ const pickRandomElements = (array, count) => {
 // Function to verify fields with 'Q' prefix in the JSON
 const verifyFields = (json) => {
     for (field in json) {
-        if (field.match(/Q*/)) {
-            return true;
+        if (field.match(/Q\d*/)) {
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
 // Function to process the template asynchronously
@@ -74,12 +74,13 @@ const processTemplate = async (template) => {
     let finalTitle = template.question;
 
     // Replace placeholders in the final title with actual data
-    selectors.forEach(selector => {
-        finalTitle = finalTitle.replace(
-            selector,
-            elements[0][formatSelector(selector)]
-        );
-    });
+    if (selectors)
+        selectors.forEach(selector => {
+            finalTitle = finalTitle.replace(
+                selector,
+                elements[0][formatSelector(selector)]
+            );
+        });
 
     // Retrieve the correct answer
     let answer = elements[0][formatSelector(template.selector)];
@@ -97,8 +98,8 @@ const processTemplate = async (template) => {
     };
 
     // If an image URL is specified in the template, add it to the processed template object
-    if (template.imgurl !== undefined) {
-        processedTemplate.imgurl = elements[0][formatSelector(template.imgurl)];
+    if (template.imageurl !== undefined) {
+        processedTemplate.imgurl = elements[0][formatSelector(template.imageurl)];
     }
 
     // Return the processed template object
