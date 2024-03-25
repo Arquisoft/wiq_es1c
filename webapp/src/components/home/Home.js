@@ -4,7 +4,7 @@ import {Box, Container, CssBaseline,Typography } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
 import banner from '../../media/wiq_banner.png';
 import { Nav } from '../nav/Nav';
-import './Home.scss';
+import './Home.css';
 
 export const Home = () => 
 {
@@ -35,13 +35,14 @@ export const Home = () =>
             <Container
                 component="main"
                 maxWidth="md"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace", backgroundColor:"rgb(23 23 23 / var(--tw-bg-opacity))"}}
-                className="min-h-screen flex  justify-center place-content-between"
+                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace"}}
+                className=" min-h-screen flex  justify-center place-content-between "
             >
                 <Container
-                    className="bg-zinc-800 rounded-lg flex"
+                    className="bg-zinc-800 rounded-lg flex "
                     component="main"
                     maxWidth="sm"
+                    
                 >
                     <CssBaseline />
                     <Box
@@ -51,10 +52,12 @@ export const Home = () =>
                             flexDirection: "column",
                             alignItems: "left",
 
+                           
                         }}
+                        className="bg-white dark:bg-dark-mode text-black dark:text-white"
                     >
                         <img src={banner} alt="WiQ"/>
-                        <div className="flex p-4 place-content-between">
+                        <div className="flex p-4 place-content-between ">
                             <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
                                 Home
                             </Typography>
