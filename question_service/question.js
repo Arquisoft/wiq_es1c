@@ -12,6 +12,11 @@ const processTemplate = require("./questions/templateProcessor");
 const port = 8002;
 const app = express();
 
+//Prometheus configuration
+const promBundle = require('express-prom-bundle');
+const metricsMiddleware = promBundle({includeMethod: true});
+app.use(metricsMiddleware);
+
 // Middleware 
 app.use(bodyParser.json()); // Parse the request into json
 app.use(cors()) // This api is listening on a different port from the frontend

@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: "question"  # Job name for the question service
+    static_configs:
+      - targets: ["question:8002"]  # Assuming your question service exposes metrics on port 8002
+
+  - job_name: "game"  # Job name for the game service
+    static_configs:
+      - targets: ["game:8003"]  # Assuming your game service exposes metrics on port 8003
+
+  - job_name: "auth"  # Job name for the auth service
+    static_configs:
+      - targets: ["auth:8001"]  # Assuming your auth service exposes metrics on port 8001
+
+  - job_name: "userdetails"  # Job name for the userdetails service
+    static_configs:
+      - targets: ["userdetails:8004"]  # Assuming your userdetails service exposes metrics on port 8004
