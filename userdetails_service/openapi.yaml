@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  title: User Details Service API
+  description: API endpoints for user details and history retrieval
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/userdetails/name:
+    post:
+      summary: Get user's name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      responses:
+        '200':
+          description: User name retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "John"
+        '400':
+          description: Invalid user or error retrieving user name
+        '401':
+          description: Invalid token
+        '500':
+          description: Internal server error
+
+  /api/userdetails/history:
+    post:
+      summary: Get user's game history
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      responses:
+        '200':
+          description: User game history retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "ecadb470-b62c-42de-bb38-66b6b1d3b3c3"
+                    createdAt:
+                      type: string
+                      format: date-time
+                      example: "2024-03-19T08:39:34.000Z"
+                    updatedAt:
+                      type: string
+                      format: date-time
+                      example: "2024-03-19T08:39:34.000Z"
+                    UserId:
+                      type: string
+                      example: "beb91682-e280-414a-a07e-7d9f3ee9add6"
+                    Questions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          title:
+                            type: string
+                          imageUrl:
+                            type: string
+                          awnsers:
+                            type: array
+                            items:
+                              type: string
+                          created:
+                            type: string
+                          duration:
+                            type: string
+                          user_answer:
+                            type: string
+                          onTime:
+                            type: boolean
+        '400':
+          description: Invalid user or error retrieving game history
+        '401':
+          description: Invalid token
+        '500':
+          description: Internal server error

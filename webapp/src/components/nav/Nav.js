@@ -1,4 +1,6 @@
 import React from 'react';
+import Swal from 'sweetalert2'
+
 
 import {
   AppBar,
@@ -9,7 +11,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { Link, useNavigate  } from 'react-router-dom';
+import { useLocation, useNavigate  } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
@@ -19,6 +21,7 @@ import NightlightIcon from '@mui/icons-material/Nightlight';
 
 export const Nav = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [openMenu, setOpenMenu] = React.useState(false);
   const [userAnchor, setUserAnchor] = React.useState(undefined);
@@ -36,6 +39,25 @@ export const Nav = () => {
     localStorage.removeItem("token");
     navigate("/login");
   }
+
+  const showAlert = () =>{
+    if(location.pathname !== '/home'){
+  Swal.fire({
+    title: "¿Quieres volver a la pantalla de inicio?",
+    text: "Terminará tu partida.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí,salir",
+    cancelButtonText: "No,continuar jugando"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      navigate("/home")
+    }
+  });
+}}
+
 
 
   const history = () => {
@@ -56,14 +78,15 @@ export const Nav = () => {
     <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static">
         <Toolbar className="bg-zinc-800">
-          <Link to='/home' >
+          
             <IconButton
                 size="large"
                 color="inherit"
+                onClick={showAlert}
             >
               <HomeIcon />
             </IconButton>
-          </Link>
+          
          
 
           {/* Título */}
