@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import {Box, Container, CssBaseline,Typography } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
-import banner from '../../media/wiq_banner.png';
 import { Nav } from '../nav/Nav';
 import './Home.css';
 
@@ -56,7 +55,11 @@ export const Home = () =>
                         }}
                         className="bg-white dark:bg-dark-mode text-black dark:text-white"
                     >
-                        <img src={banner} alt="WiQ"/>
+                        <div className=" w-100 h-0 pt-60
+                        bg-contain bg-center  bg-light dark:bg-dark ">
+    
+                        </div>
+                        
                         <div className="flex p-4 place-content-between ">
                             <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
                                 Home
@@ -88,8 +91,11 @@ export const Home = () =>
                         </div>
                         <div className="flex align-middle justify-center flex-grow">
                             <Link to={'/game'} className="self-center">
-                                <button className="buttonGradient">
-                                    <span className="text">JUGAR</span>
+                                <button className="bg-gradient-to-r 
+                                from-cyan-50 via-cyan-300 to blue-500
+                                dark:from-orange-500 dark:via-purple-500 dark:to-pink-500  
+                                buttonGradient">
+                                    <span className="text-black dark:text-white text">JUGAR</span>
                                 </button>
 
                             </Link>

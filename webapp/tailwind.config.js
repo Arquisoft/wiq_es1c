@@ -10,8 +10,8 @@ module.exports = {
         'dark-mode': '#171717'
       },
       backgroundImage: {
-        'gradient-dark': 'linear-gradient(144deg,#eb8f34, #e292f0 50%,#971aad)',
-        'gradient-light': 'linear-gradient(144deg,#FFF4D6, #B8F3D3 50%,#BCE0FD)',
+        'light': "url('/src/media/wiq_banner.light.png')",
+        'dark': "url('/src/media/wiq_banner.png')",
       },
     },
   },
