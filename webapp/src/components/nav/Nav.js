@@ -23,11 +23,21 @@ export const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
  
-  
+  const getColor = ()=>{
+    const htmlElement = document.querySelector('html');
+
+    if (htmlElement.classList.contains('dark')){
+      return 'white';
+    }
+    else{
+      return 'black';
+    }
+    
+  }
 
   const [openMenu, setOpenMenu] = React.useState(false);
   const [userAnchor, setUserAnchor] = React.useState(undefined);
-  const [color,setColor] = React.useState('white');
+  const [color,setColor] = React.useState(getColor());
 
   const handleMenuAccountOpen = (event) => {
     setUserAnchor(event.currentTarget);
@@ -57,6 +67,7 @@ export const Nav = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       navigate("/home")
+      
     }
   });
 }}
