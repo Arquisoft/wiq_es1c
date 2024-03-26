@@ -25,13 +25,15 @@
   transition: all .3s;
 }
 
+
+
 .buttonGradient:active,
 .buttonGradient:hover {
   outline: 0;
 }
 
 .buttonGradient span {
-  background-color: rgb(42, 21, 62);
+  /*background-color: rgb(42, 21, 62);*/
   padding: 16px 24px;
   border-radius: 6px;
   width: 100%;

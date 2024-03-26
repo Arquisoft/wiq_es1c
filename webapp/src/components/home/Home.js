@@ -38,7 +38,7 @@ export const Home = () =>
                 className=" min-h-screen flex  justify-center place-content-between "
             >
                 <Container
-                    className="bg-zinc-800 rounded-lg flex "
+                    className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex "
                     component="main"
                     maxWidth="sm"
                     
@@ -46,16 +46,16 @@ export const Home = () =>
                     <CssBaseline />
                     <Box
                         sx={{
-                            padding: 3,
+                            padding: 2,
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "left",
 
                            
                         }}
-                        className="bg-white dark:bg-dark-mode text-black dark:text-white"
+                        className="bg-white dark:bg-dark-mode text-black dark:text-white "
                     >
-                        <div className=" w-100 h-0 pt-60
+                        <div className=" w-50 h-60
                         bg-contain bg-center  bg-light dark:bg-dark ">
     
                         </div>
@@ -95,7 +95,7 @@ export const Home = () =>
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500  
                                 buttonGradient">
-                                    <span className="text-black dark:text-white text">JUGAR</span>
+                                    <span className="text-black dark:text-white text ">JUGAR</span>
                                 </button>
 
                             </Link>
