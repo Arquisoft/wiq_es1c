@@ -24,7 +24,11 @@ const Question = Schema
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    tags: {
+        type: [String],
+        required: true
+    },
 });
 
 Question.methods.toJSON = function()

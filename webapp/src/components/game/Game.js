@@ -75,7 +75,7 @@ export const Game = () => {
             });
         }, 20);
 
-        startNewGame(token).then(() =>
+        startNewGame(token, "").then(() =>
             loadNextQuestion()
         );
 

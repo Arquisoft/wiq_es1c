@@ -8,7 +8,6 @@ const db = require("./db/mongo/config");
 const {loadInitialTemplates, getRandomTemplate} = require("./db/mongo/utils");
 const processTemplate = require("./questions/templateProcessor");
 
-
 const port = 8002;
 const app = express();
 

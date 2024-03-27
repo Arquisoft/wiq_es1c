@@ -30,8 +30,8 @@ const next = async (req,res) => {
       return;
     }
   
-    const questionRaw = await loadQuestion();
     const game = games[0];
+    const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
     
     Question.create({
       title: questionRaw.title,
@@ -101,9 +101,12 @@ const newGame = async (req,res) => {
       res.status(400).send();
       return;
     }
+
+    let tags = req.body.tags ?? "";
   
     await Game.create({
-      UserId: user.id
+      UserId: user.id,
+      tags: tags
     })
   
     res.status(200).send();
