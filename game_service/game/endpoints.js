@@ -11,7 +11,7 @@ const {validate, getCurrentQuestion} = require("./verification");
 const { loadQuestion } = require('../services/questionsService');
 
 const next = async (req,res) => {
-    const userId = jwt.verify(req.body.token, privateKey).user_id;
+    const userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     const user = await User.findOne({
       where: {
@@ -54,7 +54,7 @@ const next = async (req,res) => {
 }
 
 const update = async (req, res) => {
-    let userId = jwt.verify(req.body.token, privateKey).user_id;
+    let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     let user = await User.findOne({
       where: {
@@ -89,7 +89,7 @@ const update = async (req, res) => {
 }
 
 const newGame = async (req,res) => {
-    let userId = jwt.verify(req.body.token, privateKey).user_id;
+    let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     let user = await User.findOne({
       where: {
@@ -113,7 +113,7 @@ const newGame = async (req,res) => {
 }
 
 const awnser = async (req,res) => {
-    let userId = jwt.verify(req.body.token, privateKey).user_id;
+    let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     let user = await User.findOne({
       where: {
