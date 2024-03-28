@@ -84,7 +84,13 @@ export const Game = () => {
 
         let secondsInterval = setInterval( () =>
         {
-            setSeconds(seconds => seconds - 1);
+            setSeconds(seconds => 
+            {
+                if (seconds > 0)
+                    return seconds - 1;
+
+                return seconds
+            });
         }, 1000);
 
         return () => {
