@@ -1,24 +1,24 @@
-export class BasicGame
+export const BasicGame =
 {
-    durationQuestion = 10;
+    durationQuestion: 10
 }
 
-export class BatteryOfSages
+export const BatteryOfSages = 
 {
-    durationQuestion = 60;
+    durationQuestion: 60
 }
 
-export class Discarding
+export const Discarding =
 {
-    durationQuestion = 30;
+    durationQuestion: 30
 }
 
-export class TheHotQuestion
+export const TheHotQuestion = 
 {
-    durationQuestion = 30;
+    durationQuestion: 30
 }
 
-export class DiscoveringCities
+export const DiscoveringCities =
 {
-    durationQuestion = 30;
+    durationQuestion: 30
 }
