@@ -18,14 +18,15 @@ export const Game = () => {
 
             if(respuesta == correcta){
                 const botonCorrecto = document.getElementById(correcta);
-                botonCorrecto.style.backgroundColor = 'green';
+                botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white";
             }else{
                 const botonCorrecto = document.getElementById(correcta);
                 const botonIncorrecto = document.getElementById(respuesta);
-                botonCorrecto.style.backgroundColor = 'green';
+                if(botonCorrecto!==null)
+                    botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white";
 
                 if(botonIncorrecto !== null)
-                    botonIncorrecto.style.backgroundColor = 'red';
+                botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white";
             }
 
             setTimeout(loadNextQuestion, 1000);
@@ -39,7 +40,10 @@ export const Game = () => {
         setLoading(true);
         setTime(undefined)
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
-            btn.style.backgroundColor = 'purple';
+            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white";
+
+            
+            
         })
 
         nextQuestion(token).then((respuesta) => {
@@ -92,7 +96,7 @@ export const Game = () => {
         className="min-h-screen flex justify-center align-middle"
     >
         <Container
-            className="bg-zinc-800 rounded-lg flex"
+            className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex"
             component="main"
             maxWidth="sm"
         >
@@ -104,14 +108,26 @@ export const Game = () => {
                     flexDirection: "column",
                     alignItems: "center",
                 }}
+                
+                className="text-black dark:text-white "
+                
             >
-                <Typography fontFamily="monospace" color="white" component="h1" variant="h5" 
+                
+                <Typography 
+                    
+                    fontFamily="monospace"  
+                    component="h1" 
+                    variant="h5" 
                     sx={{
                         paddingBottom: 3,
                     }}
+                    
                 >
+                    
                     {pregunta}
+                    
                 </Typography>
+               
                 {
                     questionImage!==""
                     ?
@@ -128,7 +144,9 @@ export const Game = () => {
                     : 
                     <></>
                 }
+                
             </Box>
+            
 
             <Box
                 sx={{
@@ -137,6 +155,7 @@ export const Game = () => {
                     flexDirection: "column",
                     alignItems: "center",
                 }}
+                
             >
                 <Grid container spacing={2}>
                     {
@@ -148,7 +167,7 @@ export const Game = () => {
                                         variant="contained"
                                         onClick={comprobarPregunta.bind(this, respuesta)}
                                         id={respuesta}
-                                        backgroundColor="purple"
+                                        
                                         data-buton="btn"
                                         fontFamily="monospace"
                                     >
@@ -164,8 +183,10 @@ export const Game = () => {
             <Box sx={{ 
                 width: '100%',
                 padding: 3
-            }}>
-                <LinearProgress color="secondary" variant={loading? "indeterminate" : "determinate"} value={remTime} />
+            }}
+            
+            >
+                <LinearProgress  color='secondary' variant={loading? "indeterminate" : "determinate"} value={remTime}  />
             </Box>
         </Container>
     </Container>

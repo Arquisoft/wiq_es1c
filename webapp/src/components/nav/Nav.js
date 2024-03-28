@@ -116,7 +116,7 @@ export const Nav = () => {
          
 
           {/* Título */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} className='text-black-500 dark:text-white-500' style={{color: color}}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}  style={{color: color}}>
             WIQ
           </Typography>
 
