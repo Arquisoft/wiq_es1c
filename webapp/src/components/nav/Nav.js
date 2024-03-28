@@ -64,6 +64,11 @@ export const Nav = () => {
     handleMenuAccountClose();
     navigate("/history");
   }
+
+  const profile = () =>{
+    handleMenuAccountClose();
+    navigate("/profile");
+  }
   
   const changeTheme = () => {
     const htmlElement = document.querySelector('html');
@@ -127,7 +132,7 @@ export const Nav = () => {
             onClose={handleMenuAccountClose}
             anchorEl={userAnchor}
           >
-              <MenuItem onClick={handleMenuAccountClose}>Perfil</MenuItem>
+              <MenuItem onClick={profile}>Perfil</MenuItem>
               <MenuItem onClick={history}>Historial</MenuItem>
           </Menu>
 
