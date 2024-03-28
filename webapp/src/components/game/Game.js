@@ -134,7 +134,7 @@ export const Game = () => {
                         alignItems: 'center'
                     }}
                 >
-                    <Typography variant="h2" component="h2" color="white">
+                    <Typography data-testid="counter" variant="h2" component="h2" color="white">
                         { seconds }
                     </Typography>
                 </Box>
