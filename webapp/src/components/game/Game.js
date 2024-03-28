@@ -128,7 +128,10 @@ export const Game = () => {
                         height: 100,
                         borderRadius: 30,
                         marginBottom: 3,
-                        bgcolor: 'purple'
+                        bgcolor: 'purple',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
                     }}
                 >
                     <Typography variant="h2" component="h2" color="white">
