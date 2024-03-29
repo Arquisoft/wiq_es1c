@@ -10,7 +10,7 @@ const mongodb = require('./db/mongo/config');
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
 const sync = require("./db/sync");
-const {newGame, next, awnser, update} = require("./game/endpoints");
+const {newGame, next, awnser, update, getGameSettingsByUser} = require("./game/endpoints");
 const { saveQuestionsInDB, deleteOlderQuestions, loadInitialQuestions } = require('./services/questionsService');
 
 const port = 8003;
@@ -26,6 +26,7 @@ app.post('/api/game/new', newGame);
 app.post('/api/game/next', next);
 app.post('/api/game/awnser', awnser);
 app.post('/api/game/update', update);
+app.get('/api/game/settings', getGameSettingsByUser);
 
 // Connect with mongodb
 mongodb();
