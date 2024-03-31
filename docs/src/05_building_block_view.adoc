@@ -73,7 +73,12 @@ Component WIQ as "WIQ" {
         Component game as "Game Service"
         Component friends as "Friends Service"
         Component history as "UserData Service"
-        Database d as "MariaDB"
+        Database d1 as "MariaDB"
+        Database d2 as "MariaDB"
+        Database d3 as "MariaDB"
+        Database d4 as "MariaDB"
+        Database d5 as "MongoDB"
+        Database d6 as "MongoDB"
     }
 
     Component ui as "User Interface"
@@ -86,10 +91,12 @@ Component WIQ as "WIQ" {
 
 
 
-    auth <-down-> d
-    game <-down-> d
-    friends <-down-> d
-    history <-down-> d
+    auth <-down-> d1
+    game <-down-> d2
+    friends <-down-> d3
+    history <-down-> d4
+    game <-down-> d5
+    questions <-down-> d6
 }
 
 Component w as "Wikidata"
