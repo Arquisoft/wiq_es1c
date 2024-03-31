@@ -184,9 +184,9 @@ export const Game = () => {
                 width: '100%',
                 padding: 3
             }}
-            
+            className="text-black dark:text-white "
             >
-                <LinearProgress  color='secondary' variant={loading? "indeterminate" : "determinate"} value={remTime}  />
+                <LinearProgress  color='inherit' variant={loading? "indeterminate" : "determinate"} value={remTime}  />
             </Box>
         </Container>
     </Container>
