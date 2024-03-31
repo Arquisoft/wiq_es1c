@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
-import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
+
+import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
-import { BasicGame } from '../../settings/settings';
 
 export const Game = () => {
     const token = localStorage.getItem("token");
-    const basicGameSetting = BasicGame; // TODO hacer petición get a game settings
+    let basicGameSetting = undefined;
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [questionImage, setQuestionImage] = useState("");
@@ -14,7 +14,7 @@ export const Game = () => {
     const [loading, setLoading] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
-    const [seconds, setSeconds] = useState(basicGameSetting.durationQuestion);
+    const [seconds, setSeconds] = useState(0);
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
@@ -34,6 +34,14 @@ export const Game = () => {
             setTimeout(loadNextQuestion, 1000);
         })  
     };
+
+    const loadDurationQuestion = () =>
+    {
+        getGameSettings(token).then( settings => {
+            basicGameSetting = settings;
+            setSeconds( () => basicGameSetting.durationQuestion );
+        });
+    }
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
@@ -85,6 +93,9 @@ export const Game = () => {
         startNewGame(token).then(() =>
             loadNextQuestion()
         );
+
+        // Init duration question
+        loadDurationQuestion();
 
         let secondsInterval = setInterval( () =>
         {

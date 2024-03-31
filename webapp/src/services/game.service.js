@@ -56,7 +56,7 @@ const awnser = async (token, awnser) =>
 const getGameSettings = async (token) =>
 {
   try {
-    const response = await axios.get(`${apiEndpoint}:8003/api/game/settings`, { "token": token });
+    const response = await axios.post(`${apiEndpoint}:8003/api/game/settings`, { "token": token });
 
     return response.data;
 
