@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress, Modal} from "@mui/material";
+import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress } from "@mui/material";
 import { startNewGame, nextQuestion, awnser, getEndTime } from "../../../services/game.service";
 import { Nav } from '../../nav/Nav';
 
@@ -13,12 +13,11 @@ export const SuddenDeath = () => {
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
     const [seconds, setSeconds] = useState(0);
-    const [finished, setFinished] = useState(false);
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
-            if(respuesta == correcta){
+            if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.style.backgroundColor = 'green';
                 setTimeout(loadNextQuestion, 1000);
@@ -38,7 +37,6 @@ export const SuddenDeath = () => {
     };
 
     const endGame = () => {
-        setFinished(true);
         console.log("Game over or smtn");
     }
 
@@ -95,8 +93,9 @@ export const SuddenDeath = () => {
         {
             setSeconds(seconds =>
             {
-                if (seconds > 0 && !finished)
+                if (seconds > 0)
                     return seconds - 1;
+
 
                 return seconds
             });
@@ -107,6 +106,9 @@ export const SuddenDeath = () => {
             clearInterval(secondsInterval);
         }
     }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
+
+
+
 
     return (
         <>
@@ -211,25 +213,6 @@ export const SuddenDeath = () => {
                     </Box>
                 </Container>
             </Container>
-            <Modal
-                open={finished}
-                aria-labelledby="parent-modal-title"
-                aria-describedby="parent-modal-description"
-            >
-                <Box  sx={{
-                    padding: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "left"
-
-                }}
-                className="bg-zinc-800">
-                    <h2 id="parent-modal-title">Text in a modal</h2>
-                    <p id="parent-modal-description">
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </p>
-                </Box>
-            </Modal>
         </>
     )
 }
