@@ -26,7 +26,7 @@ app.post('/api/game/new', newGame);
 app.post('/api/game/next', next);
 app.post('/api/game/awnser', awnser);
 app.post('/api/game/update', update);
-app.get('/api/game/settings', getGameSettingsByUser);
+app.post('/api/game/settings', getGameSettingsByUser);
 
 // Connect with mongodb
 mongodb();
