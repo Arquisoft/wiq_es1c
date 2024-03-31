@@ -6,6 +6,7 @@ import Error404 from "../components/error/Error404";
 import { PrivateRoute } from "./PrivateRoute";
 import { AuthRoute } from "./AuthRoute";
 import { Home } from "../components/home/Home";
+import SuddenDeath from "../components/game/gamemodes/SuddenDeath";
 import Game from "../components/game/Game";
 import { History } from "../components/history/History";
 
@@ -43,6 +44,12 @@ const router = createBrowserRouter([
         element: <PrivateRoute>
                     <Game />
                 </PrivateRoute>       
+    },
+    {
+        path: "/suddendeath",
+        element: <PrivateRoute>
+            <SuddenDeath />
+        </PrivateRoute>
     },
     {
         path: "*",
