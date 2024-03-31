@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 // Model
 const user = require('../db/models/user');
+const SettingsGameMode = require('../../game_service/db/models/settingsGameMode');
 
 const privateKey = "ChangeMePlease!!!!"
 
@@ -102,6 +103,11 @@ const register = async (req, res) => {
                 name: name
             }
         })
+
+        // add user settings games
+        SettingsGameMode.create({
+            UserId: u.id
+        });
 
         res
             .status(201)

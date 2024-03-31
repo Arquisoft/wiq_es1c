@@ -6,7 +6,7 @@ import { BasicGame } from '../../settings/settings';
 
 export const Game = () => {
     const token = localStorage.getItem("token");
-    const basicGameSetting = BasicGame;
+    const basicGameSetting = BasicGame; // TODO hacer petición get a game settings
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [questionImage, setQuestionImage] = useState("");
