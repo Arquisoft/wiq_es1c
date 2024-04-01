@@ -1,6 +1,6 @@
 import React , { useEffect, useState }  from 'react';
 import { getCurrentUser, getCreationDate } from "../../services/user.service";
-import {Box, Container, CssBaseline,Typography,Icon } from "@mui/material";
+import {Box, Container, CssBaseline,Typography,Icon, CircularProgress } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Nav } from '../nav/Nav';
 
@@ -25,6 +25,27 @@ export const Profile = () =>{
         };
         fetchCreationDate();
     }, []);
+
+    const CircleProgress = ({ percentage }) => {
+        return (
+          <div style={{ position: 'relative', width: '100px', height: '100px' }}>
+            <CircularProgress
+              variant="determinate"
+              size={100}
+              thickness={2}
+              value={percentage}
+              style={{ position: 'absolute', top: 0, left: 0, color: 'inherit' }}
+             
+            />
+            <Typography
+              variant="body2"
+              style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+            >
+              {percentage}%
+            </Typography>
+          </div>
+        );
+      };
 
     return (
         <>
@@ -66,6 +87,20 @@ export const Profile = () =>{
                         <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
                         {username}
                         </Typography>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center' , justifyContent: 'space-between'}}>
+                        <div >
+                            <Typography style={{ marginBottom: '20px' }}> 
+                                Resultados última partida
+                            </Typography>
+                        <CircleProgress percentage={75} />
+                        </div>
+                        <div >
+                            <Typography style={{ marginBottom: '20px' }}>
+                                Resultados generales
+                            </Typography>
+                        <CircleProgress percentage={14} />
+                        </div>
                         </div>
                     </Box>
             <CssBaseline />
