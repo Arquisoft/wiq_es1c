@@ -6,24 +6,37 @@ import { Nav } from '../nav/Nav';
 import './Home.scss';
 import {useNavigate} from "react-router-dom";
 import CancelIcon from "@mui/icons-material/Cancel";
+import {getTags} from "../../services/question.service";
 
 export const Home = () => 
 {
     const [loggedIn, setLoggedIn] = useState(true);
     const [username, setUsername] = useState("No identificado");
     const [tagSelection, setTagSelection] = useState(false);
+    const [tags, setTags] = useState([]);
     const navigate = useNavigate();
-    const tags = [
-        {
-            name:"Arte",
-            active:true
-        },{
-            name:"Geografía",
-            active:true
-        },{
-            name:"Ciencia",
-            active:true
-        }];
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            const user = await getCurrentUser();
+            setUsername(user);
+        };
+        const fetchTags = async () => {
+            const dynTags = await getTags();
+            let adapted = [];
+            for (let i = 0; i < dynTags.length; i++) {
+                adapted.push(
+                    {
+                        name : dynTags[i],
+                        active : true
+                    });
+            }
+            setTags(adapted);
+        }
+
+        fetchUserName();
+        fetchTags();
+    }, []);
 
     const toggleTag = (e, tag) => {
         tag.active = !tag.active;
@@ -55,13 +68,8 @@ export const Home = () =>
         setLoggedIn(token !== undefined && token !== null);
     }, [loggedIn]);
 
-    useEffect(() => {
-        const fetchUserName = async () => {
-            const user = await getCurrentUser();
-            setUsername(user);
-        };
-        fetchUserName();
-    }, []);
+
+
 
     const openTagSelection = () => setTagSelection(true);
 
@@ -164,7 +172,7 @@ export const Home = () =>
                             <Typography component="h3" variant="h2">
                                 Tags
                             </Typography>
-                            <p>Con las tags puedes seleccionar de qué categorías puede ser preguntado y cuáles no</p>
+                            <p>Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.</p>
                             <div id="tagBox">
                                 {tags.map((tag) =>
                                     <Chip
