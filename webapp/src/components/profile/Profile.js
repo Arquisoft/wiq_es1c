@@ -21,7 +21,8 @@ export const Profile = () =>{
     useEffect(() => {
         const fetchCreationDate = async () => {
             const creationDate = await getCreationDate();
-            setCreationDate(creationDate);
+            const fixedDate = creationDate.slice(0, 10);
+            setCreationDate(fixedDate);
         };
         fetchCreationDate();
     }, []);
@@ -43,6 +44,8 @@ export const Profile = () =>{
             >
               {percentage}%
             </Typography>
+
+            
           </div>
         );
       };
@@ -84,9 +87,14 @@ export const Profile = () =>{
                         >
                             <AccountCircle style={{ fontSize: '48px' }}/>
                         </Icon>
+                        <div>
                         <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
-                        {username}
+                        Usuario: {username}
                         </Typography>
+                        <Typography fontFamily="monospace" fontWeight="bold" >
+                            LLeva jugando desde: {creationDate}
+                        </Typography>
+                        </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' , justifyContent: 'space-between'}}>
                         <div >
