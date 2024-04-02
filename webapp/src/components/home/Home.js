@@ -150,20 +150,21 @@ export const Home = () =>
                 </Container>
                 <Modal
                     open={tagSelection}
-                    sx={{
-                        display: 'flex',
-                        width: '80em',
-                        maxWidth: '80vw',
-                        textAlign: 'center',
-                        justifyContent: 'center',
-                        justifySelf: 'stretch',
-                        alignItems: "center"
-                    }}>
+                    >
                     <Container
                         className="bg-zinc-800 rounded-lg self-center"
                         sx={{
                             display: 'flex',
-                            flexDirection: 'column'
+                            flexDirection: 'column',
+                            padding: "1em",
+                            textAlign: 'center',
+                            justifyContent: 'center',
+                            width: '50em',
+                            maxWidth: '80vw',
+                            position: 'absolute',
+                            top: '50%',
+                            transform: 'translateY(-50%) translateX(-50%)',
+                            left: '50%'
                         }}>
                         <IconButton aria-label="close" color="secondary" onClick={closeTagSelection} className="self-end p-2">
                             <CancelIcon />
