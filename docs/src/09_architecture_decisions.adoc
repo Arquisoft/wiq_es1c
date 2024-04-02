@@ -14,5 +14,8 @@ We have added the ADRs to the Wiki section in the GitHub page, so we provide the
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-07-(Testing-react-library)[ADR 07] -> Testing react library
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-08-%28React-router-dom%29[ADR 08] -> React-router-dom
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-09-%28Sequelize-ORM%29[ADR 09] -> Sequelize ORM
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-10-%28MongoDB%29[ADR 10] -> MongoDB
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-11-%28Question-Cache%29[ADR 11] -> Question Cache
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-12-(Question-Templates)[ADR 12] -> Question Templates
 
 
