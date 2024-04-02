@@ -4,11 +4,16 @@
 [plantuml,"Whitebox",png]
 ----
 actor a as "Alice"
-Component w as "WIQ"
-Component q as "WikiData"
+Component w as "WIQ" #LightGray
+Component q as "WikiData" #2aa198
 
-a -> w: Uses 
-w -> q: Gets data from
+a -> w: Uses
+q -left-> w: provides trivia data
+
+legend
+ |<back:#LightGray>   </back>| Internal source |
+ |<back:#2aa198>   </back>| External source |
+endlegend
 ----
 Motivation::
 _WIQ_ application has the basic structure to generate questions from WikiData and ask them to the user.
@@ -34,16 +39,18 @@ Actor a as "Alice"
 Component WIQ {
     Component ui as "User Interface"
     Component ms as "MicroServices"
-    Database d as "MariaDB"
 }
 
-Component w as "WikiData"
+Component w as "WikiData" #2aa198
 
 a -> ui: Interacts with the UI
-ui -> ms: Sends user requests
-ms <--> d: Reads user and question data
+ui -> ms: Uses REST API
 
 ms <- w: Provide trivia data
+
+legend
+ |<back:#2aa198>   </back>| External source |
+endlegend
 ----
 Motivation::
 This shows the main data flow of the application (Towards the MicroServices) and also the architectural decision to use microservices to which the UI will hook up to.
@@ -59,8 +66,6 @@ Contained Building Blocks::
 |*MicroServices* 
 |They provide a backend for the UI, while keeping the app modular and easy to distribute and update.  
 
-|*MariaDB*
-|It is the choosen database, and stores the necessary data for all the microservices to work properly and to allow them to communicate and sync with eachother
 |===
 === Level 3
 [plantuml,"BlackBox Level 3",png]
@@ -68,41 +73,58 @@ Contained Building Blocks::
 Component WIQ as "WIQ" {
 
     Component ms as "Micro services" {
-        Component auth as "Auth Service"
-        Component questions as "Question Service"
-        Component game as "Game Service"
-        Component friends as "Friends Service"
-        Component history as "UserData Service"
-        Database d1 as "MariaDB"
-        Database d2 as "MariaDB"
-        Database d3 as "MariaDB"
-        Database d4 as "MariaDB"
-        Database d5 as "MongoDB"
-        Database d6 as "MongoDB"
+        Component c1 as "Auth MicroService" {
+            Component auth as "Auth Service" #6c71c4 
+            Database d1 as "Login Data" #859900
+        }
+
+        Component c2 as "UserData MicroService" {
+            Component history as "UserData Service" #6c71c4
+        }
+
+        Component c3 as "Game MicroService" {
+            Component game as "Game Service" #6c71c4
+            Database d2 as "Game data" #859900
+            Database d5 as "Question cache" #b58900 
+        }
+
+        Component c4 as "Question MicroService" {
+            Component questions as "Question Service" #6c71c4
+            Database d6 as "Template storage" #b58900
+        }
     }
 
-    Component ui as "User Interface"
-
+    Component ui as "User Interface" #d33682
 
     ui -down-> auth
     ui -down-> game
     ui -down-> history
-    ui -down-> friends
 
-
-
-    auth <-down-> d1
-    game <-down-> d2
-    friends <-down-> d3
-    history <-down-> d4
-    game <-down-> d5
-    questions <-down-> d6
+    auth -[dotted]-> d1
+    auth <-[dotted]- d1
+    game -[dotted]-> d2
+    game <-[dotted]- d2
+    game -[dotted]-> d5
+    game <-[dotted]- d5
+    questions -[dotted]-> d6
+    questions <-[dotted]- d6
 }
 
-Component w as "Wikidata"
+Component w as "Wikidata" #2aa198
 
-game -down-> questions: generates question
-questions <-down- w: provides trivia data
+game <-- questions: generates questions
+questions <-left- w: provides trivia data
+
+game <-right- history: Queries game history
+auth <-left- history: Queries login data (username)
+
+legend
+ |<back:#d33682>   </back>| Client-side |
+ |<back:#6c71c4>   </back>| Server-side |
+ |<back:#2aa198>   </back>| External source |
+ |<back:#859900>   </back>| Relational Database (MariaDB) |
+ |<back:#b58900>   </back>| Non-Relational Database (MongoDB)|
+endlegend
 ----
 
 Motivation::
@@ -116,9 +138,6 @@ Contained Building Blocks::
 |*Game Service* 
 |It is the microservice that will deal with game creation maintance and ending, it will record all games and the score of the user.
 
-|*Friends service* 
-|It is the microservice that will deal with the friends list of each user and the usual friendship operations such as Adding a friend or removing a friend 
-
 |*UserData Service*
 |Its a microservice that provides to the UI all the necessary data to show the user statistics such as average score and game history. 
 
@@ -127,4 +146,10 @@ Contained Building Blocks::
 
 |*Question service* 
 |Its main purpose is to be an abstraction over the WikiData API so the other microservices can directly ask him for questions instead of having to deal with the WikiData API
+
+|*Game data and Login data* 
+|They are the main databases of the aplication and together will store all the important persistant data of the aplication (Hence why MariaDB was choosen to maximise data consistency).
+
+|*Template storage and Question cache* 
+|They are secondary storages of the application whoose deletion is not critical to the application, template storage stores the templates that are used to generate the questions and question cache stores a temporary amount of questions to reduce latency. MongoDB was choosen due to its performance.
 |===
