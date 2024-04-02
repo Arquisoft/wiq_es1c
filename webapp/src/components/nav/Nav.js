@@ -54,7 +54,7 @@ export const Nav = () => {
   }
 
   const showAlert = () =>{
-    if(location.pathname !== '/home'){
+    if(location.pathname === '/game'){
   Swal.fire({
     title: "¿Quieres volver a la pantalla de inicio?",
     text: "Terminará tu partida.",
@@ -70,7 +70,13 @@ export const Nav = () => {
       
     }
   });
-}}
+}
+else{
+  if(location.pathname !== '/home'){
+  navigate("/home")
+}
+}
+  }
 
 
 

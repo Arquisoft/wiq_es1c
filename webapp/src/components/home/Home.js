@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import {Box, Container, CssBaseline,Typography } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
+import bannerDark from '../../media/wiq_banner.png';
+import bannerLight from '../../media/wiq_banner.light.png';
 import { Nav } from '../nav/Nav';
 import './Home.css';
 
@@ -55,10 +57,8 @@ export const Home = () =>
                         }}
                         className="bg-white dark:bg-dark-mode text-black dark:text-white "
                     >
-                        <div className=" w-50 h-60
-                        bg-contain bg-center  bg-light dark:bg-dark ">
-    
-                        </div>
+                       <img src = {bannerLight} alt="WiQ" className="block dark:hidden" />
+                       <img src = {bannerDark} alt="WiQ" className="hidden dark:block" />
                         
                         <div className="flex p-4 place-content-between ">
                             <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
