@@ -11,7 +11,7 @@ const {validate, getCurrentQuestion} = require("./verification");
 const { loadQuestion } = require('../services/questionsService');
 
 const next = async (req,res) => {
-    const userId = jwt.verify(req.body.token, privateKey).user_id;
+    const userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     const user = await User.findOne({
       where: {
@@ -30,8 +30,8 @@ const next = async (req,res) => {
       return;
     }
   
-    const questionRaw = await loadQuestion();
     const game = games[0];
+    const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
     
     Question.create({
       title: questionRaw.title,
@@ -54,7 +54,7 @@ const next = async (req,res) => {
 }
 
 const update = async (req, res) => {
-    let userId = jwt.verify(req.body.token, privateKey).user_id;
+    let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     let user = await User.findOne({
       where: {
@@ -89,7 +89,7 @@ const update = async (req, res) => {
 }
 
 const newGame = async (req,res) => {
-    let userId = jwt.verify(req.body.token, privateKey).user_id;
+    let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     let user = await User.findOne({
       where: {
@@ -101,16 +101,19 @@ const newGame = async (req,res) => {
       res.status(400).send();
       return;
     }
+
+    let tags = req.body.tags ?? "";
   
     await Game.create({
-      UserId: user.id
+      UserId: user.id,
+      tags: tags
     })
   
     res.status(200).send();
 }
 
 const awnser = async (req,res) => {
-    let userId = jwt.verify(req.body.token, privateKey).user_id;
+    let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     let user = await User.findOne({
       where: {

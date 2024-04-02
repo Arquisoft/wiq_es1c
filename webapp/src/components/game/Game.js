@@ -12,21 +12,22 @@ export const Game = () => {
     const [loading, setLoading] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
+    const [seconds, setSeconds] = useState(0);
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
             if(respuesta == correcta){
                 const botonCorrecto = document.getElementById(correcta);
-                botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white";
+                botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
             }else{
                 const botonCorrecto = document.getElementById(correcta);
                 const botonIncorrecto = document.getElementById(respuesta);
                 if(botonCorrecto!==null)
-                    botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white";
+                    botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
 
                 if(botonIncorrecto !== null)
-                botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white";
+                botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white font-mono";
             }
 
             setTimeout(loadNextQuestion, 1000);
@@ -38,9 +39,10 @@ export const Game = () => {
         setQuestionImage("");
         setRespuestas(["...","...","...","..."])
         setLoading(true);
-        setTime(undefined)
+        setTime(undefined);
+        
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
-            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white";
+            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";
 
             
             
@@ -53,7 +55,8 @@ export const Game = () => {
             setLoading(false);
             getEndTime(token).then((time) => {
                 setTime(time);
-            })
+                setSeconds((time.end - time.start) / 1000);
+            });
         });
     }
 
@@ -79,11 +82,25 @@ export const Game = () => {
             });
         }, 20);
 
-        startNewGame(token).then(() =>
+        startNewGame(token, "").then(() =>
             loadNextQuestion()
         );
 
-        return () => clearInterval(interval);
+        let secondsInterval = setInterval( () =>
+        {
+            setSeconds(seconds => 
+            {
+                if (seconds > 0)
+                    return seconds - 1;
+
+                return seconds
+            });
+        }, 1000);
+
+        return () => {
+            clearInterval(interval);
+            clearInterval(secondsInterval);
+        }
     }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
   return (
@@ -112,12 +129,25 @@ export const Game = () => {
                 className="text-black dark:text-white "
                 
             >
-                
-                <Typography 
-                    
-                    fontFamily="monospace"  
-                    component="h1" 
-                    variant="h5" 
+
+                <Box
+                    sx={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 30,
+                        marginBottom: 3,
+                        
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}
+                    className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
+                >
+                    <Typography data-testid="counter" variant="h2" component="h2" >
+                        { seconds }
+                    </Typography>
+                </Box>
+                <Typography fontFamily="monospace"  component="h1" variant="h5" 
                     sx={{
                         paddingBottom: 3,
                     }}

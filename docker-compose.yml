@@ -1,10 +1,13 @@
 version: '5'
 services:
   question:
+    restart: unless-stopped
     container_name: question-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/question:latest
     profiles: ["dev", "prod"]
     build: ./question_service
+    environment:
+      - DB_URL=set
     depends_on:
       mariadb:
         condition: service_healthy
@@ -14,6 +17,7 @@ services:
       - mynetwork
 
   game:
+    restart: unless-stopped
     container_name: game-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/game:latest
     profiles: ["dev", "prod"]
@@ -29,6 +33,7 @@ services:
       - mynetwork
 
   auth:
+    restart: unless-stopped
     container_name: auth-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/auth:latest
     profiles: ["dev", "prod"]
@@ -44,6 +49,7 @@ services:
       - mynetwork
 
   userdetails:
+    restart: unless-stopped
     container_name: userdetails-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/userdetails:latest
     profiles: [ "dev", "prod" ]
@@ -57,6 +63,7 @@ services:
       - mynetwork
 
   mariadb:
+    restart: unless-stopped
     container_name: mariadb-${teamname:-defaultASW}
     image: mariadb
     profiles: ["dev", "prod"]
@@ -76,6 +83,7 @@ services:
       - mynetwork
 
   mongodb:
+    restart: unless-stopped
     container_name: mongodb-${teamname:-defaultASW}
     image: mongo
     restart: always
@@ -86,6 +94,7 @@ services:
       - mynetwork
 
   webapp:
+    restart: unless-stopped
     container_name: webapp-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/webapp:latest
     profiles: ["dev", "prod"]
@@ -96,44 +105,49 @@ services:
     ports:
       - "80:3000" 
 
-# prometheus:
-#   image: prom/prometheus
-#   container_name: prometheus-${teamname:-defaultASW}
-#   profiles: ["dev"]
-#   networks:
-#     - mynetwork
-#   volumes:
-#     - ./gatewayservice/monitoring/prometheus:/etc/prometheus
-#     - prometheus_data:/prometheus
-#   ports:
-#     - "9090:9090"
-#   depends_on: 
-#     - gatewayservice
+  prometheus:
+    restart: unless-stopped
+    image: prom/prometheus
+    container_name: prometheus-${teamname:-defaultASW}
+    profiles: ["dev"]
+    networks:
+      - mynetwork
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    depends_on: 
+      - question
+      - game
+      - auth
+      - userdetails
       
-# grafana:
-#   image: grafana/grafana
-#   container_name: grafana-${teamname:-defaultASW}
-#   profiles: ["dev"]
-#   networks:
-#     - mynetwork
-#   volumes:
-#     - grafana_data:/var/lib/grafana
-#     - ./gatewayservice/monitoring/grafana/provisioning:/etc/grafana/provisioning
-#   environment:
-#     - GF_SERVER_HTTP_PORT=9091
-#     - GF_AUTH_DISABLE_LOGIN_FORM=true
-#     - GF_AUTH_ANONYMOUS_ENABLED=true
-#     - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-#   ports:
-#     - "9091:9091"
-#   depends_on: 
-#     - prometheus
+  grafana:
+    restart: unless-stopped
+    image: grafana/grafana
+    container_name: grafana-${teamname:-defaultASW}
+    profiles: ["dev"]
+    networks:
+      - mynetwork
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SERVER_HTTP_PORT=9091
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    ports:
+      - "9091:9091"
+    depends_on: 
+      - prometheus
 
 
 volumes:
   mariadb_data:
-# prometheus_data: 
-# grafana_data: 
+  prometheus_data: 
+  grafana_data: 
 
 networks:
   mynetwork:

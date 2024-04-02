@@ -11,12 +11,13 @@ This is a base repo for the [Software Architecture course](http://arquisoft.gith
 
 This repo is a basic application composed of several components.
 
-- **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
 - **User service**. Express service that handles the insertion of new users in the system.
 - **Auth service**. Express service that handles the authentication of users.
+- **Game service**. Express service that handles the game itself.
+- **Question service**. Express service that handles the questions generation and distribution.
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
 
-Both the user and auth service share a Mongo database that is accessed with mongoose.
+Every service has its own MariaDB database in addition the question and game service have a MongoDB database for managing the questions and the communication with the Wikidata services.
 
 
 
@@ -26,7 +27,9 @@ This project has been developed by the contributors listed in the following sect
 
 **WIQ** is a game inspired in the popular spanish show *"Saber y Ganar"*, where players must answer questions from different topics by choosing one of the options given to them. 
 
-The questions in the game are generated automatically, keeping the game interesting and not repetitive.
+The questions in the game are generated automatically, keeping the game interesting and not repetitive. 
+
+In addition you will be able to choose the topics you want to answer questions about from our topic list. Along with this we have several game modes related to the gameplay, such as answering as many questions as you can at a time
 
 > (THIS DESCRIPTION WILL BE COMPLETED WHEN THE PROJECT HAS ADVANCED MORE)
 
@@ -78,13 +81,17 @@ docker compose --profile dev up --build
 
 ### Starting Component by component
 
-First, start the database. Either install and run Mongo or run it using docker:
+First, start the databases. Either install and run Mongo or run it using docker:
 
 ```docker run -d -p 27017:27017 --name=my-mongo mongo:latest```
 
+It is a similar process to start Mariadb using docker:
+
+``` docker run -d -p 3306:3306 --name=mariadb mariadb:latest```
+
 You can also use services like Mongo Altas for running a Mongo database in the cloud.
 
-Now, launch the auth, user and gateway services. Just go to each directory and run `npm install` followed by `npm start`.
+Now, launch the auth, user, game and question services. Just go to each directory and run `npm install` followed by `npm start`.
 
 Lastly, go to the webapp directory and launch this component with `npm install` followed by `npm start`.
 

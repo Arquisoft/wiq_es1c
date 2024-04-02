@@ -13,6 +13,9 @@ module.exports = {
         'light': "url('/src/media/wiq_banner.light.png')",
         'dark': "url('/src/media/wiq_banner.png')",
       },
+      fontFamily: {
+        mono: ['monospace'],
+      },
     },
   },
   plugins: [],

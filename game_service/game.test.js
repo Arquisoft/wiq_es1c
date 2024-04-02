@@ -25,12 +25,13 @@ describe('Game Service', () => {
     axios.post.mockImplementation((url,data) => {
         return Promise.resolve({ data: {
             "title": `Cual es la capital de Chile`,
-            "awnser": 'Santiago',
+            "answer": 'Santiago',
             "fake" : [
                "Lima",
                "Madrid",
                "Bogota"
-            ]
+            ],
+            "tags" : ["test"]
         }});
     })
 
@@ -70,7 +71,7 @@ describe('Game Service', () => {
     it("Should return 200 with an valid token and requesting new game", async () => {
         const response = await request(app)
             .post('/api/game/new')
-            .send({ token: validToken });
+            .send({ token: validToken, tags: "test"});
 
         expect(response.statusCode).toBe(200);
     })
