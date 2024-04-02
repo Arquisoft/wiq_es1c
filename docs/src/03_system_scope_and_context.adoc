@@ -12,12 +12,12 @@ Component w as "WIQ" #LightGray
 Component q as "WikiData" #Cyan
 
 a -> w: Uses
-w -> q: Gets data from
+q -left-> w: provides trivia data
 
 legend
  |<back:#LightGray>   </back>| Internal source |
  |<back:#Cyan>   </back>| External source |
- endlegend
+endlegend
 ----
 
 |===
@@ -34,26 +34,21 @@ legend
 ----
 node "Azure cloud" {
   node "WIQ" {
-[Webapp]
-}
+    [Webapp]
+  }
 }
 
 node "WIQ user device" {
-[User-agent]
+  [User-agent]
 }
 
-[User-agent] --> Webapp: HTTPS
-
-database "MariaDB"
-
-WIQ --> [Wikidata]: REST
-WIQ --> MariaDB: Uses
+[User-agent] --> Webapp: HTTP: API and Webapp
+[Wikidata] --up--> WIQ : HTTP: Provides data for the questions
 ----
 
 |===
 | *Element* | *Input* | *Output*
 | *User Agent* | User inputs | Requests to the webapp
 | *Webapp* | User agent requests | Application response
-| *MariaDB* | Questions and user information | Questions and user information
 | *Wikidata* | Queries | Information relative to the questions
 |===
