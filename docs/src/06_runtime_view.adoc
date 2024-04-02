@@ -7,10 +7,10 @@ ifndef::imagesdir[:imagesdir: ../images]
 When the users starts a game, it does so via the game service (which internally will use the questions service). The game service will provide questions until the end of the game.
 [plantuml,"Start a game",png]
 ----
-actor a as "Alice"
-participant q as "game service"
-participant w as "questions service"
-database d as "Database"
+actor a as "Alice" #d33682
+participant q as "Game microservice" #6c71c4
+participant w as "Questions microservice" #6c71c4
+database d as "Game storage" #859900
 
 
 a -> q: Requests to begin a game
@@ -30,34 +30,57 @@ q -> a: Confirms if the answer was valid or not
 a -> q: Asks for next question
 end
 q -> a: Tells the user the game has ended, along with the stats
+
+legend
+ |<back:#d33682>   </back>| Client-side |
+ |<back:#6c71c4>   </back>| Server-side |
+ |<back:#859900>   </back>| Relational Database (MariaDB) |
+endlegend
 ----
 
 === A new question is generated
 Other services can ask the questions service to generate a question, this serves as an abstraction over the WikiData API as we are only interested in the questions and not the raw data.
 [plantuml,"Generate a question",png]
 ----
-participant a as "other participants"
-participant q as "questions service"
-database w as "Wikidata"
+participant a as "Other microservices" #6c71c4
+participant q as "Questions service" #6c71c4
+database t as "Template Storage" #b58900
+database w as "Wikidata" #2aa198
 
 a -> q: Requests a new question
-q -> w: Requests data to generate a question
+q -> t: Requests a random template
+t -->q
+q -> w: Requests data asked by template
 w -->q
-q -> q: Generates the question
+q -> q: Fills template
 q -> a: Returns the question 
+
+legend
+ |<back:#6c71c4>   </back>| Server-side |
+ |<back:#2aa198>   </back>| External source |
+ |<back:#b58900>   </back>| Non-Relational Database (MongoDB)|
+endlegend
 ----
 
 === User looks at his history
 The user can look at his history via the User data microservice which provices access to all of the data of the user.
 [plantuml,"Look at history",png]
 ----
-actor a as "Alice"
-participant q as "user data service"
-database d as "Database"
-
+actor a as "Alice" #d33682
+participant q as "Userdata microservice" #6c71c4
+participant g as "Game microservice" #6c71c4 
+participant l as "Auth microservice" #6c71c4
 
 a -> q: Requests to see the history
-q -> d: Requests the history of the player
-d -->q
+q -> l: Requests player data
+q <-- l
+q -> g: Requests player history data
+q <-- g
+q -> q: Aggregates data 
 q -> a: Returns the history 
+
+legend
+ |<back:#d33682>   </back>| Client-side |
+ |<back:#6c71c4>   </back>| Server-side |
+endlegend
 ----
