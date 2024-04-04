@@ -19,6 +19,7 @@
     "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.2.3",
     "sequelize": "^6.36.0",
+    "sequelize-cli": "^6.6.2",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.0",

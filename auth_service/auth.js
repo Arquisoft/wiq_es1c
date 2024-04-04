@@ -10,7 +10,6 @@ const YAML = require('yaml')
 
 // My own libs
 const auth = require('./auth/authEndpoints');
-const sync = require('./db/sync')
 
 const port = 8001;
 const app = express();
@@ -51,7 +50,6 @@ if (fs.existsSync(openapiPath)) {
 
 // Start the server
 const server = app.listen(port, () => {
-  sync();
   console.log(`Auth service listening at http://localhost:${port}`);
 });
 

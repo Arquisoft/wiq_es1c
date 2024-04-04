@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 // Model
-const user = require('../db/models/user');
-const SettingsGameMode = require('../db/models/settingsGameMode');
+const { User } = require('../models');
 
 const privateKey = "ChangeMePlease!!!!"
 
@@ -31,7 +30,7 @@ const login = async (req, res) => {
         let username = req.body.username;
         let password = req.body.password;
 
-        let u = await user.findOne({
+        let u = await User.findOne({
             where: {
                 name: username
             }
@@ -76,7 +75,7 @@ const register = async (req, res) => {
 
         let name = req.body.username
 
-        let u = await user.findOne({
+        let u = await User.findOne({
             where: {
                 name: name
             }
@@ -90,24 +89,19 @@ const register = async (req, res) => {
             return;
         }
 
-        let password = req.body.password
+        let password = await bcrypt.hash(req.body.password, 15);
 
-        await user.create({
+        await User.create({
             name: name,
             password: password 
         })
 
         // get Id for token
-        u = await user.findOne({
+        u = await User.findOne({
             where: {
                 name: name
             }
         })
-
-        // add user settings games
-        await SettingsGameMode.create({
-            UserId: u.id
-        });
 
         res
             .status(201)
@@ -128,7 +122,7 @@ const verify = async (req, res) => {
     try{
         let userId = jwt.verify(req.body.token, privateKey).user_id;
 
-        let u = await user.findOne({
+        let u = await User.findOne({
             where: {
                 id: userId
             }
@@ -149,7 +143,7 @@ const verify = async (req, res) => {
 const getUsername = async (req,res) => {
     let userId = jwt.verify(req.body.token, privateKey).user_id;
 
-    let userf = await user.findOne({
+    let userf = await User.findOne({
         where: {
             id: userId
         }

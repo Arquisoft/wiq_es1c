@@ -1,0 +1,15 @@
+{
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "db",
+    "host": "UserDataDB",
+    "port": 9001,
+    "dialect": "mariadb"
+  },
+  "development": {
+    "dialect": "sqlite",
+    "storage": ":memory:",
+    "logging": false
+  }
+}
