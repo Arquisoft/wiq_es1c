@@ -114,11 +114,12 @@ const register = async (req, res) => {
 }
 
 const verify = async (req, res) => {
+    console.log(req.body.token);
     if(!validateRequiredFields(req,['token'])){
         res.status(401).send();
         return;
     }
-
+console.log("llega 1");
     try{
         let userId = jwt.verify(req.body.token, privateKey).user_id;
 
@@ -127,7 +128,7 @@ const verify = async (req, res) => {
                 id: userId
             }
         })
-        
+        console.log(u);
         if(u == null){
             res.status(400).send();
             return;
