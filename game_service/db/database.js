@@ -5,8 +5,8 @@ let sequelize
 if (process.env.DB_URL) {
     console.log("Maria DB Selected")
     sequelize = new Sequelize('db', 'root', '', {
-        host: 'mariadb',
-        port: 3306,
+        host: 'GameDataDB',
+        port: 9002,
         dialect: 'mariadb'
     })
 }else {
