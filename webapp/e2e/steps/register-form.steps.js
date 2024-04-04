@@ -2,7 +2,9 @@ const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/register-form.feature');
+const DatabaseManager = require('../DatabaseManager.js');
 
+let dbManager;
 let page;
 let browser;
 
@@ -13,6 +15,14 @@ defineFeature(feature, test => {
       ? await puppeteer.launch()
       : await puppeteer.launch({ headless: false, slowMo: 1 });
     page = await browser.newPage();
+    const dbConfig={
+      host:'localhost',
+      user:'root',
+      password:'',
+      port:3306,
+      database:'mariadb'
+    }
+    dbManager=new DatabaseManager(dbConfig);
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
   });
@@ -24,16 +34,23 @@ defineFeature(feature, test => {
         .catch(() => {});
   })
   afterEach(async()=>{
+    await page.waitForSelector('[data-testid="logout"]');
     const logoutButton = await page.$('[data-testid="logout"]');
     await logoutButton.click();
+  })
+
+  afterAll(async ()=>{
+    browser.close()
+    await dbManager.close();
   })
   test('The user is not registered in the site', ({given,when,then}) => {
     let username;
     let password;
 
     given('An unregistered user', async () => {
-      username = "pabla"
-      password = "pabloasw"
+      username = "a)UAN)DVyAS$&CE"
+      password = "pasl98AUC(/Avhb)ha/AD&CA&(COAw"
+      const result = await dbManager.query(`DELETE FROM users WHERE name = '${username}'`)
       await expect(page).toClick("a", { text: "¿No tienes una cuenta? Regístrate" });
     });
 
@@ -77,7 +94,7 @@ defineFeature(feature, test => {
     let password;
 
     given('An unregistered user', async () => {
-      username = "pablt"
+      username = await dbManager.query('SELECT NAME FROM Users LIMIT 1')
       password = "pabloasw"
     });
 
@@ -92,8 +109,4 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement("div", { text: "Nombre de usuario no disponible" });
     });
   });
-
-  afterAll(async ()=>{
-    browser.close()
-  })
 });
