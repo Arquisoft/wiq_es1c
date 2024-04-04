@@ -67,7 +67,7 @@ function Row(props) {
                   </TableHead>
                   <TableBody>
                     {row.Questions.map((questionRow) => (
-                      <TableRow key={questionRow.id}>
+                      <TableRow key={questionRow.id} data-testid="question">
                         <TableCell>{questionRow.title}</TableCell>
                         <TableCell>{questionRow.answer}</TableCell>
                         <TableCell>{questionRow.user_answer ?? "(Sin contestar)"}</TableCell>
