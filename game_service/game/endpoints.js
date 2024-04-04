@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Game = require("../db/models/game")
-const SettingsGameMode = require('./../db/models/settingsGameMode');
-const Question = require("../db/models/question")
+const {Game, Question, SettingsGameMode} = require("../models")
 const suffle = require("./arrayShuffle")
 
 const privateKey = "ChangeMePlease!!!!"
@@ -31,7 +29,7 @@ const next = async (req,res) => {
       imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
       answer: questionRaw.answer,
       fake: questionRaw.fakes,
-      GameId: game.id
+      gameId: game.id
     })
   
     res.status(200).json({
@@ -118,7 +116,10 @@ const getHistory = async (req,res) => {
     where: {
       user_id: userId
     },
-    include: [Question]
+    include: [{
+      model: Question,
+      as: 'Questions' // alias defined in the association
+    }]
   });
 
   return res.status(200).json(games.map(game => game.toJSON()))

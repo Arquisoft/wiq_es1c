@@ -14,8 +14,7 @@ const YAML = require('yaml')
 
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
-const sync = require("./db/sync");
-const {newGame, next, awnser, update, getGameSettingsByUser, getHistory} = require("./game/endpoints");
+const { newGame, next, awnser, update, getGameSettingsByUser, getHistory } = require("./game/endpoints");
 const { saveQuestionsInDB, deleteOlderQuestions, loadInitialQuestions } = require('./services/questionsService');
 
 const port = 8003;
@@ -70,7 +69,6 @@ setInterval( async () => {
 
 // Start the server
 const server = app.listen(port, () => {
-  sync();
   console.log(`Game service listening at http://localhost:${port}`);
 });
 

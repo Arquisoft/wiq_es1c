@@ -1,5 +1,5 @@
 const axios = require('axios');
-const Game = require('../db/models/game')
+const {Game} = require("../models")
 
 const validate = (req, requiredFields) => {
     for (const field of requiredFields) {
