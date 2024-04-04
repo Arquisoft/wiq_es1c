@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
-import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
+
+import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
 
 export const Game = () => {
     const token = localStorage.getItem("token");
+    let basicGameSetting = undefined;
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [questionImage, setQuestionImage] = useState("");
@@ -17,21 +19,30 @@ export const Game = () => {
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
-            if(respuesta == correcta){
+            if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
-                botonCorrecto.style.backgroundColor = 'green';
+                botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
             }else{
                 const botonCorrecto = document.getElementById(correcta);
                 const botonIncorrecto = document.getElementById(respuesta);
-                botonCorrecto.style.backgroundColor = 'green';
+                if(botonCorrecto!==null)
+                    botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
 
                 if(botonIncorrecto !== null)
-                    botonIncorrecto.style.backgroundColor = 'red';
+                botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white font-mono";
             }
 
             setTimeout(loadNextQuestion, 1000);
         })  
     };
+
+    const loadDurationQuestion = () =>
+    {
+        getGameSettings(token).then( settings => {
+            basicGameSetting = settings;
+            setSeconds( () => basicGameSetting.durationQuestion );
+        });
+    }
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
@@ -41,7 +52,10 @@ export const Game = () => {
         setTime(undefined);
         
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
-            btn.style.backgroundColor = 'purple';
+            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";
+
+            
+            
         })
 
         nextQuestion(token).then((respuesta) => {
@@ -51,7 +65,8 @@ export const Game = () => {
             setLoading(false);
             getEndTime(token).then((time) => {
                 setTime(time);
-                setSeconds((time.end - time.start) / 1000);
+                //setSeconds((time.end - time.start) / 1000);
+                setSeconds(basicGameSetting.durationQuestion);
             });
         });
     }
@@ -61,7 +76,8 @@ export const Game = () => {
         let interval = setInterval(() => {
             setTime(time => {
                 if(time !== undefined){
-                    let total = time.end - time.start;
+                    //let total = time.end - time.start;
+                    let total = basicGameSetting.durationQuestion * 1000;
                     let trans = (new Date().getTime()) - time.start;
 
                     let percentage =  (trans/total) * 100;
@@ -81,6 +97,9 @@ export const Game = () => {
         startNewGame(token, "").then(() =>
             loadNextQuestion()
         );
+
+        // Init duration question
+        loadDurationQuestion();
 
         let secondsInterval = setInterval( () =>
         {
@@ -109,7 +128,7 @@ export const Game = () => {
         className="min-h-screen flex justify-center align-middle"
     >
         <Container
-            className="bg-zinc-800 rounded-lg flex"
+            className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex"
             component="main"
             maxWidth="sm"
         >
@@ -121,30 +140,39 @@ export const Game = () => {
                     flexDirection: "column",
                     alignItems: "center",
                 }}
+                
+                className="text-black dark:text-white "
+                
             >
+
                 <Box
                     sx={{
                         width: 100,
                         height: 100,
                         borderRadius: 30,
                         marginBottom: 3,
-                        bgcolor: 'purple',
+                        
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}
+                    className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
-                    <Typography data-testid="counter" variant="h2" component="h2" color="white">
+                    <Typography data-testid="counter" variant="h2" component="h2" >
                         { seconds }
                     </Typography>
                 </Box>
-                <Typography fontFamily="monospace" color="white" component="h1" variant="h5" 
+                <Typography fontFamily="monospace"  component="h1" variant="h5" 
                     sx={{
                         paddingBottom: 3,
                     }}
+                    
                 >
+                    
                     {pregunta}
+                    
                 </Typography>
+               
                 {
                     questionImage!==""
                     ?
@@ -161,7 +189,9 @@ export const Game = () => {
                     : 
                     <></>
                 }
+                
             </Box>
+            
 
             <Box
                 sx={{
@@ -170,6 +200,7 @@ export const Game = () => {
                     flexDirection: "column",
                     alignItems: "center",
                 }}
+                
             >
                 <Grid container spacing={2}>
                     {
@@ -181,7 +212,7 @@ export const Game = () => {
                                         variant="contained"
                                         onClick={comprobarPregunta.bind(this, respuesta)}
                                         id={respuesta}
-                                        backgroundColor="purple"
+                                        
                                         data-buton="btn"
                                         fontFamily="monospace"
                                     >
@@ -197,8 +228,10 @@ export const Game = () => {
             <Box sx={{ 
                 width: '100%',
                 padding: 3
-            }}>
-                <LinearProgress color="secondary" variant={loading? "indeterminate" : "determinate"} value={remTime} />
+            }}
+            className="text-black dark:text-white "
+            >
+                <LinearProgress  color='inherit' variant={loading? "indeterminate" : "determinate"} value={remTime}  />
             </Box>
         </Container>
     </Container>
