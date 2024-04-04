@@ -6,5 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [options="header",cols="1,2"]
 |===
 |Constraint|Explication
-| _Question generated from Wikidata data_ | It´s the unique constraint, get the questions from the Wikidata data, generated automatically.
+| _Question generated from Wikidata data_ | Get the questions from the Wikidata data, generated automatically.
+| _The application is accesible from a web browser_ | The application must be accesible from a frontend deployed on a webpage.
+| _The application offers a way to be monitored_ | The application must offer a way for the sysadmins to monitor the application.
 |===
