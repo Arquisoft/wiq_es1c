@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Game = require("../db/models/game")
+const SettingsGameMode = require('./../db/models/settingsGameMode');
 const Question = require("../db/models/question")
 const suffle = require("./arrayShuffle")
 
@@ -123,4 +124,26 @@ const getHistory = async (req,res) => {
   return res.status(200).json(games.map(game => game.toJSON()))
 }
 
-module.exports = {newGame, next, awnser, update, getHistory}
+const getGameSettingsByUser = async (req, res) =>
+{
+  const userId = await jwt.verify(req.body.token, privateKey).user_id;
+
+  const user = await User.findOne({
+    where: {
+      id: userId
+    }
+  })
+
+  if(user == null){
+    res.status(400).send();
+    return;
+  }
+
+  const settings = await SettingsGameMode.findOne({ where: { UserId: userId } });
+
+  console.log(settings);
+
+  res.status(200).send(settings);
+}
+
+module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser}
