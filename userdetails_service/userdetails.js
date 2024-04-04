@@ -11,7 +11,8 @@ const YAML = require('yaml')
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
 const sync = require("./db/sync");
-const {getUsername, getHistory} = require("./userdetails/endpoints");
+const { getHistory} = require("./userdetails/endpoints");
+const getUsername = require("./service/loginService");
 
 const port = 8004;
 const app = express();

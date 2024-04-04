@@ -140,4 +140,23 @@ const verify = async (req, res) => {
     }
 }
 
-module.exports = {login, register, verify}
+const getUsername = async (req,res) => {
+    let userId = jwt.verify(req.body.token, privateKey).user_id;
+
+    let userf = await user.findOne({
+        where: {
+            id: userId
+        }
+    })
+
+    if(userf == null){
+        res.status(400).send();
+        return;
+    }
+
+    res.status(200).json({
+        name: userf.name
+    });
+}
+
+module.exports = {login, register, verify, getUsername}
