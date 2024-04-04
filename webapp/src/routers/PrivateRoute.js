@@ -6,16 +6,18 @@ import { isValidToken } from "../services/user.service";
 export const PrivateRoute = ({ children }) =>
 {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => 
     {
         const verifyToken = async () => 
         {
             const token = localStorage.getItem('token');
-            console.log(token);
+            
             if (!token) 
             {
                 setIsAuthenticated(false);
+                setIsLoading(false);
                 return;
             }
             
@@ -27,12 +29,16 @@ export const PrivateRoute = ({ children }) =>
             } catch (error) {
                 setIsAuthenticated(false);
             }
+
+            setIsLoading(false);
         };
 
         verifyToken();
     }, []);
 
-    console.log(isAuthenticated);
+    if (isLoading)
+        return <></>;
+
     if (isAuthenticated)
         return children;
 

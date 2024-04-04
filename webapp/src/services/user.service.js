@@ -44,7 +44,6 @@ const isValidToken = async (token) =>
 {
   try {
     const response = await axios.post(`${apiEndpoint}:8001/api/auth/verify`, { token: token });
-    console.log(response);
     
     return response.status === 200;
 
