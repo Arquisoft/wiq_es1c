@@ -15,15 +15,17 @@ defineFeature(feature, test => {
     page = await browser.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
-
-    await page
-      .goto("http://localhost:80/login", {
-        waitUntil: "networkidle0",
-      })
-      .catch(() => {});
   });
+  beforeEach(async()=>{
+    await page
+        .goto("http://localhost:80/register", {
+          waitUntil: "networkidle0",
+        })
+        .catch(() => {});
+  })
   afterEach(async()=>{
-    await expect(page).toClick('button','[data-testid="logout"]');
+    const logoutButton = await page.$('[data-testid="logout"]');
+    await logoutButton.click();
   })
   test('The user is not registered in the site', ({given,when,then}) => {
     let username;
@@ -43,9 +45,10 @@ defineFeature(feature, test => {
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-      await page.waitForXPath('/html/body/div[1]/div/main/main/div/div[1]/h2', { visible: true });
-      const homeElement = await page.$eval('/html/body/div[1]/div/main/main/div/div[1]/h2', el => el.textContent === 'Home');
-      expect(homeElement).toBeTruthy();
+      const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
+      await page.waitForXPath(xpath, { visible: true });
+      const element = await page.$x(xpath)
+      expect(await element.evaluate(el=>el.innerText)).toBe('Home');
     });
   })
 
@@ -69,10 +72,6 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement('#confirmPassword-helper-text');
     });
   });
-
-  afterAll(async ()=>{
-    browser.close()
-  })
   test('The user uses an already taken username', ({given,when,then}) => {
     let username;
     let password;
