@@ -152,4 +152,25 @@ const awnser = async (req,res) => {
     res.status(200).send(question.answer);
 }
 
-module.exports = {newGame, next, awnser, update}
+const getHistory = async (req,res) => {
+  let userId = jwt.verify(req.body.token, privateKey).user_id;
+
+  let user = await User.findOne({
+      where: {
+          id: userId
+      },
+      include: [{
+          model:Game,
+          include: [Question]
+      }]
+  })
+
+  if(user == null){
+      res.status(400).send();
+      return;
+  }
+
+  return res.status(200).json(user.Games.map(game => game.toJSON()))
+}
+
+module.exports = {newGame, next, awnser, update, getHistory}
