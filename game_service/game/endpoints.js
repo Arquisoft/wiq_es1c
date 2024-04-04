@@ -124,24 +124,20 @@ const getHistory = async (req,res) => {
   return res.status(200).json(games.map(game => game.toJSON()))
 }
 
-const getGameSettingsByUser = async (req, res) =>
-{
+const getGameSettingsByUser = async (req, res) =>{
   const userId = await jwt.verify(req.body.token, privateKey).user_id;
 
-  const user = await User.findOne({
-    where: {
-      id: userId
-    }
-  })
+  let settings = await SettingsGameMode.findOne({ 
+    where: { 
+      user_id: userId 
+    } 
+  });
 
-  if(user == null){
-    res.status(400).send();
-    return;
+  if (settings == null) {
+    settings = await SettingsGameMode.create({
+      user_id: userId,
+    })
   }
-
-  const settings = await SettingsGameMode.findOne({ where: { UserId: userId } });
-
-  console.log(settings);
 
   res.status(200).send(settings);
 }
