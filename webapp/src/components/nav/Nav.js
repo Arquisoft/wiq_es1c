@@ -22,9 +22,22 @@ import NightlightIcon from '@mui/icons-material/Nightlight';
 export const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
+ 
+  const getColor = ()=>{
+    const htmlElement = document.querySelector('html');
+
+    if (htmlElement.classList.contains('dark')){
+      return 'white';
+    }
+    else{
+      return 'black';
+    }
+    
+  }
 
   const [openMenu, setOpenMenu] = React.useState(false);
   const [userAnchor, setUserAnchor] = React.useState(undefined);
+  const [color,setColor] = React.useState(getColor());
 
   const handleMenuAccountOpen = (event) => {
     setUserAnchor(event.currentTarget);
@@ -41,7 +54,7 @@ export const Nav = () => {
   }
 
   const showAlert = () =>{
-    if(location.pathname !== '/home'){
+    if(location.pathname === '/game'){
   Swal.fire({
     title: "¿Quieres volver a la pantalla de inicio?",
     text: "Terminará tu partida.",
@@ -54,9 +67,16 @@ export const Nav = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       navigate("/home")
+      
     }
   });
-}}
+}
+else{
+  if(location.pathname !== '/home'){
+  navigate("/home")
+}
+}
+  }
 
 
 
@@ -68,29 +88,41 @@ export const Nav = () => {
   const changeTheme = () => {
     const htmlElement = document.querySelector('html');
 
-    if (htmlElement.classList.contains('dark')) 
+    if (htmlElement.classList.contains('dark')){
       htmlElement.classList.remove('dark');
-    else
+      setColor('black');
+    }
+    
+    else{
       htmlElement.classList.add('dark');
+      setColor('white');
+    }
+    
   }
+
+ 
+
+
+  
 
   return (
     <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static">
-        <Toolbar className="bg-zinc-800">
+        <Toolbar className="bg-teal-50 dark:bg-zinc-800">
           
             <IconButton
                 size="large"
                 color="inherit"
                 onClick={showAlert}
+                
             >
-              <HomeIcon />
+              <HomeIcon style={{color: color}}/>
             </IconButton>
           
          
 
           {/* Título */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}  style={{color: color}}>
             WIQ
           </Typography>
 
@@ -98,14 +130,14 @@ export const Nav = () => {
             size='large'
             color='inherit'
           >
-            <NightlightIcon onClick={changeTheme} />
+            <NightlightIcon onClick={changeTheme} style={{color: color}}/>
           </IconButton>
 
           <IconButton
             size="large"
             color="inherit"
           >
-            <SettingsIcon />
+            <SettingsIcon style={{color: color}}/>
           </IconButton>
 
           {/* Botón de cuenta */}
@@ -118,7 +150,7 @@ export const Nav = () => {
             color="inherit"
             data-testid="open-account-menu"
           >
-            <AccountCircle />
+            <AccountCircle style={{color: color}}/>
           </IconButton>
 
           <Menu
@@ -137,7 +169,7 @@ export const Nav = () => {
             onClick={logout}
             data-testid="logout"
           >
-            <LogoutIcon />
+            <LogoutIcon style={{color: color}}/>
           </IconButton>
         </Toolbar>
       </AppBar>

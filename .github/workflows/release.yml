@@ -141,5 +141,5 @@ jobs:
         command: |
           wget https://raw.githubusercontent.com/arquisoft/wiq_es1c/master/docker-compose.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/arquisoft/wiq_es1c/master/.env -O .env
-          docker compose down
-          docker compose --profile prod up -d
+          docker compose --profile prod down
+          docker compose --profile prod up -d --pull always
