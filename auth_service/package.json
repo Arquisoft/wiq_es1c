@@ -4,7 +4,7 @@
   "description": "",
   "main": "auth.js",
   "scripts": {
-    "test": "jest"
+    "test": "npx sequelize-cli db:migrate && jest --forceExit && del-cli ./testDB.sqlite"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +22,7 @@
     "sequelize-cli": "^6.6.2",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
+    "supertest": "^6.3.4",
     "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.1",
     "yaml": "^2.4.1"
