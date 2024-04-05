@@ -59,7 +59,6 @@ defineFeature(feature, test => {
       const element = await page.waitForXPath(xpath, { visible: true });
       //const element = await page.$(xpath)
       const text = await page.evaluate(e => e.innerText, element);
-      console.log(text);
       expect(text).toBe('Home');
       //HACE LOGOUT DE LA APLICACION
       const logoutButton = await page.waitForSelector('[data-testid="logout"]');
@@ -93,8 +92,11 @@ defineFeature(feature, test => {
     let password;
 
     given('An unregistered user', async () => {
-      username = await dbManager.query('SELECT NAME FROM Users LIMIT 1')
+      username = "plsdvnsjdv"
       password = "pabloasw"
+      let idPrueba = "prueba"
+      await dbManager.query(`DELETE FROM Users WHERE id = '${idPrueba}'`)
+      await dbManager.query(`INSERT INTO Users (id, name, password, createdAt, updatedAt) VALUES ('${idPrueba}', '${username}', 'contraseña_pruebas','2024-04-05 15:45:11','2024-04-05 15:45:11')`);
     });
 
     when('I fill the data with a taken username', async () => {
