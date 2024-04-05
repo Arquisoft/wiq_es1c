@@ -20,7 +20,7 @@ defineFeature(feature, test => {
       user:'root',
       password:'',
       port:3306,
-      database:'mariadb'
+      database:'db'
     }
     dbManager=new DatabaseManager(dbConfig);
     //Way of setting up the timeout
@@ -32,11 +32,6 @@ defineFeature(feature, test => {
           waitUntil: "networkidle0",
         })
         .catch(() => {});
-  })
-  afterEach(async()=>{
-    await page.waitForSelector('[data-testid="logout"]');
-    const logoutButton = await page.$('[data-testid="logout"]');
-    await logoutButton.click();
   })
 
   afterAll(async ()=>{
@@ -50,10 +45,8 @@ defineFeature(feature, test => {
     given('An unregistered user', async () => {
       username = "a)UAN)DVyAS$&CE"
       password = "pasl98AUC(/Avhb)ha/AD&CA&(COAw"
-      const result = await dbManager.query(`DELETE FROM users WHERE name = '${username}'`)
-      await expect(page).toClick("a", { text: "¿No tienes una cuenta? Regístrate" });
+      const result = await dbManager.query(`DELETE FROM Users WHERE name = '${username}'`)
     });
-
     when('I fill the data in the form and press submit', async () => {
       await expect(page).toFill('input[name="username"]', username);
       await expect(page).toFill('input[name="password"]', password);
@@ -63,9 +56,15 @@ defineFeature(feature, test => {
 
     then('A confirmation message should be shown in the screen', async () => {
       const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
-      await page.waitForXPath(xpath, { visible: true });
-      const element = await page.$x(xpath)
-      expect(await element.evaluate(el=>el.innerText)).toBe('Home');
+      const element = await page.waitForXPath(xpath, { visible: true });
+      //const element = await page.$(xpath)
+      const text = await page.evaluate(e => e.innerText, element);
+      console.log(text);
+      expect(text).toBe('Home');
+      //HACE LOGOUT DE LA APLICACION
+      const logoutButton = await page.waitForSelector('[data-testid="logout"]');
+      //const logoutButton = await page.$('[data-testid="logout"]');
+      await logoutButton.click();
     });
   })
 
