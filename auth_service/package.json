@@ -4,7 +4,7 @@
   "description": "",
   "main": "auth.js",
   "scripts": {
-    "test": "npx sequelize-cli db:migrate && jest --forceExit --coverage && del-cli ./testDB.sqlite"
+    "test": "npx sequelize-cli db:migrate && jest --forceExit --coverage"
   },
   "author": "",
   "license": "ISC",
