@@ -1,5 +1,5 @@
 import React , { useEffect, useState }  from 'react';
-import { getCurrentUser, getCreationDate } from "../../services/user.service";
+import { getCurrentUser, getCreationDate, getHistory } from "../../services/user.service";
 import {Box, Container, CssBaseline,Typography,Icon, CircularProgress } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Nav } from '../nav/Nav';
@@ -9,6 +9,8 @@ export const Profile = () =>{
 
     const [username, setUsername] = useState("No identificado");
     const [creationDate,setCreationDate] = useState();
+    const [lastGame,setLastGame] = useState([]);
+    const [general,setGeneral] = useState([]);
 
     useEffect(() => {
         const fetchUserName = async () => {
@@ -27,7 +29,64 @@ export const Profile = () =>{
         fetchCreationDate();
     }, []);
 
+    useEffect(() =>{
+        const countAnswers = (questions) => {
+        
+            return questions.reduce(
+                (val, question) => val + ((question.onTime&&question.answer===question.user_answer)?1:0),
+                0
+            )
+        }
+        const fetchLastGame = async() =>{
+            const history = await getHistory();
+            if(history[0].Questions !== null){
+            const questions = history[0].Questions;
+            const value = ((countAnswers(questions)/questions.length)*100).toFixed(0)
+            if(!isNaN(parseInt(value)))
+                setLastGame(value);
+            }
+            setLastGame(0);
+            
+        }
+        fetchLastGame();
+    },[])
+
+    useEffect(() =>{
+        const countAnswers = (questions) => {
+        
+            return questions.reduce(
+                (val, question) => val + ((question.onTime&&question.answer===question.user_answer)?1:0),
+                0
+            )
+        }
+        const fetchGeneral = async() =>{
+            let history = await getHistory();
+            let value=0;
+            let provisional=0;
+            let contador=0;
+            for(let i=0;i<history.length;i++){
+            if(history[i].Questions !== null)
+                provisional = ((countAnswers(history[i].Questions)/history[i].Questions.length)*100).toFixed(0)
+                console.log(provisional);
+                if(!isNaN(parseInt(provisional))){
+                    value+=provisional;
+                    contador+=1;
+                }
+                
+            }
+            value = value/contador;
+            setGeneral(value);
+            
+            
+        }
+        fetchGeneral();
+    },[])
+
+
+
+
     const CircleProgress = ({ percentage }) => {
+
         return (
           <div style={{ position: 'relative', width: '100px', height: '100px' }}>
             <CircularProgress
@@ -101,13 +160,13 @@ export const Profile = () =>{
                             <Typography style={{ marginBottom: '20px' }}> 
                                 Resultados última partida
                             </Typography>
-                        <CircleProgress percentage={75} />
+                        <CircleProgress percentage={lastGame} />
                         </div>
                         <div >
                             <Typography style={{ marginBottom: '20px' }}>
                                 Resultados generales
                             </Typography>
-                        <CircleProgress percentage={14} />
+                        <CircleProgress percentage={general} />
                         </div>
                         </div>
                     </Box>
