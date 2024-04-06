@@ -39,13 +39,18 @@ export const Profile = () =>{
         }
         const fetchLastGame = async() =>{
             const history = await getHistory();
-            if(history[0].Questions !== null){
+            if(history.length !==0){
             const questions = history[0].Questions;
             const value = ((countAnswers(questions)/questions.length)*100).toFixed(0)
-            if(!isNaN(parseInt(value)))
+            if(!isNaN(parseInt(value))){
                 setLastGame(value);
             }
+            else{
             setLastGame(0);
+            }
+        }
+        
+        
             
         }
         fetchLastGame();
@@ -64,18 +69,19 @@ export const Profile = () =>{
             let value=0;
             let provisional=0;
             let contador=0;
+            if(history.length !== 0){
             for(let i=0;i<history.length;i++){
-            if(history[i].Questions !== null)
-                provisional = ((countAnswers(history[i].Questions)/history[i].Questions.length)*100).toFixed(0)
-                console.log(provisional);
+                provisional = ((countAnswers(history[i].Questions)/history[i].Questions.length)*100).toFixed(0);
                 if(!isNaN(parseInt(provisional))){
-                    value+=provisional;
+                    value+=parseInt(provisional);
                     contador+=1;
                 }
-                
             }
             value = value/contador;
-            setGeneral(value);
+            setGeneral(value.toFixed(1));
+        }else{
+            setGeneral(0);
+        }
             
             
         }
