@@ -40,6 +40,18 @@ const register = async (username, password) =>
     }
 }
 
+const isValidToken = async (token) =>
+{
+  try {
+    const response = await axios.post(`${apiEndpoint}:8001/api/auth/verify`, { token: token });
+    
+    return response.status === 200;
+
+  } catch(error) {
+      return error.response.data.error;
+  }
+}
+
 const getCurrentUser = async () =>
 {
     try {
@@ -92,4 +104,6 @@ const getHistory = async () =>
 const isLoggedIn = async (username, password) => token !== undefined;
 const getToken = async () => token;
 
-export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory, getCreationDate};
+
+export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory, getCreationDate, isValidToken};
+

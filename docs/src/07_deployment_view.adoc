@@ -24,19 +24,19 @@ For multiple environments or alternative deployments please copy and adapt this 
 node AzureServer{
     node DockerEngine {
       node DockerContainers {
-          component Microservices
+          component Microservices #6c71c4
       }
     }
 }
 
 node ExternalServer{
-    component WikiData
+    component WikiData #2aa198
 }
 
 
 node UserDevice {
     node UserAgent {
-        component WebApp
+        component WebApp #d33682
     }
 }
 
@@ -48,6 +48,12 @@ User -right-> WebApp : "Interacts with"
 WebApp -up-> Microservices: "Uses"
 
 WikiData -up-> Microservices : "Provides info"
+
+legend
+ |<back:#d33682>   </back>| Client-side |
+ |<back:#6c71c4>   </back>| Server-side |
+ |<back:#2aa198>   </back>| External source |
+endlegend
 ----
 
 Motivation::

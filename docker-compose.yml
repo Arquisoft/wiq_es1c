@@ -1,6 +1,7 @@
 version: '5'
 services:
   question:
+    restart: unless-stopped
     container_name: question-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/question:latest
     profiles: ["dev", "prod"]
@@ -16,6 +17,7 @@ services:
       - mynetwork
 
   game:
+    restart: unless-stopped
     container_name: game-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/game:latest
     profiles: ["dev", "prod"]
@@ -31,6 +33,7 @@ services:
       - mynetwork
 
   auth:
+    restart: unless-stopped
     container_name: auth-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/auth:latest
     profiles: ["dev", "prod"]
@@ -46,6 +49,7 @@ services:
       - mynetwork
 
   userdetails:
+    restart: unless-stopped
     container_name: userdetails-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/userdetails:latest
     profiles: [ "dev", "prod" ]
@@ -59,6 +63,7 @@ services:
       - mynetwork
 
   mariadb:
+    restart: unless-stopped
     container_name: mariadb-${teamname:-defaultASW}
     image: mariadb
     profiles: ["dev", "prod"]
@@ -78,9 +83,9 @@ services:
       - mynetwork
 
   mongodb:
+    restart: unless-stopped
     container_name: mongodb-${teamname:-defaultASW}
     image: mongo
-    restart: always
     profiles: [ "dev", "prod" ]
     ports:
       - 27017:27017
@@ -88,6 +93,7 @@ services:
       - mynetwork
 
   webapp:
+    restart: unless-stopped
     container_name: webapp-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es1c/webapp:latest
     profiles: ["dev", "prod"]
@@ -99,6 +105,7 @@ services:
       - "80:3000" 
 
   prometheus:
+    restart: unless-stopped
     image: prom/prometheus
     container_name: prometheus-${teamname:-defaultASW}
     profiles: ["dev"]
@@ -116,6 +123,7 @@ services:
       - userdetails
       
   grafana:
+    restart: unless-stopped
     image: grafana/grafana
     container_name: grafana-${teamname:-defaultASW}
     profiles: ["dev"]

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import {Box, Container, CssBaseline,Typography } from "@mui/material";
 import { getCurrentUser } from "../../services/user.service";
-import banner from '../../media/wiq_banner.png';
+import bannerDark from '../../media/wiq_banner.png';
+import bannerLight from '../../media/wiq_banner.light.png';
 import { Nav } from '../nav/Nav';
-import './Home.scss';
+import './Home.css';
 
 export const Home = () => 
 {
@@ -35,26 +36,31 @@ export const Home = () =>
             <Container
                 component="main"
                 maxWidth="md"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace", backgroundColor:"rgb(23 23 23 / var(--tw-bg-opacity))"}}
-                className="min-h-screen flex  justify-center place-content-between"
+                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace"}}
+                className=" min-h-screen flex  justify-center place-content-between "
             >
                 <Container
-                    className="bg-zinc-800 rounded-lg flex"
+                    className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex "
                     component="main"
                     maxWidth="sm"
+                    
                 >
                     <CssBaseline />
                     <Box
                         sx={{
-                            padding: 3,
+                            padding: 2,
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "left",
 
+                           
                         }}
+                        className="bg-white dark:bg-dark-mode text-black dark:text-white "
                     >
-                        <img src={banner} alt="WiQ"/>
-                        <div className="flex p-4 place-content-between">
+                       <img src = {bannerLight} alt="WiQ" className="block dark:hidden" />
+                       <img src = {bannerDark} alt="WiQ" className="hidden dark:block" />
+                        
+                        <div className="flex p-4 place-content-between ">
                             <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
                                 Home
                             </Typography>
@@ -85,8 +91,11 @@ export const Home = () =>
                         </div>
                         <div className="flex align-middle justify-center flex-grow">
                             <Link to={'/game'} className="self-center">
-                                <button className="buttonGradient">
-                                    <span className="text">JUGAR</span>
+                                <button className="bg-gradient-to-r 
+                                from-cyan-50 via-cyan-300 to blue-500
+                                dark:from-orange-500 dark:via-purple-500 dark:to-pink-500  
+                                buttonGradient">
+                                    <span className="text-black dark:text-white text ">JUGAR</span>
                                 </button>
 
                             </Link>

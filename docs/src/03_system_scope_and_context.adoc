@@ -7,17 +7,18 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [plantuml,"businesscontext",png]
 ----
-actor a as "Alice"
-Component w as "WIQ" #LightGray
-Component q as "WikiData" #Cyan
+actor a as "Alice" #d33682
+Component w as "WIQ" #6c71c4
+Component q as "WikiData" #2aa198
 
 a -> w: Uses
-w -> q: Gets data from
+q -left-> w: provides trivia data
 
 legend
- |<back:#LightGray>   </back>| Internal source |
- |<back:#Cyan>   </back>| External source |
- endlegend
+ |<back:#d33682>   </back>| Client-side |
+ |<back:#6c71c4>   </back>| Server-side |
+ |<back:#2aa198>   </back>| External source ||
+endlegend
 ----
 
 |===
@@ -34,26 +35,33 @@ legend
 ----
 node "Azure cloud" {
   node "WIQ" {
-[Webapp]
-}
+    Component Webapp #6c71c4
+    Component restAPI #6c71c4
+  }
 }
 
 node "WIQ user device" {
-[User-agent]
+  Component UserAgent #d33682
 }
 
-[User-agent] --> Webapp: HTTPS
+Component Wikidata #2aa198
 
-database "MariaDB"
+UserAgent -down-> Webapp: HTTP: Webapp 
+UserAgent -down-> restAPI: HTTP: API
+Wikidata -up-> restAPI : HTTP: Provides data for the questions
 
-WIQ --> [Wikidata]: REST
-WIQ --> MariaDB: Uses
+legend
+ |<back:#d33682>   </back>| Client-side |
+ |<back:#6c71c4>   </back>| Server-side |
+ |<back:#2aa198>   </back>| External source ||
+endlegend
 ----
 
 |===
 | *Element* | *Input* | *Output*
-| *User Agent* | User inputs | Requests to the webapp
-| *Webapp* | User agent requests | Application response
-| *MariaDB* | Questions and user information | Questions and user information
+| *User Agent* | User inputs | Requests to the RestAPI
+| *User Agent* | User requests page | Requests to the webapp
+| *WebApp* | Requests to the webapp | The webpage
+| *RestAPI* | User agent requests | Application response
 | *Wikidata* | Queries | Information relative to the questions
 |===

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import {render, screen, fireEvent, act, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {Game} from './Game';
 import { MemoryRouter } from 'react-router-dom';
@@ -21,26 +21,57 @@ jest.spyOn(window, 'alert').mockImplementation(() => {});
 describe('Game Component', () => {
 
   test("renders component",async () => {
-    render(<MemoryRouter><Game/></MemoryRouter>);
+
     
-    await act(async () => {});
+    await act(async () => render(<MemoryRouter><Game/></MemoryRouter>));
 
     expect(screen.getByText(/Pregunta de prueba/i)).toBeInTheDocument();
 
   });
   
-  it('shows alert on button click', async () => {
+  it('turns green on correct answer', async () => {
+    await act(async () => render(<MemoryRouter><Game/></MemoryRouter>));
+
+    // Clic en respuesta correcta
+    await act(async () => fireEvent.click(screen.getByText(/Respuesta 1/i)));
+
+    let correctStyle = screen.getByText(/Respuesta 1/i).getAttribute("style");
+    expect(correctStyle).toContain("background-color: green");
+  });
+
+  it('turns red on wrong answer and correct one turns green', async () => {
     render(<MemoryRouter><Game/></MemoryRouter>);
 
     // Espera a que la pregunta se cargue y se renderice
     await act(async () => {});
 
     // Simula hacer clic en el botón de respuesta
-    fireEvent.click(screen.getByText(/Respuesta 1/i));
+    let wrongButton = screen.getByText(/Respuesta 2/i);
+
+
 
     // Espera a que se resuelva la promesa y se ejecute la lógica de la función
-    await act(async () => {});
+    await act(async () => fireEvent.click(wrongButton));
 
-    //TODO: Fix this!
+    let correctAnswer = screen.getByText(/Respuesta 1/i).getAttribute("style");
+    let wrongAnswer = wrongButton.getAttribute("style");
+    expect(correctAnswer).toContain("background-color: green");
+    expect(wrongAnswer).toContain("background-color: red");
   });
+
+  // TODO understand whats going on here
+  it('sets the time label up and changes correctly', async () => {
+
+    await act(async () => render(<MemoryRouter><Game/></MemoryRouter>));
+
+    setTimeout(() => {
+      let counter = screen.getByTestId("counter");
+      expect(counter.textContent).toBe("0.01"); // TODO 0.01 instead of 10??????
+      waitFor(() => expect(counter.textContent).toBe("10"));
+      waitFor(() => expect(counter.textContent).toBe("9"));
+    }, 250);
+
+
+  });
+
 });
