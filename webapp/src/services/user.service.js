@@ -72,7 +72,7 @@ const getCreationDate = async () =>
 {
     try {
 
-        const response = await axios.post(`${apiEndpoint}:8004/api/userdetails/getName`, { token: localStorage.getItem("token") });
+        const response = await axios.post(`${apiEndpoint}:8004/api/userdetails/name`, { token: localStorage.getItem("token") });
         if ( response.status === 200 )
             return response.data.createdAt;
         
