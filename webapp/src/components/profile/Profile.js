@@ -47,7 +47,7 @@ export const Profile = () =>{
             }
             else{
             setLastGame(0);
-            }
+            } 
         }
         
         
@@ -166,13 +166,13 @@ export const Profile = () =>{
                             <Typography style={{ marginBottom: '20px' }}> 
                                 Resultados última partida
                             </Typography>
-                        <CircleProgress percentage={lastGame} />
+                        <CircleProgress percentage={Number(lastGame)} />
                         </div>
                         <div >
                             <Typography style={{ marginBottom: '20px' }}>
                                 Resultados generales
                             </Typography>
-                        <CircleProgress percentage={general} />
+                        <CircleProgress percentage={Number(general)} />
                         </div>
                         </div>
                     </Box>
