@@ -11,7 +11,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { useLocation, redirect } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
@@ -20,6 +20,7 @@ import NightlightIcon from '@mui/icons-material/Nightlight';
 
 
 export const Nav = () => {
+  const navigate = useNavigate();
   const location = useLocation();
  
   const getColor = ()=>{
@@ -49,7 +50,7 @@ export const Nav = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    redirect("/login");
+    navigate("/login");
   }
 
   const showAlert = () =>{
@@ -65,14 +66,14 @@ export const Nav = () => {
     cancelButtonText: "No,continuar jugando"
   }).then((result) => {
     if (result.isConfirmed) {
-      redirect("/home")
+      navigate("/home")
       
     }
   });
 }
 else{
   if(location.pathname !== '/home'){
-  redirect("/home")
+    navigate("/home")
 }
 }
   }
@@ -81,12 +82,12 @@ else{
 
   const history = () => {
     handleMenuAccountClose();
-    redirect("/history");
+    navigate("/history");
   }
 
   const profile = () =>{
     handleMenuAccountClose();
-    redirect("/profile");
+    navigate("/profile");
   }
   
   const changeTheme = () => {
