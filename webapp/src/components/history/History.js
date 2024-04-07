@@ -66,8 +66,8 @@ function Row(props) {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {row.Questions.map((questionRow) => (
-                      <TableRow key={questionRow.id} data-testid="question">
+                    {row.Questions.map((questionRow, i) => (
+                      <TableRow key={i} data-testid="question">
                         <TableCell>{questionRow.title}</TableCell>
                         <TableCell>{questionRow.answer}</TableCell>
                         <TableCell>{questionRow.user_answer ?? "(Sin contestar)"}</TableCell>
@@ -83,10 +83,10 @@ function Row(props) {
                     {
                         (row.tags.split(',').filter(s => s.length > 0).length > 1)
                     ? <>
-                        {row.tags.split(',').map((tag) => 
-                            <StringColorChip label={tag}/>
+                        {row.tags.split(',').map((tag, i) => 
+                            <StringColorChip key={i} label={tag}/>
                         )}
-                    </> 
+                      </> 
                     :   <StringColorChip label="Cualquiera"/>}
                     
                 </Stack>

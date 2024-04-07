@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
 
-import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
+import { startNewGame, getGameSettings, nextQuestion, awnser, getEndTime } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
 import {useLocation} from "react-router-dom";
 
@@ -37,13 +37,6 @@ export const Game = () => {
             setTimeout(loadNextQuestion, 1000);
         })  
     };
-
-    const loadDurationQuestion = () =>
-    {
-        getGameSettings(token).then( settings => {
-            basicGameSetting = settings;
-        });
-    }
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
@@ -89,138 +82,142 @@ export const Game = () => {
             });
         }, 20);
 
-        startNewGame(token, location.state.tags).then(() =>
-        {
-            console.log("Active tags: " + location.state.tags);
-            loadNextQuestion();
-        })
-
         // Init duration question
-        loadDurationQuestion();
+        getGameSettings(token).then( settings => 
+        {
+            basicGameSetting = settings;
+        });
+
+        if (location.state !== null)
+            startNewGame(token, location.state.tags).then(() =>
+            {
+                console.log("Active tags: " + location.state.tags);
+                loadNextQuestion();
+            })
 
         return () => {
             clearInterval(interval);
         }
     }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
-  return (
-    <>
-    <Nav/>
-    <Container
-        component="main"
-        maxWidth="sm"
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "85vh" }}
-        className="min-h-screen flex justify-center align-middle"
-    >
+    return (
+        <>
+        <Nav/>
         <Container
-            className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex"
             component="main"
             maxWidth="sm"
+            sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "85vh" }}
+            className="min-h-screen flex justify-center align-middle"
         >
-            <CssBaseline />
-            <Box
-                sx={{
-                    padding: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}
-                
-                className="text-black dark:text-white "
-                
+            <Container
+                className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex"
+                component="main"
+                maxWidth="sm"
             >
+                <CssBaseline />
+                <Box
+                    sx={{
+                        padding: 3,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                    
+                    className="text-black dark:text-white "
+                    
+                >
+
+                    <Box
+                        sx={{
+                            width: 100,
+                            height: 100,
+                            borderRadius: 30,
+                            marginBottom: 3,
+                            
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                        className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
+                    >
+                        <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
+                            { Math.max(Number(remTime/10).toFixed(0), 0) }
+                        </Typography>
+                    </Box>
+                    <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
+                        sx={{
+                            paddingBottom: 3,
+                        }}
+                        
+                    >
+                        
+                        {pregunta}
+                        
+                    </Typography>
+                
+                    {
+                        questionImage!==""
+                        ?
+                        <Paper elevation={20} >
+                            <Box
+                                component="img"
+                                sx={{
+                                    height: '30vh',
+                                    width: 'auto',
+                                }}
+                                src={questionImage}
+                            />
+                        </Paper>
+                        : 
+                        <></>
+                    }
+                    
+                </Box>
+                
 
                 <Box
                     sx={{
-                        width: 100,
-                        height: 100,
-                        borderRadius: 30,
-                        marginBottom: 3,
-                        
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center'
+                        padding: 3,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
                     }}
-                    className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
+                    
                 >
-                    <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { Math.max(Number(remTime/10).toFixed(0), 0) }
-                    </Typography>
+                    <Grid container spacing={2}>
+                        {
+                            respuestas.map((respuesta, position) => (
+                                <Grid item key={position} xs={6}> 
+                                    <Paper>
+                                        <Button 
+                                            fullWidth
+                                            variant="contained"
+                                            onClick={comprobarPregunta.bind(this, respuesta)}
+                                            id={respuesta}
+                                            data-buton="btn"
+                                            fontFamily="monospace"
+                                            className='bg-purple-500'
+                                        >
+                                            {respuesta}
+                                        </Button>
+                                    </Paper>
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
                 </Box>
-                <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
-                    sx={{
-                        paddingBottom: 3,
-                    }}
-                    
-                >
-                    
-                    {pregunta}
-                    
-                </Typography>
-               
-                {
-                    questionImage!==""
-                    ?
-                    <Paper elevation={20} >
-                        <Box
-                            component="img"
-                            sx={{
-                                height: '30vh',
-                                width: 'auto',
-                            }}
-                            src={questionImage}
-                        />
-                    </Paper>
-                    : 
-                    <></>
-                }
-                
-            </Box>
-            
 
-            <Box
-                sx={{
-                    padding: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
+                <Box sx={{ 
+                    width: '100%',
+                    padding: 3
                 }}
-                
-            >
-                <Grid container spacing={2}>
-                    {
-                        respuestas.map((respuesta, position) => (
-                            <Grid item key={position} xs={6}> 
-                                <Paper>
-                                    <Button 
-                                        fullWidth
-                                        variant="contained"
-                                        onClick={comprobarPregunta.bind(this, respuesta)}
-                                        id={respuesta}
-                                        data-buton="btn"
-                                        fontFamily="monospace"
-                                        className='bg-purple-500'
-                                    >
-                                        {respuesta}
-                                    </Button>
-                                </Paper>
-                            </Grid>
-                        ))
-                    }
-                </Grid>
-            </Box>
-
-            <Box sx={{ 
-                width: '100%',
-                padding: 3
-            }}
-            className="text-black dark:text-white "
-            >
-                <LinearProgress  color='inherit' variant={loading? "indeterminate" : "determinate"} value={remTime}  />
-            </Box>
+                className="text-black dark:text-white "
+                >
+                    <LinearProgress  color='inherit' variant={loading? "indeterminate" : "determinate"} value={remTime}  />
+                </Box>
+            </Container>
         </Container>
-    </Container>
-    </>
+        </>
   )
 }
 
