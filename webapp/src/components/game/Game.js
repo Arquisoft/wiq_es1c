@@ -148,9 +148,9 @@ export const Game = () => {
                                         variant="contained"
                                         onClick={comprobarPregunta.bind(this, respuesta)}
                                         id={respuesta}
-                                        backgroundColor="purple"
                                         data-buton="btn"
                                         fontFamily="monospace"
+                                        className='bg-purple-500'
                                     >
                                         {respuesta}
                                     </Button>
