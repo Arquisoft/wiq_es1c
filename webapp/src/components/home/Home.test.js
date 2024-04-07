@@ -1,6 +1,6 @@
 // src/components/Login.test.js
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, screen, act, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { createMemoryHistory } from 'history';
 import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
@@ -39,7 +39,7 @@ describe("Home component", () => {
 
         render(<Router history={history}><Home/></Router>);
     
-        screen.getByText('Jugar').click();
+        fireEvent.click(screen.getByText('Jugar'));
         
         await act(async () => {});
 
