@@ -86,8 +86,6 @@ export const Home = () =>
                 maxWidth="md"
                 sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", backgroundColor:"rgb(23 23 23 / var(--tw-bg-opacity))"}}
                 className="min-h-screen flex  justify-center place-content-between"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace"}}
-                className=" min-h-screen flex  justify-center place-content-between "
             >
                 <Container
                     className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex "
