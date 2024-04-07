@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: Question Generation Service API
+  description: API endpoint for generating questions
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/questions/generate:
+    post:
+      summary: Generate a random question
+      responses:
+        '200':
+          description: Random question generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: The question text
+                    example: "What is the capital of France?"
+                  imageUrl:
+                    type: string
+                    description: The URL of an optional image related to the question
+                    example: "https://example.com/image.jpg"
+                  awnser:
+                    type: string
+                    description: The correct answer to the question
+                    example: "Paris"
+                  fake:
+                    type: array
+                    description: An array of fake answers
+                    items:
+                      type: string
+                      example: ["London", "Berlin", "Rome"]
+        '500':
+          description: Failed to generate question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Failed to generate question"

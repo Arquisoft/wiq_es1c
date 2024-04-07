@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install app dependencies
 RUN npm install
 
+# Set the env var
+ENV NODE_ENV=production
+
 # Copy the app source code to the working directory
 COPY . .
 
@@ -17,4 +20,4 @@ COPY . .
 EXPOSE 8003
 
 # Define the command to run your app
-CMD ["node", "game.js"]
+CMD ["sh", "-c", "npx sequelize-cli db:migrate && node game.js"]

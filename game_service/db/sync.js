@@ -1,9 +1,9 @@
 const db = require('./database');
 
 // Load the models so their tables are sync
-const User = require('./models/user');
 const Game = require('./models/game');
 const Question = require('./models/question');
+const SettingsGameMode = require('./models/settingsGameMode');
 
 const sync = async () => {
     console.log('DB sync in progress');

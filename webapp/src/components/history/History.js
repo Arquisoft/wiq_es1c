@@ -1,11 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Paper, TableHead, TableRow, Table, TableContainer, TableBody, TableCell,} from "@mui/material";
+import Container from "@mui/material/Container";
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { getHistory } from "../../services/user.service"
 import { Nav } from '../nav/Nav';
+import { CssBaseline } from '@mui/material';
+import StringColorChip from './ColorChip';
 
-export const History = () => {
-
-    const [history, setHistory] = useState([]);
+function Row(props) {
+    const { row } = props;
+    const [open, setOpen] = React.useState(false);
     
     const countAwnsers = (Questions) => {
         return Questions.reduce(
@@ -14,56 +32,105 @@ export const History = () => {
         )
     }
 
+    return (
+      <React.Fragment>
+        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+          <TableCell>
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </TableCell>
+          <TableCell>{new Date(row.createdAt).toLocaleDateString()}</TableCell>
+          <TableCell>{countAwnsers(row.Questions)}</TableCell>
+          <TableCell>{row.Questions.length-countAwnsers(row.Questions)}</TableCell>
+          <TableCell>{((countAwnsers(row.Questions)/row.Questions.length)*100).toFixed(0)}</TableCell>                                  
+        </TableRow>
+        <TableRow>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Box sx={{ margin: 1 }}>
+                <Typography variant="h6" gutterBottom component="div">
+                  Preguntas
+                </Typography>
+                <Table size="small" aria-label="preguntas">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Pregunta</TableCell>
+                      <TableCell>Respuesta correcta</TableCell>
+                      <TableCell>Tu respuesta</TableCell>
+                      <TableCell>Correcta</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {row.Questions.map((questionRow) => (
+                      <TableRow key={questionRow.id} data-testid="question">
+                        <TableCell>{questionRow.title}</TableCell>
+                        <TableCell>{questionRow.answer}</TableCell>
+                        <TableCell>{questionRow.user_answer ?? "(Sin contestar)"}</TableCell>
+                        <TableCell>{(questionRow.onTime&&questionRow.answer===questionRow.user_answer)?<CheckCircleIcon color="success"/>:<CancelIcon color="error"/>}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                <Typography variant="h6" gutterBottom component="div">
+                  Tags
+                </Typography>
+                <Stack direction="row" spacing={1}>
+                    {
+                        (row.tags.split(',').filter(s => s.length > 0).length > 1)
+                    ? <>
+                        {row.tags.split(',').map((tag) => 
+                            <StringColorChip label={tag}/>
+                        )}
+                    </> 
+                    :   <StringColorChip label="Cualquiera"/>}
+                    
+                </Stack>
+              </Box>
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      </React.Fragment>
+    );
+}
+
+
+export const History = () => {
+
+    const [history, setHistory] = useState([]);
+
     useEffect(() => {
         getHistory().then(item => setHistory(item));
     }, [])
 
     return (
         <>
-        <Nav/>
-        <Container
-            component="main"
-            maxWidth="sm"
-            sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "85vh" }}
-            className="min-h-screen flex justify-center align-middle"
-            >
-                    <TableContainer component={Paper}>
-                        <Table aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Juego</TableCell>
-                                    <TableCell>Acertadas</TableCell>
-                                    <TableCell>Falladas</TableCell>
-                                    <TableCell>% de aciertos</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    history.toReversed().map((item, number) => 
-                                        <TableRow key = {item.id}>
-                                            <TableCell>Game {number+1}</TableCell>
-                                            <TableCell>
-                                                {
-                                                    countAwnsers(item.Questions)
-                                                }
-                                            </TableCell>
-                                            <TableCell>
-                                                {
-                                                    item.Questions.length-countAwnsers(item.Questions)
-                                                }
-                                            </TableCell>
-                                            <TableCell>
-                                                {
-                                                    ((countAwnsers(item.Questions)/item.Questions.length)*100).toFixed(0)
-                                                }
-                                            </TableCell>
-                                        </TableRow>
-                                    )
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-        </Container>
+            <Nav/>
+            <CssBaseline/>
+            <Container className="flex flex-col items-center justify-center min-h-screen">
+                <TableContainer component={Paper} className="mt-8 bg-gray-800">
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell/>
+                                <TableCell>Fecha</TableCell>
+                                <TableCell>Acertadas</TableCell>
+                                <TableCell>Falladas</TableCell>
+                                <TableCell>% de aciertos</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {history.slice().reverse().map((item) => 
+                                <Row row={item} key={item.id}/>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Container>
         </>
     )
 }

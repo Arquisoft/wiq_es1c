@@ -17,18 +17,20 @@ defineFeature(feature, test => {
     setDefaultOptions({ timeout: 10000 })
 
     await page
-      .goto("http://localhost:3000/login", {
+      .goto("http://localhost:80/login", {
         waitUntil: "networkidle0",
       })
       .catch(() => {});
   });
-
+  afterEach(async()=>{
+    await expect(page).toClick('button','[data-testid="logout"]');
+  })
   test('The user is not registered in the site', ({given,when,then}) => {
     let username;
     let password;
 
     given('An unregistered user', async () => {
-      username = "pablo"
+      username = "pabla"
       password = "pabloasw"
       await expect(page).toClick("a", { text: "¿No tienes una cuenta? Regístrate" });
     });
@@ -41,9 +43,9 @@ defineFeature(feature, test => {
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-      /*TODO: Add the message
-        await expect(page).toMatchElement("div", { text: "User added successfully" });
-      */
+      await page.waitForXPath('/html/body/div[1]/div/main/main/div/div[1]/h2', { visible: true });
+      const homeElement = await page.$eval('/html/body/div[1]/div/main/main/div/div[1]/h2', el => el.textContent === 'Home');
+      expect(homeElement).toBeTruthy();
     });
   })
 
@@ -52,7 +54,7 @@ defineFeature(feature, test => {
     let password;
 
     given('An unregistered user', async () => {
-      username = "pablo"
+      username = "pablp"
       password = "pabloasw"
     });
 
@@ -64,20 +66,19 @@ defineFeature(feature, test => {
     });
 
     then('A error message appears', async () => {
-        await expect(page).toMatchElement("div", { text: "Las contraseñas no coinciden" });
+        await expect(page).toMatchElement('#confirmPassword-helper-text');
     });
   });
 
   afterAll(async ()=>{
     browser.close()
   })
-/* TODO: fix this on deployment
   test('The user uses an already taken username', ({given,when,then}) => {
     let username;
     let password;
 
     given('An unregistered user', async () => {
-      username = "pablo"
+      username = "pablt"
       password = "pabloasw"
     });
 
@@ -96,5 +97,4 @@ defineFeature(feature, test => {
   afterAll(async ()=>{
     browser.close()
   })
-*/
 });

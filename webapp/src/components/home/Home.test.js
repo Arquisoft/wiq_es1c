@@ -39,7 +39,7 @@ describe("Home component", () => {
 
         render(<Router history={history}><Home/></Router>);
     
-        fireEvent.click(screen.getByText('Jugar'));
+        fireEvent.click(screen.getByText
         
         await act(async () => {});
 

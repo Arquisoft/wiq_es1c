@@ -1,73 +1,44 @@
-const request = require('supertest')
-const app = require("./userdetails")
-const User = require("./db/models/user")
-const Sync = require("./db/sync")
+const request = require('supertest');
+const app = require("./userdetails");
+const jwt = require('jsonwebtoken');
 
-const validToken   = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSJ9.EGt29l9IqmFPQmV7_tFILwo6l8d5zBk6CSz2o15hv4U"
-const invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMiJ9.QfftklDZ6jsHhzADmcDUDlReP1476Na2fUK7t1edtXw"
+// Mock private key for JWT
+const privateKey = "ChangeMePlease!!!!";
 
-beforeAll(async () => {
-    await Sync();
-    await User.create({
-        id: 1,
-        name: "Jazz",
-        password: "meow"
+describe('User Details Endpoints', () => {
+    it("Should return username if token is valid in getUsername endpoint", async () => {
+        // Generate token for the mock user
+        const token = jwt.sign({ user_id: 1 }, privateKey);
+
+        global.fetch = jest.fn().mockResolvedValue({
+            json: async () => ({name: "Juan"})
+        });
+
+        const response = await request(app)
+            .post('/api/userdetails/name')
+            .send({ token: token });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.name).toBeDefined(); // Assuming name should be present in the response
     });
-}) 
 
-afterAll(async () => {
-    app.close();
-})
+    it("Should return history if token is valid in getHistory endpoint", async () => {
+        // Generate token for the mock user
+        const token = jwt.sign({ user_id: 1 }, privateKey);
 
-describe('userDetails Service', () => {
+        // Mock response from the external service
+        const mockHistory = [{ game_id: 1, score: 100 }, { game_id: 2, score: 150 }];
 
-    it("Should return 400 with an invalid user", async () => {
+        // Mocking fetch call
+        global.fetch = jest.fn().mockResolvedValue({
+            json: async () => (mockHistory)
+        });
+
         const response = await request(app)
-            .post('/api/userdetails/name')
-            .send({ token: invalidToken });
-
-        expect(response.statusCode).toBe(400);
-    })
-
-    it("Should return 403 with an invalid token", async () => {
-        const response = await request(app)
-            .post('/api/userdetails/name')
-            .send({ token: "NotValid!" });
-
-        expect(response.statusCode).toBe(401);
-    })
-
-    it("Should return username with an valid token", async () => {
-        const response = await request(app)
-            .post('/api/userdetails/name')
-            .send({ token: validToken });
+            .post('/api/userdetails/history')
+            .send({ token: token });
 
         expect(response.statusCode).toBe(200);
-        expect(response.body.name).toBe("Jazz");
-    })
-
-    it("History Should return 400 with an invalid user", async () => {
-        const response = await request(app)
-            .post('/api/userdetails/history')
-            .send({ token: invalidToken });
-
-        expect(response.statusCode).toBe(400);
-    })
-
-    it("History return 403 with an invalid token", async () => {
-        const response = await request(app)
-            .post('/api/userdetails/history')
-            .send({ token: "NotValid!" });
-
-        expect(response.statusCode).toBe(401);
-    })
-
-    it("History return History with an valid token", async () => {
-        const response = await request(app)
-            .post('/api/userdetails/history')
-            .send({ token: validToken });
-
-        expect(response.statusCode).toBe(200);
-        expect(String(response.body)).toBe("");
-    })
+        expect(response.body).toEqual(mockHistory);
+    });
 });

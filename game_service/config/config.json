@@ -1,0 +1,15 @@
+{
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "db",
+    "host": "GameDataDB",
+    "port": 9002,
+    "dialect": "mariadb"
+  },
+  "development": {
+    "dialect": "sqlite",
+    "storage": ":memory:",
+    "logging": false
+  }
+}

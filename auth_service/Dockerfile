@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Set the env var
-ENV DB_URL=mariadb
+ENV NODE_ENV=production
 
 # Copy the app source code to the working directory
 COPY . .
@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 8001
 
 # Define the command to run your app
-CMD ["node", "auth.js"]
+CMD ["sh", "-c", "npx sequelize-cli db:migrate && node auth.js"]
