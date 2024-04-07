@@ -74,8 +74,9 @@ export const Nav = () => {
           <IconButton
             size='large'
             color='inherit'
+            onClick={ changeTheme }
           >
-            <NightlightIcon onClick={changeTheme} />
+            <NightlightIcon />
           </IconButton>
 
           <IconButton
