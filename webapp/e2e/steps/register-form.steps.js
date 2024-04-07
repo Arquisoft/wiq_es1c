@@ -19,7 +19,7 @@ defineFeature(feature, test => {
       host:'localhost',
       user:'root',
       password:'',
-      port:3306,
+      port:9001,
       database:'db'
     }
     dbManager=new DatabaseManager(dbConfig);
@@ -33,7 +33,6 @@ defineFeature(feature, test => {
         })
         .catch(() => {});
   })
-
   afterAll(async ()=>{
     browser.close()
     await dbManager.close();
@@ -43,8 +42,8 @@ defineFeature(feature, test => {
     let password;
 
     given('An unregistered user', async () => {
-      username = "a)UAN)DVyAS$&CE"
-      password = "pasl98AUC(/Avhb)ha/AD&CA&(COAw"
+      username = "a)UAN)"
+      password = "pasl98AUC(/Avhb)h"
       const result = await dbManager.query(`DELETE FROM Users WHERE name = '${username}'`)
     });
     when('I fill the data in the form and press submit', async () => {
@@ -57,12 +56,12 @@ defineFeature(feature, test => {
     then('A confirmation message should be shown in the screen', async () => {
       const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
       const element = await page.waitForXPath(xpath, { visible: true });
-      //const element = await page.$(xpath)
+      //const element = await page.$(xpath) -> $ sirve para seleccionar elementos por ids, selectors y xpath para xpath
       const text = await page.evaluate(e => e.innerText, element);
       expect(text).toBe('Home');
       //HACE LOGOUT DE LA APLICACION
       const logoutButton = await page.waitForSelector('[data-testid="logout"]');
-      //const logoutButton = await page.$('[data-testid="logout"]');
+      //const logoutButton = await page.$('[data-testid="logout"]'); -> waitforselector espera a que cargue el elemento
       await logoutButton.click();
     });
   })
@@ -92,10 +91,10 @@ defineFeature(feature, test => {
     let password;
 
     given('An unregistered user', async () => {
-      username = "plsdvnsjdv"
+      username = "plsjdv"
       password = "pabloasw"
-      let idPrueba = "prueba"
-      await dbManager.query(`DELETE FROM Users WHERE id = '${idPrueba}'`)
+      let idPrueba = "prua"
+      await dbManager.query(`DELETE FROM Users WHERE id = '${idPrueba}'`);
       await dbManager.query(`INSERT INTO Users (id, name, password, createdAt, updatedAt) VALUES ('${idPrueba}', '${username}', 'contraseña_pruebas','2024-04-05 15:45:11','2024-04-05 15:45:11')`);
     });
 
