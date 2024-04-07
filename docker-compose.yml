@@ -8,9 +8,6 @@ services:
     build: ./question_service
     environment:
       - DB_URL=set
-    depends_on:
-      mariadb:
-        condition: service_healthy
     ports:
       - "8002:8002"
     networks:
@@ -25,7 +22,7 @@ services:
     environment:
       - DB_URL=set
     depends_on:
-      mariadb:
+      GameDataDB:
         condition: service_healthy
     ports:
       - "8003:8003"
@@ -41,7 +38,7 @@ services:
     environment:
       - DB_URL=set
     depends_on:
-      mariadb:
+      UserDataDB:
         condition: service_healthy
     ports:
       - "8001:8001"
@@ -55,40 +52,10 @@ services:
     profiles: [ "dev", "prod" ]
     build: ./userdetails_service
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - game
+      - auth
     ports:
       - "8004:8004"
-    networks:
-      - mynetwork
-
-  mariadb:
-    restart: unless-stopped
-    container_name: mariadb-${teamname:-defaultASW}
-    image: mariadb
-    profiles: ["dev", "prod"]
-    volumes:
-      - mariadb_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    environment:
-      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1 # This should be done in a real production server, im aware.
-      - MARIADB_DATABASE=db
-    healthcheck:
-      test: ["CMD", "healthcheck.sh", "--connect"]
-      interval: 2s
-      timeout: 3s
-      retries: 10
-    networks:
-      - mynetwork
-
-  mongodb:
-    restart: unless-stopped
-    container_name: mongodb-${teamname:-defaultASW}
-    image: mongo
-    profiles: [ "dev", "prod" ]
-    ports:
-      - 27017:27017
     networks:
       - mynetwork
 
@@ -100,10 +67,13 @@ services:
     build: ./webapp
     depends_on:
       - question
+      - userdetails
       - auth
+      - game
     ports:
       - "80:3000" 
 
+# Monitoring Containers
   prometheus:
     restart: unless-stopped
     image: prom/prometheus
@@ -142,9 +112,66 @@ services:
     depends_on: 
       - prometheus
 
+# RELATIONAL DATABASES 
+  UserDataDB:
+    restart: unless-stopped
+    container_name: UserDataDB-${teamname:-defaultASW}
+    image: mariadb
+    profiles: ["dev", "prod"]
+    volumes:
+      - user_data:/var/lib/mysql
+    ports:
+      - "9001:9001"
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1 # This should be done in a real production server, im aware.
+      - MARIADB_DATABASE=db
+      - MYSQL_TCP_PORT=9001
+      - MYSQL_UNIX_PORT=9001
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+    networks:
+      - mynetwork
 
+  GameDataDB:
+    restart: unless-stopped
+    container_name: GameDataDB-${teamname:-defaultASW}
+    image: mariadb
+    profiles: ["dev", "prod"]
+    volumes:
+      - game_data:/var/lib/mysql
+    ports:
+      - "9002:9002"
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1 # This should be done in a real production server, im aware.
+      - MARIADB_DATABASE=db
+      - MYSQL_TCP_PORT=9002
+      - MYSQL_UNIX_PORT=9002
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+    networks:
+      - mynetwork
+
+# Non relational DB
+  mongodb:
+    restart: unless-stopped
+    container_name: mongodb-${teamname:-defaultASW}
+    image: mongo
+    profiles: [ "dev", "prod" ]
+    ports:
+      - 27017:27017
+    networks:
+      - mynetwork
+
+  
 volumes:
-  mariadb_data:
+  user_data:
+  game_data:
   prometheus_data: 
   grafana_data: 
 

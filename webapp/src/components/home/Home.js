@@ -86,8 +86,6 @@ export const Home = () =>
                 maxWidth="md"
                 sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", backgroundColor:"rgb(23 23 23 / var(--tw-bg-opacity))"}}
                 className="min-h-screen flex  justify-center place-content-between"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", color:'white', fontFamily:"monospace"}}
-                className=" min-h-screen flex  justify-center place-content-between "
             >
                 <Container
                     className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex "
@@ -109,11 +107,11 @@ export const Home = () =>
                        <img src = {bannerDark} alt="WiQ" className="hidden dark:block" />
 
                         <div className="flex p-4 place-content-between ">
-                            <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
+                            <Typography  className="text-black dark:text-white " component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
                                 Home
                             </Typography>
 
-                            <Typography component="h3" variant="h5" fontFamily="monospace" alignSelf="center">
+                            <Typography  className="text-black dark:text-white " component="h3" variant="h5" fontFamily="monospace" alignSelf="center">
                                 ¡Bienvenido, {username}!
                             </Typography>
 
@@ -121,21 +119,21 @@ export const Home = () =>
 
                         <div className="p-2 m-1">
                             <Typography component="h3" variant="h6" fontFamily="monospace" fontWeight="bold"
-                                        alignSelf="center">
+                                        alignSelf="center" className="text-black dark:text-white ">
                                 Cómo jugar
                             </Typography>
-                            <Typography component="p" variant="p">
+                            <Typography component="p" variant="p" className="text-black dark:text-white ">
                                 Cuando pulses en el botón de jugar, se te irán mostrando preguntas junto con 4 posibles
                                 respuestas, sólo una de ellas es verdadera, haz click sobre la respuesta correcta para
                                 ganar puntos.
                             </Typography>
-                            <Typography component="p" variant="p">
+                            <Typography component="p" variant="p" className="text-black dark:text-white ">
                                 El tiempo para contestar es limitado. La barra en la parte inferior muestra el tiempo
                                 restante. Si el tiempo se termina, la pregunta contará como fallada y se pasará a la
                                 siguiente.
                             </Typography>
                             <Typography component="p" variant="h6" fontFamily="monospace" fontWeight="bold"
-                                        className="text-center p-3">
+                                        className="text-center p-3 text-black dark:text-white ">
                                 ¡Mucha suerte y demuestra lo que sabes!
                             </Typography>
                         </div>
@@ -149,7 +147,7 @@ export const Home = () =>
                         </div>
                         <div className="flex align-middle justify-center flex-grow m-3">
                             <button onClick={openTagSelection} className="buttonGradient">
-                                    <span className="text">Elige las tags</span>
+                                    <span className="text-black dark:text-white ">Elige las tags</span>
                             </button>
 
                         </div>
@@ -160,7 +158,7 @@ export const Home = () =>
                     open={tagSelection}
                     >
                     <Container
-                        className="bg-zinc-800 rounded-lg self-center"
+                        className="bg-white dark:bg-dark-mode text-black dark:text-white rounded-lg self-center"
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -178,10 +176,10 @@ export const Home = () =>
                             <CancelIcon />
                         </IconButton>
                         <Box>
-                            <Typography component="h3" variant="h2">
+                            <Typography component="h3" variant="h2" className="text-black dark:text-white">
                                 Tags
                             </Typography>
-                            <p>Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.</p>
+                            <p className="text-black dark:text-white">Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.</p>
                             <div id="tagBox">
                                 {tags.map((tag) =>
                                     <Chip

@@ -22,7 +22,7 @@ jobs:
     - run: npm --prefix game_service ci
     - run: npm --prefix userdetails_service test -- --coverage
     - run: npm --prefix question_service test -- --coverage
-    - run: npm --prefix auth_service test -- --coverage
+    - run: npm --prefix auth_service test
     - run: npm --prefix webapp test -- --coverage
     - run: npm --prefix game_service test -- --coverage
     - name: Analyze with SonarCloud

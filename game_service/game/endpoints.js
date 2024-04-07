@@ -1,10 +1,6 @@
 const jwt = require('jsonwebtoken');
-const User = require("../db/models/user")
-const Game = require("../db/models/game")
-const SettingsGameMode = require('./../db/models/settingsGameMode');
-const Question = require("../db/models/question")
+const {Game, Question, SettingsGameMode} = require("../models")
 const suffle = require("./arrayShuffle")
-
 
 const privateKey = "ChangeMePlease!!!!"
 
@@ -13,19 +9,13 @@ const { loadQuestion } = require('../services/questionsService');
 
 const next = async (req,res) => {
     const userId = await jwt.verify(req.body.token, privateKey).user_id;
-
-    const user = await User.findOne({
-      where: {
-        id: userId
-      }
-    })
-
-    if(user == null){
-      res.status(400).send();
-      return;
-    }
     
-    const games = await user.getGames();
+    const games = await Game.findAll({
+      where: {
+        user_id: userId
+      }
+    });
+
     if(games == null || games.length < 1){
       res.status(400).send();
       return;
@@ -39,7 +29,7 @@ const next = async (req,res) => {
       imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
       answer: questionRaw.answer,
       fake: questionRaw.fakes,
-      GameId: game.id
+      gameId: game.id
     })
   
     res.status(200).json({
@@ -56,19 +46,8 @@ const next = async (req,res) => {
 
 const update = async (req, res) => {
     let userId = await jwt.verify(req.body.token, privateKey).user_id;
-
-    let user = await User.findOne({
-      where: {
-        id: userId
-      }
-    })
-
-    if(user == null){
-      res.status(400).send();
-      return;
-    }
     
-    let question = await getCurrentQuestion(user);
+    let question = await getCurrentQuestion(userId);
 
     if(question == null){
       res.status(400).send();
@@ -92,21 +71,10 @@ const update = async (req, res) => {
 const newGame = async (req,res) => {
     let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
-    let user = await User.findOne({
-      where: {
-        id: userId
-      }
-    })
-  
-    if(user == null){
-      res.status(400).send();
-      return;
-    }
-
     let tags = req.body.tags ?? "";
   
     await Game.create({
-      UserId: user.id,
+      user_id: userId,
       tags: tags
     })
   
@@ -116,25 +84,13 @@ const newGame = async (req,res) => {
 const awnser = async (req,res) => {
     let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
-    let user = await User.findOne({
-      where: {
-        id: userId
-      }
-    })
-
-    if(user == null){
-      res.status(400).send();
-      return;
-    }
-
     if(!validate(req,['awnser'])){
       res.status(400).send();
       return;
-    }
-    
+    }   
   
     let awnser = req.body.awnser;
-    let question = await getCurrentQuestion(user);
+    let question = await getCurrentQuestion(userId);
   
     if(question == null){
       res.status(400).send();
@@ -153,26 +109,38 @@ const awnser = async (req,res) => {
     res.status(200).send(question.answer);
 }
 
-const getGameSettingsByUser = async (req, res) =>
-{
+const getHistory = async (req,res) => {
+  let userId = jwt.verify(req.body.token, privateKey).user_id;
+
+  let games = await Game.findAll({
+    where: {
+      user_id: userId
+    },
+    include: [{
+      model: Question,
+      as: 'Questions' // alias defined in the association
+    }]
+  });
+
+  return res.status(200).json(games.map(game => game.toJSON()))
+}
+
+const getGameSettingsByUser = async (req, res) =>{
   const userId = await jwt.verify(req.body.token, privateKey).user_id;
 
-  const user = await User.findOne({
-    where: {
-      id: userId
-    }
-  })
+  let settings = await SettingsGameMode.findOne({ 
+    where: { 
+      user_id: userId 
+    } 
+  });
 
-  if(user == null){
-    res.status(400).send();
-    return;
+  if (settings == null) {
+    settings = await SettingsGameMode.create({
+      user_id: userId,
+    })
   }
-
-  const settings = await SettingsGameMode.findOne({ where: { UserId: userId } });
-
-  console.log(settings);
 
   res.status(200).send(settings);
 }
 
-module.exports = {newGame, next, awnser, update, getGameSettingsByUser}
+module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser}
