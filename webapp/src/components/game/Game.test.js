@@ -13,6 +13,11 @@ jest.mock('../../services/game.service', () => ({
       end: 10,
       start: 0
     }
+  ),
+  getGameSetting: () => Promise.resolve(
+    {
+      durationQuestion: 10
+    }
   )
 }));
 
