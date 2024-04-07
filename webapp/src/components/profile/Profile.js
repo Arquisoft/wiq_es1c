@@ -104,6 +104,7 @@ export const Profile = () =>{
              
             />
             <Typography
+              className="text-black dark:text-white"
               variant="body2"
               style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
             >
@@ -153,23 +154,23 @@ export const Profile = () =>{
                             <AccountCircle style={{ fontSize: '48px' }}/>
                         </Icon>
                         <div>
-                        <Typography component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
+                        <Typography className="text-black dark:text-white" component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
                         Usuario: {username}
                         </Typography>
-                        <Typography fontFamily="monospace" fontWeight="bold" >
+                        <Typography className="text-black dark:text-white" fontFamily="monospace" fontWeight="bold" >
                             LLeva jugando desde: {creationDate}
                         </Typography>
                         </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' , justifyContent: 'space-between'}}>
                         <div >
-                            <Typography style={{ marginBottom: '20px' }}> 
+                            <Typography className="text-black dark:text-white" style={{ marginBottom: '20px' }}> 
                                 Resultados última partida
                             </Typography>
                         <CircleProgress percentage={Number(lastGame)} />
                         </div>
                         <div >
-                            <Typography style={{ marginBottom: '20px' }}>
+                            <Typography className="text-black dark:text-white" style={{ marginBottom: '20px' }}>
                                 Resultados generales
                             </Typography>
                         <CircleProgress percentage={Number(general)} />

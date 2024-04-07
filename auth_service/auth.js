@@ -10,7 +10,6 @@ const YAML = require('yaml')
 
 // My own libs
 const auth = require('./auth/authEndpoints');
-const sync = require('./db/sync')
 
 const port = 8001;
 const app = express();
@@ -28,6 +27,7 @@ app.use(cors()) // This api is listening on a different port from the frontend
 app.post("/api/auth/register", auth.register);
 app.post("/api/auth/login", auth.login);
 app.post("/api/auth/verify", auth.verify);
+app.post("/api/auth/getName", auth.getUsername);
 app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
@@ -50,7 +50,6 @@ if (fs.existsSync(openapiPath)) {
 
 // Start the server
 const server = app.listen(port, () => {
-  sync();
   console.log(`Auth service listening at http://localhost:${port}`);
 });
 
