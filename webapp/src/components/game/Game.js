@@ -3,6 +3,8 @@ import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgr
 
 import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
+import {useLocation} from "react-router-dom";
+
 
 export const Game = () => {
     const token = localStorage.getItem("token");
@@ -15,6 +17,7 @@ export const Game = () => {
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
     const [seconds, setSeconds] = useState(0);
+    const location = useLocation();
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
@@ -94,9 +97,11 @@ export const Game = () => {
             });
         }, 20);
 
-        startNewGame(token, "").then(() =>
-            loadNextQuestion()
-        );
+        startNewGame(token, location.state.tags).then(() =>
+        {
+            console.log("Active tags: " + location.state.tags);
+            loadNextQuestion();
+        })
 
         // Init duration question
         loadDurationQuestion();
