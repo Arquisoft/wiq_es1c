@@ -10,7 +10,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -68,7 +67,7 @@ function Row(props) {
                   </TableHead>
                   <TableBody>
                     {row.Questions.map((questionRow) => (
-                      <TableRow key={questionRow.id}>
+                      <TableRow key={questionRow.id} data-testid="question">
                         <TableCell>{questionRow.title}</TableCell>
                         <TableCell>{questionRow.answer}</TableCell>
                         <TableCell>{questionRow.user_answer ?? "(Sin contestar)"}</TableCell>
@@ -81,7 +80,8 @@ function Row(props) {
                   Tags
                 </Typography>
                 <Stack direction="row" spacing={1}>
-                    {(row.tags.split(',').filter(s => s.length > 0).length > 1)
+                    {
+                        (row.tags.split(',').filter(s => s.length > 0).length > 1)
                     ? <>
                         {row.tags.split(',').map((tag) => 
                             <StringColorChip label={tag}/>

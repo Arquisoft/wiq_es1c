@@ -86,7 +86,6 @@ services:
     restart: unless-stopped
     container_name: mongodb-${teamname:-defaultASW}
     image: mongo
-    restart: always
     profiles: [ "dev", "prod" ]
     ports:
       - 27017:27017

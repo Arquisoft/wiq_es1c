@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
-import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
+
+import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
 import {useLocation} from "react-router-dom";
 
 
 export const Game = () => {
     const token = localStorage.getItem("token");
+    let basicGameSetting = undefined;
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [questionImage, setQuestionImage] = useState("");
@@ -20,7 +22,7 @@ export const Game = () => {
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
 
-            if(respuesta == correcta){
+            if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
             }else{
@@ -36,6 +38,14 @@ export const Game = () => {
             setTimeout(loadNextQuestion, 1000);
         })  
     };
+
+    const loadDurationQuestion = () =>
+    {
+        getGameSettings(token).then( settings => {
+            basicGameSetting = settings;
+            setSeconds( () => basicGameSetting.durationQuestion );
+        });
+    }
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
@@ -58,7 +68,8 @@ export const Game = () => {
             setLoading(false);
             getEndTime(token).then((time) => {
                 setTime(time);
-                setSeconds((time.end - time.start) / 1000);
+                //setSeconds((time.end - time.start) / 1000);
+                setSeconds(basicGameSetting.durationQuestion);
             });
         });
     }
@@ -68,7 +79,8 @@ export const Game = () => {
         let interval = setInterval(() => {
             setTime(time => {
                 if(time !== undefined){
-                    let total = time.end - time.start;
+                    //let total = time.end - time.start;
+                    let total = basicGameSetting.durationQuestion * 1000;
                     let trans = (new Date().getTime()) - time.start;
 
                     let percentage =  (trans/total) * 100;
@@ -90,6 +102,9 @@ export const Game = () => {
             console.log("Active tags: " + location.state.tags);
             loadNextQuestion();
         })
+
+        // Init duration question
+        loadDurationQuestion();
 
         let secondsInterval = setInterval( () =>
         {
