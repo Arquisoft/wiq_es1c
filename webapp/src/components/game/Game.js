@@ -144,7 +144,7 @@ export const Game = () => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { Number(remTime/10).toFixed(0) }
+                        { Math.max(Number(remTime/10).toFixed(0), 0) }
                     </Typography>
                 </Box>
                 <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
