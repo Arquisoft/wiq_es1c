@@ -3,6 +3,8 @@ import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgr
 
 import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
+import {useLocation} from "react-router-dom";
+
 
 export const Game = () => {
     const token = localStorage.getItem("token");
@@ -14,7 +16,7 @@ export const Game = () => {
     const [loading, setLoading] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
-    const [seconds, setSeconds] = useState(0);
+    const location = useLocation();
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
@@ -40,7 +42,6 @@ export const Game = () => {
     {
         getGameSettings(token).then( settings => {
             basicGameSetting = settings;
-            setSeconds( () => basicGameSetting.durationQuestion );
         });
     }
 
@@ -52,10 +53,7 @@ export const Game = () => {
         setTime(undefined);
         
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
-            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";
-
-            
-            
+            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";    
         })
 
         nextQuestion(token).then((respuesta) => {
@@ -65,8 +63,6 @@ export const Game = () => {
             setLoading(false);
             getEndTime(token).then((time) => {
                 setTime(time);
-                //setSeconds((time.end - time.start) / 1000);
-                setSeconds(basicGameSetting.durationQuestion);
             });
         });
     }
@@ -76,7 +72,6 @@ export const Game = () => {
         let interval = setInterval(() => {
             setTime(time => {
                 if(time !== undefined){
-                    //let total = time.end - time.start;
                     let total = basicGameSetting.durationQuestion * 1000;
                     let trans = (new Date().getTime()) - time.start;
 
@@ -94,27 +89,17 @@ export const Game = () => {
             });
         }, 20);
 
-        startNewGame(token, "").then(() =>
-            loadNextQuestion()
-        );
+        startNewGame(token, location.state.tags).then(() =>
+        {
+            console.log("Active tags: " + location.state.tags);
+            loadNextQuestion();
+        })
 
         // Init duration question
         loadDurationQuestion();
 
-        let secondsInterval = setInterval( () =>
-        {
-            setSeconds(seconds => 
-            {
-                if (seconds > 0)
-                    return seconds - 1;
-
-                return seconds
-            });
-        }, 1000);
-
         return () => {
             clearInterval(interval);
-            clearInterval(secondsInterval);
         }
     }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
@@ -158,11 +143,11 @@ export const Game = () => {
                     }}
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
-                    <Typography data-testid="counter" variant="h2" component="h2" >
-                        { seconds }
+                    <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
+                        { Number(remTime/10).toFixed(0) }
                     </Typography>
                 </Box>
-                <Typography fontFamily="monospace"  component="h1" variant="h5" 
+                <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
                     sx={{
                         paddingBottom: 3,
                     }}

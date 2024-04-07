@@ -10,8 +10,9 @@ const YAML = require('yaml')
 
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
-const sync = require("./db/sync");
-const {getUsername, getHistory} = require("./userdetails/endpoints");
+
+const getUsername = require("./service/loginService");
+const getHistory = require("./service/gameService");
 
 const port = 8004;
 const app = express();
@@ -48,7 +49,6 @@ if (fs.existsSync(openapiPath)) {
 
 // Start the server
 const server = app.listen(port, () => {
-    sync();
     console.log(`User details service listening at http://localhost:${port}`);
 });
 
