@@ -149,6 +149,7 @@ services:
       - MARIADB_DATABASE=db
       - MYSQL_TCP_PORT=9002
       - MYSQL_UNIX_PORT=9002
+      #- TZ=Europe/Madrid
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect"]
       interval: 2s
@@ -165,6 +166,7 @@ services:
     profiles: [ "dev", "prod" ]
     ports:
       - 27017:27017
+
     networks:
       - mynetwork
 

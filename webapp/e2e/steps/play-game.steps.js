@@ -3,6 +3,7 @@ const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/play-game.feature');
 const DatabaseManager = require('../DatabaseManager.js');
+const bcrypt = require('bcrypt');
 
 let page;
 let browser;
@@ -10,7 +11,7 @@ let dbManagerUserData;
 let dbManagerGameData;
 defineFeature(feature, test => {
   const username = "testUser_dsknvsi"
-  const password = "hr3]pk,UxU=BQp7"
+  const password = "aebttrbsdbzdfbbs"
   const testId = "Hello"
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
@@ -36,7 +37,8 @@ defineFeature(feature, test => {
     setDefaultOptions({ timeout: 10000 })
     //Creamos nuevo usuario para los tests
     await dbManagerUserData.query(`DELETE FROM Users WHERE id = '${testId}'`);
-    await dbManagerUserData.query(`INSERT INTO Users (id, name, password, createdAt, updatedAt) VALUES ('${testId}', '${username}', '${password}','2024-04-05 15:45:11','2024-04-05 15:45:11')`);
+    //bcryp.hash, 15 por que es lo que estamos utilizando actualmente -> cuidado con authEndpoints.js a los posibles cambios
+    await dbManagerUserData.query(`INSERT INTO Users (id, name, password, createdAt, updatedAt) VALUES ('${testId}', '${username}', '${await bcrypt.hash(password,15)}','2024-04-05 15:45:11','2024-04-05 15:45:11')`);
     await page
       .goto("http://localhost:80/login", {
         waitUntil: "networkidle0",
@@ -72,13 +74,11 @@ defineFeature(feature, test => {
     });
 
     then('A new game starts', async () => {
-      const now = new DateTime().now();
-      console.log(now + "DateTime time");
       const currentUrl = await page.url();
       expect(currentUrl).toBe('http://localhost/game');
+      const now = new Date().toISOString();
       const result = await dbManagerGameData.query(`SELECT createdAt FROM Games WHERE user_id = '${testId}' ORDER BY createdAt DESC LIMIT 1`)
-      console.log(result, +"DBTime")
-      expect(now).equals(result)
+      expect(now).toBe(result[0].createdAt)
     });
   });
   test('Results are shown', ({given,when,then}) => {
