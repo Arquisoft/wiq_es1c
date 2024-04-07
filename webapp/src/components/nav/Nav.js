@@ -9,7 +9,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
@@ -18,8 +18,6 @@ import NightlightIcon from '@mui/icons-material/Nightlight';
 
 
 export const Nav = () => {
-  const navigate = useNavigate();
-
   const [openMenu, setOpenMenu] = React.useState(false);
   const [userAnchor, setUserAnchor] = React.useState(undefined);
 
@@ -34,13 +32,13 @@ export const Nav = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    redirect("/login");
   }
 
 
   const history = () => {
     handleMenuAccountClose();
-    navigate("/history");
+    redirect("/history");
   }
   
   const changeTheme = () => {
