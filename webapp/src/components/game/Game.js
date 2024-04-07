@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
 
-import { startNewGame, getGameSettings, nextQuestion, awnser, getEndTime } from "../../services/game.service";
+import { startNewGame, nextQuestion, awnser, getEndTime, getGameSetting } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
 import {useLocation} from "react-router-dom";
 
@@ -83,7 +83,7 @@ export const Game = () => {
         }, 20);
 
         // Init duration question
-        getGameSettings(token).then( settings => 
+        getGameSetting(token).then( settings => 
         {
             basicGameSetting = settings;
         });

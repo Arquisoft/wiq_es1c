@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, screen, act, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { createMemoryHistory } from 'history';
 import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
@@ -23,7 +23,9 @@ describe("Home component", () => {
 
         render(<Router history={history}><Nav/></Router>);
     
-        screen.getByTestId('logout').click();
+        await act( async () => {
+            await fireEvent.click(screen.getByTestId('logout'));
+        });
 
         await act(async () => {});
 
@@ -35,7 +37,7 @@ describe("Home component", () => {
     test("opens menu properly",async () => {
         render(<MemoryRouter><Nav/></MemoryRouter>);
     
-        screen.getByTestId('open-account-menu').click();
+        fireEvent.click(screen.getByTestId('open-account-menu'));
 
         await act(async () => {});
 
