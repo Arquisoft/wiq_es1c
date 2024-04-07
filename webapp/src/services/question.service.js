@@ -15,4 +15,16 @@ const getTags = async () => {
     }
 }
 
-export {getTags}
+const getGameSetting = async (token) =>
+{
+  try {
+    const response = await axios.post(`${apiEndpoint}:8003/api/game/settings`, { "token": token });
+
+    return response.data;
+
+  } catch (error) {
+    return error.response.data.error;
+  }
+}
+
+export {getTags, getGameSetting}
