@@ -8,9 +8,11 @@ const getUsername = async (req,res) => {
         body: JSON.stringify({token: req.body.token})
     })
 
+    let json = await response.json()
 
     res.status(200).send({
-        name: (await response.json()).name
+        name: json.name,
+        createdAt: json.createdAt 
     });
 }
 

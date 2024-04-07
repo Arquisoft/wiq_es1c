@@ -155,7 +155,8 @@ const getUsername = async (req,res) => {
     }
 
     res.status(200).json({
-        name: userf.name
+        name: userf.name,
+        createdAt: userf.createdAt
     });
 }
 
