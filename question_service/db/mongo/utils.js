@@ -1,5 +1,17 @@
 const Template = require("./schema/Template");
 
+const getAllTags = async() => {
+    const result = await Template.find({}, "tags");
+    let tags = []
+    for (let i = 0; i < result.length; i++) {
+        const tagsInTemplate = result[i].tags;
+        for(let j = 0; j < tagsInTemplate.length; j++)
+            if(!tags.includes(tagsInTemplate[j]))
+                tags.push(tagsInTemplate[j]);
+    }
+    return tags.sort();
+}
+
 const getRandomTemplate = async () => {
     // Count the number of documents in the collection
     const count = await Template.countDocuments();
@@ -35,4 +47,4 @@ const loadInitialTemplates = async () => {
     });
 }
 
-module.exports = {getRandomTemplate, loadInitialTemplates}
+module.exports = {getRandomTemplate, loadInitialTemplates, getAllTags}

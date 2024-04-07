@@ -10,6 +10,7 @@ const YAML = require('yaml')
 
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
+
 const getUsername = require("./service/loginService");
 const getHistory = require("./service/gameService");
 
@@ -29,6 +30,7 @@ app.use('/api/*',authMiddleware); // Auth middleware for the questions API
 // Api endpoints
 app.post('/api/userdetails/name', getUsername);
 app.post('/api/userdetails/history', getHistory);
+app.post('/api/userdetails/createdAt',getCreationDate);
 
 // Read the OpenAPI YAML file synchronously
 openapiPath='./openapi.yaml'

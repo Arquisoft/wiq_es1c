@@ -10,7 +10,7 @@ const YAML = require('yaml')
 
 // My own libs
 const db = require("./db/mongo/config");
-const {loadInitialTemplates, getRandomTemplate} = require("./db/mongo/utils");
+const {loadInitialTemplates, getRandomTemplate, getAllTags} = require("./db/mongo/utils");
 const processTemplate = require("./questions/templateProcessor");
 
 const port = 8002;
@@ -34,6 +34,15 @@ app.post('/api/questions/generate', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to generate question' });
+  }
+});
+
+app.post("/api/questions/tags", async (req, res) => {
+  try {
+    res.status(200).json(await getAllTags());
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to return tags' });
   }
 });
 
