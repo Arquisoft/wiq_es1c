@@ -24,6 +24,23 @@ const getUsername = async (req,res) => {
     });
 }
 
+const getCreationDate = async(req,res) =>{
+    let userId = jwt.verify(req.body.token, privateKey).user_id;
+    let user = await User.findOne({
+        where: {
+            id: userId
+        }
+    })
+
+    if(user == null){
+        res.status(400).send();
+        return;
+    }
+    res.status(200).json({
+        date: user.createdAt
+    });
+}
+
 const getHistory = async (req,res) => {
     let userId = jwt.verify(req.body.token, privateKey).user_id;
 
@@ -45,4 +62,4 @@ const getHistory = async (req,res) => {
     return res.status(200).json(user.Games.map(game => game.toJSON()))
 }
 
-module.exports = {getUsername, getHistory}
+module.exports = {getUsername, getHistory, getCreationDate}

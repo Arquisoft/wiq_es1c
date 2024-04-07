@@ -68,6 +68,24 @@ const getCurrentUser = async () =>
 
 }
 
+const getCreationDate = async () =>
+{
+    try {
+
+        const response = await axios.post(`${apiEndpoint}:8004/api/userdetails/createdAt`, { token: localStorage.getItem("token") });
+        if ( response.status === 200 )
+            return response.data.date;
+        
+        else
+            return response.data.error;
+        
+
+    } catch(error) {
+        return error.response.data.error;
+    }
+
+}
+
 const getHistory = async () =>
 {
     try {
@@ -86,4 +104,6 @@ const getHistory = async () =>
 const isLoggedIn = async (username, password) => token !== undefined;
 const getToken = async () => token;
 
-export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory, isValidToken};
+
+export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory, getCreationDate, isValidToken};
+

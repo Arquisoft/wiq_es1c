@@ -11,7 +11,7 @@ const YAML = require('yaml')
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
 const sync = require("./db/sync");
-const {getUsername, getHistory} = require("./userdetails/endpoints");
+const {getUsername, getHistory, getCreationDate} = require("./userdetails/endpoints");
 
 const port = 8004;
 const app = express();
@@ -29,6 +29,7 @@ app.use('/api/*',authMiddleware); // Auth middleware for the questions API
 // Api endpoints
 app.post('/api/userdetails/name', getUsername);
 app.post('/api/userdetails/history', getHistory);
+app.post('/api/userdetails/createdAt',getCreationDate);
 
 // Read the OpenAPI YAML file synchronously
 openapiPath='./openapi.yaml'
