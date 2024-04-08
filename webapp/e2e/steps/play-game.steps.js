@@ -62,7 +62,9 @@ defineFeature(feature, test => {
     await dbManagerGameData.close();
   })
   test('Starts a new game', ({given,when,then}) => {
+    let beforeNewGame;
     given('A logged user in home view', async () => {
+      beforeNewGame= await dbManagerGameData.query(`SELECT COUNT(*) var FROM Games WHERE user_id = '${testId}'`);
       const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
       const element = await page.waitForXPath(xpath, { visible: true });
       const text = await page.evaluate(e => e.innerText, element);
@@ -70,66 +72,87 @@ defineFeature(feature, test => {
     });
 
     when('I press play', async () => {
-      await expect(page).toClick('button > span', { text: 'JUGAR' });
+      await expect(page).toClick('button', { text: 'JUGAR' });
     });
-
     then('A new game starts', async () => {
+      //This time is given for wait Creating game in DB
+      await page.waitForTimeout(4000);
+      const afterNewGame = await dbManagerGameData.query(`SELECT COUNT(*) var FROM Games WHERE user_id = '${testId}' `)
+      expect(Number(beforeNewGame[0].var)+1).toBe(Number(afterNewGame[0].var))
       const currentUrl = await page.url();
       expect(currentUrl).toBe('http://localhost/game');
-      const now = new Date().toISOString();
-      const result = await dbManagerGameData.query(`SELECT createdAt FROM Games WHERE user_id = '${testId}' ORDER BY createdAt DESC LIMIT 1`)
-      expect(now).toBe(result[0].createdAt)
     });
   });
   test('Results are shown', ({given,when,then}) => {
+    let buttonColor;
     given('A logged user in a game', async () => {
-      await expect(page).toClick('button > span', { text: 'JUGAR' });
+      await expect(page).toClick('button', { text: 'JUGAR' });
     });
     when('I choose an option', async () => {
-      await expect(page).toClick('[data-buton="btn"]:first-of-type',{visible:true})
+      buttonColor = await page.waitForSelector('main button:first-of-type').backgroundColor;
+      await expect(page).toClick('[data-buton="btn"]:first-of-type')
     });
     then('Show results', async () => {
       const changedButton = await page.evaluate(() => {
         const buttons = Array.from(document.querySelectorAll('[data-buton="btn"]'));
-
-        return buttons.some(button => {
-          return button.style.backgroundColor !== 'purple';
+        return buttons.some((button,buttonColor) => {
+          return button.style.backgroundColor !== buttonColor;
         });
-      });
+       });
       expect(changedButton).toBe(true);
     });
   });
   test('Shows questions continuously',({given,when,then})=>{
+    let text;
     given('A logged user in a game',async()=>{
-      expect(true);
+      await expect(page).toClick('button', { text: 'JUGAR' });
     });
     when('I choose an option',async()=>{
-      expect(true);
+      const xpath = '/html/body/div[1]/div/main/main/div[1]/h1';
+      const element = await page.waitForXPath(xpath, { visible: true });
+      text = await page.evaluate(e => e.innerText, element);
+      await expect(page).toClick('[data-buton="btn"]:first-of-type')
     });
     then('New Question appears',async()=>{
-      expect(true);
+      await page.waitForTimeout(2000);
+      const xpath = '/html/body/div[1]/div/main/main/div[1]/h1';
+      const element = await page.waitForXPath(xpath, { visible: true });
+      expect(text).not.toBe(await page.evaluate(e => e.innerText, element));
     });
-  })
+  });
   test('The answer is persistent',({given,when,then})=>{
+    let titles;
+    let text;
     given('A logged user in a game',async()=>{
-      expect(true);
+      await expect(page).toClick('button', { text: 'JUGAR' });
     });
     when('I choose an option',async()=>{
-      expect(true);
+      const xpath = '/html/body/div[1]/div/main/main/div[1]/h1';
+      const element = await page.waitForXPath(xpath, { visible: true });
+      text = await page.evaluate(e => e.innerText, element);
+      await expect(page).toClick('[data-buton="btn"]:first-of-type')
+      await page.waitForTimeout(3000);
     });
     then('Answer is saved in database',async()=>{
-      expect(true);
+      titles= await dbManagerGameData.query(`SELECT title FROM Questions WHERE gameId= (SELECT id FROM Games WHERE user_id = '${testId}' ORDER BY createdAt DESC LIMIT 1)`);
+      await page.waitForTimeout(3000);
+      expect(titles.some(element=>element.title.includes(text))).toBe(true);
     });
   })
   test('Finish game',({given,when,then})=>{
     given('A logged user in a game',async()=>{
-      expect(true);
+      await expect(page).toClick('button', { text: 'JUGAR' });
     });
     when('I click in home and confirm',async()=>{
-      expect(true);
+      const homeButton = await page.waitForSelector('[data-testid="HomeIcon"]');
+      await homeButton.click();
+      await expect(page).toClick('button',{text:'Sí,salir'})
     });
     then('The game is finished',async()=>{
-      expect(true);
+      const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
+      const element = await page.waitForXPath(xpath, { visible: true });
+      const text = await page.evaluate(e => e.innerText, element);
+      expect(text).toBe('Home');
     });
   })
 });
