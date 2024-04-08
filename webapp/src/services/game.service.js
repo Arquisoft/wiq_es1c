@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost';
 
-const startNewGame = async (token) =>
+const startNewGame = async (token, tags) =>
 {
     try {
-      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token });
+      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token, "tags": tags });
 
       return "";
 
@@ -21,7 +21,8 @@ const getEndTime = async (token) =>
 
     return {
       end: (Number(new Date().getTime()) + (Number(response.data.duration) * 1000)),
-      start: new Date().getTime()
+      start: new Date().getTime(),
+      gameDone: ((response.data.numberOfQuestions) <= (response.data.questionNumber))
     };
 
   } catch (error) {
@@ -53,4 +54,16 @@ const awnser = async (token, awnser) =>
     }
 }
 
-export {startNewGame, nextQuestion, awnser, getEndTime};
+const getGameSettings = async (token) =>
+{
+  try {
+    const response = await axios.post(`${apiEndpoint}:8003/api/game/settings`, { "token": token });
+
+    return response.data;
+
+  } catch (error) {
+    return error.response.data.error;
+  }
+}
+
+export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings};

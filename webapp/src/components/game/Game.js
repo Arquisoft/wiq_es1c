@@ -1,45 +1,87 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate  } from 'react-router-dom';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
-import { startNewGame, nextQuestion, awnser, getEndTime } from "../../services/game.service";
+import bannerDark from '../../media/wiq_banner.png';
+import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
+import {useLocation} from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export const Game = () => {
+    const navigate = useNavigate();
+
     const token = localStorage.getItem("token");
+    let basicGameSetting = undefined;
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [questionImage, setQuestionImage] = useState("");
     const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
     const [loading, setLoading] = useState(true);
+    const [gameDone, setGameDone] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
+    const location = useLocation();
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
-
-            if(respuesta == correcta){
+            if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
-                botonCorrecto.style.backgroundColor = 'green';
+                botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
             }else{
                 const botonCorrecto = document.getElementById(correcta);
                 const botonIncorrecto = document.getElementById(respuesta);
-                botonCorrecto.style.backgroundColor = 'green';
+                if(botonCorrecto!==null)
+                    botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
 
                 if(botonIncorrecto !== null)
-                    botonIncorrecto.style.backgroundColor = 'red';
+                botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white font-mono";
             }
 
-            setTimeout(loadNextQuestion, 1000);
+            if(!gameDone)
+                setTimeout(loadNextQuestion, 1000);
+            else
+                setTimeout(() => 
+                    Swal.fire({
+                        customClass: {
+                            container: "bg-white dark:bg-dark-mode text-black dark:text-white ",
+                            confirmButton: "text-black dark:text-white ",
+                            cancelButton: "text-black dark:text-white " ,
+                        },
+                        title: "El juego ha finalizado!",
+                        text: "Gracias por jugar",
+                        imageUrl: bannerDark,
+                        showCancelButton: true,
+                        confirmButtonColor: "#f384f6",
+                        cancelButtonColor: "#e8b260",
+                        confirmButtonText: "Volver al menu principal",
+                        cancelButtonText: "Continuar jugando"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            navigate("/home")
+                        }else {
+                            window.location.reload(false);
+                        }
+                    }
+                ), 1000);
         })  
     };
+
+    const loadDurationQuestion = () =>
+    {
+        getGameSettings(token).then( settings => {
+            basicGameSetting = settings;
+        });
+    }
 
     const loadNextQuestion = () => {
         setPregunta("Cargando pregunta...")
         setQuestionImage("");
         setRespuestas(["...","...","...","..."])
         setLoading(true);
-        setTime(undefined)
+        setTime(undefined);
+        
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
-            btn.style.backgroundColor = 'purple';
+            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";    
         })
 
         nextQuestion(token).then((respuesta) => {
@@ -48,8 +90,9 @@ export const Game = () => {
             setRespuestas(respuesta.awnsers);
             setLoading(false);
             getEndTime(token).then((time) => {
+                setGameDone(time.gameDone);
                 setTime(time);
-            })
+            });
         });
     }
 
@@ -57,29 +100,43 @@ export const Game = () => {
     useEffect(() => {
         let interval = setInterval(() => {
             setTime(time => {
-                if(time !== undefined){
-                    let total = time.end - time.start;
-                    let trans = (new Date().getTime()) - time.start;
+                setGameDone(gameDone => {
+                    if(time !== undefined && !gameDone){
+                        let total = basicGameSetting.durationQuestion * 1000;
+                        let trans = (new Date().getTime()) - time.start;
 
-                    let percentage =  (trans/total) * 100;
-                    let invertedPercentage = 100 - Number(percentage);
-                    
-                    setRemTime((invertedPercentage/100)*110);
+                        let percentage =  (trans/total) * 100;
+                        let invertedPercentage = 100 - Number(percentage);
+                        
+                        setRemTime((invertedPercentage/100)*110);
 
-                    if(percentage > 100){
-                        comprobarPregunta("");
-                        time = undefined;
+                        if(percentage > 100){
+                            comprobarPregunta("");
+                            time = undefined;
+                        }
                     }
-                }
+                    return gameDone
+                });
                 return time;
             });
         }, 20);
 
-        startNewGame(token).then(() =>
-            loadNextQuestion()
-        );
+        let tags = "";
 
-        return () => clearInterval(interval);
+        if(location.state != null)
+            tags = location.state.tags ?? "";
+
+        startNewGame(token, tags).then(() =>
+        {
+            loadNextQuestion();
+        })
+
+        // Init duration question
+        loadDurationQuestion();
+
+        return () => {
+            clearInterval(interval);
+        }
     }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
 
   return (
@@ -92,7 +149,7 @@ export const Game = () => {
         className="min-h-screen flex justify-center align-middle"
     >
         <Container
-            className="bg-zinc-800 rounded-lg flex"
+            className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex"
             component="main"
             maxWidth="sm"
         >
@@ -104,14 +161,39 @@ export const Game = () => {
                     flexDirection: "column",
                     alignItems: "center",
                 }}
+                
+                className="text-black dark:text-white "
+                
             >
-                <Typography fontFamily="monospace" color="white" component="h1" variant="h5" 
+
+                <Box
+                    sx={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 30,
+                        marginBottom: 3,
+                        
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}
+                    className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
+                >
+                    <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
+                        { Number(remTime/10).toFixed(0) }
+                    </Typography>
+                </Box>
+                <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
                     sx={{
                         paddingBottom: 3,
                     }}
+                    
                 >
+                    
                     {pregunta}
+                    
                 </Typography>
+               
                 {
                     questionImage!==""
                     ?
@@ -128,7 +210,9 @@ export const Game = () => {
                     : 
                     <></>
                 }
+                
             </Box>
+            
 
             <Box
                 sx={{
@@ -137,6 +221,7 @@ export const Game = () => {
                     flexDirection: "column",
                     alignItems: "center",
                 }}
+                
             >
                 <Grid container spacing={2}>
                     {
@@ -148,7 +233,7 @@ export const Game = () => {
                                         variant="contained"
                                         onClick={comprobarPregunta.bind(this, respuesta)}
                                         id={respuesta}
-                                        backgroundColor="purple"
+                                        
                                         data-buton="btn"
                                         fontFamily="monospace"
                                     >
@@ -164,8 +249,10 @@ export const Game = () => {
             <Box sx={{ 
                 width: '100%',
                 padding: 3
-            }}>
-                <LinearProgress color="secondary" variant={loading? "indeterminate" : "determinate"} value={remTime} />
+            }}
+            className="text-black dark:text-white "
+            >
+                <LinearProgress  color='inherit' variant={loading? "indeterminate" : "determinate"} value={remTime}  />
             </Box>
         </Container>
     </Container>

@@ -1,10 +1,12 @@
 // src/components/Login.test.js
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import {render, screen, act, waitFor, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { createMemoryHistory } from 'history';
-import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
+import { MemoryRouter, BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { Home } from './Home';
+import * as router from 'react-router';
+
 
 
 jest.mock('../../services/user.service', () => ({
@@ -13,9 +15,19 @@ jest.mock('../../services/user.service', () => ({
     },
 }));
 
+jest.mock('../../services/question.service', () => ({
+    getTags: () => {
+        return Promise.resolve(["a","b","c"]);
+    },
+}));
+
+const navigate = jest.fn();
 
 describe("Home component", () => {
-    beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
+    beforeEach(() => {
+        localStorage.setItem("token", "manolineldelpino");
+        jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate)
+    });
 
     test("renders component",async () => {
         render(<MemoryRouter><Home/></MemoryRouter>);
@@ -39,7 +51,7 @@ describe("Home component", () => {
 
         render(<Router history={history}><Home/></Router>);
     
-        screen.getByText('Jugar').click();
+        screen.getByText('JUGAR').click();
         
         await act(async () => {});
 
@@ -61,4 +73,50 @@ describe("Home component", () => {
             expect(history.location.pathname).toBe('/login');
         });
     })
+
+
+    test("renders tag modal", async () => {
+        await act(async () => render(<Router history={history}><Home/></Router>));
+
+        await act(async () => fireEvent.click(screen.getByText("Elige las tags")));
+
+        expect(screen.getByTestId("tag-selection")).toBeInTheDocument();
+
+
+    })
+
+    test("loads tag elements", async () => {
+        await act(async () => render(<Router history={history}><Home/></Router>));
+
+        await act(async () => fireEvent.click(screen.getByText("Elige las tags")));
+
+        expect(screen.getByTestId("tag-selection")).toBeInTheDocument();
+
+        expect(screen.getByText("a")).toBeInTheDocument();
+        expect(screen.getByText("b")).toBeInTheDocument();
+        expect(screen.getByText("c")).toBeInTheDocument();
+
+
+    })
+
+    test("creates the game correctly", async () => {
+
+
+
+        await act(async () => render(<Router history={history}><Home/></Router>));
+
+
+        await act(async () => fireEvent.click(screen.getByText("JUGAR")));
+
+
+        expect(navigate).toHaveBeenCalledWith("/game", {
+            state: {
+                tags: "a,b,c"
+            }
+        });
+
+
+
+    }
+)
 });

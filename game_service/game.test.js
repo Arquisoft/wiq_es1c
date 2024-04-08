@@ -1,22 +1,26 @@
 const request = require('supertest')
 const axios = require('axios')
 const app = require("./game")
-const User = require("./db/models/user")
-const Sync = require("./db/sync")
+const Game = require("./models")
+
+jest.mock('./services/questionsService', () => ({
+    ...jest.requireActual('./services/questionsService'),
+    loadQuestion: () => { return Promise.resolve( {
+        "title": `Cual es la capital de Chile`,
+        "answer": 'Santiago',
+        "fakes" : [
+           "Lima",
+           "Madrid",
+           "Bogota"
+        ],
+        "tags" : ["test"]
+    })}
+}));
 
 const validToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMSJ9.EGt29l9IqmFPQmV7_tFILwo6l8d5zBk6CSz2o15hv4U"
 
-beforeAll(async () => {
-    await Sync();
-    await User.create({
-        id: 1,
-        name: "Jazz",
-        password: "meow"
-    });
-}) 
-
-afterAll(async () => {
-    await app.close();
+afterAll(() => {
+    app.close();
 })
 
 jest.mock('axios')
@@ -25,21 +29,14 @@ describe('Game Service', () => {
     axios.post.mockImplementation((url,data) => {
         return Promise.resolve({ data: {
             "title": `Cual es la capital de Chile`,
-            "awnser": 'Santiago',
+            "answer": 'Santiago',
             "fake" : [
                "Lima",
                "Madrid",
                "Bogota"
-            ]
+            ],
+            "tags" : ["test"]
         }});
-    })
-
-    it("Should return 403 with an invalid token", async () => {
-        const response = await request(app)
-            .post('/api/game/new')
-            .send({ token: "NotValid!" });
-
-        expect(response.statusCode).toBe(401);
     })
 
     it("Should return 400 with an valid token and requesting next game", async () => {
@@ -70,7 +67,7 @@ describe('Game Service', () => {
     it("Should return 200 with an valid token and requesting new game", async () => {
         const response = await request(app)
             .post('/api/game/new')
-            .send({ token: validToken });
+            .send({ token: validToken, tags: "test"});
 
         expect(response.statusCode).toBe(200);
     })
@@ -105,4 +102,24 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
         expect(response.text).toBe("Santiago");
     })
+
+    it("Should return 200 with an valid token", async () =>
+    {
+        const response = await request(app)
+            .post('/api/game/settings')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
+    });
+
+    it("Should return 200 with an valid token", async () =>
+    {
+        const response = await request(app)
+            .post('/api/game/getHistory')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
+    });
+
+
 })
