@@ -21,7 +21,8 @@ const getEndTime = async (token) =>
 
     return {
       end: (Number(new Date().getTime()) + (Number(response.data.duration) * 1000)),
-      start: new Date().getTime()
+      start: new Date().getTime(),
+      gameDone: ((response.data.numberOfQuestions) <= (response.data.questionNumber))
     };
 
   } catch (error) {
