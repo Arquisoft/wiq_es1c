@@ -134,6 +134,7 @@ else{
           <IconButton
             size='large'
             color='inherit'
+            data-testid="change-color"
           >
             <NightlightIcon onClick={changeTheme} style={{color: color}}/>
           </IconButton>

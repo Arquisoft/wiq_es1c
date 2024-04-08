@@ -6,7 +6,7 @@ import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
 import { Nav } from './Nav';
 
 
-describe("Home component", () => {
+describe("Nav component", () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
 
     test("renders component",async () => {
@@ -43,5 +43,17 @@ describe("Home component", () => {
             expect(screen.getByText(/Perfil/i)).toBeInTheDocument();
             expect(screen.getByText(/Historial/i)).toBeInTheDocument();
         });
+    });
+
+    test("changes color",async () => {
+
+        await act(async () => render(<MemoryRouter><Nav/></MemoryRouter>));
+
+
+        await act(async () => screen.getByTestId("change-color").click());
+
+        expect(screen.getByText("WIQ").getAttribute("style")).toContain("color");
+
+
     });
 });
