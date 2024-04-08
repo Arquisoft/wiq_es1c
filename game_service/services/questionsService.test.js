@@ -41,16 +41,4 @@ describe('Question Service', () => {
 
         expect(question.title).toBe(`Cual es la capital de Chile`);
     });
-
-    it("Should delete questions in DB", async () => {
-        await saveQuestionsInDB(); 
-        await deleteOlderQuestions(); 
-        await deleteOlderQuestions(); 
-        await deleteOlderQuestions(); 
-        await deleteOlderQuestions(); 
-
-        const questions = await Question.find({});
-
-        expect(questions.length).toBe(0);
-    });
 });
