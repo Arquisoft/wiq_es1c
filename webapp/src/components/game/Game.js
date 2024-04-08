@@ -102,7 +102,6 @@ export const Game = () => {
 
     return (
         <>
-        <Nav/>
         <Container
             component="main"
             maxWidth="sm"
