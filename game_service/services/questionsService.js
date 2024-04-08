@@ -39,7 +39,7 @@ const saveQuestion = async() =>
         tags: res.tags
     });
 
-    question.save();
+    await question.save();
 }
 
 const loadInitialQuestions = () =>
