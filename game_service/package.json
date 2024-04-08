@@ -4,7 +4,7 @@
   "description": "",
   "main": "game.js",
   "scripts": {
-    "test": "jest --runInBand --forceExit"
+    "test": "npx sequelize-cli db:migrate && jest --runInBand --forceExit"
   },
   "author": "",
   "license": "ISC",

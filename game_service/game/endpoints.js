@@ -22,6 +22,13 @@ const next = async (req,res) => {
     }
   
     const game = games[0];
+
+    //Check the game isnt finished 
+    if((await game.getQuestions()).length >= game.numberOfQuestions){
+      res.status(400).send();
+      return; 
+    }
+
     const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
     
     Question.create({
@@ -53,7 +60,7 @@ const update = async (req, res) => {
       res.status(400).send();
       return;
     }
-
+    
     res.status(200).json({
       title: question.title,
       imageUrl: question.imageUrl ? question.imageUrl : "",
@@ -64,7 +71,9 @@ const update = async (req, res) => {
         String(question.fake[2])
       ]),
       created: String(question.createdAt.getTime()),
-      duration: String(question.duration)
+      duration: String(question.duration),
+      numberOfQuestions: (await question.getGame()).numberOfQuestions,
+      questionNumber: (await(await question.getGame()).getQuestions()).length
     });
 }
 

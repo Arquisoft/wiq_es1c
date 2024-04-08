@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate  } from 'react-router-dom';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
-
+import bannerDark from '../../media/wiq_banner.png';
 import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
 import {useLocation} from "react-router-dom";
-
+import Swal from 'sweetalert2';
 
 export const Game = () => {
+    const navigate = useNavigate();
+
     const token = localStorage.getItem("token");
     let basicGameSetting = undefined;
 
@@ -14,13 +17,13 @@ export const Game = () => {
     const [questionImage, setQuestionImage] = useState("");
     const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
     const [loading, setLoading] = useState(true);
+    const [gameDone, setGameDone] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
     const location = useLocation();
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
-
             if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
@@ -34,7 +37,32 @@ export const Game = () => {
                 botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white font-mono";
             }
 
-            setTimeout(loadNextQuestion, 1000);
+            if(!gameDone)
+                setTimeout(loadNextQuestion, 1000);
+            else
+                setTimeout(() => 
+                    Swal.fire({
+                        customClass: {
+                            container: "bg-white dark:bg-dark-mode text-black dark:text-white ",
+                            confirmButton: "text-black dark:text-white ",
+                            cancelButton: "text-black dark:text-white " ,
+                        },
+                        title: "El juego ha finalizado!",
+                        text: "Gracias por jugar",
+                        imageUrl: bannerDark,
+                        showCancelButton: true,
+                        confirmButtonColor: "#f384f6",
+                        cancelButtonColor: "#e8b260",
+                        confirmButtonText: "Volver al menu principal",
+                        cancelButtonText: "Continuar jugando"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            navigate("/home")
+                        }else {
+                            window.location.reload(false);
+                        }
+                    }
+                ), 1000);
         })  
     };
 
@@ -62,6 +90,7 @@ export const Game = () => {
             setRespuestas(respuesta.awnsers);
             setLoading(false);
             getEndTime(token).then((time) => {
+                setGameDone(time.gameDone);
                 setTime(time);
             });
         });
@@ -71,27 +100,34 @@ export const Game = () => {
     useEffect(() => {
         let interval = setInterval(() => {
             setTime(time => {
-                if(time !== undefined){
-                    let total = basicGameSetting.durationQuestion * 1000;
-                    let trans = (new Date().getTime()) - time.start;
+                setGameDone(gameDone => {
+                    if(time !== undefined && !gameDone){
+                        let total = basicGameSetting.durationQuestion * 1000;
+                        let trans = (new Date().getTime()) - time.start;
 
-                    let percentage =  (trans/total) * 100;
-                    let invertedPercentage = 100 - Number(percentage);
-                    
-                    setRemTime((invertedPercentage/100)*110);
+                        let percentage =  (trans/total) * 100;
+                        let invertedPercentage = 100 - Number(percentage);
+                        
+                        setRemTime((invertedPercentage/100)*110);
 
-                    if(percentage > 100){
-                        comprobarPregunta("");
-                        time = undefined;
+                        if(percentage > 100){
+                            comprobarPregunta("");
+                            time = undefined;
+                        }
                     }
-                }
+                    return gameDone
+                });
                 return time;
             });
         }, 20);
 
-        startNewGame(token, location.state.tags).then(() =>
+        let tags = "";
+
+        if(location.state != null)
+            tags = location.state.tags ?? "";
+
+        startNewGame(token, tags).then(() =>
         {
-            console.log("Active tags: " + location.state.tags);
             loadNextQuestion();
         })
 

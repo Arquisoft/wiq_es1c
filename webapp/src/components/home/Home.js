@@ -159,6 +159,7 @@ export const Home = () =>
                     >
                     <Container
                         className="bg-white dark:bg-dark-mode text-black dark:text-white rounded-lg self-center"
+                        data-testid="tag-selection"
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',

@@ -106,4 +106,4 @@ const processTemplate = async (template) => {
     return processedTemplate;
 }
 
-module.exports = processTemplate;
+module.exports = { processTemplate };

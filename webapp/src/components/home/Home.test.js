@@ -1,6 +1,6 @@
 // src/components/Login.test.js
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import {render, screen, act, waitFor, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { createMemoryHistory } from 'history';
 import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
@@ -13,6 +13,11 @@ jest.mock('../../services/user.service', () => ({
     },
 }));
 
+jest.mock('../../services/question.service', () => ({
+    getTags: () => {
+        return Promise.resolve(["a","b","c"]);
+    },
+}));
 
 describe("Home component", () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
@@ -60,5 +65,30 @@ describe("Home component", () => {
         waitFor(()=>{
             expect(history.location.pathname).toBe('/login');
         });
+    })
+
+
+    test("renders tag modal", async () => {
+        await act(async () => render(<Router history={history}><Home/></Router>));
+
+        await act(async () => fireEvent.click(screen.getByText("Elige las tags")));
+
+        expect(screen.getByTestId("tag-selection")).toBeInTheDocument();
+
+
+    })
+
+    test("loads tag elements", async () => {
+        await act(async () => render(<Router history={history}><Home/></Router>));
+
+        await act(async () => fireEvent.click(screen.getByText("Elige las tags")));
+
+        expect(screen.getByTestId("tag-selection")).toBeInTheDocument();
+
+        expect(screen.getByText("a")).toBeInTheDocument();
+        expect(screen.getByText("b")).toBeInTheDocument();
+        expect(screen.getByText("c")).toBeInTheDocument();
+
+
     })
 });

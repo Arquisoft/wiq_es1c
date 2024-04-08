@@ -9,7 +9,12 @@
   },
   "development": {
     "dialect": "sqlite",
-    "storage": ":memory:",
+    "storage": "./testDB.sqlite",
+    "logging": false
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "./testDB.sqlite",
     "logging": false
   }
 }
