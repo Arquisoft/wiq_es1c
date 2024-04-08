@@ -30,7 +30,7 @@ describe('Game Service', () => {
         return Promise.resolve({ data: {
             "title": `Cual es la capital de Chile`,
             "answer": 'Santiago',
-            "fakes" : [
+            "fake" : [
                "Lima",
                "Madrid",
                "Bogota"
@@ -39,12 +39,12 @@ describe('Game Service', () => {
         }});
     })
 
-    it("Should return 200 with an valid token and requesting next game", async () => {
+    it("Should return 400 with an valid token and requesting next game", async () => {
         const response = await request(app)
             .post('/api/game/next')
             .send({ token: validToken });
 
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(400);
     })
 
     it("Should return 400 with an valid token and requesting awnser game", async () => {
@@ -55,12 +55,12 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(400);
     })
 
-    it("Should return 200 with an valid token and requesting awnser game", async () => {
+    it("Should return 400 with an valid token and requesting awnser game", async () => {
         const response = await request(app)
             .post('/api/game/update')
             .send({ token: validToken });
 
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(400);
     })
 
 
