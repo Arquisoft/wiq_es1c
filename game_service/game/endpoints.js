@@ -53,7 +53,7 @@ const update = async (req, res) => {
       res.status(400).send();
       return;
     }
-
+    
     res.status(200).json({
       title: question.title,
       imageUrl: question.imageUrl ? question.imageUrl : "",
@@ -64,7 +64,9 @@ const update = async (req, res) => {
         String(question.fake[2])
       ]),
       created: String(question.createdAt.getTime()),
-      duration: String(question.duration)
+      duration: String(question.duration),
+      numberOfQuestions: (await question.getGame()).numberOfQuestions,
+      questionNumber: (await(await question.getGame()).getQuestions()).length
     });
 }
 
