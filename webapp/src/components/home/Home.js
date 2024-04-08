@@ -25,13 +25,7 @@ export const Home = () =>
         const fetchTags = async () => {
             const dynTags = await getTags();
             let adapted = [];
-            for (let i = 0; i < dynTags.length; i++) {
-                adapted.push(
-                    {
-                        name : dynTags[i],
-                        active : true
-                    });
-            }
+            dynTags.forEach((dynTag) => adapted.push({ name: dynTag, active: true}));
             setTags(adapted);
         }
 
@@ -46,10 +40,10 @@ export const Home = () =>
 
     const startGame = () => {
         let tagString = "";
-        for (let i = 0; i < tags.length; i++) {
-            if(tags[i].active)
-                tagString += tags[i].name + ",";
-        }
+        tags.forEach((tag) => {
+            if(tag.active)
+                tagString += tag.name + ","
+        });
 
         tagString = tagString.substring(0, tagString.length - 1);
         navigate("/game", {

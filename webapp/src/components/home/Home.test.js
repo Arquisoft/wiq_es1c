@@ -3,8 +3,10 @@ import React from 'react';
 import {render, screen, act, waitFor, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { createMemoryHistory } from 'history';
-import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
+import { MemoryRouter, BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { Home } from './Home';
+import * as router from 'react-router';
+
 
 
 jest.mock('../../services/user.service', () => ({
@@ -19,8 +21,13 @@ jest.mock('../../services/question.service', () => ({
     },
 }));
 
+const navigate = jest.fn();
+
 describe("Home component", () => {
-    beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
+    beforeEach(() => {
+        localStorage.setItem("token", "manolineldelpino");
+        jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate)
+    });
 
     test("renders component",async () => {
         render(<MemoryRouter><Home/></MemoryRouter>);
@@ -91,4 +98,25 @@ describe("Home component", () => {
 
 
     })
+
+    test("creates the game correctly", async () => {
+
+
+
+        await act(async () => render(<Router history={history}><Home/></Router>));
+
+
+        await act(async () => fireEvent.click(screen.getByText("JUGAR")));
+
+
+        expect(navigate).toHaveBeenCalledWith("/game", {
+            state: {
+                tags: "a,b,c"
+            }
+        });
+
+
+
+    }
+)
 });
