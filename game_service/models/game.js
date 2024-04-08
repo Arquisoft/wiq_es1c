@@ -23,7 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     user_id: DataTypes.UUID,
-    tags: DataTypes.STRING
+    tags: DataTypes.STRING,
+    numberOfQuestions: {
+      type: DataTypes.INTEGER,
+      defaultValue: 10
+    }
   }, {
     timestamps: true,
     defaultScope: {
