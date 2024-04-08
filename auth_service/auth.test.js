@@ -73,6 +73,15 @@ describe('Authentication Endpoints', () => {
         expect(response.body.error).toBe("Usuario o contraseña incorrectos");
     });
 
+    it("Should return error if login only with incorrect password", async () => {
+        const response = await request(app)
+            .post('/api/auth/login')
+            .send({ username: mockUser.name, password: "incorrectpassword" });
+
+        expect(response.statusCode).toBe(401);
+        expect(response.body.error).toBe("Usuario o contraseña incorrectos");
+    });
+
     it("Should return error if login without username or password", async () => {
         const response = await request(app)
             .post('/api/auth/login')
@@ -119,4 +128,5 @@ describe('Authentication Endpoints', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.name).toBe(mockUser.name);
     });
+
 });

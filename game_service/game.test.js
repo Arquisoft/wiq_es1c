@@ -102,4 +102,24 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
         expect(response.text).toBe("Santiago");
     })
+
+    it("Should return 200 with an valid token", async () =>
+    {
+        const response = await request(app)
+            .post('/api/game/settings')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
+    });
+
+    it("Should return 200 with an valid token", async () =>
+    {
+        const response = await request(app)
+            .post('/api/game/getHistory')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
+    });
+
+
 })
