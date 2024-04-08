@@ -19,7 +19,7 @@ jest.mock('../../services/user.service', () => ({
             ]
         },{
             id: "Game 2",
-            createdAt: "2024-04-02T14:10:58.000",
+            createdAt: "2024-05-05T14:10:58.000",
             tags:"tag3,tag4,tag5",
             Questions: [
                 {title: "Pregunta5", onTime: true, answer: "A", user_answer: "Incorrecta1"},
@@ -39,7 +39,7 @@ describe('Game Component', () => {
         await act(async () => render(<MemoryRouter><History/></MemoryRouter>));
 
         expect(screen.getByText(/4\/4\/2024/i)).toBeInTheDocument();
-        expect(screen.getByText(/2\/4\/2024/i)).toBeInTheDocument();
+        expect(screen.getByText(/5\/5\/2024/i)).toBeInTheDocument();
 
         expect(screen.getByText(/Fecha/i)).toBeInTheDocument();
         expect(screen.getByText(/Acertadas/i)).toBeInTheDocument();
