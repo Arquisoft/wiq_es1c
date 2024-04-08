@@ -29,6 +29,18 @@ const next = async (req,res) => {
       return; 
     }
 
+    let settings = await SettingsGameMode.findOne({ 
+      where: { 
+        user_id: userId 
+      } 
+    });
+  
+    if (settings == null) {
+      settings = await SettingsGameMode.create({
+        user_id: userId,
+      })
+    }
+
     const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
     
     Question.create({
@@ -36,6 +48,7 @@ const next = async (req,res) => {
       imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
       answer: questionRaw.answer,
       fake: questionRaw.fakes,
+      duration: settings.durationQuestion,
       gameId: game.id
     })
   
