@@ -13,6 +13,11 @@ jest.mock('../../services/user.service', () => ({
     },
 }));
 
+jest.mock('../../services/question.service', () => ({
+    getTags: () => {
+        return Promise.resolve({tags: ""});
+    },
+}));
 
 describe("Home component", () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));

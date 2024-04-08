@@ -24,7 +24,6 @@ export const Game = () => {
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
-
             if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
@@ -122,9 +121,13 @@ export const Game = () => {
             });
         }, 20);
 
-        startNewGame(token, location.state.tags).then(() =>
+        let tags = "";
+
+        if(location.state != null)
+            tags = location.state.tags ?? "";
+
+        startNewGame(token, tags).then(() =>
         {
-            console.log("Active tags: " + location.state.tags);
             loadNextQuestion();
         })
 
