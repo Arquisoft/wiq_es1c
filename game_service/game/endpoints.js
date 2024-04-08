@@ -22,6 +22,13 @@ const next = async (req,res) => {
     }
   
     const game = games[0];
+
+    //Check the game isnt finished 
+    if((await game.getQuestions()).length >= game.numberOfQuestions){
+      res.status(400).send();
+      return; 
+    }
+
     const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
     
     Question.create({
