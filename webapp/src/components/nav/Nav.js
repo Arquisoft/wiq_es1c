@@ -23,6 +23,7 @@ export const Nav = () => {
 
   const getColor = () => {
     const htmlElement = document.querySelector("html");
+    console.log("Is dark? " + htmlElement.classList.contains("dark"))
     return htmlElement.classList.contains("dark")? "white" : "black";
   };
 
@@ -43,23 +44,25 @@ export const Nav = () => {
     // Close menus just in case
     handleMenuAccountClose();
     //Clean the token
+    console.log("Token: ", localStorage.getItem("token"))
     localStorage.removeItem("token");
     navigate("/login");
     console.log("Logging off!")
+    console.log("Token: ", localStorage.getItem("token"))
   };
 
   const openSettings = () => {
     // Close menus just in case
     handleMenuAccountClose();
     navigate("/settings");
-    console.log("Going to settings")
   }
 
   const showAlert = () => {
     //Check if we are in a game
     let path = location.pathname;
 
-    console.log("Going home, path: path")
+    console.log("Going home")
+    console.log("Current path: " + path)
 
     if (path != "/game")
       navigate("/home");
