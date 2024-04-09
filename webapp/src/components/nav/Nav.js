@@ -23,12 +23,7 @@ export const Nav = () => {
 
   const getColor = () => {
     const htmlElement = document.querySelector("html");
-
-    if (htmlElement.classList.contains("dark")) {
-      return "white";
-    } else {
-      return "black";
-    }
+    return htmlElement.classList.contains("dark")? "white" : "black";
   };
 
   const [openMenu, setOpenMenu] = React.useState(false);
@@ -50,17 +45,21 @@ export const Nav = () => {
     //Clean the token
     localStorage.removeItem("token");
     navigate("/login");
+    console.log("Logging off!")
   };
 
   const openSettings = () => {
     // Close menus just in case
     handleMenuAccountClose();
     navigate("/settings");
+    console.log("Going to settings")
   }
 
   const showAlert = () => {
     //Check if we are in a game
     let path = location.pathname;
+
+    console.log("Going home, path: path")
 
     if (path != "/game")
       navigate("/home");
@@ -86,12 +85,14 @@ export const Nav = () => {
     // Close submenu
     handleMenuAccountClose();
     navigate("/history");
+    console.log("Going to history")
   };
 
   const profile = () => {
     // Close submenu
     handleMenuAccountClose();
     navigate("/profile");
+    console.log("Going to profile")
   };
 
   const changeTheme = () => {
