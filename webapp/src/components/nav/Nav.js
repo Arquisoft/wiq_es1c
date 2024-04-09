@@ -49,6 +49,10 @@ export const Nav = () => {
     navigate("/login");
   };
 
+  const openSettings = () => {
+    navigate("/settings");
+  }
+
   const showAlert = () => {
     if (location.pathname === "/game") {
       Swal.fire({
@@ -115,7 +119,7 @@ export const Nav = () => {
           </IconButton>
 
           <IconButton size="large" color="inherit">
-            <SettingsIcon style={{ color: color }} />
+            <SettingsIcon onClick={openSettings} style={{ color: color }} />
           </IconButton>
 
           {/* Botón de cuenta */}

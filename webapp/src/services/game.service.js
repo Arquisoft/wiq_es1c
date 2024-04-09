@@ -66,4 +66,17 @@ const getGameSettings = async (token) =>
   }
 }
 
-export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings};
+const setGameSettings = async (token, duration, len) =>
+{
+  try {
+    await axios.post(`${apiEndpoint}:8003/api/game/updatesettings`, { 
+      "token": token, 
+      "durationQuestion": duration, 
+      "numberOfQuestions":len 
+    });
+  } catch (error) {
+    return error.response.data.error;
+  }
+}
+
+export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings, setGameSettings};
