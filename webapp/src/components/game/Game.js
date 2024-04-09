@@ -36,33 +36,38 @@ export const Game = () => {
                 if(botonIncorrecto !== null)
                 botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white font-mono";
             }
-
-            if(!gameDone)
-                setTimeout(loadNextQuestion, 1000);
-            else
-                setTimeout(() => 
-                    Swal.fire({
-                        customClass: {
-                            container: "bg-white dark:bg-dark-mode text-black dark:text-white ",
-                            confirmButton: "text-black dark:text-white ",
-                            cancelButton: "text-black dark:text-white " ,
-                        },
-                        title: "El juego ha finalizado!",
-                        text: "Gracias por jugar",
-                        imageUrl: bannerDark,
-                        showCancelButton: true,
-                        confirmButtonColor: "#f384f6",
-                        cancelButtonColor: "#e8b260",
-                        confirmButtonText: "Volver al menu principal",
-                        cancelButtonText: "Continuar jugando"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            navigate("/home")
-                        }else {
-                            window.location.reload(false);
+            
+            setGameDone(gameDone => {
+                if(!gameDone)
+                    setTimeout(loadNextQuestion, 1000);
+                else {
+                    setTime(undefined);
+                    setTimeout(() => 
+                        Swal.fire({
+                            customClass: {
+                                container: "bg-white dark:bg-dark-mode text-black dark:text-white ",
+                                confirmButton: "text-black dark:text-white ",
+                                cancelButton: "text-black dark:text-white " ,
+                            },
+                            title: "El juego ha finalizado!",
+                            text: "Gracias por jugar",
+                            imageUrl: bannerDark,
+                            showCancelButton: true,
+                            confirmButtonColor: "#f384f6",
+                            cancelButtonColor: "#e8b260",
+                            confirmButtonText: "Volver al menu principal",
+                            cancelButtonText: "Continuar jugando"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                navigate("/home")
+                            }else {
+                                window.location.reload(false);
+                            }
                         }
-                    }
-                ), 1000);
+                    ), 1000);
+                }
+                return gameDone;
+            });
         })  
     };
 
@@ -100,8 +105,7 @@ export const Game = () => {
     useEffect(() => {
         let interval = setInterval(() => {
             setTime(time => {
-                setGameDone(gameDone => {
-                    if(time !== undefined && !gameDone){
+                    if(time !== undefined){
                         let total = basicGameSetting.durationQuestion * 1000;
                         let trans = (new Date().getTime()) - time.start;
 
@@ -115,8 +119,6 @@ export const Game = () => {
                             time = undefined;
                         }
                     }
-                    return gameDone
-                });
                 return time;
             });
         }, 20);
@@ -180,7 +182,7 @@ export const Game = () => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { Number(remTime/10).toFixed(0) }
+                        { Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) }
                     </Typography>
                 </Box>
                 <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
