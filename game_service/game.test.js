@@ -150,4 +150,27 @@ describe('Game Service', () => {
         expect(response.body.durationQuestion).toBe(65);
         expect(response.body.numberOfQuestions).toBe(41);
     });
+
+    it("Should return 400 with a valid token when updating game settings with invalid duration and number of questions", async () => {
+        let response = await request(app)
+            .post('/api/game/updatesettings')
+            .send({ 
+                token: validToken,
+                durationQuestion: 0,
+                numberOfQuestions: 0
+            });
+
+        expect(response.statusCode).toBe(400);
+    });
+
+    it("Should return 400 with a valid token when updating game settings with invalid number of arguments", async () => {
+        let response = await request(app)
+            .post('/api/game/updatesettings')
+            .send({ 
+                token: validToken,
+                numberOfQuestions: 0
+            });
+
+        expect(response.statusCode).toBe(400);
+    });
 })
