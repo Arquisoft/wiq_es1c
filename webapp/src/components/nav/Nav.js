@@ -52,8 +52,6 @@ export const Nav = () => {
   };
 
   const openSettings = () => {
-    // Close menus just in case
-    handleMenuAccountClose();
     navigate("/settings");
   }
 
@@ -89,6 +87,7 @@ export const Nav = () => {
     handleMenuAccountClose();
     navigate("/history");
     console.log("Going to history")
+    console.log("Token: ", localStorage.getItem("token"))
   };
 
   const profile = () => {
@@ -96,6 +95,7 @@ export const Nav = () => {
     handleMenuAccountClose();
     navigate("/profile");
     console.log("Going to profile")
+    console.log("Token: ", localStorage.getItem("token"))
   };
 
   const changeTheme = () => {
