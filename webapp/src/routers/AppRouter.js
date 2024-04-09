@@ -9,6 +9,7 @@ import { Home } from "../components/home/Home";
 import Game from "../components/game/Game";
 import { History } from "../components/history/History";
 import {Profile} from "../components/profile/Profile";
+import {Settings} from "../components/settings/Settings";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,13 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <PrivateRoute>
                     <Profile />
+                </PrivateRoute>   
+    },  
+    {
+
+        path: "/settings",
+        element: <PrivateRoute>
+                    <Settings />
                 </PrivateRoute>   
     },    
     {

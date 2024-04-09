@@ -39,7 +39,7 @@ describe('Game Service', () => {
         }});
     })
 
-    it("Should return 400 with an valid token and requesting next game", async () => {
+    it("Should return 400 with a valid token when requesting the next game", async () => {
         const response = await request(app)
             .post('/api/game/next')
             .send({ token: validToken });
@@ -47,7 +47,7 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(400);
     })
 
-    it("Should return 400 with an valid token and requesting awnser game", async () => {
+    it("Should return 400 with a valid token when requesting the answer game", async () => {
         const response = await request(app)
             .post('/api/game/awnser')
             .send({ token: validToken });
@@ -55,7 +55,7 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(400);
     })
 
-    it("Should return 400 with an valid token and requesting awnser game", async () => {
+    it("Should return 400 with a valid token when requesting the update game", async () => {
         const response = await request(app)
             .post('/api/game/update')
             .send({ token: validToken });
@@ -64,7 +64,7 @@ describe('Game Service', () => {
     })
 
 
-    it("Should return 200 with an valid token and requesting new game", async () => {
+    it("Should return 200 with a valid token when requesting a new game", async () => {
         const response = await request(app)
             .post('/api/game/new')
             .send({ token: validToken, tags: "test"});
@@ -72,7 +72,7 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
     })
 
-    it("Should return 200 with an valid token and requesting next awnser", async () => {
+    it("Should return 200 with a valid token when requesting the next answer", async () => {
         const response = await request(app)
             .post('/api/game/next')
             .send({ token: validToken });
@@ -82,7 +82,7 @@ describe('Game Service', () => {
         expect(response.body.awnsers.length).toBe(4);
     })
 
-    it("Should return 200 with an valid token and requesting update", async () => {
+    it("Should return 200 with a valid token when requesting an update", async () => {
         const response = await request(app)
             .post('/api/game/update')
             .send({ token: validToken });
@@ -94,7 +94,7 @@ describe('Game Service', () => {
         expect(response.body.duration).toMatch(/\d*/);
     })
 
-    it("Should return 200 with an valid token and sending awnser", async () => {
+    it("Should return 200 with a valid token when sending an answer", async () => {
         const response = await request(app)
             .post('/api/game/awnser')
             .send({ token: validToken, awnser: "Santiago" });
@@ -103,7 +103,7 @@ describe('Game Service', () => {
         expect(response.text).toBe("Santiago");
     })
 
-    it("Should return 200 with an valid token", async () =>
+    it("Should return 200 with a valid token when accessing game settings", async () =>
     {
         const response = await request(app)
             .post('/api/game/settings')
@@ -112,7 +112,7 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
     });
 
-    it("Should return 200 with an valid token", async () =>
+    it("Should return 200 with a valid token when accessing game history", async () =>
     {
         const response = await request(app)
             .post('/api/game/getHistory')
@@ -121,5 +121,56 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
     });
 
+    it("Should return 200 with a valid token when accessing game settings", async () => {
+        const response = await request(app)
+            .post('/api/game/settings')
+            .send({ token: validToken });
 
+        expect(response.statusCode).toBe(200);
+        expect(response.body.durationQuestion).toBe(10);
+        expect(response.body.numberOfQuestions).toBe(10);
+    });
+
+    it("Should return 200 with a valid token when updating game settings", async () => {
+        let response = await request(app)
+            .post('/api/game/updatesettings')
+            .send({ 
+                token: validToken,
+                durationQuestion: 65,
+                numberOfQuestions: 41
+            });
+
+        expect(response.statusCode).toBe(200);
+
+        response = await request(app)
+            .post('/api/game/settings')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.durationQuestion).toBe(65);
+        expect(response.body.numberOfQuestions).toBe(41);
+    });
+
+    it("Should return 400 with a valid token when updating game settings with invalid duration and number of questions", async () => {
+        let response = await request(app)
+            .post('/api/game/updatesettings')
+            .send({ 
+                token: validToken,
+                durationQuestion: 0,
+                numberOfQuestions: 0
+            });
+
+        expect(response.statusCode).toBe(400);
+    });
+
+    it("Should return 400 with a valid token when updating game settings with invalid number of arguments", async () => {
+        let response = await request(app)
+            .post('/api/game/updatesettings')
+            .send({ 
+                token: validToken,
+                numberOfQuestions: 0
+            });
+
+        expect(response.statusCode).toBe(400);
+    });
 })
