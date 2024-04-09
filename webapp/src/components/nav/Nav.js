@@ -100,7 +100,7 @@ export const Nav = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="bg-teal-50 dark:bg-zinc-800">
-          <IconButton size="large" color="inherit" onClick={showAlert}>
+          <IconButton size="large" color="inherit" onClick={showAlert} data-testid="go-home">
             <HomeIcon style={{ color: color }} />
           </IconButton>
 
@@ -141,8 +141,8 @@ export const Nav = () => {
             onClose={handleMenuAccountClose}
             anchorEl={userAnchor}
           >
-            <MenuItem onClick={profile}>Perfil</MenuItem>
-            <MenuItem onClick={history}>Historial</MenuItem>
+            <MenuItem onClick={profile} data-testid="go-profile">Perfil</MenuItem>
+            <MenuItem onClick={history} data-testid="go-history">Historial</MenuItem>
           </Menu>
 
           <IconButton
