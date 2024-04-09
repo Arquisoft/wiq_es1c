@@ -121,5 +121,33 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
     });
 
+    it("Should return 200 with an valid token", async () => {
+        const response = await request(app)
+            .post('/api/game/settings')
+            .send({ token: validToken });
 
+        expect(response.statusCode).toBe(200);
+        expect(response.body.durationQuestion).toBe(10);
+        expect(response.body.numberOfQuestions).toBe(10);
+    });
+
+    it("Should return 200 with an valid token", async () => {
+        let response = await request(app)
+            .post('/api/game/updatesettings')
+            .send({ 
+                token: validToken,
+                durationQuestion: 65,
+                numberOfQuestions: 41
+            });
+
+        expect(response.statusCode).toBe(200);
+
+        response = await request(app)
+            .post('/api/game/settings')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.durationQuestion).toBe(65);
+        expect(response.body.numberOfQuestions).toBe(41);
+    });
 })
