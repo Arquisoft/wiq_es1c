@@ -6,7 +6,9 @@ module.exports = {
     return queryInterface.sequelize.transaction(t => {
       return Promise.all([
         queryInterface.addColumn('SettingsGameModes', 'numberOfQuestions', {
-          type: Sequelize.DataTypes.INTEGER
+          type: Sequelize.DataTypes.INTEGER,
+          allowNull: false,
+          defaultValue: 10
         }, { transaction: t }),
       ]);
     });
