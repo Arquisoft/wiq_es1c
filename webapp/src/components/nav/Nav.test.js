@@ -51,12 +51,15 @@ describe("Nav component", () => {
 
         await act(async () => render(<MemoryRouter><Nav/></MemoryRouter>));
 
+        screen.getByTestId("change-color").click()
 
-        await act(async () => screen.getByTestId("change-color").click());
+        await act(async () => {});
+
+        screen.getByTestId("change-color").click()
+
+        await act(async () => {});
 
         expect(screen.getByText("WIQ").getAttribute("style")).toContain("color");
-
-
     });
 
     test("shows alert when clicking home icon during game", async () => {
@@ -71,7 +74,7 @@ describe("Nav component", () => {
         expect(Swal.fire).toHaveBeenCalled();
     });
 
-    test("shows alert when clicking home icon during game", async () => {
+    test("doesnt show alert when clicking home icon during not game", async () => {
         Swal.fire = jest.fn(() => {
             return Promise.resolve(true);
         });
@@ -116,6 +119,24 @@ describe("Nav component", () => {
 
         waitFor(()=>{
             expect(history.location.pathname).toBe('/history');
+        });
+    });
+
+    test("goes to Settings",async () => {
+        const history = createMemoryHistory();
+
+        render(<Router history={history}><Nav/></Router>);
+    
+        screen.getByTestId('open-account-menu').click();
+
+        await act(async () => {});
+        
+        screen.getByTestId('go-settings').click();
+
+        await act(async () => {});
+
+        waitFor(()=>{
+            expect(history.location.pathname).toBe('/settings');
         });
     });
 });

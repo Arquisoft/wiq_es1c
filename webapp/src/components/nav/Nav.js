@@ -45,6 +45,7 @@ export const Nav = () => {
   };
 
   const logout = () => {
+    //Clean the token
     localStorage.removeItem("token");
     navigate("/login");
   };
@@ -54,6 +55,7 @@ export const Nav = () => {
   }
 
   const showAlert = () => {
+    //Check if we are in a game
     if (location.pathname === "/game") {
       Swal.fire({
         title: "¿Quieres volver a la pantalla de inicio?",
@@ -75,11 +77,13 @@ export const Nav = () => {
   };
 
   const history = () => {
+    // Close submenu
     handleMenuAccountClose();
     navigate("/history");
   };
 
   const profile = () => {
+    // Close submenu
     handleMenuAccountClose();
     navigate("/profile");
   };
@@ -118,7 +122,7 @@ export const Nav = () => {
             <NightlightIcon onClick={changeTheme} style={{ color: color }} />
           </IconButton>
 
-          <IconButton size="large" color="inherit">
+          <IconButton size="large" color="inherit" data-testid="go-settings">
             <SettingsIcon onClick={openSettings} style={{ color: color }} />
           </IconButton>
 
