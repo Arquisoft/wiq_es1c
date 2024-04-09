@@ -45,18 +45,26 @@ export const Nav = () => {
   };
 
   const logout = () => {
+    // Close menus just in case
+    handleMenuAccountClose();
     //Clean the token
     localStorage.removeItem("token");
     navigate("/login");
   };
 
   const openSettings = () => {
+    // Close menus just in case
+    handleMenuAccountClose();
     navigate("/settings");
   }
 
   const showAlert = () => {
     //Check if we are in a game
-    if (location.pathname === "/game") {
+    let path = location.pathname;
+
+    if (path != "/game")
+      navigate("/home");
+    else if (path === "/game") {
       Swal.fire({
         title: "¿Quieres volver a la pantalla de inicio?",
         text: "Terminará tu partida.",
@@ -71,9 +79,7 @@ export const Nav = () => {
           navigate("/home");
         }
       });
-    } else if (location.pathname !== "/home") {
-      navigate("/home");
-    }
+    } 
   };
 
   const history = () => {
