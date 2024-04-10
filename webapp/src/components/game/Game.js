@@ -14,7 +14,8 @@ import { Nav } from '../nav/Nav';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
 
-export const Game = (props) => {
+export const Game = () => {
+
     const navigate = useNavigate();
 
     const token = localStorage.getItem("token");
@@ -24,26 +25,29 @@ export const Game = (props) => {
     const [questionImage, setQuestionImage] = useState("");
     const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
     const [loading, setLoading] = useState(true);
-    const [gameDone, setGameDone] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
     const location = useLocation();
+
+    const isFinished = async () => {
+        await getNumberOfQuestions(token).then((number) => {
+            console.log(number);
+            return number >= 4;
+        });
+    }
 
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
             highlightOptions(respuesta, correcta);
 
-            getNumberOfQuestions(token).then((number) => console.log(number));
-
-            setGameDone(gameDone => {
-                if(!gameDone)
+            isFinished().then(finished => {
+                if(!finished)
                     setTimeout(loadNextQuestion, 1000);
-                else {
+                else
                     finishGame();
-                }
-                return gameDone;
             });
+
         })  
     };
 
@@ -104,7 +108,6 @@ export const Game = (props) => {
             setRespuestas(respuesta.awnsers);
             setLoading(false);
             getEndTime(token).then((time) => {
-                setGameDone(time.gameDone);
                 setTime(time);
             });
         });
