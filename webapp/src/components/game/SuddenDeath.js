@@ -20,17 +20,14 @@ export const Game = () => {
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
     const location = useLocation();
-    const [lastFailed, setLastFailed] = useState(false);
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then((correcta) => {
             if(respuesta === correcta){
                 const botonCorrecto = document.getElementById(correcta);
                 botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
+                setTimeout(loadNextQuestion, 1000);
             }else{
-
-                setLastFailed(true);
-                console.log("Question failed");
                 const botonCorrecto = document.getElementById(correcta);
                 const botonIncorrecto = document.getElementById(respuesta);
                 if(botonCorrecto!==null)
@@ -38,30 +35,24 @@ export const Game = () => {
 
                 if(botonIncorrecto !== null)
                 botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white font-mono";
-            }
-            
-            setLastFailed(lastFailed => {
-                console.log("Game done: " + lastFailed);
-                if(!lastFailed)
-                    setTimeout(loadNextQuestion, 1000);
-                else {
-                    setTime(undefined);
-                    setTimeout(() => 
-                        Swal.fire({
-                            customClass: {
-                                container: "bg-white dark:bg-dark-mode text-black dark:text-white ",
-                                confirmButton: "text-black dark:text-white ",
-                                cancelButton: "text-black dark:text-white " ,
-                            },
-                            title: "El juego ha finalizado!",
-                            text: "Gracias por jugar",
-                            imageUrl: bannerDark,
-                            showCancelButton: true,
-                            confirmButtonColor: "#f384f6",
-                            cancelButtonColor: "#e8b260",
-                            confirmButtonText: "Volver al menu principal",
-                            cancelButtonText: "Continuar jugando"
-                        }).then((result) => {
+
+                setTime(undefined);
+                setTimeout(() =>
+                    Swal.fire({
+                        customClass: {
+                            container: "bg-white dark:bg-dark-mode text-black dark:text-white ",
+                            confirmButton: "text-black dark:text-white ",
+                            cancelButton: "text-black dark:text-white " ,
+                        },
+                        title: "El juego ha finalizado!",
+                        text: "Gracias por jugar",
+                        imageUrl: bannerDark,
+                        showCancelButton: true,
+                        confirmButtonColor: "#f384f6",
+                        cancelButtonColor: "#e8b260",
+                        confirmButtonText: "Volver al menu principal",
+                        cancelButtonText: "Continuar jugando"
+                    }).then((result) => {
                             if (result.isConfirmed)
                                 navigate("/home")
                             if(result.isDismissed)
@@ -70,9 +61,9 @@ export const Game = () => {
 
                         }
                     ), 1000);
-                }
-                return lastFailed;
-            });
+
+            }
+
         })  
     };
 
