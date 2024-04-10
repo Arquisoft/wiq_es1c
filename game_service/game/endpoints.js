@@ -9,26 +9,8 @@ const { loadQuestion } = require('../services/questionsService');
 
 const next = async (req,res) => {
     const userId = await jwt.verify(req.body.token, privateKey).user_id;
-    
-    const games = await Game.findAll({
-      where: {
-        user_id: userId
-      }
-    });
+    const game = await getCurrentGame(req, res);
 
-    if(games == null || games.length < 1){
-      res.status(400).send();
-      return;
-    }
-  
-    const game = games[0];
-
-    //Check the game isnt finished
-    // If its suddendeath gamemode number of questions does not apply
-    if((await game.getQuestions()).length >= game.numberOfQuestions && game.gameMode !== "SuddenDeath"){
-      res.status(400).send();
-      return; 
-    }
 
     let settings = await SettingsGameMode.findOne({ 
       where: { 
@@ -63,6 +45,36 @@ const next = async (req,res) => {
         String(questionRaw.fakes[2])
       ])
     });
+}
+
+const getNumberOfQuestions = async(req, res) => {
+    const game = await getCurrentGame(req, res);
+    //Check the game isnt finished
+    // If its suddendeath gamemode number of questions does not apply
+    const questionsAsked = await game.getQuestions();
+    if(questionsAsked.length >= game.numberOfQuestions && game.gameMode !== "SuddenDeath"){
+        res.status(400).send();
+        return;
+    }
+
+    res.status(200).json({numberOfQuestions: questionsAsked.length}).send();
+}
+
+const getCurrentGame = async (req, res) => {
+    const userId = await jwt.verify(req.body.token, privateKey).user_id;
+
+    const games = await Game.findAll({
+        where: {
+            user_id: userId
+        }
+    });
+
+    if(games == null || games.length < 1){
+        res.status(400).send();
+        return;
+    }
+
+    return games[0];
 }
 
 const update = async (req, res) => {
@@ -212,4 +224,4 @@ const setGameSettingsByUser = async (req, res) =>{
   res.status(200).send(settings);
 }
 
-module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser, setGameSettingsByUser}
+module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser, setGameSettingsByUser, getNumberOfQuestions}

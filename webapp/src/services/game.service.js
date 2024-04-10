@@ -17,6 +17,17 @@ const startNewGame = async (token, tags, gameMode) =>
     }
 }
 
+const getNumberOfQuestions = async (token) => {
+    try {
+        const response = await axios.post(`${apiEndpoint}:8003/api/game/numberofquestions`, { "token" : token});
+
+        return response.data.numberOfQuestions;
+
+    } catch (error) {
+        return undefined;
+    }
+}
+
 const getEndTime = async (token) =>
 {
   try {
@@ -82,4 +93,4 @@ const setGameSettings = async (token, duration, len) =>
   }
 }
 
-export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings, setGameSettings};
+export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings, setGameSettings, getNumberOfQuestions};
