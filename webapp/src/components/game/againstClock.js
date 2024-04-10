@@ -83,7 +83,6 @@ export const Game = () => {
         setQuestionImage("");
         setRespuestas(["...","...","...","..."])
         setLoading(true);
-        setTime(undefined);
         
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
             btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";    
@@ -94,10 +93,6 @@ export const Game = () => {
             setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
             setLoading(false);
-            getEndTime(token).then((time) => {
-                setGameDone(time.gameDone);
-                setTime(time);
-            });
         });
     }
 
@@ -106,13 +101,13 @@ export const Game = () => {
         let interval = setInterval(() => {
             setTime(time => {
                     if(time !== undefined){
-                        let total = basicGameSetting.durationQuestion * 1000;
+                        let total = basicGameSetting.durationQuestion * 1000 * basicGameSetting.numberOfQuestions;
                         let trans = (new Date().getTime()) - time.start;
 
                         let percentage =  (trans/total) * 100;
                         let invertedPercentage = 100 - Number(percentage);
                         
-                        setRemTime((invertedPercentage/100)*110);
+                        setRemTime((invertedPercentage/100)*100);
 
                         if(percentage > 100){
                             comprobarPregunta("");
@@ -182,7 +177,7 @@ export const Game = () => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) }
+                        { Math.min(Math.max(Number(remTime/1).toFixed(0),0),10000) }
                     </Typography>
                 </Box>
                 <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 

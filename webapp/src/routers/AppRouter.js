@@ -7,6 +7,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { AuthRoute } from "./AuthRoute";
 import { Home } from "../components/home/Home";
 import Game from "../components/game/Game";
+import AgainstClock from "../components/game/againstClock";
 import { History } from "../components/history/History";
 import {Profile} from "../components/profile/Profile";
 import {Settings} from "../components/settings/Settings";
@@ -44,6 +45,12 @@ const router = createBrowserRouter([
         path: "/game",
         element: <PrivateRoute>
                     <Game />
+                </PrivateRoute>       
+    },
+    {
+        path: "/againstClock",
+        element: <PrivateRoute>
+                    <AgainstClock />
                 </PrivateRoute>       
     },
     {
