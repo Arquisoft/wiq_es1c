@@ -2,10 +2,13 @@ import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost';
 
-const startNewGame = async (token, tags) =>
+const startNewGame = async (token, tags, gameMode) =>
 {
+    if(gameMode === undefined)
+        gameMode = "classic";
+
     try {
-      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token, "tags": tags });
+      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token, "tags": tags, "gameMode": gameMode });
 
       return "";
 

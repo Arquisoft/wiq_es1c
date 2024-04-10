@@ -23,8 +23,9 @@ const next = async (req,res) => {
   
     const game = games[0];
 
-    //Check the game isnt finished 
-    if((await game.getQuestions()).length >= game.numberOfQuestions){
+    //Check the game isnt finished
+    // If its suddendeath gamemode number of questions does not apply
+    if((await game.getQuestions()).length >= game.numberOfQuestions && game.gameMode !== "SuddenDeath"){
       res.status(400).send();
       return; 
     }
@@ -110,7 +111,8 @@ const newGame = async (req,res) => {
     await Game.create({
       user_id: userId,
       tags: tags,
-      numberOfQuestions: settings.numberOfQuestions
+      numberOfQuestions: settings.numberOfQuestions,
+        gameMode: req.body.gameMode
     })
   
     res.status(200).send();
