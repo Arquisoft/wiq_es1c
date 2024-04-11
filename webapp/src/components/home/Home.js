@@ -78,8 +78,8 @@ export const Home = () =>
             <Container
                 component="main"
                 maxWidth="md"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", backgroundColor:"rgb(23 23 23 / var(--tw-bg-opacity))"}}
-                className="bg-teal-50 dark:bg-zinc-800 min-h-screen flex  justify-center place-content-between rounded-lg flex"
+                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}
+                className="bg-white dark:bg-dark-mode min-h-screen flex  justify-center place-content-between rounded-lg flex"
             >
                 <Container
                     className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex "
@@ -95,7 +95,7 @@ export const Home = () =>
                             alignItems: "left"
 
                         }}
-                        className="bg-white dark:bg-dark-mode text-black dark:text-white "
+                        className="bg-teal-50 dark:bg-zinc-800 text-black dark:text-white "
                     >
                        <img src = {bannerLight} alt="WiQ" className="block dark:hidden" />
                        <img src = {bannerDark} alt="WiQ" className="hidden dark:block" />
@@ -136,12 +136,15 @@ export const Home = () =>
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                    <span className="text-black dark:text-white text">JUGAR</span>
+                                    <span className="text-black dark:text-white text bg-light-blue dark:bg-dark-purple">JUGAR</span>
                                 </button>
                         </div>
                         <div className="flex align-middle justify-center flex-grow m-3">
-                            <button onClick={openTagSelection} className="buttonGradient">
-                                    <span className="text-black dark:text-white ">Elige las tags</span>
+                            <button onClick={openTagSelection} className="bg-gradient-to-r
+                                from-cyan-50 via-cyan-300 to blue-500
+                                dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
+                                buttonGradient">
+                                    <span className="text-black dark:text-white text bg-light-blue dark:bg-dark-purple ">Elige las tags</span>
                             </button>
 
                         </div>
@@ -167,7 +170,7 @@ export const Home = () =>
                             transform: 'translateY(-50%) translateX(-50%)',
                             left: '50%'
                         }}>
-                        <IconButton aria-label="close" color="secondary" onClick={closeTagSelection} className="self-end p-2">
+                        <IconButton aria-label="close" color="inherit" onClick={closeTagSelection} className="self-end p-2">
                             <CancelIcon />
                         </IconButton>
                         <Box>
@@ -178,7 +181,7 @@ export const Home = () =>
                             <div id="tagBox">
                                 {tags.map((tag) =>
                                     <Chip
-                                        className="tagChip text-black dark:text-white"
+                                        className="tagChip text-black dark:text-white bg-light-blue dark:bg-dark-purple"
                                         key={tag.name}
                                         onClick={(e) => toggleTag(e, tag)}
                                         variant="outlined"

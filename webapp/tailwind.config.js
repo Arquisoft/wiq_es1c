@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor: {
-        'dark-mode': '#171717'
+        'dark-mode': '#171717',
+        'dark-purple': '#2A153E',
+        'light-blue': '#88d5f1',
       },
       backgroundImage: {
         'light': "url('/src/media/wiq_banner.light.png')",
