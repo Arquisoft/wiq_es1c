@@ -17,9 +17,11 @@ import { Link, Navigate } from "react-router-dom";
 import { login } from "../../services/user.service";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useTranslation } from "react-i18next";
 
 const Login = () => 
 {
+  const { t } = useTranslation();
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -110,7 +112,7 @@ const Login = () =>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Iniciar Sesión
+            t('Login.login')
           </Typography>
           <Box
             component="form"
