@@ -1,6 +1,5 @@
-import React from 'react';
-import Swal from 'sweetalert2'
-
+import React from "react";
+import Swal from "sweetalert2";
 
 import {
   AppBar,
@@ -11,140 +10,154 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import { useLocation, useNavigate  } from 'react-router-dom';
-import LogoutIcon from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HomeIcon from '@mui/icons-material/Home';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import NightlightIcon from '@mui/icons-material/Nightlight';
-
+import { useLocation, useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
+import HomeIcon from "@mui/icons-material/Home";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import NightlightIcon from "@mui/icons-material/Nightlight";
+import Lang from "./lang/lang";
 
 export const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
- 
-  const getColor = ()=>{
-    const htmlElement = document.querySelector('html');
 
-    if (htmlElement.classList.contains('dark')){
-      return 'white';
-    }
-    else{
-      return 'black';
-    }
-    
-  }
+  const getColor = () => {
+    const htmlElement = document.querySelector("html");
 
-  const [openMenu, setOpenMenu] = React.useState(false);
+    if (htmlElement.classList.contains("dark")) {
+      return "white";
+    } else {
+      return "black";
+    }
+  };
+
+  const [openMenuAccount, setOpenMenuAccount] = React.useState(false);
+  const [openMenuSettings, setOpenMenuSettings] = React.useState(false);
   const [userAnchor, setUserAnchor] = React.useState(undefined);
-  const [color,setColor] = React.useState(getColor());
+  const [color, setColor] = React.useState(getColor());
 
   const handleMenuAccountOpen = (event) => {
     setUserAnchor(event.currentTarget);
-    setOpenMenu(true);
+    setOpenMenuAccount(true);
   };
 
   const handleMenuAccountClose = () => {
-    setOpenMenu(false);
+    setOpenMenuAccount(false);
   };
+
+  const handleMenuSettingsOpen = (event) => {
+    setUserAnchor(event.currentTarget);
+    setOpenMenuSettings(true);
+  };
+
+  const handleMenuSettingsClose = () => {
+    setOpenMenuSettings(false);
+  };
+
+  
 
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
-  }
+  };
 
-  const showAlert = () =>{
-    if(location.pathname === '/game'){
-  Swal.fire({
-    title: "¿Quieres volver a la pantalla de inicio?",
-    text: "Terminará tu partida.",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Sí,salir",
-    cancelButtonText: "No,continuar jugando"
-  }).then((result) => {
-    if (result.isConfirmed) {
-      navigate("/home")
-      
+  const showAlert = () => {
+    if (location.pathname === "/game") {
+      Swal.fire({
+        title: "¿Quieres volver a la pantalla de inicio?",
+        text: "Terminará tu partida.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí,salir",
+        cancelButtonText: "No,continuar jugando",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/home");
+        }
+      });
+    } else {
+      if (location.pathname !== "/home") {
+        navigate("/home");
+      }
     }
-  });
-}
-else{
-  if(location.pathname !== '/home'){
-  navigate("/home")
-}
-}
-  }
-
-
+  };
 
   const history = () => {
     handleMenuAccountClose();
     navigate("/history");
-  }
+  };
 
-  const profile = () =>{
+  const profile = () => {
     handleMenuAccountClose();
     navigate("/profile");
-  }
+  };
+
+  const settings = () => {
+    handleMenuSettingsClose();
+    navigate("/settings");
+  };
+
   
+
   const changeTheme = () => {
-    const htmlElement = document.querySelector('html');
+    const htmlElement = document.querySelector("html");
 
-    if (htmlElement.classList.contains('dark')){
-      htmlElement.classList.remove('dark');
-      setColor('black');
+    if (htmlElement.classList.contains("dark")) {
+      htmlElement.classList.remove("dark");
+      setColor("black");
+    } else {
+      htmlElement.classList.add("dark");
+      setColor("white");
     }
-    
-    else{
-      htmlElement.classList.add('dark');
-      setColor('white');
-    }
-    
-  }
-
- 
-
-
-  
+  };
 
   return (
-    <Box sx={{ flexGrow: 1 }} >
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="bg-teal-50 dark:bg-zinc-800">
-          
-            <IconButton
-                size="large"
-                color="inherit"
-                onClick={showAlert}
-                
-            >
-              <HomeIcon style={{color: color}}/>
-            </IconButton>
-          
-         
+          <IconButton size="large" color="inherit" onClick={showAlert}>
+            <HomeIcon style={{ color: color }} />
+          </IconButton>
 
           {/* Título */}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}  style={{color: color}}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            style={{ color: color }}
+          >
             WIQ
           </Typography>
 
-          <IconButton
-            size='large'
-            color='inherit'
-            data-testid="change-color"
-          >
-            <NightlightIcon onClick={changeTheme} style={{color: color}}/>
+          <IconButton size="large" color="inherit" data-testid="change-color">
+            <NightlightIcon onClick={changeTheme} style={{ color: color }} />
           </IconButton>
+
+          <Lang userAnchor={userAnchor} setUserAnchor={setUserAnchor} color={color} />
 
           <IconButton
             size="large"
             color="inherit"
+            aria-label="settings"
+            aria-controls="settings-appbar"
+            aria-haspopup="true"
+            onClick={handleMenuSettingsOpen}
+            data-testid="open-settings-menu"
           >
-            <SettingsIcon style={{color: color}}/>
+            <SettingsIcon style={{ color: color }} />
           </IconButton>
+
+          <Menu
+            id="settings-appbar"
+            open={openMenuSettings}
+            onClose={handleMenuSettingsClose}
+            anchorEl={userAnchor}
+          >
+            <MenuItem onClick={settings}>Settings</MenuItem>
+          </Menu>
 
           {/* Botón de cuenta */}
           <IconButton
@@ -156,17 +169,17 @@ else{
             color="inherit"
             data-testid="open-account-menu"
           >
-            <AccountCircle style={{color: color}}/>
+            <AccountCircle style={{ color: color }} />
           </IconButton>
 
           <Menu
             id="account-appbar"
-            open={openMenu}
+            open={openMenuAccount}
             onClose={handleMenuAccountClose}
             anchorEl={userAnchor}
           >
-              <MenuItem onClick={profile}>Perfil</MenuItem>
-              <MenuItem onClick={history}>Historial</MenuItem>
+            <MenuItem onClick={profile}>Perfil</MenuItem>
+            <MenuItem onClick={history}>Historial</MenuItem>
           </Menu>
 
           <IconButton
@@ -175,10 +188,10 @@ else{
             onClick={logout}
             data-testid="logout"
           >
-            <LogoutIcon style={{color: color}}/>
+            <LogoutIcon style={{ color: color }} />
           </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
   );
-}
+};
