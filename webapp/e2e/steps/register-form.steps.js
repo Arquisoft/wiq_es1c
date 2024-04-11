@@ -12,7 +12,6 @@ defineFeature(feature, test => {
       ? await puppeteer.launch()
       : await puppeteer.launch({ headless: false, slowMo: 1 });
     page = await browser.newPage();
-    await page.setRequestInterception(true);
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
   });
@@ -29,17 +28,6 @@ defineFeature(feature, test => {
   test('The user is not registered in the site', ({given,when,then}) => {
     let username;
     let password;
-    page.on('request',interceptedRequest=>{
-      if(interceptedRequest.url()==='http://localhost:3000'){
-        interceptedRequest.respond({
-          status: 200,
-          contentType: 'JSON',
-          body: 'Respuesta simulada'
-        });
-      }else{
-        interceptedRequest.continue();
-      }
-    });
 
     given('An unregistered user', async () => {
       username = "a)UAN)"
