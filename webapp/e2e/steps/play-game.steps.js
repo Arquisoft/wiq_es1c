@@ -2,69 +2,46 @@ const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/play-game.feature');
-const DatabaseManager = require('../DatabaseManager.js');
-const bcrypt = require('bcrypt');
 
 let page;
 let browser;
-let dbManagerUserData;
-let dbManagerGameData;
+
 defineFeature(feature, test => {
   const username = "testUser_dsknvsi"
   const password = "aebttrbsdbzdfbbs"
-  const testId = "Hello"
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
       : await puppeteer.launch({ headless: false, slowMo: 1 });
     page = await browser.newPage();
-    const dbConfigUserData={
-      host:'localhost',
-      user:'root',
-      password:'',
-      port:9001,
-      database:'db'
-    }
-    const dbConfigGameData={
-      host:'localhost',
-      user:'root',
-      password:'',
-      port:9002,
-      database:'db'
-    }
-    dbManagerUserData=new DatabaseManager(dbConfigUserData);
-    dbManagerGameData=new DatabaseManager(dbConfigGameData);
     setDefaultOptions({ timeout: 10000 })
     //Creamos nuevo usuario para los tests
-    await dbManagerUserData.query(`DELETE FROM Users WHERE id = '${testId}'`);
-    //bcryp.hash, 15 por que es lo que estamos utilizando actualmente -> cuidado con authEndpoints.js a los posibles cambios
-    await dbManagerUserData.query(`INSERT INTO Users (id, name, password, createdAt, updatedAt) VALUES ('${testId}', '${username}', '${await bcrypt.hash(password,15)}','2024-04-05 15:45:11','2024-04-05 15:45:11')`);
     await page
-      .goto("http://localhost:80/login", {
+      .goto("http://localhost:3000/register", {
         waitUntil: "networkidle0",
       })
       .catch(() => {});
-    await expect(page).toFill('input[name="username"]',username);
-    await expect(page).toFill('input[name="password"]',password);
-    await expect(page).toClick('button',{text:'Iniciar sesión'});
-    await page.waitForNavigation()
+    await expect(page).toFill('input[name="username"]', username);
+    await expect(page).toFill('input[name="password"]', password);
+    await expect(page).toFill('input[name="confirmPassword"]', password);
+    await expect(page).toClick('button', { text: 'Registrarme' });
+    await page.waitForNavigation();
   });
   beforeEach(async()=>{
     await page
-        .goto("http://localhost:80/Home", {
+        .goto("http://localhost:3000/Home", {
           waitUntil: "networkidle0",
         })
         .catch(() => {});
-  })
+  });
   afterAll(async ()=>{
     browser.close();
     await dbManagerUserData.close();
     await dbManagerGameData.close();
-  })
+  });
   test('Starts a new game', ({given,when,then}) => {
     let beforeNewGame;
     given('A logged user in home view', async () => {
-      beforeNewGame= await dbManagerGameData.query(`SELECT COUNT(*) var FROM Games WHERE user_id = '${testId}'`);
       const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
       const element = await page.waitForXPath(xpath, { visible: true });
       const text = await page.evaluate(e => e.innerText, element);

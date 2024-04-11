@@ -2,49 +2,48 @@ const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/register-form.feature');
-const DatabaseManager = require('../DatabaseManager.js');
 
-let dbManager;
 let page;
 let browser;
 
 defineFeature(feature, test => {
-  
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
       : await puppeteer.launch({ headless: false, slowMo: 1 });
     page = await browser.newPage();
-    const dbConfig={
-      host:'localhost',
-      user:'root',
-      password:'',
-      port:9001,
-      database:'db'
-    }
-    dbManager=new DatabaseManager(dbConfig);
+    await page.setRequestInterception(true);
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
   });
   beforeEach(async()=>{
     await page
-        .goto("http://localhost:80/register", {
+        .goto("http://localhost:3000/register", {
           waitUntil: "networkidle0",
         })
         .catch(() => {});
   })
   afterAll(async ()=>{
     browser.close()
-    await dbManager.close();
   })
   test('The user is not registered in the site', ({given,when,then}) => {
     let username;
     let password;
+    page.on('request',interceptedRequest=>{
+      if(interceptedRequest.url()==='http://localhost:3000'){
+        interceptedRequest.respond({
+          status: 200,
+          contentType: 'JSON',
+          body: 'Respuesta simulada'
+        });
+      }else{
+        interceptedRequest.continue();
+      }
+    });
 
     given('An unregistered user', async () => {
       username = "a)UAN)"
       password = "pasl98AUC(/Avhb)h"
-      const result = await dbManager.query(`DELETE FROM Users WHERE name = '${username}'`)
     });
     when('I fill the data in the form and press submit', async () => {
       await expect(page).toFill('input[name="username"]', username);
@@ -91,11 +90,8 @@ defineFeature(feature, test => {
     let password;
 
     given('An unregistered user', async () => {
-      username = "plsjdv"
-      password = "pabloasw"
-      let idPrueba = "prua"
-      await dbManager.query(`DELETE FROM Users WHERE id = '${idPrueba}'`);
-      await dbManager.query(`INSERT INTO Users (id, name, password, createdAt, updatedAt) VALUES ('${idPrueba}', '${username}', 'contraseña_pruebas','2024-04-05 15:45:11','2024-04-05 15:45:11')`);
+      username = "a)UAN)"
+      password = "pabloaswethrjeyj"
     });
 
     when('I fill the data with a taken username', async () => {
