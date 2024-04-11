@@ -29,10 +29,10 @@ export const Game = () => {
     const [remTime, setRemTime] = useState(0);
     const location = useLocation();
 
-    const isFinished = async () => {
-        await getNumberOfQuestions(token).then((number) => {
+    const isFinished = () => {
+        return getNumberOfQuestions(token).then((number) => {
             console.log(number);
-            return number >= 4;
+            return number > 4;
         });
     }
 
@@ -41,15 +41,16 @@ export const Game = () => {
         awnser(token, respuesta).then((correcta) => {
             highlightOptions(respuesta, correcta);
 
-            isFinished().then(finished => {
-                if(!finished)
+            isFinished().then(returned => {
+                if(!returned)
                     setTimeout(loadNextQuestion, 1000);
                 else
                     finishGame();
             });
-
         })  
     };
+
+
 
     const highlightOptions = (respuesta, correcta) => {
         const botonCorrecto = document.getElementById(correcta);
