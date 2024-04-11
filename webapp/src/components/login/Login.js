@@ -127,7 +127,7 @@ const Login = () => {
                     required
                     fullWidth
                     id="username"
-                    label="Nombre de usuario"
+                    label={ t('Login.username') }
                     name="username"
                     autoComplete="username"
                     autoFocus
@@ -136,7 +136,7 @@ const Login = () => {
                     helperText={
                       validUsername
                         ? ""
-                        : "Debes introducir tu nombre de usuario"
+                        : t('Login.errorUsername')
                     }
                   />
                   <TextField
@@ -144,14 +144,14 @@ const Login = () => {
                     required
                     fullWidth
                     name="password"
-                    label="Contraseña"
+                    label={ t('Login.password') }
                     type="password"
                     id="password"
                     autoComplete="current-password"
                     onChange={checkPassword}
                     error={!validPassword}
                     helperText={
-                      validPassword ? "" : "Debes introducir tu contraseña"
+                      validPassword ? "" : t('Login.errorPassword')
                     }
                   />
 
@@ -165,7 +165,7 @@ const Login = () => {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                   >
-                    Iniciar sesión
+                    { t('Login.login') }
                   </Button>
                   <Grid container>
                     <Grid item xs>
@@ -178,7 +178,7 @@ const Login = () => {
                         to={"/register"}
                         className="underline text-blue-600 hover:text-blue-900"
                       >
-                        {"¿No tienes una cuenta? Regístrate"}
+                        { t('Login.register') }
                       </Link>
                     </Grid>
                   </Grid>

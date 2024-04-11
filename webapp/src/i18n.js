@@ -8,6 +8,11 @@ i18n
             translation: {
                 Login: {
                     login: 'Login',
+                    username: 'Username',
+                    password: 'Password',
+                    register: 'Don\'t have an account? Register',
+                    errorUsername: 'You must enter your username',
+                    errorPassword: 'You must enter your password'
                 },
             },
         },
@@ -15,6 +20,11 @@ i18n
             translation: {
                 Login: {
                     login: 'Iniciar sesión',
+                    username: 'Nombre de usuario',
+                    password: 'Contraseña',
+                    register: '¿No tiene una cuenta? Regístrate',
+                    errorUsername: 'Debes introducir tu nombre de usuario',
+                    errorPassword: 'Debes introducir tu contraseña'
                 },
             },
         },
