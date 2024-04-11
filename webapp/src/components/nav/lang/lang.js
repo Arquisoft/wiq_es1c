@@ -5,26 +5,35 @@ import {
     MenuItem,
   } from "@mui/material";
 import TranslateIcon from "@mui/icons-material/Translate";
+import i18n from "i18next";
 
 const Lang = ({ userAnchor, setUserAnchor, color }) => 
 {
     const [openMenuLanguage, setOpenMenuLanguage] = useState(false);
 
-    const handleMenuLanguageOpen = (event) => {
+    const handleMenuLanguageOpen = (event) => 
+    {
         setUserAnchor(event.currentTarget);
         setOpenMenuLanguage(true);
     };
     
-    const handleMenuLanguageClose = () => {
+    const handleMenuLanguageClose = () => 
+    {
         setOpenMenuLanguage(false);
     };
 
-    const spanish = () => {
-        handleMenuLanguageClose();
+    const spanish = () => 
+    {
+      handleMenuLanguageClose();
+
+      i18n.changeLanguage('es');
     };
     
-    const english = () => {
-        handleMenuLanguageClose();
+    const english = () => 
+    {
+      handleMenuLanguageClose();
+
+      i18n.changeLanguage('en');
     };
 
     return (
@@ -47,8 +56,20 @@ const Lang = ({ userAnchor, setUserAnchor, color }) =>
             onClose={handleMenuLanguageClose}
             anchorEl={userAnchor}
           >
-            <MenuItem onClick={spanish}><span className="fi fi-es mr-1"></span>Español</MenuItem>
-            <MenuItem onClick={english}><span className="fi fi-gb mr-1"></span>Inglés</MenuItem>
+            <MenuItem 
+              selected={ i18n.language === 'es' ? true : false } 
+              onClick={spanish}
+            >
+              <span className="fi fi-es mr-1"></span>
+              Español
+            </MenuItem>
+            <MenuItem 
+              selected={ i18n.language === 'en' ? true : false } 
+              onClick={english}
+            >
+              <span className="fi fi-gb mr-1"></span>
+              Inglés
+            </MenuItem>
         </Menu>
         </>
     );
