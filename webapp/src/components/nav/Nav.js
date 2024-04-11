@@ -120,8 +120,8 @@ export const Nav = () => {
             WIQ
           </Typography>
 
-          <IconButton size="large" color="inherit" data-testid="change-color">
-            <NightlightIcon onClick={changeTheme} style={{ color: color }} />
+          <IconButton onClick={changeTheme} size="large" color="inherit" data-testid="change-color">
+            <NightlightIcon style={{ color: color }} />
           </IconButton>
 
           <Lang userAnchor={userAnchor} setUserAnchor={setUserAnchor} color={color} />
