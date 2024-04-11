@@ -12,11 +12,12 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
+
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NightlightIcon from "@mui/icons-material/Nightlight";
-import Lang from "./lang/lang";
+import Lang from "./lang/Lang";
+import Settings from "./settings/Settings";
 
 export const Nav = () => {
   const navigate = useNavigate();
@@ -33,7 +34,6 @@ export const Nav = () => {
   };
 
   const [openMenuAccount, setOpenMenuAccount] = React.useState(false);
-  const [openMenuSettings, setOpenMenuSettings] = React.useState(false);
   const [userAnchor, setUserAnchor] = React.useState(undefined);
   const [color, setColor] = React.useState(getColor());
 
@@ -46,14 +46,7 @@ export const Nav = () => {
     setOpenMenuAccount(false);
   };
 
-  const handleMenuSettingsOpen = (event) => {
-    setUserAnchor(event.currentTarget);
-    setOpenMenuSettings(true);
-  };
-
-  const handleMenuSettingsClose = () => {
-    setOpenMenuSettings(false);
-  };
+  
 
   
 
@@ -95,11 +88,6 @@ export const Nav = () => {
     navigate("/profile");
   };
 
-  const settings = () => {
-    handleMenuSettingsClose();
-    navigate("/settings");
-  };
-
   
 
   const changeTheme = () => {
@@ -138,26 +126,7 @@ export const Nav = () => {
 
           <Lang userAnchor={userAnchor} setUserAnchor={setUserAnchor} color={color} />
 
-          <IconButton
-            size="large"
-            color="inherit"
-            aria-label="settings"
-            aria-controls="settings-appbar"
-            aria-haspopup="true"
-            onClick={handleMenuSettingsOpen}
-            data-testid="open-settings-menu"
-          >
-            <SettingsIcon style={{ color: color }} />
-          </IconButton>
-
-          <Menu
-            id="settings-appbar"
-            open={openMenuSettings}
-            onClose={handleMenuSettingsClose}
-            anchorEl={userAnchor}
-          >
-            <MenuItem onClick={settings}>Settings</MenuItem>
-          </Menu>
+          <Settings userAnchor={userAnchor} setUserAnchor={setUserAnchor} color={color} />
 
           {/* Botón de cuenta */}
           <IconButton
