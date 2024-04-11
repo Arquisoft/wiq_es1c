@@ -8,13 +8,14 @@ export const SuddenDeath = () => {
 
     const isFinished = () => {
         return getCurrentQuestion(token).then(question => {
-                 return question.user_answer === question.answer;
-            });
-        }
+                 return question.user_answer !== question.answer;
+        });
+    }
 
     return (
         <Game
             finishFunction = {isFinished}
+            name = "SuddenDeath"
             />
     );
 

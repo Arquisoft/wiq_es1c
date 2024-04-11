@@ -49,13 +49,11 @@ const next = async (req,res) => {
 
 const getNumberOfQuestions = async(req, res) => {
     const game = await getCurrentGame(req, res);
-    //Check the game isnt finished
-    // If its suddendeath gamemode number of questions does not apply
     const questionsAsked = await game.getQuestions();
-    if(questionsAsked.length >= game.numberOfQuestions && game.gameMode !== "SuddenDeath"){
-        res.status(400).send();
-        return;
-    }
+    // if(questionsAsked.length >= game.numberOfQuestions && game.gameMode !== "SuddenDeath"){
+    //     res.status(400).send();
+    //     return;
+    // }
 
     res.status(200).json({numberOfQuestions: questionsAsked.length}).send();
 }

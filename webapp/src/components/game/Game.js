@@ -17,18 +17,15 @@ import Swal from 'sweetalert2';
 
 const token = localStorage.getItem("token");
 
-let isFinished = () => {
-    return getNumberOfQuestions(token).then(number => {
-        return number > 4;
-    })
+let isFinished = async () => {
+    const number = await getNumberOfQuestions(token);
+    const settings = await getGameSettings(token);
+    const maxNumber = settings.numberOfQuestions;
+    return number > maxNumber;
+
 }
 
-export const Game = (finishFunction = null) => {
-
-    // if(finishFunction != null)
-    //     isFinished = finishFunction;
-    // else
-    //     console.log("A function was not provided, going with default");
+export const Game = ({finishFunction, name}) => {
 
     const navigate = useNavigate();
 
@@ -45,15 +42,28 @@ export const Game = (finishFunction = null) => {
 
 
     const comprobarPregunta = (respuesta) => {
-        awnser(token, respuesta).then((correcta) => {
+        awnser(token, respuesta).then(async (correcta) => {
             highlightOptions(respuesta, correcta);
 
-            isFinished().then(returned => {
-                if(!returned)
+            const callback = (returned) => {
+                if(!returned){
                     setTimeout(loadNextQuestion, 1000);
-                else
+                }
+                else{
                     finishGame();
-            });
+                }
+            }
+
+
+            console.log(typeof finishFunction);
+
+            if(finishFunction !== undefined && finishFunction != null) {
+                callback(await finishFunction());
+            }
+            else{
+                 callback(await isFinished());
+            }
+
         })  
     };
 
@@ -160,7 +170,7 @@ export const Game = (finishFunction = null) => {
         if(location.state != null)
             tags = location.state.tags ?? "";
 
-        startNewGame(token, tags).then(() =>
+        startNewGame(token, tags, name).then(() =>
         {
             loadNextQuestion();
         })
