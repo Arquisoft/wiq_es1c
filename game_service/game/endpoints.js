@@ -23,8 +23,8 @@ const next = async (req,res) => {
         user_id: userId,
       })
     }
-
-    const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
+    let tags = game.tags === undefined ? [] : game.tags.split(",").filter(s=>s.length > 0)
+    const questionRaw = await loadQuestion(tags);
     
     Question.create({
       title: questionRaw.title,
