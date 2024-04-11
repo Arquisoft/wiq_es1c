@@ -14,6 +14,17 @@ i18n
                     errorUsername: 'You must enter your username',
                     errorPassword: 'You must enter your password'
                 },
+                Register: {
+                    register: 'Register',
+                    username: 'Username',
+                    password: 'Password',
+                    confirmPassword: 'Confirm password',
+                    toRegister: 'Register',
+                    login: 'Already have an account? Sign in',
+                    errorUsername: 'You must enter your username',
+                    errorPassword: 'You must enter your password',
+                    errorConfirmPassword: 'Passwords do not match'
+                }
             },
         },
         es: {
@@ -26,6 +37,17 @@ i18n
                     errorUsername: 'Debes introducir tu nombre de usuario',
                     errorPassword: 'Debes introducir tu contraseña'
                 },
+                Register: {
+                    register: 'Regístrate',
+                    username: 'Nombre de usuario',
+                    password: 'Contraseña',
+                    confirmPassword: 'Repetir contraseña',
+                    toRegister: 'Registrarme',
+                    login: '¿Ya tienes una cuenta? Inicia sesión',
+                    errorUsername: 'Debes introducir tu nombre de usuario',
+                    errorPassword: 'Debes introducir tu contraseña',
+                    errorConfirmPassword: 'Las contraseñas no coinciden'
+                }
             },
         },
     },

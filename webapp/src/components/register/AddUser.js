@@ -15,9 +15,13 @@ import { Link, Navigate } from "react-router-dom";
 import { register } from "../../services/user.service";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useTranslation } from "react-i18next";
+
 import { Nav } from "../nav/Nav";
 
 const AddUser = () => {
+  const { t } = useTranslation();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -111,8 +115,8 @@ const AddUser = () => {
                 <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
-                  Registro
+                <Typography className="text-black" component="h1" variant="h5">
+                  { t('Register.register') }
                 </Typography>
                 <Box
                   component="form"
@@ -125,7 +129,7 @@ const AddUser = () => {
                     required
                     fullWidth
                     id="username"
-                    label="Nombre de usuario"
+                    label={ t('Register.username') }
                     name="username"
                     autoComplete="username"
                     onChange={checkUsername}
@@ -133,7 +137,7 @@ const AddUser = () => {
                     helperText={
                       validUsername
                         ? ""
-                        : "Debes introducir tu nombre de usuario"
+                        : t('Register.errorUsername')
                     }
                     autoFocus
                   />
@@ -142,14 +146,14 @@ const AddUser = () => {
                     required
                     fullWidth
                     name="password"
-                    label="Contraseña"
+                    label={ t('Register.password') }
                     type="password"
                     id="password"
                     autoComplete="current-password"
                     onChange={checkPassword}
                     error={!validPassword}
                     helperText={
-                      validPassword ? "" : "Debes introducir una contraseña"
+                      validPassword ? "" : t('Register.errorPassword')
                     }
                   />
                   <TextField
@@ -157,14 +161,14 @@ const AddUser = () => {
                     required
                     fullWidth
                     name="confirmPassword"
-                    label="Repetir contraseña"
+                    label={ t('Register.confirmPassword') }
                     type="password"
                     id="confirmPassword"
                     autoComplete="current-password"
                     onChange={checkConfirmPassword}
                     error={!validConfirmPassword}
                     helperText={
-                      validConfirmPassword ? "" : "Las contraseñas no coinciden"
+                      validConfirmPassword ? "" : t('Register.errorConfirmPassword')
                     }
                   />
 
@@ -178,7 +182,7 @@ const AddUser = () => {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                   >
-                    Registrarme
+                    { t('Register.toRegister') }
                   </Button>
                   <Grid container>
                     <Grid item xs>
@@ -191,7 +195,7 @@ const AddUser = () => {
                         to={"/login"}
                         className="underline text-blue-600 hover:text-blue-900"
                       >
-                        {"¿Ya tienes unas cuenta? Inicia sesión"}
+                        { t('Register.login') }
                       </Link>
                     </Grid>
                   </Grid>
