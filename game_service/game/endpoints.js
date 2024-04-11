@@ -29,6 +29,18 @@ const next = async (req,res) => {
       return; 
     }
 
+    let settings = await SettingsGameMode.findOne({ 
+      where: { 
+        user_id: userId 
+      } 
+    });
+  
+    if (settings == null) {
+      settings = await SettingsGameMode.create({
+        user_id: userId,
+      })
+    }
+
     const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
     
     Question.create({
@@ -36,6 +48,7 @@ const next = async (req,res) => {
       imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
       answer: questionRaw.answer,
       fake: questionRaw.fakes,
+      duration: settings.durationQuestion,
       gameId: game.id
     })
   
@@ -81,10 +94,23 @@ const newGame = async (req,res) => {
     let userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     let tags = req.body.tags ?? "";
+
+    let settings = await SettingsGameMode.findOne({ 
+      where: { 
+        user_id: userId 
+      } 
+    });
   
+    if (settings == null) {
+      settings = await SettingsGameMode.create({
+        user_id: userId,
+      })
+    }
+
     await Game.create({
       user_id: userId,
-      tags: tags
+      tags: tags,
+      numberOfQuestions: settings.numberOfQuestions
     })
   
     res.status(200).send();
@@ -152,4 +178,36 @@ const getGameSettingsByUser = async (req, res) =>{
   res.status(200).send(settings);
 }
 
-module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser}
+const setGameSettingsByUser = async (req, res) =>{
+  const userId = await jwt.verify(req.body.token, privateKey).user_id;
+
+  if(!validate(req,['durationQuestion','numberOfQuestions'])){
+    res.status(400).send();
+    return;
+  }   
+
+  let settings = await SettingsGameMode.findOne({ 
+    where: { 
+      user_id: userId 
+    } 
+  });
+
+  if (settings == null) {
+    settings = await SettingsGameMode.create({
+      user_id: userId,
+    })
+  };
+
+  if(req.body.durationQuestion < 5, req.body.numberOfQuestions < 1) {
+    res.status(400).send();
+    return;
+  }   
+
+  settings.durationQuestion = req.body.durationQuestion;
+  settings.numberOfQuestions = req.body.numberOfQuestions;
+  settings.save();
+  
+  res.status(200).send(settings);
+}
+
+module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser, setGameSettingsByUser}

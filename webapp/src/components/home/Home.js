@@ -25,13 +25,7 @@ export const Home = () =>
         const fetchTags = async () => {
             const dynTags = await getTags();
             let adapted = [];
-            for (let i = 0; i < dynTags.length; i++) {
-                adapted.push(
-                    {
-                        name : dynTags[i],
-                        active : true
-                    });
-            }
+            dynTags.forEach((dynTag) => adapted.push({ name: dynTag, active: true}));
             setTags(adapted);
         }
 
@@ -46,10 +40,10 @@ export const Home = () =>
 
     const startGame = () => {
         let tagString = "";
-        for (let i = 0; i < tags.length; i++) {
-            if(tags[i].active)
-                tagString += tags[i].name + ",";
-        }
+        tags.forEach((tag) => {
+            if(tag.active)
+                tagString += tag.name + ","
+        });
 
         tagString = tagString.substring(0, tagString.length - 1);
         navigate("/game", {
@@ -85,7 +79,7 @@ export const Home = () =>
                 component="main"
                 maxWidth="md"
                 sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", backgroundColor:"rgb(23 23 23 / var(--tw-bg-opacity))"}}
-                className="min-h-screen flex  justify-center place-content-between"
+                className="bg-teal-50 dark:bg-zinc-800 min-h-screen flex  justify-center place-content-between rounded-lg flex"
             >
                 <Container
                     className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex "
@@ -184,12 +178,12 @@ export const Home = () =>
                             <div id="tagBox">
                                 {tags.map((tag) =>
                                     <Chip
-                                        className="tagChip"
+                                        className="tagChip text-black dark:text-white"
                                         key={tag.name}
                                         onClick={(e) => toggleTag(e, tag)}
                                         variant="outlined"
                                         label={tag.name}
-                                        data-active="true"
+                                        data-active={tag.active}
 
                                     >
                                     </Chip>
