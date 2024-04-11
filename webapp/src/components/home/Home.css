@@ -55,13 +55,11 @@ p,h1,h2,h3,h4,h5,h6,span {
 
 div.tagChip {
   border-width: 2px;
-
   margin:0.5em;
-  border-color: #c08f49;
 }
 
 div.tagChip[data-active="true"]{
-  background: rgb(49, 5, 87);
+  background: #ebd3b2;
 }
 
 

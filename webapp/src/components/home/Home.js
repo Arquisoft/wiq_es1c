@@ -181,14 +181,16 @@ export const Home = () =>
                             <div id="tagBox">
                                 {tags.map((tag) =>
                                     <Chip
-                                        className="tagChip text-black dark:text-white bg-light-blue dark:bg-dark-purple"
+                                        className="tagChip  border-cyan-500 dark:border-purple-500"
                                         key={tag.name}
                                         onClick={(e) => toggleTag(e, tag)}
                                         variant="outlined"
                                         label={tag.name}
                                         data-active={tag.active}
+                                        color = "secondary"
 
                                     >
+                                        
                                     </Chip>
 
                                 )}
