@@ -82,7 +82,7 @@ const update = async (req, res) => {
     
     let question = await getCurrentQuestion(userId);
 
-    if(question == null){
+    if(question == null || question.user_answer != null){
       res.status(400).send();
       return;
     }
@@ -141,7 +141,7 @@ const awnser = async (req,res) => {
     let awnser = req.body.awnser;
     let question = await getCurrentQuestion(userId);
   
-    if(question == null){
+    if(question == null || question.user_answer != null){
       res.status(400).send();
       return;
     }
@@ -156,6 +156,13 @@ const awnser = async (req,res) => {
     question.save();
     
     res.status(200).send(question.answer);
+}
+
+const getQuestion = async (req, res) => {
+    let userId = await jwt.verify(req.body.token, privateKey).user_id;
+    let question = await getCurrentQuestion(userId);
+
+    res.status(200).json({question : question}).send();
 }
 
 const getHistory = async (req,res) => {
@@ -224,4 +231,4 @@ const setGameSettingsByUser = async (req, res) =>{
   res.status(200).send(settings);
 }
 
-module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser, setGameSettingsByUser, getNumberOfQuestions}
+module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser, setGameSettingsByUser, getNumberOfQuestions, getQuestion}

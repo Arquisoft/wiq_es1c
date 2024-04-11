@@ -14,11 +14,25 @@ import { Nav } from '../nav/Nav';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
 
-export const Game = () => {
+
+const token = localStorage.getItem("token");
+
+let isFinished = () => {
+    return getNumberOfQuestions(token).then(number => {
+        return number > 4;
+    })
+}
+
+export const Game = (finishFunction = null) => {
+
+    // if(finishFunction != null)
+    //     isFinished = finishFunction;
+    // else
+    //     console.log("A function was not provided, going with default");
 
     const navigate = useNavigate();
 
-    const token = localStorage.getItem("token");
+
     let basicGameSetting = undefined;
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
@@ -28,13 +42,6 @@ export const Game = () => {
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
     const location = useLocation();
-
-    const isFinished = () => {
-        return getNumberOfQuestions(token).then((number) => {
-            console.log(number);
-            return number > 4;
-        });
-    }
 
 
     const comprobarPregunta = (respuesta) => {
