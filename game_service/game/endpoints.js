@@ -11,6 +11,10 @@ const next = async (req,res) => {
     const userId = await jwt.verify(req.body.token, privateKey).user_id;
     const game = await getCurrentGame(req, res);
 
+    if(game == null) {
+        res.status(400).send();
+        return;
+    }
 
     let settings = await SettingsGameMode.findOne({ 
       where: { 
@@ -69,7 +73,7 @@ const getCurrentGame = async (req, res) => {
 
     if(games == null || games.length < 1){
         res.status(400).send();
-        return;
+        return null;
     }
 
     return games[0];
