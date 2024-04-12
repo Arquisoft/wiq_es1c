@@ -11,15 +11,17 @@ import {
   MenuItem,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
-
-import HomeIcon from "@mui/icons-material/Home";
+import { useTranslation } from "react-i18next";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
 import NightlightIcon from "@mui/icons-material/Nightlight";
+
 import Lang from "./lang/Lang";
 import Settings from "./settings/Settings";
 
 export const Nav = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -46,10 +48,6 @@ export const Nav = () => {
     setOpenMenuAccount(false);
   };
 
-  
-
-  
-
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -58,14 +56,14 @@ export const Nav = () => {
   const showAlert = () => {
     if (location.pathname === "/game") {
       Swal.fire({
-        title: "¿Quieres volver a la pantalla de inicio?",
-        text: "Terminará tu partida.",
+        title: t("Nav.alertTitle"),
+        text: t("Nav.alertText"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí,salir",
-        cancelButtonText: "No,continuar jugando",
+        confirmButtonText: t("Nav.alertConfirm"),
+        cancelButtonText: t("Nav.alertCancel"),
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/home");
@@ -87,8 +85,6 @@ export const Nav = () => {
     handleMenuAccountClose();
     navigate("/profile");
   };
-
-  
 
   const changeTheme = () => {
     const htmlElement = document.querySelector("html");
@@ -120,13 +116,26 @@ export const Nav = () => {
             WIQ
           </Typography>
 
-          <IconButton onClick={changeTheme} size="large" color="inherit" data-testid="change-color">
+          <IconButton
+            onClick={changeTheme}
+            size="large"
+            color="inherit"
+            data-testid="change-color"
+          >
             <NightlightIcon style={{ color: color }} />
           </IconButton>
 
-          <Lang userAnchor={userAnchor} setUserAnchor={setUserAnchor} color={color} />
+          <Lang
+            userAnchor={userAnchor}
+            setUserAnchor={setUserAnchor}
+            color={color}
+          />
 
-          <Settings userAnchor={userAnchor} setUserAnchor={setUserAnchor} color={color} />
+          <Settings
+            userAnchor={userAnchor}
+            setUserAnchor={setUserAnchor}
+            color={color}
+          />
 
           {/* Botón de cuenta */}
           <IconButton

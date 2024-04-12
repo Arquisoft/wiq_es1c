@@ -24,6 +24,23 @@ i18n
                     errorUsername: 'You must enter your username',
                     errorPassword: 'You must enter your password',
                     errorConfirmPassword: 'Passwords do not match'
+                },
+                Nav: {
+                    alertTitle: 'Do you want to return to the home screen?',
+                    alertText: 'Your game will end.',
+                    alertConfirm: 'Yes, go out',
+                    alertCancel: 'No, continue playing',
+                },
+                Home: {
+                    home: 'Home',
+                    welcome: 'Welcome, {{ name }}!',
+                    howToPlay: 'How to play',
+                    tutorialP1: 'When you click on the play button, you will be shown questions along with 4 possible answers, only one of them is true, click on the correct answer to earn points.',
+                    tutorialP2: 'The time to answer is limited. The bar at the bottom shows the remaining time. If the time runs out, the question will count as failed and you will move on to the next one.',
+                    goodLuck: 'Good luck and show what you know!',
+                    play: 'PLAY',
+                    chooseTags: 'Choose the tags',
+                    infoTags: 'With the tags you can select the categories you want to be asked about.',
                 }
             },
         },
@@ -47,6 +64,23 @@ i18n
                     errorUsername: 'Debes introducir tu nombre de usuario',
                     errorPassword: 'Debes introducir tu contraseña',
                     errorConfirmPassword: 'Las contraseñas no coinciden'
+                },
+                Nav: {
+                    alertTitle: '¿Quieres volver a la pantalla de inicio?',
+                    alertText: 'Terminará tu partida.',
+                    alertConfirm: 'Sí, salir',
+                    alertCancel: 'No, continuar jugando',
+                },
+                Home: {
+                    home: 'Inicio',
+                    welcome: '¡Bienvenido, {{ name }}!',
+                    howToPlay: 'Cómo jugar',
+                    tutorialP1: 'Cuando pulses en el botón de jugar, se te irán mostrando preguntas junto con 4 posibles respuestas, sólo una de ellas es verdadera, haz click sobre la respuesta correcta para ganar puntos.',
+                    tutorialP2: 'El tiempo para contestar es limitado. La barra en la parte inferior muestra el tiempo restante. Si el tiempo se termina, la pregunta contará como fallada y se pasará a la siguiente.',
+                    goodLuck: '¡Mucha suerte y demuestra lo que sabes!',
+                    play: 'JUGAR',
+                    chooseTags: 'Elige las tags',
+                    infoTags: 'Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.'
                 }
             },
         },
