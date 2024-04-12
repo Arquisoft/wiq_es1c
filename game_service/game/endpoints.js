@@ -54,10 +54,6 @@ const next = async (req,res) => {
 const getNumberOfQuestions = async(req, res) => {
     const game = await getCurrentGame(req, res);
     const questionsAsked = await game.getQuestions();
-    // if(questionsAsked.length >= game.numberOfQuestions && game.gameMode !== "SuddenDeath"){
-    //     res.status(400).send();
-    //     return;
-    // }
 
     res.status(200).json({numberOfQuestions: questionsAsked.length}).send();
 }
@@ -219,9 +215,9 @@ const setGameSettingsByUser = async (req, res) =>{
     settings = await SettingsGameMode.create({
       user_id: userId,
     })
-  };
+  }
 
-  if(req.body.durationQuestion < 5, req.body.numberOfQuestions < 1) {
+  if(req.body.durationQuestion < 5 || req.body.numberOfQuestions < 1) {
     res.status(400).send();
     return;
   }   
