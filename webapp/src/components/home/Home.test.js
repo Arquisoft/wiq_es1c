@@ -7,8 +7,6 @@ import { MemoryRouter, BrowserRouter as Router, useLocation } from 'react-router
 import { Home } from './Home';
 import * as router from 'react-router';
 
-
-
 jest.mock('../../services/user.service', () => ({
     getCurrentUser: () => {
         return Promise.resolve("pepe");

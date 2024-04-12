@@ -21,7 +21,7 @@ export const SuddenDeath = ({tags}) => {
     if(tags !== undefined && tags !== null) {
         gameTags = tags;
     }
-    if(location.state.tags !== undefined && location.state.tags !== null){
+    if(location.state !== undefined && location.state !== null){
         gameTags = location.state.tags;
     }
 
