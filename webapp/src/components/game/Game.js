@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
 import bannerDark from '../../media/wiq_banner.png';
+import PropTypes from 'prop-types';
 import {
     startNewGame,
     nextQuestion,
@@ -302,6 +303,11 @@ export const Game = ({finishFunction, name}) => {
     </Container>
     </>
   )
+}
+
+Game.propTypes = {
+    finishFunction: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired
 }
 
 export default Game;
