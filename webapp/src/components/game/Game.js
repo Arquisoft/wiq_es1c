@@ -26,7 +26,7 @@ let isFinished = async () => {
 
 }
 
-export const Game = ({finishFunction, name}) => {
+export const Game = ({finishFunction, name, tags}) => {
 
     const navigate = useNavigate();
 
@@ -166,12 +166,15 @@ export const Game = ({finishFunction, name}) => {
             });
         }, 20);
 
-        let tags = "";
+        let gameTags = "";
 
-        if(location.state != null)
-            tags = location.state.tags ?? "";
+        if(tags !== undefined)
+            gameTags = tags;
 
-        startNewGame(token, tags, name).then(() =>
+        if(location.state !== undefined && location.state !== null)
+            gameTags = location.state.tags ?? "";
+
+        startNewGame(token, gameTags, name).then(() =>
         {
             loadNextQuestion();
         })
