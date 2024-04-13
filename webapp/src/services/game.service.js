@@ -2,15 +2,39 @@ import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost';
 
-const startNewGame = async (token, tags) =>
+const startNewGame = async (token, tags, gameMode) =>
 {
+    if(gameMode === undefined)
+        gameMode = "classic";
+
     try {
-      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token, "tags": tags });
+      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token, "tags": tags, "gameMode": gameMode });
 
       return "";
 
     } catch (error) {
       return error.response.data.error;
+    }
+}
+
+const getCurrentQuestion = async (token) => {
+    try {
+        const response = await axios.post(`${apiEndpoint}:8003/api/game/currentquestion`, { "token" : token});
+
+        return response.data.question;
+    } catch (error) {
+        return undefined;
+    }
+}
+
+const getNumberOfQuestions = async (token) => {
+    try {
+        const response = await axios.post(`${apiEndpoint}:8003/api/game/numberofquestions`, { "token" : token});
+
+        return response.data.numberOfQuestions;
+
+    } catch (error) {
+        return undefined;
     }
 }
 
@@ -79,4 +103,4 @@ const setGameSettings = async (token, duration, len) =>
   }
 }
 
-export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings, setGameSettings};
+export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings, setGameSettings, getNumberOfQuestions, getCurrentQuestion};
