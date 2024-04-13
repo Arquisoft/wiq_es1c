@@ -26,7 +26,7 @@ let isFinished = async () => {
 
 }
 
-export const Game = ({finishFunction, name, tags, timeObj}) => {
+export const Game = ({finishFunction, name, tags, totalTime}) => {
 
     const navigate = useNavigate();
 
@@ -147,28 +147,28 @@ export const Game = ({finishFunction, name, tags, timeObj}) => {
     //Call start only once
     useEffect(() => {
         let interval = setInterval(() => {
-            if(timeObj !== undefined && timeObj != null){
-                setTime(timeObj);
-            }else{
-                setTime(time => {
-                    if(time !== undefined){
-                        let total = basicGameSetting.durationQuestion * 1000;
-                        let trans = (new Date().getTime()) - time.start;
-
-                        let percentage =  (trans/total) * 100;
-                        let invertedPercentage = 100 - Number(percentage);
-                        
-                        setRemTime((invertedPercentage/100)*110);
-
-                        if(percentage > 100){
-                            comprobarPregunta("");
-                            time = undefined;
-                        }
+            setTime(time => {
+                if(time !== undefined){
+                    let total = 0;
+                    if(totalTime !== undefined && totalTime != null){
+                        total = totalTime;
+                    }else{
+                        total = basicGameSetting.durationQuestion * 1000;
                     }
-                    console.log("Tipo de time: "+typeof time );
-                return time;
+                    let trans = (new Date().getTime()) - time.start;
+
+                    let percentage =  (trans/total) * 100;
+                    let invertedPercentage = 100 - Number(percentage);
+                    
+                    setRemTime((invertedPercentage/100)*110);
+
+                    if(percentage > 100){
+                        comprobarPregunta("");
+                        time = undefined;
+                    }
+                }
+            return time;
             });
-            }
         }, 20);
 
         let gameTags = "";
@@ -316,7 +316,6 @@ export const Game = ({finishFunction, name, tags, timeObj}) => {
 Game.propTypes = {
     finishFunction: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
-    time: PropTypes.object.isRequired
 }
 
 export default Game;
