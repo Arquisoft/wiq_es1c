@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history';
 import { MemoryRouter, BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { Home } from './Home';
 import * as router from 'react-router';
-
+import '../../i18n';
 
 
 jest.mock('../../services/user.service', () => ({

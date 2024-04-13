@@ -8,6 +8,7 @@ i18n
             translation: {
                 Login: {
                     login: 'Login',
+                    toLogin: 'Login',
                     username: 'Username',
                     password: 'Password',
                     register: 'Don\'t have an account? Register',
@@ -47,7 +48,8 @@ i18n
         es: {
             translation: {
                 Login: {
-                    login: 'Iniciar sesión',
+                    login: 'Iniciar Sesión',
+                    toLogin: 'Iniciar sesión',
                     username: 'Nombre de usuario',
                     password: 'Contraseña',
                     register: '¿No tiene una cuenta? Regístrate',
@@ -55,14 +57,14 @@ i18n
                     errorPassword: 'Debes introducir tu contraseña'
                 },
                 Register: {
-                    register: 'Regístrate',
+                    register: 'Registro',
                     username: 'Nombre de usuario',
                     password: 'Contraseña',
                     confirmPassword: 'Repetir contraseña',
                     toRegister: 'Registrarme',
                     login: '¿Ya tienes una cuenta? Inicia sesión',
                     errorUsername: 'Debes introducir tu nombre de usuario',
-                    errorPassword: 'Debes introducir tu contraseña',
+                    errorPassword: 'Debes introducir una contraseña',
                     errorConfirmPassword: 'Las contraseñas no coinciden'
                 },
                 Nav: {
@@ -91,3 +93,5 @@ i18n
         escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
 });
+
+export default i18n;

@@ -165,7 +165,7 @@ const Login = () => {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                   >
-                    { t('Login.login') }
+                    { t('Login.toLogin') }
                   </Button>
                   <Grid container>
                     <Grid item xs>

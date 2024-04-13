@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { createMemoryHistory } from 'history';
 import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
-import { Nav } from './Nav';
+import { render, screen, act, waitFor } from '@testing-library/react';
 
+import '../../i18n';
+import { Nav } from './Nav';
 
 describe("Nav component", () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
