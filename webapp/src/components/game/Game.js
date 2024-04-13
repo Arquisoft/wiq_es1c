@@ -151,6 +151,7 @@ export const Game = ({finishFunction, name, tags}) => {
                 if(time !== undefined){
                     let total = 0;
                     if(name === "AgainstClock"){
+                        console.log("Entra en donde toca");
                         total = basicGameSetting.durationQuestion * 1000 * basicGameSetting.numberOfQuestions;
                     }else{
                         total = basicGameSetting.durationQuestion * 1000;
@@ -233,8 +234,9 @@ export const Game = ({finishFunction, name, tags}) => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) }
+                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),1000)}
                     </Typography>
+
                 </Box>
                 <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
                     sx={{
