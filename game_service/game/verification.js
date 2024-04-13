@@ -26,11 +26,7 @@ const getCurrentQuestion = async (userId) => {
     if(questions == null || questions.length < 1)
       return null;
   
-    let question = questions[0]
-    if(question.user_answer != null)
-      return null;
-  
-    return question
+    return questions[0];
 }
   
 const requestQuestion = async() => {

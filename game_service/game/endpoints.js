@@ -9,24 +9,11 @@ const { loadQuestion } = require('../services/questionsService');
 
 const next = async (req,res) => {
     const userId = await jwt.verify(req.body.token, privateKey).user_id;
-    
-    const games = await Game.findAll({
-      where: {
-        user_id: userId
-      }
-    });
+    const game = await getCurrentGame(req, res);
 
-    if(games == null || games.length < 1){
-      res.status(400).send();
-      return;
-    }
-  
-    const game = games[0];
-
-    //Check the game isnt finished 
-    if((await game.getQuestions()).length >= game.numberOfQuestions){
-      res.status(400).send();
-      return; 
+    if(game == null) {
+        res.status(400).send();
+        return;
     }
 
     let settings = await SettingsGameMode.findOne({ 
@@ -64,12 +51,36 @@ const next = async (req,res) => {
     });
 }
 
+const getNumberOfQuestions = async(req, res) => {
+    const game = await getCurrentGame(req, res);
+    const questionsAsked = await game.getQuestions();
+
+    res.status(200).json({numberOfQuestions: questionsAsked.length}).send();
+}
+
+const getCurrentGame = async (req, res) => {
+    const userId = await jwt.verify(req.body.token, privateKey).user_id;
+
+    const games = await Game.findAll({
+        where: {
+            user_id: userId
+        }
+    });
+
+    if(games == null || games.length < 1){
+        res.status(400).send();
+        return null;
+    }
+
+    return games[0];
+}
+
 const update = async (req, res) => {
     let userId = await jwt.verify(req.body.token, privateKey).user_id;
     
     let question = await getCurrentQuestion(userId);
 
-    if(question == null){
+    if(question == null || question.user_answer != null){
       res.status(400).send();
       return;
     }
@@ -110,7 +121,8 @@ const newGame = async (req,res) => {
     await Game.create({
       user_id: userId,
       tags: tags,
-      numberOfQuestions: settings.numberOfQuestions
+      numberOfQuestions: settings.numberOfQuestions,
+        gameMode: req.body.gameMode
     })
   
     res.status(200).send();
@@ -127,7 +139,7 @@ const awnser = async (req,res) => {
     let awnser = req.body.awnser;
     let question = await getCurrentQuestion(userId);
   
-    if(question == null){
+    if(question == null || question.user_answer != null){
       res.status(400).send();
       return;
     }
@@ -142,6 +154,13 @@ const awnser = async (req,res) => {
     question.save();
     
     res.status(200).send(question.answer);
+}
+
+const getQuestion = async (req, res) => {
+    let userId = await jwt.verify(req.body.token, privateKey).user_id;
+    let question = await getCurrentQuestion(userId);
+
+    res.status(200).json({question : question}).send();
 }
 
 const getHistory = async (req,res) => {
@@ -196,9 +215,9 @@ const setGameSettingsByUser = async (req, res) =>{
     settings = await SettingsGameMode.create({
       user_id: userId,
     })
-  };
+  }
 
-  if(req.body.durationQuestion < 5, req.body.numberOfQuestions < 1) {
+  if(req.body.durationQuestion < 5 || req.body.numberOfQuestions < 1) {
     res.status(400).send();
     return;
   }   
@@ -210,4 +229,4 @@ const setGameSettingsByUser = async (req, res) =>{
   res.status(200).send(settings);
 }
 
-module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser, setGameSettingsByUser}
+module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser, setGameSettingsByUser, getNumberOfQuestions, getQuestion}

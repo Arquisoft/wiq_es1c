@@ -39,13 +39,7 @@ export const Home = () =>
     }
 
     const startGame = () => {
-        let tagString = "";
-        tags.forEach((tag) => {
-            if(tag.active)
-                tagString += tag.name + ","
-        });
-
-        tagString = tagString.substring(0, tagString.length - 1);
+        let tagString = stringifyTags();
         navigate("/game", {
             state: {
                 tags: tagString
@@ -53,6 +47,25 @@ export const Home = () =>
         });
 
 
+    }
+
+    const startSuddenDeath = () => {
+        let tagString = stringifyTags();
+        navigate("/suddendeath", {
+            state: {
+                tags: tagString
+            }
+        })
+    }
+
+    const stringifyTags = () => {
+        let tagString = "";
+        tags.forEach((tag) => {
+            if(tag.active)
+                tagString += tag.name + ","
+        });
+
+        return tagString.substring(0, tagString.length - 1);
     }
 
     useEffect(() =>
@@ -97,15 +110,17 @@ export const Home = () =>
                         }}
                         className="bg-white dark:bg-dark-mode text-black dark:text-white "
                     >
-                       <img src = {bannerLight} alt="WiQ" className="block dark:hidden" />
-                       <img src = {bannerDark} alt="WiQ" className="hidden dark:block" />
+                        <img src={bannerLight} alt="WiQ" className="block dark:hidden"/>
+                        <img src={bannerDark} alt="WiQ" className="hidden dark:block"/>
 
                         <div className="flex p-4 place-content-between ">
-                            <Typography  className="text-black dark:text-white " component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
+                            <Typography className="text-black dark:text-white " component="h2" variant="h4"
+                                        fontFamily="monospace" fontWeight="bold" alignSelf="center">
                                 Home
                             </Typography>
 
-                            <Typography  className="text-black dark:text-white " component="h3" variant="h5" fontFamily="monospace" alignSelf="center">
+                            <Typography className="text-black dark:text-white " component="h3" variant="h5"
+                                        fontFamily="monospace" alignSelf="center">
                                 ¡Bienvenido, {username}!
                             </Typography>
 
@@ -131,17 +146,25 @@ export const Home = () =>
                                 ¡Mucha suerte y demuestra lo que sabes!
                             </Typography>
                         </div>
-                        <div className="flex align-middle justify-center flex-grow">
-                                <button onClick={startGame} className="bg-gradient-to-r
+                        <div className="flex align-middle justify-center flex-grow m-3">
+                            <button onClick={startGame} className="bg-gradient-to-r
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                    <span className="text-black dark:text-white text">JUGAR</span>
-                                </button>
+                                <span className="text-black dark:text-white text">JUGAR CLÁSICO</span>
+                            </button>
+                        </div>
+                        <div className="flex align-middle justify-center flex-grow">
+                            <button onClick={startSuddenDeath} className="bg-gradient-to-r
+                                from-cyan-50 via-cyan-300 to blue-500
+                                dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
+                                buttonGradient">
+                                <span className="text-black dark:text-white text">JUGAR MUERTE SÚBITA</span>
+                            </button>
                         </div>
                         <div className="flex align-middle justify-center flex-grow m-3">
                             <button onClick={openTagSelection} className="buttonGradient">
-                                    <span className="text-black dark:text-white ">Elige las tags</span>
+                                <span className="text-black dark:text-white ">Elige las tags</span>
                             </button>
 
                         </div>
@@ -150,7 +173,7 @@ export const Home = () =>
                 </Container>
                 <Modal
                     open={tagSelection}
-                    >
+                >
                     <Container
                         className="bg-white dark:bg-dark-mode text-black dark:text-white rounded-lg self-center"
                         data-testid="tag-selection"
