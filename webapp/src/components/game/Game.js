@@ -126,7 +126,7 @@ export const Game = ({finishFunction, name, tags}) => {
             setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
             setLoading(false);
-            getEndTime(token).then((time) => {
+            getEndTime(token,name).then((time) => {
                 setTime(time);
             });
         });
@@ -151,7 +151,6 @@ export const Game = ({finishFunction, name, tags}) => {
                 if(time !== undefined){
                     let total = 0;
                     if(name === "AgainstClock"){
-                        console.log("Entra en donde toca");
                         total = basicGameSetting.durationQuestion * 1000 * basicGameSetting.numberOfQuestions;
                     }else{
                         total = basicGameSetting.durationQuestion * 1000;

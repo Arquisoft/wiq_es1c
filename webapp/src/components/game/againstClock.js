@@ -9,12 +9,6 @@ export const AgainstClock = ({tags}) => {
 
     const location = useLocation();
 
-    const isFinished = () => {
-        return getCurrentQuestion(token).then(question => {
-                 return question.user_answer !== question.answer;
-        });
-    }
-
     let gameTags = "";
 
     if(tags !== undefined && tags !== null) {
@@ -26,7 +20,6 @@ export const AgainstClock = ({tags}) => {
 
     return (
         <Game
-            finishFunction = {isFinished}
             name = "AgainstClock"
             tags = {gameTags}
         />
