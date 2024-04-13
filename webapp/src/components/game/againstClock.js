@@ -1,4 +1,4 @@
-import { React , useEffect } from "react";
+import { React } from "react";
 import {getCurrentQuestion, getGameSettings } from "../../services/game.service";
 import Game from "./Game";
 import PropTypes from "prop-types";
@@ -15,8 +15,6 @@ export const AgainstClock = ({tags}) => {
         });
     }
 
-    let basicGameSetting = undefined;
-
     let gameTags = "";
 
     if(tags !== undefined && tags !== null) {
@@ -26,18 +24,11 @@ export const AgainstClock = ({tags}) => {
         gameTags = location.state.tags;
     }
 
-    useEffect(() => {
-        getGameSettings(token).then( settings => {
-            basicGameSetting = settings;
-        });
-    }, []) // DO NOT REMOVE THE EMPTY ARRAY, THE APP WILL BREAK!!!!
-
     return (
         <Game
             finishFunction = {isFinished}
             name = "AgainstClock"
             tags = {gameTags}
-            totalTime = {basicGameSetting.durationQuestion * 1000 * basicGameSetting.numberOfQuestions}
         />
     );
 

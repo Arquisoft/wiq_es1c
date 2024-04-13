@@ -26,7 +26,7 @@ let isFinished = async () => {
 
 }
 
-export const Game = ({finishFunction, name, tags, totalTime}) => {
+export const Game = ({finishFunction, name, tags}) => {
 
     const navigate = useNavigate();
 
@@ -150,8 +150,8 @@ export const Game = ({finishFunction, name, tags, totalTime}) => {
             setTime(time => {
                 if(time !== undefined){
                     let total = 0;
-                    if(totalTime !== undefined && totalTime != null){
-                        total = totalTime;
+                    if(name === "AgainstClock"){
+                        total = basicGameSetting.durationQuestion * 1000 * basicGameSetting.numberOfQuestions;
                     }else{
                         total = basicGameSetting.durationQuestion * 1000;
                     }
