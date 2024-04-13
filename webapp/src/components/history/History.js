@@ -18,6 +18,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { getHistory } from "../../services/user.service"
 import { Nav } from '../nav/Nav';
+import {Footer} from '../footer/Footer';
 import { CssBaseline } from '@mui/material';
 import StringColorChip from './ColorChip';
 
@@ -131,6 +132,7 @@ export const History = () => {
                     </Table>
                 </TableContainer>
             </Container>
+            <Footer/>
         </>
     )
 }

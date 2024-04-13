@@ -4,6 +4,7 @@ import { getCurrentUser } from "../../services/user.service";
 import bannerDark from '../../media/wiq_banner.png';
 import bannerLight from '../../media/wiq_banner.light.png';
 import { Nav } from '../nav/Nav';
+import {Footer} from '../footer/Footer';
 import './Home.css';
 import {useNavigate} from "react-router-dom";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -203,6 +204,7 @@ export const Home = () =>
 
             </Container>
         )}
+        <Footer/>
         </>
     )
 }

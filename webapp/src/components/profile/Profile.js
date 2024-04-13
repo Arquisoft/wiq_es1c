@@ -3,6 +3,7 @@ import { getCurrentUser, getCreationDate, getHistory } from "../../services/user
 import {Box, Container, CssBaseline,Typography,Icon, CircularProgress } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Nav } from '../nav/Nav';
+import {Footer} from '../footer/Footer';
 
 
 export const Profile = () =>{
@@ -180,7 +181,7 @@ export const Profile = () =>{
             <CssBaseline />
             </Container>
         </Container>
-        
+        <Footer/>
         </>
     )
 }

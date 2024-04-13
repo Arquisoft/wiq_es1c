@@ -4,6 +4,7 @@ import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgr
 import bannerDark from '../../media/wiq_banner.png';
 import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
+import {Footer} from '../footer/Footer';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
 
@@ -258,6 +259,7 @@ export const Game = () => {
             </Box>
         </Container>
     </Container>
+    <Footer/>
     </>
   )
 }
