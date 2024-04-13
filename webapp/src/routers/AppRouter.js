@@ -55,12 +55,6 @@ const router = createBrowserRouter([
         </PrivateRoute>
     },
     {
-        path:"/suddendeath",
-        element: <PrivateRoute>
-            <SuddenDeath/>
-        </PrivateRoute>
-    },
-    {
         path: "/againstClock",
         element: <PrivateRoute>
                     <AgainstClock />

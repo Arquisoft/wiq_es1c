@@ -26,7 +26,7 @@ let isFinished = async () => {
 
 }
 
-export const Game = ({finishFunction, name, tags}) => {
+export const Game = ({finishFunction, name, tags, timeObj}) => {
 
     const navigate = useNavigate();
 
@@ -147,7 +147,10 @@ export const Game = ({finishFunction, name, tags}) => {
     //Call start only once
     useEffect(() => {
         let interval = setInterval(() => {
-            setTime(time => {
+            if(timeObj !== undefined && timeObj != null){
+                setTime(timeObj);
+            }else{
+                setTime(time => {
                     if(time !== undefined){
                         let total = basicGameSetting.durationQuestion * 1000;
                         let trans = (new Date().getTime()) - time.start;
@@ -162,8 +165,10 @@ export const Game = ({finishFunction, name, tags}) => {
                             time = undefined;
                         }
                     }
+                    console.log("Tipo de time: "+typeof time );
                 return time;
             });
+            }
         }, 20);
 
         let gameTags = "";
@@ -310,7 +315,8 @@ export const Game = ({finishFunction, name, tags}) => {
 
 Game.propTypes = {
     finishFunction: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    time: PropTypes.object.isRequired
 }
 
 export default Game;
