@@ -24,9 +24,9 @@ describe("Nav component", () => {
 
         render(<Router history={history}><Nav/></Router>);
     
-        screen.getByTestId('logout').click();
-
-        await act(async () => {});
+        await act(async () => {
+            screen.getByTestId('logout').click();
+        });
 
         waitFor(()=>{
             expect(history.location.pathname).toBe('/login');
