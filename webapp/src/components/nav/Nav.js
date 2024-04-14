@@ -13,12 +13,12 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Settings } from "./settings/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import TranslateIcon from "@mui/icons-material/Translate";
+import SettingsIcon from "@mui/icons-material/Settings";
 import i18n from "../../i18n";
 
 
@@ -137,6 +137,10 @@ export const Nav = () => {
     i18n.changeLanguage("en");
   };
 
+  const openSettings  = () => {
+    navigate("/settings");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -205,11 +209,9 @@ export const Nav = () => {
           </Menu>
 
           {/** Settings Icon */}
-          <Settings
-            userAnchor={userAnchor}
-            setUserAnchor={setUserAnchor}
-            color={color}
-          />
+          <IconButton onClick={openSettings} size="large" color="inherit" data-testid="go-settings">
+            <SettingsIcon style={{ color: color }} />
+          </IconButton>
 
           {/* Botón de cuenta */}
           <IconButton
