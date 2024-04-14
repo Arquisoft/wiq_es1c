@@ -128,9 +128,9 @@ export const Nav = () => {
             WIQ
           </Typography>
           <Typography
-            variant="h6"
+            variant="p"
             component="div"
-            style={{ color: color }}
+            style={{ color: color, marginLeft: 15 }}
           >
           <a href="https://github.com/Arquisoft/wiq_es1c" target="_blank" rel="noopener noreferrer"> Sobre nosotros</a>
           </Typography>

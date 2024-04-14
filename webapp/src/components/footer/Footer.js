@@ -1,13 +1,15 @@
 import React from 'react';
 import { MDBFooter } from 'mdb-react-ui-kit';
+//import './Footer.css';
 
 export const Footer= () => {
   return (
-    <MDBFooter  className='bg-teal-50 dark:bg-zinc-800'>
-      <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-        &copy; {new Date().getFullYear()} Copyright:{' '}
-        <a className='text-dark' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
+    
+    <MDBFooter  className='footer text-black dark:text-white bg-teal-50 dark:bg-zinc-800' style={{position: 'relative', bottom: 0, width: '100%', padding: '10px', textAlign: 'center', display: 'flex', flexDirection: 'column' }}>
+      <div className='footer-content' style={{textAlign: 'center'}}>
+        &copy; {new Date().getFullYear()} All rights reserved:{' '}
+        <a  href='https://github.com/Arquisoft/wiq_es1c'>
+          Wiq_es1c
         </a>
       </div>
     </MDBFooter>
