@@ -152,7 +152,7 @@ export const Home = () =>
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                    <span className="text-black dark:text-white text">{ t('Home.play') }</span>
+                                    <span className="text-black dark:text-white text">{ t('Home.playClassic') }</span>
                                 </button>
                         </div>
                         <div className="flex align-middle justify-center flex-grow m-3">
@@ -160,12 +160,12 @@ export const Home = () =>
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                <span className="text-black dark:text-white text">JUGAR MUERTE SÚBITA</span>
+                                <span className="text-black dark:text-white text">{ t('Home.playSuddenDeath') }</span>
                             </button>
                         </div>
                         <div className="flex align-middle justify-center flex-grow m-3">
                             <button onClick={openTagSelection} className="buttonGradient">
-                                <span className="text-black dark:text-white ">Elige las tags</span>
+                                <span className="text-black dark:text-white ">{ t('Home.chooseTags') }</span>
                             </button>
 
                         </div>
