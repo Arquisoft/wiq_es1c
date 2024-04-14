@@ -12,13 +12,14 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import HomeIcon from "@mui/icons-material/Home";
-import LogoutIcon from "@mui/icons-material/Logout";
-import NightlightIcon from "@mui/icons-material/Nightlight";
 
 import Lang from "./lang/Lang";
 import Settings from "./settings/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
+import HomeIcon from "@mui/icons-material/Home";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import NightlightIcon from "@mui/icons-material/Nightlight";
 
 export const Nav = () => {
   const { t } = useTranslation();
@@ -27,12 +28,8 @@ export const Nav = () => {
 
   const getColor = () => {
     const htmlElement = document.querySelector("html");
-
-    if (htmlElement.classList.contains("dark")) {
-      return "white";
-    } else {
-      return "black";
-    }
+    console.log("Is dark? " + htmlElement.classList.contains("dark"))
+    return htmlElement.classList.contains("dark")? "white" : "black";
   };
 
   const [openMenuAccount, setOpenMenuAccount] = React.useState(false);
@@ -49,12 +46,30 @@ export const Nav = () => {
   };
 
   const logout = () => {
+    // Close menus just in case
+    handleMenuAccountClose();
+    //Clean the token
+    console.log("Token: ", localStorage.getItem("token"))
     localStorage.removeItem("token");
     navigate("/login");
+    console.log("Logging off!")
+    console.log("Token: ", localStorage.getItem("token"))
   };
 
+  const openSettings = () => {
+    navigate("/settings");
+  }
+
   const showAlert = () => {
-    if (location.pathname === "/game") {
+    //Check if we are in a game
+    let path = location.pathname;
+
+    console.log("Going home")
+    console.log("Current path: " + path)
+
+    if (path != "/game")
+      navigate("/home");
+    else if (path === "/game") {
       Swal.fire({
         title: t("Nav.alertTitle"),
         text: t("Nav.alertText"),
@@ -77,13 +92,19 @@ export const Nav = () => {
   };
 
   const history = () => {
+    // Close submenu
     handleMenuAccountClose();
     navigate("/history");
+    console.log("Going to history")
+    console.log("Token: ", localStorage.getItem("token"))
   };
 
   const profile = () => {
+    // Close submenu
     handleMenuAccountClose();
     navigate("/profile");
+    console.log("Going to profile")
+    console.log("Token: ", localStorage.getItem("token"))
   };
 
   const changeTheme = () => {
@@ -102,7 +123,7 @@ export const Nav = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="bg-teal-50 dark:bg-zinc-800">
-          <IconButton size="large" color="inherit" onClick={showAlert}>
+          <IconButton size="large" color="inherit" onClick={showAlert} data-testid="go-home">
             <HomeIcon style={{ color: color }} />
           </IconButton>
 
@@ -116,13 +137,12 @@ export const Nav = () => {
             WIQ
           </Typography>
 
-          <IconButton
-            onClick={changeTheme}
-            size="large"
-            color="inherit"
-            data-testid="change-color"
-          >
-            <NightlightIcon style={{ color: color }} />
+          <IconButton size="large" color="inherit" data-testid="change-color">
+            <NightlightIcon onClick={changeTheme} style={{ color: color }} />
+          </IconButton>
+
+          <IconButton size="large" color="inherit" data-testid="go-settings">
+            <SettingsIcon onClick={openSettings} style={{ color: color }} />
           </IconButton>
 
           <Lang
@@ -156,8 +176,8 @@ export const Nav = () => {
             onClose={handleMenuAccountClose}
             anchorEl={userAnchor}
           >
-            <MenuItem onClick={profile}>Perfil</MenuItem>
-            <MenuItem onClick={history}>Historial</MenuItem>
+            <MenuItem onClick={profile} data-testid="go-profile">Perfil</MenuItem>
+            <MenuItem onClick={history} data-testid="go-history">Historial</MenuItem>
           </Menu>
 
           <IconButton
