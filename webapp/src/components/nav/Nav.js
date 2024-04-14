@@ -18,7 +18,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NightlightIcon from "@mui/icons-material/Nightlight";
-import TranslateIcon from "@mui/icons-material/Settings";
+import TranslateIcon from "@mui/icons-material/Translate";
 import i18n from "../../i18n";
 
 
