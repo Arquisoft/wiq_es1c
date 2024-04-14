@@ -5,10 +5,15 @@ const {Friendship, FriendRequest } = require("./models");
 const validToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiSnVhbmV0ZSJ9.vrEvuxwl7cSg3lGc1M3ZPDTeIIrl9lqMeIMDTUx0OwA";
 
 describe('Friendship API endpoints', () => {
+    
     afterEach(async () => {
         await Friendship.destroy({where: {}});
         await FriendRequest.destroy({where: {}});
     });
+
+    afterAll(() => {
+        app.close();
+    })
     
     describe('sendRequest endpoint', () => {
         it('should return 400 if token is missing', async () => {
