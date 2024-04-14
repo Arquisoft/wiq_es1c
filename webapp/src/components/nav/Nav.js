@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 import {
@@ -31,9 +31,9 @@ export const Nav = () => {
   };
 
   const [openMenuLanguage, setOpenMenuLanguage] = useState(false);
-  const [openMenuAccount, setOpenMenuAccount] = React.useState(false);
-  const [userAnchor, setUserAnchor] = React.useState(undefined);
-  const [color, setColor] = React.useState(getColor());
+  const [openMenuAccount, setOpenMenuAccount] = useState(false);
+  const [userAnchor, setUserAnchor] = useState(undefined);
+  const [color, setColor] = useState(getColor());
 
   const handleMenuAccountOpen = (event) => {
     setUserAnchor(event.currentTarget);
