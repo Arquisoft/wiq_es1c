@@ -10,7 +10,7 @@ const fs = require("fs")
 const YAML = require('yaml')
 
 // My own libs
-const authMiddleware = require('./auth/authMiddleware');
+const authMiddleware = require('./auth/friendsAuthMiddleware');
 
 const port = 8005;
 const app = express();

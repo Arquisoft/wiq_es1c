@@ -1,6 +1,6 @@
 const { mockRequest, mockResponse, mockNext } = require('jest-mock-req-res');
 const jwt = require('jsonwebtoken');
-const authMiddleware = require('./authMiddleware'); // Replace with the actual path to your auth middleware module
+const authMiddleware = require('./friendsAuthMiddleware'); // Replace with the actual path to your auth middleware module
 
 const privateKey = "ChangeMePlease!!!!"
 
