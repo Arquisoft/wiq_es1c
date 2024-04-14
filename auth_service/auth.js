@@ -28,6 +28,7 @@ app.post("/api/auth/register", auth.register);
 app.post("/api/auth/login", auth.login);
 app.post("/api/auth/verify", auth.verify);
 app.post("/api/auth/getName", auth.getUsername);
+app.post("/api/auth/getUsers", auth.getUsers);
 app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });

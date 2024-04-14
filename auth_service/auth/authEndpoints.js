@@ -160,4 +160,14 @@ const getUsername = async (req,res) => {
     });
 }
 
-module.exports = {login, register, verify, getUsername}
+const getUsers = async (req,res) => {
+
+    let userf = await User.findAll();
+
+    res.status(200).json(userf.map(user => {return {
+        name: user.name,
+        id: user.id
+    }}));
+}
+
+module.exports = {login, register, verify, getUsername, getUsers}
