@@ -25,12 +25,14 @@ app.use(bodyParser.json()); // Parse the request into json
 app.use(cors()) // This api is listening on a different port from the frontend
 app.use('/api/*',authMiddleware); // Auth middleware for the questions API
 
-const { Friendship } = require("./models/")
 
 // Api endpoints
-app.get("/",(req,res) => {
-    res.send(Friendship.findAll());
-})
+const endpoints = require("./friends/endpoints");
+
+app.post("/api/friends/request/send",endpoints.sendRequest);
+app.post("/api/friends/request/accept",endpoints.acceptRequest);
+app.post("/api/friends/request/",endpoints.getRequests);
+app.post("/api/friends/",endpoints.getFriends);
 
 // Read the OpenAPI YAML file synchronously
 let openapiPath='./openapi.yaml'
