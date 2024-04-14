@@ -12,7 +12,7 @@ import { Lang } from './lang/Lang';
 jest.mock("sweetalert2");
 
 jest.mock('./lang/Lang', () => ({
-    Lang: () => Lang
+    Lang: () => <Lang />
 }));
   
 
