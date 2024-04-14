@@ -5,9 +5,9 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost';
 const getFriends = async (token) =>
 {
     try {
-      await axios.post(`${apiEndpoint}:8005/api/friends/`, { "token": token });
+      const response = await axios.post(`${apiEndpoint}:8005/api/friends/`, { "token": token });
 
-      return "";
+      return response.data;
 
     } catch (error) {
       return error.response.data.error;
@@ -17,9 +17,9 @@ const getFriends = async (token) =>
 const getRequests = async (token) =>
 {
     try {
-      await axios.post(`${apiEndpoint}:8005/api/friends/request/`, { "token": token });
+      const response = await axios.post(`${apiEndpoint}:8005/api/friends/request/`, { "token": token });
 
-      return "";
+      return response.data;
 
     } catch (error) {
       return error.response.data.error;
@@ -29,9 +29,9 @@ const getRequests = async (token) =>
 const sendRequest = async (token, to) =>
 {
     try {
-      await axios.post(`${apiEndpoint}:8005/api/friends/request/send/`, { "token": token, "to": to });
+      const response =await axios.post(`${apiEndpoint}:8005/api/friends/request/send/`, { "token": token, "to": to });
 
-      return "";
+      return response.data;
 
     } catch (error) {
       return error.response.data.error;
@@ -41,9 +41,9 @@ const sendRequest = async (token, to) =>
 const acceptRequest = async (token, from) =>
 {
     try {
-      await axios.post(`${apiEndpoint}:8005/api/friends/request/accept/`, { "token": token, "from": from });
+      const response =await axios.post(`${apiEndpoint}:8005/api/friends/request/accept/`, { "token": token, "from": from });
 
-      return "";
+      return response.data;
 
     } catch (error) {
       return error.response.data.error;

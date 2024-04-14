@@ -61,7 +61,7 @@ const acceptRequest = async (req, res) => {
     
     if(request) {
         await Friendship.create({
-            friend1: req.body.to,
+            friend1: req.body.from,
             friend2: userId
         })
         
