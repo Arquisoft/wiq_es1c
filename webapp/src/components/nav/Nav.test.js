@@ -7,14 +7,8 @@ import { render, screen, act, waitFor } from '@testing-library/react';
 import '../../i18n';
 import { Nav } from './Nav';
 import Swal from "sweetalert2";
-import { Lang } from './lang/Lang';
 
-jest.mock("sweetalert2");
-
-jest.mock('./lang/Lang', () => ({
-    Lang: () => <Lang />
-}));
-  
+jest.mock("sweetalert2"); 
 
 describe("Nav component", () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
