@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen, fireEvent, act, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Friends } from './friends';
+import { Friends } from './Friend';
 import { MemoryRouter, Route } from 'react-router-dom';
 
 jest.mock('../../services/friends.service', () => ({
