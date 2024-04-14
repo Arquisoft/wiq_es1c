@@ -28,9 +28,10 @@ export const Nav = () => {
   const getColor = () => {
     const htmlElement = document.querySelector("html");
     // console.log("Is dark? " + htmlElement.classList.contains("dark"))
-    return htmlElement.classList.contains("dark")? "white" : "black";
+    return htmlElement.classList.contains("dark") ? "white" : "black";
   };
 
+  const [openMenuLanguage, setOpenMenuLanguage] = useState(false);
   const [openMenuAccount, setOpenMenuAccount] = React.useState(false);
   const [userAnchor, setUserAnchor] = React.useState(undefined);
   const [color, setColor] = React.useState(getColor());
@@ -48,22 +49,21 @@ export const Nav = () => {
     // Close menus just in case
     handleMenuAccountClose();
     //Clean the token
-    console.log("Token: ", localStorage.getItem("token"))
+    console.log("Token: ", localStorage.getItem("token"));
     localStorage.removeItem("token");
     navigate("/login");
-    console.log("Logging off!")
-    console.log("Token: ", localStorage.getItem("token"))
+    console.log("Logging off!");
+    console.log("Token: ", localStorage.getItem("token"));
   };
 
   const showAlert = () => {
     //Check if we are in a game
     let path = location.pathname;
 
-    console.log("Going home")
-    console.log("Current path: " + path)
+    console.log("Going home");
+    console.log("Current path: " + path);
 
-    if (path != "/game")
-      navigate("/home");
+    if (path != "/game") navigate("/home");
     else if (path === "/game") {
       Swal.fire({
         title: t("Nav.alertTitle"),
@@ -90,16 +90,16 @@ export const Nav = () => {
     // Close submenu
     handleMenuAccountClose();
     navigate("/history");
-    console.log("Going to history")
-    console.log("Token: ", localStorage.getItem("token"))
+    console.log("Going to history");
+    console.log("Token: ", localStorage.getItem("token"));
   };
 
   const profile = () => {
     // Close submenu
     handleMenuAccountClose();
     navigate("/profile");
-    console.log("Going to profile")
-    console.log("Token: ", localStorage.getItem("token"))
+    console.log("Going to profile");
+    console.log("Token: ", localStorage.getItem("token"));
   };
 
   const changeTheme = () => {
@@ -114,11 +114,37 @@ export const Nav = () => {
     }
   };
 
+  const handleMenuLanguageOpen = (event) => {
+    setUserAnchor(event.currentTarget);
+    setOpenMenuLanguage(true);
+  };
+
+  const handleMenuLanguageClose = () => {
+    setOpenMenuLanguage(false);
+  };
+
+  const spanish = () => {
+    handleMenuLanguageClose();
+
+    i18n.changeLanguage("es");
+  };
+
+  const english = () => {
+    handleMenuLanguageClose();
+
+    i18n.changeLanguage("en");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="bg-teal-50 dark:bg-zinc-800">
-          <IconButton size="large" color="inherit" onClick={showAlert} data-testid="go-home">
+          <IconButton
+            size="large"
+            color="inherit"
+            onClick={showAlert}
+            data-testid="go-home"
+          >
             <HomeIcon style={{ color: color }} />
           </IconButton>
 
@@ -132,16 +158,51 @@ export const Nav = () => {
             WIQ
           </Typography>
 
-          <IconButton onClick={changeTheme} size="large" color="inherit" data-testid="change-color">
+          <IconButton
+            onClick={changeTheme}
+            size="large"
+            color="inherit"
+            data-testid="change-color"
+          >
             <NightlightIcon style={{ color: color }} />
           </IconButton>
 
-          <Lang
-            userAnchor={userAnchor}
-            setUserAnchor={setUserAnchor}
-            color={color}
-          />
+          {/** Lang Icon */}
+          <IconButton
+            size="large"
+            color="inherit"
+            aria-label="language"
+            aria-controls="language-appbar"
+            aria-haspopup="true"
+            onClick={handleMenuLanguageOpen}
+            data-testid="open-language-menu"
+          >
+            <TranslateIcon style={{ color: color }} />
+          </IconButton>
 
+          <Menu
+            id="language-appbar"
+            open={openMenuLanguage}
+            onClose={handleMenuLanguageClose}
+            anchorEl={userAnchor}
+          >
+            <MenuItem
+              selected={i18n.language === "es" ? true : false}
+              onClick={spanish}
+            >
+              <span className="fi fi-es mr-1"></span>
+              Español
+            </MenuItem>
+            <MenuItem
+              selected={i18n.language === "en" ? true : false}
+              onClick={english}
+            >
+              <span className="fi fi-gb mr-1"></span>
+              Inglés
+            </MenuItem>
+          </Menu>
+
+          {/** Settings Icon */}
           <Settings
             userAnchor={userAnchor}
             setUserAnchor={setUserAnchor}
@@ -167,8 +228,12 @@ export const Nav = () => {
             onClose={handleMenuAccountClose}
             anchorEl={userAnchor}
           >
-            <MenuItem onClick={profile} data-testid="go-profile">Perfil</MenuItem>
-            <MenuItem onClick={history} data-testid="go-history">Historial</MenuItem>
+            <MenuItem onClick={profile} data-testid="go-profile">
+              Perfil
+            </MenuItem>
+            <MenuItem onClick={history} data-testid="go-history">
+              Historial
+            </MenuItem>
           </Menu>
 
           <IconButton
