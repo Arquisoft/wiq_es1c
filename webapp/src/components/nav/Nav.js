@@ -13,8 +13,8 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import Lang from "/lang/Lang";
-import Settings from "/settings/Settings";
+import { Lang } from "/lang/Lang";
+import { Settings } from "/settings/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircle from "@mui/icons-material/AccountCircle";
