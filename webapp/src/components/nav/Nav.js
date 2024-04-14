@@ -56,10 +56,6 @@ export const Nav = () => {
     console.log("Token: ", localStorage.getItem("token"))
   };
 
-  const openSettings = () => {
-    navigate("/settings");
-  }
-
   const showAlert = () => {
     //Check if we are in a game
     let path = location.pathname;
@@ -139,10 +135,6 @@ export const Nav = () => {
 
           <IconButton size="large" color="inherit" data-testid="change-color">
             <NightlightIcon onClick={changeTheme} style={{ color: color }} />
-          </IconButton>
-
-          <IconButton size="large" color="inherit" data-testid="go-settings">
-            <SettingsIcon onClick={openSettings} style={{ color: color }} />
           </IconButton>
 
           <Lang
