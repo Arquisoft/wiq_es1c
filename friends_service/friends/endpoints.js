@@ -37,8 +37,8 @@ const sendRequest = async (req, res) => {
     }
 
     await FriendRequest.create({
-        from: req.body.to,
-        to: userId
+        from: userId,
+        to: req.body.to
     })
 
     res.status(200).send();
@@ -74,11 +74,30 @@ const acceptRequest = async (req, res) => {
 }
 
 const getRequests = async (req, res) => {
+    const userId = await jwt.verify(req.body.token, privateKey).user_id;
 
+    let requests = await FriendRequest.findAll({
+        where: {
+             to: userId ,
+        }
+    })
+
+    res.status(200).json(requests.map(request => request.toJSON()))
 }
 
 const getFriends = async (req, res) => {
+    const userId = await jwt.verify(req.body.token, privateKey).user_id;
 
+    let requests = await Friendship.findAll({
+        where: {
+            [Op.or]: [
+                { friend2: userId },
+                { friend1: userId },
+            ]
+        }
+    })
+
+    res.status(200).json(requests.map(request => request.toJSON()))
 }
 
 module.exports = {sendRequest, acceptRequest, getRequests, getFriends}
