@@ -45,7 +45,7 @@ const sendRequest = async (req, res) => {
 }
 
 const acceptRequest = async (req, res) => {
-    if(!validate(req, ["to"])) {
+    if(!validate(req, ["from"])) {
         res.status(400).send();
         return;
     }
@@ -53,12 +53,10 @@ const acceptRequest = async (req, res) => {
     const userId = await jwt.verify(req.body.token, privateKey).user_id;
 
     let request = await FriendRequest.destroy({
-        where: {
-            [Op.or]: [
-                { from: req.body.to, to: userId },
-                { from: userId, to: req.body.to },
-            ]
-        }
+        where: { 
+            from: req.body.from, 
+            to: userId 
+        }   
     })
     
     if(request) {
