@@ -7,7 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-const Settings = ({ userAnchor, setUserAnchor, color }) =>
+export const Settings = ({ userAnchor, setUserAnchor, color }) =>
 {
     const navigate = useNavigate();
     const [openMenuSettings, setOpenMenuSettings] = useState(false);
@@ -51,5 +51,3 @@ const Settings = ({ userAnchor, setUserAnchor, color }) =>
         </>
     );
 }
-
-export default Settings;

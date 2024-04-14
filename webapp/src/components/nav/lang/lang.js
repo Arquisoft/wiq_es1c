@@ -7,7 +7,7 @@ import {
 import TranslateIcon from "@mui/icons-material/Translate";
 import i18n from "i18next";
 
-const Lang = ({ userAnchor, setUserAnchor, color }) => 
+export const Lang = ({ userAnchor, setUserAnchor, color }) => 
 {
     const [openMenuLanguage, setOpenMenuLanguage] = useState(false);
 
@@ -73,6 +73,4 @@ const Lang = ({ userAnchor, setUserAnchor, color }) =>
         </Menu>
         </>
     );
-}   
-
-export default Lang;
+}
