@@ -28,7 +28,7 @@ export const Nav = () => {
 
   const getColor = () => {
     const htmlElement = document.querySelector("html");
-    console.log("Is dark? " + htmlElement.classList.contains("dark"))
+    // console.log("Is dark? " + htmlElement.classList.contains("dark"))
     return htmlElement.classList.contains("dark")? "white" : "black";
   };
 
