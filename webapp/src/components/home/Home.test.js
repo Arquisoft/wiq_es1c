@@ -7,8 +7,6 @@ import { MemoryRouter, BrowserRouter as Router, useLocation } from 'react-router
 import { Home } from './Home';
 import * as router from 'react-router';
 
-
-
 jest.mock('../../services/user.service', () => ({
     getCurrentUser: () => {
         return Promise.resolve("pepe");
@@ -51,7 +49,7 @@ describe("Home component", () => {
 
         render(<Router history={history}><Home/></Router>);
     
-        screen.getByText('JUGAR').click();
+        screen.getByText(/JUGAR CLÁSICO/i).click();
         
         await act(async () => {});
 
@@ -106,7 +104,7 @@ describe("Home component", () => {
         await act(async () => render(<Router history={history}><Home/></Router>));
 
 
-        await act(async () => fireEvent.click(screen.getByText("JUGAR")));
+        await act(async () => fireEvent.click(screen.getByText(/JUGAR CLÁSICO/i)));
 
 
         expect(navigate).toHaveBeenCalledWith("/game", {
