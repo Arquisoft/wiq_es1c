@@ -14,14 +14,17 @@
     "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "history": "^5.3.0",
-    "prop-types": "^15.8.1",
     "mariadb": "^3.3.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "^0.73.5",
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
     "sass": "^1.72.0",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
+    "sqlite3": "^5.1.7",
     "sweetalert2": "^11.10.7",
     "tailwindcss": "^3.4.1",
     "web-vitals": "^3.5.1"
@@ -31,7 +34,7 @@
     "build": "react-scripts build",
     "prod": "serve -s build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!axios)/'",
-    "test:e2e": " npx sequelize-cli db:migrate && jest --runInBand --forceExit start-server-and-test 'node e2e/test-environment-setup.js' http://localhost:8001/health prod 3000 \"cd e2e && jest\"",
+    "test:e2e": " npx sequelize-cli db:migrate && start-server-and-test 'node e2e/test-environment-setup.js' http://localhost:8001/health prod 3000 \"cd e2e && jest\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
