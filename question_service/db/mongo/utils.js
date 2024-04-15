@@ -27,7 +27,6 @@ const getRandomTemplate = async () => {
 
     return result[0];
 }
-
 const loadInitialTemplates = async () => {
     //Load the templates into the DB
     require("fs").readFile("./templates.json", "utf8", (err, data) => {
