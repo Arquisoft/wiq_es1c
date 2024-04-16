@@ -43,6 +43,7 @@ const getEndTime = async (token, gameMode) =>
   try {
     const response = await axios.post(`${apiEndpoint}:8003/api/game/update`, { "token": token });
 
+    //to check if the clock make the reset in this function (REMOVE BEFORE MERGE TO DEVELOP)
     if(gameMode === "AgainstClock"){
       console.log("Duracion AgainstClock de data  "+ Number(50));
       console.log("Duracion AgainstClock final "+ Number(50) * 1000);

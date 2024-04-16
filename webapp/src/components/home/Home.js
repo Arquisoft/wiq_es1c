@@ -171,7 +171,7 @@ export const Home = () =>
                                 <span className="text-black dark:text-white text">JUGAR MUERTE SÚBITA</span>
                             </button>
                         </div>
-                        <div className="flex align-middle justify-center flex-grow">
+                        <div className="flex align-middle justify-center flex-grow m-3">
                             <button onClick={startAgainstClock} className="bg-gradient-to-r
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
