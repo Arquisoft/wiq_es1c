@@ -3,24 +3,29 @@ const { requestQuestion } = require("../game/verification");
 
 const NUM_QUESTIONS = 100;
 
-const loadQuestion = async(tags) =>
+const loadQuestion = async(tags, lang) =>
 {
     let res;
 
     if(tags && tags.length > 0) {
-        res = await Question.aggregate([{ 
-            $match: { 
-                tags: { 
+        res = await Question.aggregate({
+            $match:
+                {tags: {
                     $in: tags
-                } 
-            } 
-        }]).sample(1);
-    } 
+                }, lang: lang},
+
+
+        }).sample(1);
+    }
+
 
     //Safety!
-    if(res === undefined || res[0] === undefined)
+    if(res === undefined || res[0] === undefined){
+        console.log("No questions found with the given tags and language, trying to get a random question");
         res = await Question.aggregate().sample(1);
-    
+    }
+
+
     
     const { _id, __v, createdAt, ...question } = res[0];
 
@@ -36,7 +41,8 @@ const saveQuestion = async() =>
         answer: res.answer,
         fakes: [res.fake[0], res.fake[1], res.fake[2]],
         imageUrl: res.imgurl,
-        tags: res.tags
+        tags: res.tags,
+        lang: res.lang
     });
 
     await question.save();
@@ -51,6 +57,8 @@ const loadInitialQuestions = () =>
 const saveQuestionsInDB = async () =>
 {
     const questions = await Question.find({});
+
+    console.log(questions);
 
     if (questions.length > 1000)
         return;

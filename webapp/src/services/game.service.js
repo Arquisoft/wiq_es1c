@@ -54,10 +54,10 @@ const getEndTime = async (token) =>
   }
 }
 
-const nextQuestion = async (token) =>
+const nextQuestion = async (token, language) =>
 {
     try {
-      const response = await axios.post(`${apiEndpoint}:8003/api/game/next`, { "token": token });
+      const response = await axios.post(`${apiEndpoint}:8003/api/game/next`, { "token": token, "lang": language });
 
       return response.data;
 

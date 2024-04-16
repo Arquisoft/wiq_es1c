@@ -28,7 +28,7 @@ const next = async (req,res) => {
       })
     }
 
-    const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0));
+    const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0), req.body.lang);
     
     Question.create({
       title: questionRaw.title,
@@ -40,14 +40,15 @@ const next = async (req,res) => {
     })
   
     res.status(200).json({
-      title: questionRaw.title,
-      imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
-      awnsers: suffle([
-        String(questionRaw.answer),
-        String(questionRaw.fakes[0]),
-        String(questionRaw.fakes[1]),
-        String(questionRaw.fakes[2])
-      ])
+        title: questionRaw.title,
+        lang: "ejemplo",
+        imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
+        awnsers: suffle([
+            String(questionRaw.answer),
+            String(questionRaw.fakes[0]),
+            String(questionRaw.fakes[1]),
+            String(questionRaw.fakes[2])
+        ])
     });
 }
 
