@@ -3,6 +3,7 @@ import {render, screen, fireEvent, act, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {Game} from './Game';
 import { MemoryRouter, Route } from 'react-router-dom';
+import "../../i18n";
 
 jest.mock('../../services/game.service', () => ({
   startNewGame: () => Promise.resolve(""),
