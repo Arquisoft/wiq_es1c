@@ -30,6 +30,8 @@ app.post("/api/auth/login", auth.login);
 app.post("/api/auth/verify", auth.verify);
 app.post("/api/auth/getName", auth.getUsername);
 app.post("/api/user/getUsers", user.getUsers);
+app.post("/api/user/getUser", user.getUser);
+app.post("/api/user/deleteUser", user.deleteUser);
 app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
