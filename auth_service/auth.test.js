@@ -129,4 +129,19 @@ describe('Authentication Endpoints', () => {
         expect(response.body.name).toBe(mockUser.name);
     });
 
+    it("Should return 200 and the users", async() =>{
+
+        await User.create({
+            id: 2,
+            name: 'prueba2',
+            password: 'contraseña2'
+        });
+
+        const response = await request(app)
+            .get('/api/user/getUsers');
+        console.log(response.body);
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual([{name: 'testuser', id:1},{name: 'prueba2',id:2}]);
+    });
+
 });

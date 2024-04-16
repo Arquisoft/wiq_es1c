@@ -16,13 +16,11 @@ function validateRequiredFields(req, requiredFields) {
 
 
 const getUsers = async (req,res) => {
-
-    let userf = await User.findAll();
-
-    res.status(200).json(userf.map(user => {return {
-        name: user.name,
-        id: user.id
-    }}));
+        let users = await User.findAll();
+        res.status(200).json(users.map(user => ({
+                name: user.name,
+                id: user.id
+            })));
 }
 
 const getUser = async (req, res) => {
