@@ -1,6 +1,3 @@
-//External libs
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 
 // Model
 const { User } = require('../models');
