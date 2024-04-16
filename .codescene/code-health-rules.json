@@ -45,10 +45,10 @@
       "value" : "-"
     }, {
       "name" : "function_lines_of_code_alert",
-      "value" : "200"
+      "value" : "-"
     }, {
       "name" : "function_lines_of_code_warning",
-      "value" : "150"
+      "value" : "-"
     }, {
       "name" : "function_max_arguments",
       "value" : "-"
@@ -106,7 +106,7 @@
       "weight" : 1.0
     }, {
       "name" : "Large Method",
-      "weight" : 1.0
+      "weight" : 100.0
     }, {
       "name" : "Lines of Code in a Single File",
       "weight" : 1.0
