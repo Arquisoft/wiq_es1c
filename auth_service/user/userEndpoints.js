@@ -4,16 +4,14 @@ const { User } = require('../models');
 
 
 
-const getAllUsers = async (req, res) => {
-    try{
-        let users = await User.find();
-        res.status(200).json({
-            users: users
-        });
+const getUsers = async (req,res) => {
 
-    }catch (error){
-        res.status(500).send();
-    }
+    let userf = await User.findAll();
+
+    res.status(200).json(userf.map(user => {return {
+        name: user.name,
+        id: user.id
+    }}));
 }
 
 const getUser = async (req, res) => {
@@ -64,4 +62,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = {getAllUsers, getUser, deleteUser}
+module.exports = {getUsers, getUser, deleteUser}
