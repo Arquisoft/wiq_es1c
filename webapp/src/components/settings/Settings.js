@@ -4,6 +4,7 @@ import { Nav } from '../nav/Nav';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
 import { getGameSettings, setGameSettings} from "../../services/game.service";
+import {Footer} from '../footer/Footer';
 
 export const Settings = () => {
     const token = localStorage.getItem("token");
@@ -113,6 +114,7 @@ export const Settings = () => {
                 </Container>
             </Container>
         )}
+        <Footer/>
         </>
     )
 }

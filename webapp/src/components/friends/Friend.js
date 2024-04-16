@@ -4,6 +4,7 @@ import { Autocomplete, Avatar, Box, Button, Container, CssBaseline, Grid, Stack,
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { getUsers, getCurrentUser } from "../../services/user.service";
 import { acceptRequest, getFriends, getRequests, sendRequest } from "../../services/friends.service";
+import {Footer} from '../footer/Footer';
 
 export const Friends = () => {
   const darkTheme = createTheme({
@@ -170,6 +171,7 @@ export const Friends = () => {
           </Container>
         </Container>
       </ThemeProvider>
+      <Footer/>
     </>
   );
 };

@@ -171,7 +171,7 @@ export const Nav = () => {
           >
             WIQ
           </Typography>
-          
+
           <Typography
             variant="p"
             component="div"
@@ -179,10 +179,7 @@ export const Nav = () => {
           >
           <a href="https://github.com/Arquisoft/wiq_es1c" target="_blank" rel="noopener noreferrer"> Sobre nosotros</a>
           </Typography>
-          <IconButton size="large" color="inherit" data-testid="change-color">
-            <NightlightIcon onClick={changeTheme} style={{ color: color }} />
-
-
+          
           <IconButton
             onClick={changeTheme}
             size="large"

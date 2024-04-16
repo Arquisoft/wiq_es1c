@@ -3,14 +3,11 @@ import {Box, IconButton, Chip, Container, CssBaseline, Modal, Typography} from "
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useTranslation } from "react-i18next";
 
-import './Home.css';
 import { getCurrentUser } from "../../services/user.service";
 import { Nav } from '../nav/Nav';
 
 import {Footer} from '../footer/Footer';
 import './Home.css';
-import {useNavigate} from "react-router-dom";
-import CancelIcon from "@mui/icons-material/Cancel";
 
 import {getTags} from "../../services/question.service";
 import {useNavigate} from "react-router-dom";
@@ -166,7 +163,6 @@ export const Home = () =>
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                    <span className="text-black dark:text-white text bg-light-blue dark:bg-dark-purple ">Elige las tags</span>
 
                                     <span className="text-black dark:text-white text">{ t('Home.playClassic') }</span>
                                 </button>
