@@ -3,6 +3,7 @@
 [![Deploy on release](https://github.com/Arquisoft/wiq_es1c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es1c/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es1c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es1c)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es1c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es1c) [![Open Issues](https://img.shields.io/github/issues-raw/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/issues) [![Closed Issues](https://img.shields.io/github/issues-closed-raw/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/issues?q=is%3Aissue+is%3Aclosed) [![Pull Requests](https://img.shields.io/github/issues-pr/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/pulls) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/) 
+[![CodeScene Code Health](https://codescene.io/projects/52509/status-badges/code-health)](https://codescene.io/projects/52509) [![CodeScene System Mastery](https://codescene.io/projects/52509/status-badges/system-mastery)](https://codescene.io/projects/52509) [![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/52509)
 
 <p align="center">
   <a href = "http://wiqgame.run.place/" title= "Pagina web">
