@@ -182,7 +182,7 @@ const AddUser = () => {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                   >
-                    { t('Register.toRegister') }
+                    { t('Register.toRegister') + "" }
                   </Button>
                   <Grid container>
                     <Grid item xs>
@@ -195,7 +195,7 @@ const AddUser = () => {
                         to={"/login"}
                         className="underline text-blue-600 hover:text-blue-900"
                       >
-                        { t('Register.login') }
+                        { t('Register.login') + "" }
                       </Link>
                     </Grid>
                   </Grid>
