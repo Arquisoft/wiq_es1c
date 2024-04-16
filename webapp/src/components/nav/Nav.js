@@ -90,6 +90,14 @@ export const Nav = () => {
     console.log("Token: ", localStorage.getItem("token"))
   };
 
+  const friends = () => {
+    // Close submenu
+    handleMenuAccountClose();
+    navigate("/friends");
+    console.log("Going to friends")
+    console.log("Token: ", localStorage.getItem("token"))
+  };
+
   const profile = () => {
     // Close submenu
     handleMenuAccountClose();
@@ -157,6 +165,7 @@ export const Nav = () => {
           >
             <MenuItem onClick={profile} data-testid="go-profile">Perfil</MenuItem>
             <MenuItem onClick={history} data-testid="go-history">Historial</MenuItem>
+            <MenuItem onClick={friends} data-testid="go-friends">Amigos</MenuItem>
           </Menu>
 
           <IconButton

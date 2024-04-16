@@ -11,6 +11,7 @@ import { History } from "../components/history/History";
 import {Profile} from "../components/profile/Profile";
 import {Settings} from "../components/settings/Settings";
 import {SuddenDeath} from "../components/game/SuddenDeath";
+import { Friends } from "../components/friends/Friend";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +46,12 @@ const router = createBrowserRouter([
         path: "/game",
         element: <PrivateRoute>
                     <Game />
+                </PrivateRoute>       
+    },
+    {
+        path: "/friends",
+        element: <PrivateRoute>
+                    <Friends />
                 </PrivateRoute>       
     },
     {
