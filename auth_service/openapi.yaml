@@ -123,3 +123,72 @@ paths:
                     example: "OK"
         '500':
           description: Internal server error
+
+    /api/user/getUsers:
+    get:
+      summary: Obtener todos los usuarios
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "User1"
+                    id:
+                      type: integer
+                      example: "1234"
+
+  /api/user/getUser:
+    get:
+      summary: Obtener un usuario por ID
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema:
+            type: integer
+            example: "1234"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "User1"
+                      id:
+                        type: integer
+                        example: "1234"
+        '401':
+          description: Usuario no encontrado
+      requestBody:
+        required: false
+        content:
+          application/json: {}
+
+  /api/user/deleteUser:
+    post:
+      summary: Eliminar un usuario por ID
+      requestBody:
+        required: true
+        content:
+          application/json: {}
+      responses:
+        '200':
+          description: Usuario borrado
+        '401':
+          description: Usuario no encontrado
+        '500':
+          description: Error del servidor
