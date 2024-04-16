@@ -38,15 +38,15 @@ const Login = () => {
 
     if (username !== "" && password !== "") {
       setError("");
-      setValidUsername(true);
       setValidPassword(true);
-
+      setValidUsername(true);
       setLoading(true);
+
       const res = await login(username, password);
 
       if (res !== "") {
-        setLoading(false);
         setError(res);
+        setLoading(false);
       } else {
         setLoggedIn(true);
       }
@@ -54,19 +54,20 @@ const Login = () => {
       return;
     }
 
+    if (password === "") setValidPassword(false);
+
     if (username === "") setValidUsername(false);
 
-    if (password === "") setValidPassword(false);
   };
 
   const checkUsername = (e) => {
-    setUsername(e.target.value.trim());
     setValidUsername(true);
+    setUsername(e.target.value.trim());
   };
 
   const checkPassword = (e) => {
-    setPassword(e.target.value.trim());
     setValidPassword(true);
+    setPassword(e.target.value.trim());
   };
 
   return (

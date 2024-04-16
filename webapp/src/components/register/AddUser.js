@@ -25,8 +25,8 @@ const AddUser = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [validUsername, setValidUsername] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
+  const [validUsername, setValidUsername] = useState(true);
   const [validConfirmPassword, setValidConfirmPassword] = useState(true);
   const [error, setError] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
