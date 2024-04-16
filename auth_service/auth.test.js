@@ -139,9 +139,34 @@ describe('Authentication Endpoints', () => {
 
         const response = await request(app)
             .get('/api/user/getUsers');
-        console.log(response.body);
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual([{name: 'testuser', id:1},{name: 'prueba2',id:2}]);
     });
+
+    it("Should return 200 and the mocked user",async()=>{
+        const response = await request(app)
+            .get('/api/user/getUser')
+            .query({user_id:1});
+        expect(response.statusCode).toBe(200);
+        expect(response.body.user.name).toEqual(mockUser.name)
+
+    });
+
+    it("Should return 401 because the user doesn't exist",async()=>{
+        const response = await request(app)
+            .get('/api/user/getUser')
+            .query({user_id:2});
+        expect(response.statusCode).toBe(401);
+
+    });
+
+    it("Should return 401 because it needs a parameter",async()=>{
+        const response = await request(app)
+            .get('/api/user/getUser')
+        expect(response.statusCode).toBe(401);
+
+    });
+
+   
 
 });

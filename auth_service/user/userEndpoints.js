@@ -38,7 +38,7 @@ const getUser = async (req, res) => {
         let userid = req.query.user_id;
         let user = await User.findOne({
             where: {
-                user_id: userid
+                id: userid
             }
         })
 
@@ -55,6 +55,7 @@ const getUser = async (req, res) => {
         });
 
     }catch (error){
+        console.log(error);
         res.status(500).send();
     }
 }
@@ -74,7 +75,7 @@ const deleteUser = async (req, res) => {
 
         let userid = req.query.user_id;
         let result = await User.deleteOne(
-            {user_id: userid}
+            {id: userid}
         )
 
         if (result.deletedCount === 0) {
