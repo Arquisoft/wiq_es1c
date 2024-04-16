@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     numberOfQuestions: {
       type: DataTypes.INTEGER,
       defaultValue: 10
+    },
+    gameMode: {
+      type: DataTypes.STRING,
+      defaultValue: "classic"
     }
   }, {
     timestamps: true,

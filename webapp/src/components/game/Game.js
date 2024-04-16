@@ -2,75 +2,88 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import {Button, Box, Container, CssBaseline,Typography, Grid, Paper, LinearProgress,} from "@mui/material";
 import bannerDark from '../../media/wiq_banner.png';
-import { startNewGame, nextQuestion, awnser, getEndTime, getGameSettings } from "../../services/game.service";
+import PropTypes from 'prop-types';
+import {
+    startNewGame,
+    nextQuestion,
+    awnser,
+    getEndTime,
+    getGameSettings,
+    getNumberOfQuestions
+} from "../../services/game.service";
 import { Nav } from '../nav/Nav';
 import {Footer} from '../footer/Footer';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
 
-export const Game = () => {
+
+const token = localStorage.getItem("token");
+
+let isFinished = async () => {
+    const number = await getNumberOfQuestions(token);
+    const settings = await getGameSettings(token);
+    const maxNumber = settings.numberOfQuestions;
+    return number > maxNumber;
+
+}
+
+export const Game = ({finishFunction, name, tags}) => {
+
     const navigate = useNavigate();
 
-    const token = localStorage.getItem("token");
+
     let basicGameSetting = undefined;
 
     const [pregunta, setPregunta] = useState("Cargando pregunta...");
     const [questionImage, setQuestionImage] = useState("");
     const [respuestas, setRespuestas] = useState(["...","...","...","..."]);
     const [loading, setLoading] = useState(true);
-    const [gameDone, setGameDone] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
     const location = useLocation();
 
-    const comprobarPregunta = (respuesta) => {
-        awnser(token, respuesta).then((correcta) => {
-            if(respuesta === correcta){
-                const botonCorrecto = document.getElementById(correcta);
-                botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
-            }else{
-                const botonCorrecto = document.getElementById(correcta);
-                const botonIncorrecto = document.getElementById(respuesta);
-                if(botonCorrecto!==null)
-                    botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
 
-                if(botonIncorrecto !== null)
-                botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white font-mono";
-            }
-            
-            setGameDone(gameDone => {
-                if(!gameDone)
+    const comprobarPregunta = (respuesta) => {
+        awnser(token, respuesta).then(async (correcta) => {
+            highlightOptions(respuesta, correcta);
+
+            const callback = (returned) => {
+                if(!returned){
                     setTimeout(loadNextQuestion, 1000);
-                else {
-                    setTime(undefined);
-                    setTimeout(() => 
-                        Swal.fire({
-                            customClass: {
-                                container: "bg-white dark:bg-dark-mode text-black dark:text-white ",
-                                confirmButton: "text-black dark:text-white ",
-                                cancelButton: "text-black dark:text-white " ,
-                            },
-                            title: "El juego ha finalizado!",
-                            text: "Gracias por jugar",
-                            imageUrl: bannerDark,
-                            showCancelButton: true,
-                            confirmButtonColor: "#f384f6",
-                            cancelButtonColor: "#e8b260",
-                            confirmButtonText: "Volver al menu principal",
-                            cancelButtonText: "Continuar jugando"
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                navigate("/home")
-                            }else {
-                                window.location.reload(false);
-                            }
-                        }
-                    ), 1000);
                 }
-                return gameDone;
-            });
+                else{
+                    finishGame();
+                }
+            }
+
+
+            console.log(typeof finishFunction);
+
+            if(finishFunction !== undefined && finishFunction != null) {
+                callback(await finishFunction());
+            }
+            else{
+                 callback(await isFinished());
+            }
+
         })  
     };
+
+
+
+    const highlightOptions = (respuesta, correcta) => {
+        const botonCorrecto = document.getElementById(correcta);
+        if(respuesta === correcta){
+            botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
+        }else{
+            const botonIncorrecto = document.getElementById(respuesta);
+            if(botonCorrecto!==null)
+                botonCorrecto.className = "bg-green-700 w-full containedButton text-black dark:text-white font-mono";
+
+            if(botonIncorrecto !== null)
+                botonIncorrecto.className = "bg-red-700 w-full containedButton text-black dark:text-white font-mono";
+        }
+    }
 
     const loadDurationQuestion = () =>
     {
@@ -79,16 +92,35 @@ export const Game = () => {
         });
     }
 
-    const loadNextQuestion = () => {
-        setPregunta("Cargando pregunta...")
-        setQuestionImage("");
-        setRespuestas(["...","...","...","..."])
-        setLoading(true);
+    const finishGame = () => {
         setTime(undefined);
-        
-        document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
-            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";    
-        })
+        setTimeout(() =>
+            Swal.fire({
+                customClass: {
+                    container: "bg-white dark:bg-dark-mode text-black dark:text-white ",
+                    confirmButton: "text-black dark:text-white ",
+                    cancelButton: "text-black dark:text-white " ,
+                },
+                title: "El juego ha finalizado!",
+                text: "Gracias por jugar",
+                imageUrl: bannerDark,
+                showCancelButton: true,
+                confirmButtonColor: "#f384f6",
+                cancelButtonColor: "#e8b260",
+                confirmButtonText: "Volver al menu principal",
+                cancelButtonText: "Continuar jugando"
+            }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate("/home")
+                    }else {
+                        window.location.reload(false);
+                    }
+                }
+            ), 1000);
+    }
+
+    const loadNextQuestion = () => {
+        initializeUI();
 
         nextQuestion(token).then((respuesta) => {
             setPregunta(respuesta.title);
@@ -96,9 +128,20 @@ export const Game = () => {
             setRespuestas(respuesta.awnsers);
             setLoading(false);
             getEndTime(token).then((time) => {
-                setGameDone(time.gameDone);
                 setTime(time);
             });
+        });
+    }
+
+    const initializeUI = () => {
+        setPregunta("Cargando pregunta...")
+        setQuestionImage("");
+        setRespuestas(["...","...","...","..."])
+        setLoading(true);
+        setTime(undefined);
+
+        document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
+            btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";
         });
     }
 
@@ -124,12 +167,15 @@ export const Game = () => {
             });
         }, 20);
 
-        let tags = "";
+        let gameTags = "";
 
-        if(location.state != null)
-            tags = location.state.tags ?? "";
+        if(tags !== undefined)
+            gameTags = tags;
 
-        startNewGame(token, tags).then(() =>
+        if(location.state !== undefined && location.state !== null)
+            gameTags = location.state.tags ?? "";
+
+        startNewGame(token, gameTags, name).then(() =>
         {
             loadNextQuestion();
         })
@@ -262,6 +308,11 @@ export const Game = () => {
     <Footer/>
     </>
   )
+}
+
+Game.propTypes = {
+    finishFunction: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired
 }
 
 export default Game;
