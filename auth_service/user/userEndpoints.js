@@ -55,7 +55,6 @@ const getUser = async (req, res) => {
         });
 
     }catch (error){
-        console.log(error);
         res.status(500).send();
     }
 }
@@ -74,12 +73,11 @@ const deleteUser = async (req, res) => {
 
 
         let userid = req.query.user_id;
-        let result = await User.deleteOne(
-            {id: userid}
-        )
 
-        if (result.deletedCount === 0) {
-            return res.status(404).json({ error: "Usuario no encontrado" });
+        let result = await User.destroy({ where: { id: userid } });
+
+        if (result === 0) {
+            return res.status(401).json({ error: "Usuario no encontrado" });
         }
 
         return res.status(200).json({ message: "Usuario borrado" });
