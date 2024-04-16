@@ -4,6 +4,17 @@ const { User } = require('../models');
 
 
 
+function validateRequiredFields(req, requiredFields) {
+    for (const field of requiredFields) {
+      if (!(field in req.query)) {
+        return false;
+      }
+    }
+    return true;
+}
+
+
+
 const getUsers = async (req,res) => {
 
     let userf = await User.findAll();
@@ -17,7 +28,16 @@ const getUsers = async (req,res) => {
 const getUser = async (req, res) => {
 
     try{
-        let userid = req.query;
+
+        if(!validateRequiredFields(req,['user_id'])){
+            res
+                .status(401)
+                .json({error:"Falta el campo userid"})
+                .send();
+            return;
+        }
+
+        let userid = req.query.user_id;
         let user = await User.findOne({
             where: {
                 user_id: userid
@@ -44,7 +64,17 @@ const getUser = async (req, res) => {
 const deleteUser = async (req, res) => {
 
     try{
-        let userid = req.query;
+
+        if(!validateRequiredFields(req,['user_id'])){
+            res
+                .status(401)
+                .json({error:"Falta el campo userid"})
+                .send();
+            return;
+        }
+
+
+        let userid = req.query.user_id;
         let result = await User.deleteOne(
             {user_id: userid}
         )
