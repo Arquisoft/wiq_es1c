@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {Box, IconButton, Chip, Container, CssBaseline, Modal, Typography} from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { useTranslation } from "react-i18next";
+
+import './Home.css';
 import { getCurrentUser } from "../../services/user.service";
+import { Nav } from '../nav/Nav';
+import {getTags} from "../../services/question.service";
+import {useNavigate} from "react-router-dom";
 import bannerDark from '../../media/wiq_banner.png';
 import bannerLight from '../../media/wiq_banner.light.png';
-import { Nav } from '../nav/Nav';
-import './Home.css';
-import {useNavigate} from "react-router-dom";
-import CancelIcon from "@mui/icons-material/Cancel";
-import {getTags} from "../../services/question.service";
 
 export const Home = () => 
 {
+    const { t } = useTranslation();
+
     const [loggedIn, setLoggedIn] = useState(true);
     const [username, setUsername] = useState("No identificado");
     const [tagSelection, setTagSelection] = useState(false);
@@ -114,14 +118,15 @@ export const Home = () =>
                         <img src={bannerDark} alt="WiQ" className="hidden dark:block"/>
 
                         <div className="flex p-4 place-content-between ">
+                            
                             <Typography className="text-black dark:text-white " component="h2" variant="h4"
                                         fontFamily="monospace" fontWeight="bold" alignSelf="center">
-                                Home
+                                { t('Home.home') }
                             </Typography>
 
                             <Typography className="text-black dark:text-white " component="h3" variant="h5"
                                         fontFamily="monospace" alignSelf="center">
-                                ¡Bienvenido, {username}!
+                                { t('Home.welcome', { name: username }) }
                             </Typography>
 
                         </div>
@@ -129,21 +134,17 @@ export const Home = () =>
                         <div className="p-2 m-1">
                             <Typography component="h3" variant="h6" fontFamily="monospace" fontWeight="bold"
                                         alignSelf="center" className="text-black dark:text-white ">
-                                Cómo jugar
+                                { t('Home.howToPlay') }
                             </Typography>
                             <Typography component="p" variant="p" className="text-black dark:text-white ">
-                                Cuando pulses en el botón de jugar, se te irán mostrando preguntas junto con 4 posibles
-                                respuestas, sólo una de ellas es verdadera, haz click sobre la respuesta correcta para
-                                ganar puntos.
+                                { t('Home.tutorialP1') }
                             </Typography>
                             <Typography component="p" variant="p" className="text-black dark:text-white ">
-                                El tiempo para contestar es limitado. La barra en la parte inferior muestra el tiempo
-                                restante. Si el tiempo se termina, la pregunta contará como fallada y se pasará a la
-                                siguiente.
+                                { t('Home.tutorialP2') }
                             </Typography>
                             <Typography component="p" variant="h6" fontFamily="monospace" fontWeight="bold"
                                         className="text-center p-3 text-black dark:text-white ">
-                                ¡Mucha suerte y demuestra lo que sabes!
+                                { t('Home.goodLuck') }
                             </Typography>
                         </div>
                         <div className="flex align-middle justify-center flex-grow m-3">
@@ -151,20 +152,20 @@ export const Home = () =>
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                <span className="text-black dark:text-white text">JUGAR CLÁSICO</span>
-                            </button>
+                                    <span className="text-black dark:text-white text">{ t('Home.playClassic') }</span>
+                                </button>
                         </div>
-                        <div className="flex align-middle justify-center flex-grow">
+                        <div className="flex align-middle justify-center flex-grow m-3">
                             <button onClick={startSuddenDeath} className="bg-gradient-to-r
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                <span className="text-black dark:text-white text">JUGAR MUERTE SÚBITA</span>
+                                <span className="text-black dark:text-white text">{ t('Home.playSuddenDeath') }</span>
                             </button>
                         </div>
                         <div className="flex align-middle justify-center flex-grow m-3">
                             <button onClick={openTagSelection} className="buttonGradient">
-                                <span className="text-black dark:text-white ">Elige las tags</span>
+                                <span className="text-black dark:text-white ">{ t('Home.chooseTags') }</span>
                             </button>
 
                         </div>
@@ -197,7 +198,7 @@ export const Home = () =>
                             <Typography component="h3" variant="h2" className="text-black dark:text-white">
                                 Tags
                             </Typography>
-                            <p className="text-black dark:text-white">Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.</p>
+                            <p className="text-black dark:text-white">{ t('Home.infoTags') }</p>
                             <div id="tagBox">
                                 {tags.map((tag) =>
                                     <Chip

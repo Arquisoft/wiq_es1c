@@ -1,4 +1,5 @@
 // External libs
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -9,9 +10,9 @@ const fs = require("fs")
 const YAML = require('yaml')
 
 // My own libs
-const auth = require('./auth/authEndpoints');
+const authMiddleware = require('./auth/friendsAuthMiddleware');
 
-const port = 8001;
+const port = 8005;
 const app = express();
 
 //Prometheus configuration
@@ -22,19 +23,19 @@ app.use(metricsMiddleware);
 // Middleware 
 app.use(bodyParser.json()); // Parse the request into json
 app.use(cors()) // This api is listening on a different port from the frontend
+app.use('/api/*',authMiddleware); // Auth middleware for the questions API
 
-// Auth endpoints
-app.post("/api/auth/register", auth.register);
-app.post("/api/auth/login", auth.login);
-app.post("/api/auth/verify", auth.verify);
-app.post("/api/auth/getName", auth.getUsername);
-app.post("/api/auth/getUsers", auth.getUsers);
-app.get('/health', (req, res) => {
-  res.json({ status: 'OK' });
-});
+
+// Api endpoints
+const endpoints = require("./friends/endpoints");
+
+app.post("/api/friends/request/send",endpoints.sendRequest);
+app.post("/api/friends/request/accept",endpoints.acceptRequest);
+app.post("/api/friends/request/",endpoints.getRequests);
+app.post("/api/friends/",endpoints.getFriends);
 
 // Read the OpenAPI YAML file synchronously
-openapiPath='./openapi.yaml'
+let openapiPath='./openapi.yaml'
 if (fs.existsSync(openapiPath)) {
   const file = fs.readFileSync(openapiPath, 'utf8');
 
@@ -49,9 +50,10 @@ if (fs.existsSync(openapiPath)) {
   console.log("Not configuring OpenAPI. Configuration file not present.")
 }
 
+
 // Start the server
 const server = app.listen(port, () => {
-  console.log(`Auth service listening at http://localhost:${port}`);
+  console.log(`Friends service listening at http://localhost:${port}`);
 });
 
 

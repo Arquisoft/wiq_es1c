@@ -1,12 +1,14 @@
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { createMemoryHistory } from 'history';
 import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
+import { render, screen, act, waitFor } from '@testing-library/react';
+
+import '../../i18n';
 import { Nav } from './Nav';
 import Swal from "sweetalert2";
 
-jest.mock("sweetalert2");
+jest.mock("sweetalert2"); 
 
 describe("Nav component", () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
@@ -25,9 +27,9 @@ describe("Nav component", () => {
 
         render(<Router history={history}><Nav/></Router>);
     
-        screen.getByTestId('logout').click();
-
-        await act(async () => {});
+        await act(async () => {
+            screen.getByTestId('logout').click();
+        });
 
         waitFor(()=>{
             expect(history.location.pathname).toBe('/login');
