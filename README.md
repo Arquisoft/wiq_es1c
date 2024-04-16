@@ -10,19 +10,16 @@
   </a>
 </p>
 
-This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
-
 This repo is a basic application composed of several components.
 
 - **User service**. Express service that handles the insertion of new users in the system.
 - **Auth service**. Express service that handles the authentication of users.
 - **Game service**. Express service that handles the game itself.
+- **Friend service**. Express service that handles the friends.
 - **Question service**. Express service that handles the questions generation and distribution.
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
 
 Every service has its own MariaDB database in addition the question and game service have a MongoDB database for managing the questions and the communication with the Wikidata services.
-
-
 
 ## Description
 
