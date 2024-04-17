@@ -33,17 +33,23 @@ export const Settings = () => {
         <>
         <Nav/>
         {(
+        <Container
+            component="main"
+            maxWidth="sm"
+            sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "85vh",
+            }}
+            className="min-h-screen flex justify-center align-middle"
+        >
             <Container
+                className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex"
                 component="main"
-                maxWidth="md"
-                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh"}}
-                className="bg-teal-50 dark:bg-zinc-800 min-h-screen flex  justify-center place-content-between rounded-lg flex"
+                maxWidth="sm"
             >
-                <Container
-                    className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex "
-                    component="main"
-                    maxWidth="sm"
-                >
                     <CssBaseline />
                     <Box
                         sx={{
