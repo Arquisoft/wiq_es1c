@@ -8,14 +8,11 @@ const loadQuestion = async(tags, lang) =>
     let res;
 
     if(tags && tags.length > 0) {
-        res = await Question.aggregate({
-            $match:
-                {tags: {
-                    $in: tags
-                }, lang: lang},
-
-
-        }).sample(1);
+        res = await Question.aggregate([
+            { $match: { $and:
+                        [{tags: { $in: tags}}, {lang: lang}]
+                }
+        }]).sample(1);
     }
 
 
@@ -23,6 +20,9 @@ const loadQuestion = async(tags, lang) =>
     if(res === undefined || res[0] === undefined){
         console.log("No questions found with the given tags and language, trying to get a random question");
         res = await Question.aggregate().sample(1);
+    } else {
+        console.log("Question found with the given tags and language");
+        console.log(res);
     }
 
 
