@@ -39,11 +39,11 @@ const loadInitialTemplates = () => {
 
             //Save it to the DB!
             //Delete old one if extists
-            Template.findOneAndDelete({question: template.question}).then((result) => {
+            Template.findOneAndDelete({question: template.question}).then(async (result) => {
                 // Create a new Template instance using the data from the JSON file
-                const newTemplate = new Template(template);
+                const newTemplate = await new Template(template);
                 // Save the new template to the database
-                newTemplate.save().then(saved => console.log(saved));
+                await newTemplate.save();
 
             });
 

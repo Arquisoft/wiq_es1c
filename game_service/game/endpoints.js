@@ -29,19 +29,23 @@ const next = async (req,res) => {
     }
 
     const questionRaw = await loadQuestion(game.tags.split(",").filter(s=>s.length > 0), req.body.lang);
-    
+
+    console.log("Creating questionRaw");
+    console.log(questionRaw);
+
     Question.create({
       title: questionRaw.title,
       imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
       answer: questionRaw.answer,
       fake: questionRaw.fakes,
       duration: settings.durationQuestion,
-      gameId: game.id
+      gameId: game.id,
+        lang: questionRaw.la
     })
   
     res.status(200).json({
         title: questionRaw.title,
-        lang: "ejemplo",
+        lang: req.body.lang,
         imageUrl: questionRaw.imageUrl ? questionRaw.imageUrl : "",
         awnsers: suffle([
             String(questionRaw.answer),

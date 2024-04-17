@@ -45,6 +45,9 @@ const saveQuestion = async() =>
         lang: res.lang
     });
 
+    console.log("Saving question");
+    console.log(question);
+
     await question.save();
 }
 
@@ -57,8 +60,6 @@ const loadInitialQuestions = () =>
 const saveQuestionsInDB = async () =>
 {
     const questions = await Question.find({});
-
-    console.log(questions);
 
     if (questions.length > 1000)
         return;
