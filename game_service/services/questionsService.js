@@ -18,11 +18,7 @@ const loadQuestion = async(tags, lang) =>
 
     //Safety!
     if(res === undefined || res[0] === undefined){
-        console.log("No questions found with the given tags and language, trying to get a random question");
         res = await Question.aggregate().sample(1);
-    } else {
-        console.log("Question found with the given tags and language");
-        console.log(res);
     }
 
 
