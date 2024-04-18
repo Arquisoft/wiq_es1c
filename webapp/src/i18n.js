@@ -70,7 +70,13 @@ i18n
                     any: 'Any'
                 },
                 Friends: {
-
+                    friends: 'Friends',
+                    noFriends: 'You have no friends.',
+                    accept: 'Accept',
+                    receivedFriendRequest: 'Friendship requests received',
+                    noFriendRequest: 'You have no friend requests.',
+                    searchUsers: 'Search users',
+                    sendRequest: 'Send request'
                 }
             },
         },
@@ -140,7 +146,13 @@ i18n
                     any: 'Cualquiera'
                 },
                 Friends: {
-
+                    friends: 'Amigos',
+                    noFriends: 'No tienes amigos.',
+                    accept: 'Aceptar',
+                    receivedFriendRequest: 'Peticiones de amistad recibidas',
+                    noFriendRequest: 'No tienes peticiones de amistad.',
+                    searchUsers: 'Buscar usuarios',
+                    sendRequest: 'Enviar petición'
                 }
             },
         },
