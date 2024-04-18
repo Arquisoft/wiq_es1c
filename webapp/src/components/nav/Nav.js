@@ -149,6 +149,8 @@ export const Nav = () => {
     navigate("/settings");
   };
 
+  const hasToken = localStorage.getItem('token') !== null;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -217,44 +219,59 @@ export const Nav = () => {
           </Menu>
 
           {/** Settings Icon */}
-          <IconButton onClick={openSettings} size="large" color="inherit" data-testid="go-settings">
-            <SettingsIcon style={{ color: color }} />
-          </IconButton>
+          { 
+            hasToken && (
+              <IconButton onClick={openSettings} size="large" color="inherit" data-testid="go-settings">
+                <SettingsIcon style={{ color: color }} />
+              </IconButton>
+            )
+          }
 
           {/* Botón de cuenta */}
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="account-appbar"
-            aria-haspopup="true"
-            onClick={handleMenuAccountOpen}
-            color="inherit"
-            data-testid="open-account-menu"
-          >
-            <AccountCircle style={{ color: color }} />
-          </IconButton>
+          { 
+            hasToken && (
+              <>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="account-appbar"
+                aria-haspopup="true"
+                onClick={handleMenuAccountOpen}
+                color="inherit"
+                data-testid="open-account-menu"
+              >
+                <AccountCircle style={{ color: color }} />
+              </IconButton>
 
-          <Menu
-            id="account-appbar"
-            open={openMenuAccount}
-            onClose={handleMenuAccountClose}
-            anchorEl={userAnchor}
-          >
+              <Menu
+                id="account-appbar"
+                open={openMenuAccount}
+                onClose={handleMenuAccountClose}
+                anchorEl={userAnchor}
+              >
 
-            <MenuItem onClick={profile} data-testid="go-profile">Perfil</MenuItem>
-            <MenuItem onClick={history} data-testid="go-history">Historial</MenuItem>
-            <MenuItem onClick={friends} data-testid="go-friends">Amigos</MenuItem>
+                <MenuItem onClick={profile} data-testid="go-profile">Perfil</MenuItem>
+                <MenuItem onClick={history} data-testid="go-history">Historial</MenuItem>
+                <MenuItem onClick={friends} data-testid="go-friends">Amigos</MenuItem>
 
-          </Menu>
+              </Menu>
+              </>
+            )
+          }
 
-          <IconButton
-            size="large"
-            color="inherit"
-            onClick={logout}
-            data-testid="logout"
-          >
-            <LogoutIcon style={{ color: color }} />
-          </IconButton>
+          { /* Logout */ }
+          {
+            hasToken && (
+              <IconButton
+                size="large"
+                color="inherit"
+                onClick={logout}
+                data-testid="logout"
+              >
+                <LogoutIcon style={{ color: color }} />
+              </IconButton>
+            )
+          }
         </Toolbar>
       </AppBar>
     </Box>
