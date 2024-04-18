@@ -126,11 +126,11 @@ export const Game = ({finishFunction, name, tags}) => {
             setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
             setLoading(false);
-            getEndTime(token,name).then((time) => {
+            getEndTime(token,name).then((timef) => {
                 if(name !== "AgainstClock" || time === undefined){
-                    setTime(time);
+                    setTime(timef);
                 }
-                console.log("Cambiar el tiempo de pregunta"+(time.end - Number(new Date().getTime())));
+                console.log("Cambiar el tiempo de pregunta"+(timef.end - Number(new Date().getTime())));
             });
         });
     }
@@ -140,7 +140,6 @@ export const Game = ({finishFunction, name, tags}) => {
         setQuestionImage("");
         setRespuestas(["...","...","...","..."])
         setLoading(true);
-        setTime(undefined);
 
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
             btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";
