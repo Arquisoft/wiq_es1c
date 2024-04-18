@@ -19,6 +19,9 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import TranslateIcon from "@mui/icons-material/Translate";
 import SettingsIcon from "@mui/icons-material/Settings";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HistoryIcon from '@mui/icons-material/History';
+import GroupsIcon from '@mui/icons-material/Groups';
 import i18n from "../../i18n";
 
 
@@ -207,14 +210,14 @@ export const Nav = () => {
               onClick={spanish}
             >
               <span className="fi fi-es mr-1"></span>
-              Español
+              { t('Nav.spanish') }
             </MenuItem>
             <MenuItem
               selected={i18n.language === "en" ? true : false}
               onClick={english}
             >
               <span className="fi fi-gb mr-1"></span>
-              Inglés
+              { t('Nav.english') }
             </MenuItem>
           </Menu>
 
@@ -250,9 +253,9 @@ export const Nav = () => {
                 anchorEl={userAnchor}
               >
 
-                <MenuItem onClick={profile} data-testid="go-profile">Perfil</MenuItem>
-                <MenuItem onClick={history} data-testid="go-history">Historial</MenuItem>
-                <MenuItem onClick={friends} data-testid="go-friends">Amigos</MenuItem>
+                <MenuItem onClick={profile} data-testid="go-profile"><AccountCircleIcon className="mr-1" />{ t('Nav.profile') }</MenuItem>
+                <MenuItem onClick={history} data-testid="go-history"><HistoryIcon className="mr-1"/>{ t('Nav.history') }</MenuItem>
+                <MenuItem onClick={friends} data-testid="go-friends"><GroupsIcon className="mr-1"/>{ t('Nav.friends') }</MenuItem>
 
               </Menu>
               </>
