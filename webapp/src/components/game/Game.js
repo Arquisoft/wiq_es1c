@@ -160,9 +160,9 @@ export const Game = ({finishFunction, name, tags}) => {
                     let trans = (new Date().getTime()) - time.start;
 
                     let percentage =  (trans/total) * 100;
-                    let invertedPercentage = 100 - Number(percentage);
+                    let invertedPercentage = total - Number(trans);
                     
-                    setRemTime((invertedPercentage/100)*110);
+                    setRemTime((invertedPercentage/100)*100);
 
                     if(percentage > 100){
                         comprobarPregunta("");
