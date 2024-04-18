@@ -160,9 +160,9 @@ export const Game = ({finishFunction, name, tags}) => {
                     let trans = (new Date().getTime()) - time.start;
 
                     let percentage =  (trans/total) * 100;
-                    let invertedPercentage = total - Number(trans);
+                    let invertedPercentage = 100 - Number(percentage);
                     
-                    setRemTime((invertedPercentage/100)*100);
+                    setRemTime((invertedPercentage/100)*200);
 
                     if(percentage > 100){
                         comprobarPregunta("");
@@ -235,7 +235,7 @@ export const Game = ({finishFunction, name, tags}) => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),1000)}
+                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),200)}
                     </Typography>
 
                 </Box>
