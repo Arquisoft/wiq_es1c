@@ -85,6 +85,20 @@ i18n
                     playSuddenDeath: 'JUGAR MUERTE SÚBITA',
                     chooseTags: 'Elige las tags',
                     infoTags: 'Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.'
+                },
+                Configuration: {
+                    title: 'Configuración',
+                    numQuestions: 'Numero de preguntas',
+                    durationQuestions: 'Duracion de las preguntas'
+                },
+                Profile: {
+
+                },
+                History: {
+
+                },
+                Friends: {
+
                 }
             },
         },

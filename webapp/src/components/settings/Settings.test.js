@@ -15,7 +15,7 @@ describe("Settings component", () => {
 
   test("renders component", async () => {
     render(<MemoryRouter><Settings /></MemoryRouter>);
-    expect(screen.getByText(/Configuracion/i)).toBeInTheDocument();
+    expect(screen.getByText(/Configuración/i)).toBeInTheDocument();
   });
 
   test("displays correct number of questions", async () => {

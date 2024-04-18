@@ -3,9 +3,12 @@ import {Box, Container, CssBaseline, Typography} from "@mui/material";
 import { Nav } from '../nav/Nav';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
+import { useTranslation } from "react-i18next";
+
 import { getGameSettings, setGameSettings} from "../../services/game.service";
 
 export const Settings = () => {
+    const { t } = useTranslation();
     const token = localStorage.getItem("token");
 
     const [duration, setDuration] = useState(0);
@@ -56,12 +59,12 @@ export const Settings = () => {
                         className="bg-white dark:bg-dark-mode text-black dark:text-white "
                     >
                         <Typography  className="text-black dark:text-white " component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
-                            Configuracion
+                            { t('Configuration.title') }
                         </Typography>
 
                         <Box>
                             <Typography id="Questions_Number" gutterBottom className="text-black dark:text-white ">
-                                Numero de preguntas
+                                { t('Configuration.numQuestions') }
                             </Typography>
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item xs={8}>
@@ -86,7 +89,7 @@ export const Settings = () => {
                         </Box>
                         <Box>
                             <Typography id="Questions_Duration" gutterBottom className="text-black dark:text-white ">
-                                Duracion de las preguntas
+                                { t('Configuration.durationQuestions') }
                             </Typography>
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item xs={8}>
