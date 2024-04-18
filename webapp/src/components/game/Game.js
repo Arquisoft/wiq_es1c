@@ -127,7 +127,7 @@ export const Game = ({finishFunction, name, tags}) => {
             setRespuestas(respuesta.awnsers);
             setLoading(false);
             getEndTime(token,name).then((time) => {
-                setTime(time);
+                //setTime(time);
                 console.log("Cambiar el tiempo de pregunta"+(time.end - Number(new Date().getTime())));
             });
         });
