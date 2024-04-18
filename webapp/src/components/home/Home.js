@@ -3,16 +3,14 @@ import {Box, IconButton, Chip, Container, CssBaseline, Modal, Typography} from "
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useTranslation } from "react-i18next";
 
+import './Home.css';
 import { getCurrentUser } from "../../services/user.service";
 import { Nav } from '../nav/Nav';
-
-import {Footer} from '../footer/Footer';
-import './Home.css';
-
 import {getTags} from "../../services/question.service";
 import {useNavigate} from "react-router-dom";
 import bannerDark from '../../media/wiq_banner.png';
 import bannerLight from '../../media/wiq_banner.light.png';
+import {Footer} from '../footer/Footer';
 
 export const Home = () => 
 {
@@ -121,7 +119,7 @@ export const Home = () =>
                             alignItems: "left"
 
                         }}
-                        className="bg-teal-50 dark:bg-zinc-800 text-black dark:text-white "
+                        className="bg-white dark:bg-dark-mode text-black dark:text-white "
                     >
                         <img src={bannerLight} alt="WiQ" className="block dark:hidden"/>
                         <img src={bannerDark} alt="WiQ" className="hidden dark:block"/>
@@ -161,15 +159,6 @@ export const Home = () =>
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                    <span className="text-black dark:text-white text bg-light-blue dark:bg-dark-purple">JUGAR</span>
-                                </button>
-                        </div>
-                        <div className="flex align-middle justify-center flex-grow m-3">
-                            <button onClick={openTagSelection} className="bg-gradient-to-r
-                                from-cyan-50 via-cyan-300 to blue-500
-                                dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
-                                buttonGradient">
-
                                     <span className="text-black dark:text-white text">{ t('Home.playClassic') }</span>
                                 </button>
                         </div>
@@ -209,7 +198,7 @@ export const Home = () =>
                             transform: 'translateY(-50%) translateX(-50%)',
                             left: '50%'
                         }}>
-                        <IconButton aria-label="close" color="inherit" onClick={closeTagSelection} className="self-end p-2">
+                        <IconButton aria-label="close" color="secondary" onClick={closeTagSelection} className="self-end p-2">
                             <CancelIcon />
                         </IconButton>
                         <Box>
@@ -220,16 +209,14 @@ export const Home = () =>
                             <div id="tagBox">
                                 {tags.map((tag) =>
                                     <Chip
-                                        className="tagChip  border-cyan-500 dark:border-purple-500"
+                                        className="tagChip text-black dark:text-white"
                                         key={tag.name}
                                         onClick={(e) => toggleTag(e, tag)}
                                         variant="outlined"
                                         label={tag.name}
                                         data-active={tag.active}
-                                        color = "secondary"
 
                                     >
-                                        
                                     </Chip>
 
                                 )}
