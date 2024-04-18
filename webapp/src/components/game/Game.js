@@ -152,17 +152,20 @@ export const Game = ({finishFunction, name, tags}) => {
             setTime(time => {
                 if(time !== undefined){
                     let total = 0;
+                    let gameTime = 0;
                     if(name === "AgainstClock"){
-                        total = basicGameSetting.durationQuestion * 1000 * basicGameSetting.numberOfQuestions;
+                        gameTime = basicGameSetting.durationQuestion * basicGameSetting.numberOfQuestions
+                        total = gameTime * 1000 ;
                     }else{
-                        total = basicGameSetting.durationQuestion * 1000;
+                        gameTime = basicGameSetting.durationQuestion
+                        total = gameTime * 1000;
                     }
                     let trans = (new Date().getTime()) - time.start;
 
                     let percentage =  (trans/total) * 100;
                     let invertedPercentage = 100 - Number(percentage);
                     
-                    setRemTime((invertedPercentage/100)*200);
+                    setRemTime((invertedPercentage/100)*gameTime);
 
                     if(percentage > 100){
                         comprobarPregunta("");
