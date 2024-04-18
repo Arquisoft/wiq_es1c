@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Nav } from "../nav/Nav";
 import { Autocomplete, Avatar, Box, Button, Container, CssBaseline, Grid, Stack, TextField, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useTranslation } from "react-i18next";
 import { getUsers, getCurrentUser } from "../../services/user.service";
 import { acceptRequest, getFriends, getRequests, sendRequest } from "../../services/friends.service";
 import {Footer} from '../footer/Footer';
 
 export const Friends = () => {
+  const { t } = useTranslation();
+
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -94,7 +97,7 @@ export const Friends = () => {
                   }}
                   
               >
-                  <Typography className="text-black dark:text-white ">Amigos</Typography>
+                  <Typography className="text-black dark:text-white ">{ t('Friends.friends') }</Typography>
                   <Stack spacing={2}>
                     {
                       friends.length > 0
@@ -110,7 +113,7 @@ export const Friends = () => {
                         </Grid>
                       )
                       :
-                      <Typography>No tienes amigos.</Typography>
+                      <Typography>{ t('Friends.noFriends') }</Typography>
                     }
                   </Stack>
               </Box>
@@ -123,7 +126,7 @@ export const Friends = () => {
                   }}
                   
               >
-                  <Typography className="text-black dark:text-white ">Peticiones de amistad recibidas</Typography>
+                  <Typography className="text-black dark:text-white ">{ t('Friends.receivedFriendRequest') }</Typography>
                   <Stack spacing={2}>
                     {
                       requests.length > 0
@@ -134,12 +137,12 @@ export const Friends = () => {
                             <Typography>{request.name}</Typography>
                           </Grid>
                           <Grid item xs={4}>
-                            <Button onClick={()=>acceptFriendRequest(request.from)}variant="outlined">Aceptar</Button>
+                            <Button onClick={()=>acceptFriendRequest(request.from)}variant="outlined">{ t('Friends.accept') }</Button>
                           </Grid>
                         </Grid>
                       )
                       :
-                      <Typography>No tienes peticiones de amistad.</Typography>
+                      <Typography>{ t('Friends.noFriendRequest') }</Typography>
                     }
                   </Stack>
               </Box>
@@ -160,11 +163,11 @@ export const Friends = () => {
                         options={users}
                         sx={{ width: 300 }}
                         onChange={handleUserChange}
-                        renderInput={(params) => <TextField {...params} label="Buscar usuarios" />}
+                        renderInput={(params) => <TextField {...params} label={ t('Friends.searchUsers') } />}
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <Button onClick={sendFriendRequest}variant="outlined">Enviar peticion</Button>
+                    <Button onClick={sendFriendRequest}variant="outlined">{ t('Friends.sendRequest') }</Button>
                   </Grid>
                 </Grid>
               </Box>
