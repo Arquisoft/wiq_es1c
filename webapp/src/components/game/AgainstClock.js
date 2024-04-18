@@ -1,5 +1,4 @@
 import { React } from "react";
-import {getCurrentQuestion, getGameSettings } from "../../services/game.service";
 import Game from "./Game";
 import PropTypes from "prop-types";
 import {useLocation} from "react-router-dom";
