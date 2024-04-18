@@ -43,6 +43,20 @@ i18n
                     playSuddenDeath: 'PLAYING SUDDEN DEATH',
                     chooseTags: 'Choose the tags',
                     infoTags: 'With the tags you can select the categories you want to be asked about.',
+                },
+                Configuration: {
+                    title: 'Configuration',
+                    numQuestions: 'Number of questions',
+                    durationQuestions: 'Duration of questions'
+                },
+                Profile: {
+
+                },
+                History: {
+
+                },
+                Friends: {
+
                 }
             },
         },
