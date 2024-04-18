@@ -43,6 +43,40 @@ i18n
                     playSuddenDeath: 'PLAYING SUDDEN DEATH',
                     chooseTags: 'Choose the tags',
                     infoTags: 'With the tags you can select the categories you want to be asked about.',
+                },
+                Configuration: {
+                    title: 'Configuration',
+                    numQuestions: 'Number of questions',
+                    durationQuestions: 'Duration of questions'
+                },
+                Profile: {
+                    user: 'User: {{ name }}',
+                    playSince: 'He has been playing since: {{ date }}',
+                    lastGameResults: 'Results last game',
+                    generalResults: 'General results'
+                },
+                History: {
+                    date: 'Date',
+                    successful: 'Successful',
+                    failed: 'Failed',
+                    correctAnswers: '% correct',
+                    questions: 'Questions',
+                    tags: 'Tags',
+                    unanswered: '(unanswered)',
+                    question: 'Question',
+                    correctAnswer: 'Correct answer',
+                    yourAnswer: 'Your answer',
+                    correct: 'Correct',
+                    any: 'Any'
+                },
+                Friends: {
+                    friends: 'Friends',
+                    noFriends: 'You have no friends.',
+                    accept: 'Accept',
+                    receivedFriendRequest: 'Friendship requests received',
+                    noFriendRequest: 'You have no friend requests.',
+                    searchUsers: 'Search users',
+                    sendRequest: 'Send request'
                 }
             },
         },
@@ -85,6 +119,40 @@ i18n
                     playSuddenDeath: 'JUGAR MUERTE SÚBITA',
                     chooseTags: 'Elige las tags',
                     infoTags: 'Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.'
+                },
+                Configuration: {
+                    title: 'Configuración',
+                    numQuestions: 'Numero de preguntas',
+                    durationQuestions: 'Duracion de las preguntas'
+                },
+                Profile: {
+                    user: 'Usuario: {{ name }}',
+                    playSince: 'Lleva jugando desde: {{ date }}',
+                    lastGameResults: 'Resultados última partida',
+                    generalResults: 'Resultados generales'
+                },
+                History: {
+                    date: 'Fecha',
+                    successful: 'Acertadas',
+                    failed: 'Falladas',
+                    correctAnswers: '% de aciertos',
+                    questions: 'Preguntas',
+                    tags: 'Etiquetas',
+                    unanswered: '(Sin contestar)',
+                    question: 'Pregunta',
+                    correctAnswer: 'Respuesta correcta',
+                    yourAnswer: 'Tu respuesta',
+                    correct: 'Correcta',
+                    any: 'Cualquiera'
+                },
+                Friends: {
+                    friends: 'Amigos',
+                    noFriends: 'No tienes amigos.',
+                    accept: 'Aceptar',
+                    receivedFriendRequest: 'Peticiones de amistad recibidas',
+                    noFriendRequest: 'No tienes peticiones de amistad.',
+                    searchUsers: 'Buscar usuarios',
+                    sendRequest: 'Enviar petición'
                 }
             },
         },

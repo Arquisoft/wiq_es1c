@@ -20,8 +20,11 @@ import { getHistory } from "../../services/user.service"
 import { Nav } from '../nav/Nav';
 import { CssBaseline } from '@mui/material';
 import StringColorChip from './ColorChip';
+import { useTranslation } from "react-i18next";
 
 function Row(props) {
+    const { t } = useTranslation();
+
     const { row } = props;
     const [open, setOpen] = React.useState(false);
     
@@ -54,15 +57,15 @@ function Row(props) {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  Preguntas
+                  { t('History.questions') }
                 </Typography>
                 <Table size="small" aria-label="preguntas">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Pregunta</TableCell>
-                      <TableCell>Respuesta correcta</TableCell>
-                      <TableCell>Tu respuesta</TableCell>
-                      <TableCell>Correcta</TableCell>
+                      <TableCell>{ t('History.question') }</TableCell>
+                      <TableCell>{ t('History.correctAnswer') }</TableCell>
+                      <TableCell>{ t('History.yourAnswer') }</TableCell>
+                      <TableCell>{ t('History.correct') }</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -70,14 +73,14 @@ function Row(props) {
                       <TableRow key={questionRow.id} data-testid="question">
                         <TableCell>{questionRow.title}</TableCell>
                         <TableCell>{questionRow.answer}</TableCell>
-                        <TableCell>{questionRow.user_answer ?? "(Sin contestar)"}</TableCell>
+                        <TableCell>{questionRow.user_answer ?? t('History.unanswered') }</TableCell>
                         <TableCell>{(questionRow.onTime&&questionRow.answer===questionRow.user_answer)?<CheckCircleIcon color="success"/>:<CancelIcon color="error"/>}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
                 <Typography variant="h6" gutterBottom component="div">
-                  Tags
+                  { t('History.tags') }
                 </Typography>
                 <Stack direction="row" spacing={1}>
                     {
@@ -87,7 +90,7 @@ function Row(props) {
                             <StringColorChip label={tag}/>
                         )}
                     </> 
-                    :   <StringColorChip label="Cualquiera"/>}
+                    :   <StringColorChip label={ t('History.any') }/>}
                     
                 </Stack>
               </Box>
@@ -100,7 +103,7 @@ function Row(props) {
 
 
 export const History = () => {
-
+    const { t } = useTranslation();
     const [history, setHistory] = useState([]);
 
     useEffect(() => {
@@ -117,10 +120,10 @@ export const History = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell/>
-                                <TableCell>Fecha</TableCell>
-                                <TableCell>Acertadas</TableCell>
-                                <TableCell>Falladas</TableCell>
-                                <TableCell>% de aciertos</TableCell>
+                                <TableCell>{ t('History.date') }</TableCell>
+                                <TableCell>{ t('History.successful') }</TableCell>
+                                <TableCell>{ t('History.failed') }</TableCell>
+                                <TableCell>{ t('History.correctAnswers') }</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

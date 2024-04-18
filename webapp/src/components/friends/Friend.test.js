@@ -3,6 +3,7 @@ import {render, screen, fireEvent, act, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Friends } from './Friend';
 import { MemoryRouter, Route } from 'react-router-dom';
+import "../../i18n";
 
 jest.mock('../../services/friends.service', () => ({
     getFriends: () => Promise.resolve([{friend1: "1", friend2: "2"}]),
