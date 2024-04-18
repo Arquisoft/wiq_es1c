@@ -41,6 +41,10 @@ export const Game = ({finishFunction, name, tags}) => {
     const [remTime, setRemTime] = useState(0);
     const location = useLocation();
 
+    const againstClockFinish = async () => {
+        return remTime <= 0;
+    }
+
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then(async (correcta) => {
@@ -55,22 +59,13 @@ export const Game = ({finishFunction, name, tags}) => {
                 }
             }
 
-
-            console.log(typeof finishFunction);
-
             if(finishFunction !== undefined && finishFunction != null) {
                 callback(await finishFunction());
-            }/*
-            else if(name === "AgainstClock"){
-                callback( () => {
-                    console.log("Tempo : "+time);
-                    console.log("Tempo restante: "+remTime);
-                });
             }
-            */
+            else if(name === "AgainstClock"){
+                callback( await againstClockFinish());
+            }
             else{
-                console.log("Tempo : "+time);
-                console.log("Tempo restante: "+remTime);
                  callback(await isFinished());
             }
 
@@ -135,7 +130,7 @@ export const Game = ({finishFunction, name, tags}) => {
             setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
             setLoading(false);
-            getEndTime(token,name).then((timef) => {
+            getEndTime(token).then((timef) => {
                 if(name !== "AgainstClock" || time === undefined){
                     setTime(timef);
                 }
@@ -257,7 +252,7 @@ export const Game = ({finishFunction, name, tags}) => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/10).toFixed(0),0),60) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),3000)}
+                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/1).toFixed(0),0),60) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),3000)}
                     </Typography>
 
                 </Box>
