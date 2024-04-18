@@ -126,8 +126,11 @@ export const Game = ({finishFunction, name, tags}) => {
             setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
             setLoading(false);
-            getEndTime(token).then((time) => {
-                setTime(time);
+            getEndTime(token,name).then((time) => {
+                if(name !== "AgainstClock" || time === undefined){
+                    setTime(time);
+                }
+                console.log("Cambiar el tiempo de pregunta"+(time.end - Number(new Date().getTime())));
             });
         });
     }
@@ -148,21 +151,26 @@ export const Game = ({finishFunction, name, tags}) => {
     useEffect(() => {
         let interval = setInterval(() => {
             setTime(time => {
-                    if(time !== undefined){
-                        let total = basicGameSetting.durationQuestion * 1000;
-                        let trans = (new Date().getTime()) - time.start;
-
-                        let percentage =  (trans/total) * 100;
-                        let invertedPercentage = 100 - Number(percentage);
-                        
-                        setRemTime((invertedPercentage/100)*110);
-
-                        if(percentage > 100){
-                            comprobarPregunta("");
-                            time = undefined;
-                        }
+                if(time !== undefined){
+                    let total = 0;
+                    if(name === "AgainstClock"){
+                        total = basicGameSetting.durationQuestion * 1000 * basicGameSetting.numberOfQuestions;
+                    }else{
+                        total = basicGameSetting.durationQuestion * 1000;
                     }
-                return time;
+                    let trans = (new Date().getTime()) - time.start;
+
+                    let percentage =  (trans/total) * 100;
+                    let invertedPercentage = 100 - Number(percentage);
+                    
+                    setRemTime((invertedPercentage/100)*110);
+
+                    if(percentage > 100){
+                        comprobarPregunta("");
+                        time = undefined;
+                    }
+                }
+            return time;
             });
         }, 20);
 
@@ -228,8 +236,9 @@ export const Game = ({finishFunction, name, tags}) => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) }
+                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),1000)}
                     </Typography>
+
                 </Box>
                 <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
                     sx={{
@@ -310,7 +319,7 @@ export const Game = ({finishFunction, name, tags}) => {
 
 Game.propTypes = {
     finishFunction: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
 }
 
 export default Game;
