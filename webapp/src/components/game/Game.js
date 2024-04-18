@@ -152,20 +152,28 @@ export const Game = ({finishFunction, name, tags}) => {
             setTime(time => {
                 if(time !== undefined){
                     let total = 0;
-                    let gameTime = 0;
-                    if(name === "AgainstClock"){
-                        gameTime = basicGameSetting.durationQuestion * basicGameSetting.numberOfQuestions
-                        total = gameTime * 1000 ;
-                    }else{
-                        gameTime = basicGameSetting.durationQuestion
-                        total = gameTime * 1000;
-                    }
-                    let trans = (new Date().getTime()) - time.start;
+                    let trans = 0;
+                    let percentage = 0;
+                    let invertedPercentage = 0;
 
-                    let percentage =  (trans/total) * 100;
-                    let invertedPercentage = 100 - Number(percentage);
+                    if(name === "AgainstClock"){
+                        let gameTime = (basicGameSetting.durationQuestion * basicGameSetting.numberOfQuestions) <= 600 ? basicGameSetting.durationQuestion * basicGameSetting.numberOfQuestions : 600;
+                        total = gameTime * 1000 ;
+                        trans = (new Date().getTime()) - time.start;
+
+                        percentage =  (trans/total) * 100;
+                        invertedPercentage = 100 - Number(percentage);
                     
-                    setRemTime((invertedPercentage/100)*gameTime);
+                        setRemTime((invertedPercentage/100)*gameTime);
+                    }else{
+                        total = basicGameSetting.durationQuestion * 1000;
+                        trans = (new Date().getTime()) - time.start;
+
+                        percentage =  (trans/total) * 100;
+                        invertedPercentage = 100 - Number(percentage);
+                        
+                        setRemTime((invertedPercentage/100)*110);
+                    }
 
                     if(percentage > 100){
                         comprobarPregunta("");
@@ -238,7 +246,7 @@ export const Game = ({finishFunction, name, tags}) => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),200)}
+                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),3000)}
                     </Typography>
 
                 </Box>
