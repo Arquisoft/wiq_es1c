@@ -41,9 +41,6 @@ const saveQuestion = async() =>
         lang: res.lang
     });
 
-    console.log("Saving question");
-    console.log(question);
-
     await question.save();
 }
 

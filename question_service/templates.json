@@ -108,14 +108,14 @@
         "selector": "<winnerLabel>",
         "tags": ["sports"],
         "lang": "es",
-        "query": "SELECT ?championshipLabel ?winnerLabel WHERE { ?championship wdt:P31 wd:Q123724352. ?championship wdt:P1346 ?winner. wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100"
+        "query": "SELECT ?championshipLabel ?winnerLabel WHERE { ?championship wdt:P31 wd:Q123724352. ?championship wdt:P1346 ?winner. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100"
     },
     {
         "question": "Which team won the <championshipLabel>",
         "selector": "<winnerLabel>",
         "tags": ["sports"],
         "lang": "en",
-        "query": "SELECT ?championshipLabel ?winnerLabel WHERE { ?championship wdt:P31 wd:Q123724352. ?championship wdt:P1346 ?winner. wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100"
+        "query": "SELECT ?championshipLabel ?winnerLabel WHERE { ?championship wdt:P31 wd:Q123724352. ?championship wdt:P1346 ?winner. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100"
     },
     {
         "question": "¿Qué equipo ganó la <leagueLabel>?",
@@ -130,5 +130,35 @@
         "tags": ["sports"],
         "lang": "en",
         "query": "SELECT ?leagueLabel ?winnerLabel WHERE { ?league wdt:P31 wd:Q27020041; wdt:P3450 wd:Q155223. ?league wdt:P1346 ?winner. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100"
+    },
+    {
+        "question": "¿A qué equipo pertenece este escudo?",
+        "selector": "<teamLabel>",
+        "tags": ["esports", "image"],
+        "lang": "es",
+        "query": "SELECT ?teamLabel ?badgeLabel ?badge WHERE { ?team wdt:P31 wd:Q61974339. ?team wdt:P154 ?badge. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100",
+        "imageurl": "<badge>"
+    },
+    {
+        "question": "Which team does this badge belong to?",
+        "selector": "<teamLabel>",
+        "tags": ["esports", "image"],
+        "lang": "en",
+        "query": "SELECT ?teamLabel ?badgeLabel ?badge WHERE { ?team wdt:P31 wd:Q61974339. ?team wdt:P154 ?badge. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100",
+        "imageurl": "<badge>"
+    },
+    {
+        "question": "¿Cuál es el estadio de <teamLabel>?",
+        "selector": "<stadiumLabel>",
+        "tags": ["sports"],
+        "lang": "es",
+        "query": "SELECT ?teamLabel ?stadiumLabel WHERE { ?team wdt:P31 wd:Q476028. ?team wdt:P115 ?stadium. ?team wdt:P118 ?league. FILTER(?league IN (wd:Q324867, wd:Q9448, wd:Q82595, wd:Q13394, wd:Q35615))  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100"
+    },
+    {
+        "question": "Which is the stadium of <teamLabel>?",
+        "selector": "<stadiumLabel>",
+        "tags": ["sports"],
+        "lang": "en",
+        "query": "SELECT ?teamLabel ?stadiumLabel WHERE { ?team wdt:P31 wd:Q476028. ?team wdt:P115 ?stadium. ?team wdt:P118 ?league. FILTER(?league IN (wd:Q324867, wd:Q9448, wd:Q82595, wd:Q13394, wd:Q35615))  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100"
     }
 ]
