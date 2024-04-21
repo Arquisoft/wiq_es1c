@@ -10,6 +10,7 @@ import {getTags} from "../../services/question.service";
 import {useNavigate} from "react-router-dom";
 import bannerDark from '../../media/wiq_banner.png';
 import bannerLight from '../../media/wiq_banner.light.png';
+import {Footer} from '../footer/Footer';
 
 export const Home = () => 
 {
@@ -228,6 +229,7 @@ export const Home = () =>
 
             </Container>
         )}
+        <Footer/>
         </>
     )
 }

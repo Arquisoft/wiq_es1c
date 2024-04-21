@@ -4,6 +4,7 @@ import {Box, Container, CssBaseline,Typography,Icon, CircularProgress } from "@m
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Nav } from '../nav/Nav';
 import { useTranslation } from "react-i18next";
+import {Footer} from '../footer/Footer';
 
 export const Profile = () =>{
     const { t } = useTranslation();
@@ -181,7 +182,7 @@ export const Profile = () =>{
             <CssBaseline />
             </Container>
         </Container>
-        
+        <Footer/>
         </>
     )
 }

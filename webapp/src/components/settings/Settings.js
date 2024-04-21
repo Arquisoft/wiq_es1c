@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import { useTranslation } from "react-i18next";
 
 import { getGameSettings, setGameSettings} from "../../services/game.service";
+import {Footer} from '../footer/Footer';
 
 export const Settings = () => {
     const { t } = useTranslation();
@@ -122,6 +123,7 @@ export const Settings = () => {
                 </Container>
             </Container>
         )}
+        <Footer/>
         </>
     )
 }

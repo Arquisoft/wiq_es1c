@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useTranslation } from "react-i18next";
 import { getUsers, getCurrentUser } from "../../services/user.service";
 import { acceptRequest, getFriends, getRequests, sendRequest } from "../../services/friends.service";
+import {Footer} from '../footer/Footer';
 
 export const Friends = () => {
   const { t } = useTranslation();
@@ -173,6 +174,7 @@ export const Friends = () => {
           </Container>
         </Container>
       </ThemeProvider>
+      <Footer/>
     </>
   );
 };

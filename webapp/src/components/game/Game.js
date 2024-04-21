@@ -12,6 +12,7 @@ import {
     getNumberOfQuestions
 } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
+import {Footer} from '../footer/Footer';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
 import i18n from "../../i18n";
@@ -307,6 +308,7 @@ export const Game = ({finishFunction, name, tags}) => {
             </Box>
         </Container>
     </Container>
+    <Footer/>
     </>
   )
 }
