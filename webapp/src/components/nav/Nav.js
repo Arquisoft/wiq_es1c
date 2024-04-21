@@ -19,6 +19,9 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import TranslateIcon from "@mui/icons-material/Translate";
 import SettingsIcon from "@mui/icons-material/Settings";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HistoryIcon from '@mui/icons-material/History';
+import GroupsIcon from '@mui/icons-material/Groups';
 import i18n from "../../i18n";
 
 
@@ -149,6 +152,8 @@ export const Nav = () => {
     navigate("/settings");
   };
 
+  const hasToken = localStorage.getItem('token') !== null;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -214,56 +219,71 @@ export const Nav = () => {
               onClick={spanish}
             >
               <span className="fi fi-es mr-1"></span>
-              Español
+              { t('Nav.spanish') }
             </MenuItem>
             <MenuItem
               selected={i18n.language === "en" ? true : false}
               onClick={english}
             >
               <span className="fi fi-gb mr-1"></span>
-              Inglés
+              { t('Nav.english') }
             </MenuItem>
           </Menu>
 
           {/** Settings Icon */}
-          <IconButton onClick={openSettings} size="large" color="inherit" data-testid="go-settings">
-            <SettingsIcon style={{ color: color }} />
-          </IconButton>
+          { 
+            hasToken && (
+              <IconButton onClick={openSettings} size="large" color="inherit" data-testid="go-settings">
+                <SettingsIcon style={{ color: color }} />
+              </IconButton>
+            )
+          }
 
           {/* Botón de cuenta */}
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="account-appbar"
-            aria-haspopup="true"
-            onClick={handleMenuAccountOpen}
-            color="inherit"
-            data-testid="open-account-menu"
-          >
-            <AccountCircle style={{ color: color }} />
-          </IconButton>
+          { 
+            hasToken && (
+              <>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="account-appbar"
+                aria-haspopup="true"
+                onClick={handleMenuAccountOpen}
+                color="inherit"
+                data-testid="open-account-menu"
+              >
+                <AccountCircle style={{ color: color }} />
+              </IconButton>
 
-          <Menu
-            id="account-appbar"
-            open={openMenuAccount}
-            onClose={handleMenuAccountClose}
-            anchorEl={userAnchor}
-          >
+              <Menu
+                id="account-appbar"
+                open={openMenuAccount}
+                onClose={handleMenuAccountClose}
+                anchorEl={userAnchor}
+              >
 
-            <MenuItem onClick={profile} data-testid="go-profile">Perfil</MenuItem>
-            <MenuItem onClick={history} data-testid="go-history">Historial</MenuItem>
-            <MenuItem onClick={friends} data-testid="go-friends">Amigos</MenuItem>
+                <MenuItem onClick={profile} data-testid="go-profile"><AccountCircleIcon className="mr-1" />{ t('Nav.profile') }</MenuItem>
+                <MenuItem onClick={history} data-testid="go-history"><HistoryIcon className="mr-1"/>{ t('Nav.history') }</MenuItem>
+                <MenuItem onClick={friends} data-testid="go-friends"><GroupsIcon className="mr-1"/>{ t('Nav.friends') }</MenuItem>
 
-          </Menu>
+              </Menu>
+              </>
+            )
+          }
 
-          <IconButton
-            size="large"
-            color="inherit"
-            onClick={logout}
-            data-testid="logout"
-          >
-            <LogoutIcon style={{ color: color }} />
-          </IconButton>
+          { /* Logout */ }
+          {
+            hasToken && (
+              <IconButton
+                size="large"
+                color="inherit"
+                onClick={logout}
+                data-testid="logout"
+              >
+                <LogoutIcon style={{ color: color }} />
+              </IconButton>
+            )
+          }
         </Toolbar>
       </AppBar>
     </Box>

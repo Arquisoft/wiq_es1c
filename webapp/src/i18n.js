@@ -31,6 +31,11 @@ i18n
                     alertText: 'Your game will end.',
                     alertConfirm: 'Yes, go out',
                     alertCancel: 'No, continue playing',
+                    profile: 'Profile',
+                    history: 'History',
+                    friends: 'Friends',
+                    spanish: 'Spanish',
+                    english: 'English'
                 },
                 Home: {
                     home: 'Home',
@@ -107,6 +112,11 @@ i18n
                     alertText: 'Terminará tu partida.',
                     alertConfirm: 'Sí, salir',
                     alertCancel: 'No, continuar jugando',
+                    profile: 'Perfil',
+                    history: 'Historial',
+                    friends: 'Amigos',
+                    spanish: 'Español',
+                    english: 'Inglés'
                 },
                 Home: {
                     home: 'Inicio',
