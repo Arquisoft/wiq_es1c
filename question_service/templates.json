@@ -2,80 +2,163 @@
     {
         "question": "Quién es el director de la película: <filmLabel>",
         "selector": "<directorLabel>",
-        "tags": ["film", "text"],
+        "tags": ["film"],
         "lang": "es",
         "query": "SELECT DISTINCT ?filmLabel ?directorLabel WHERE { ?film wdt:P31 wd:Q11424. ?film wdt:P57 ?director. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }LIMIT 100"
     },
     {
+        "question": "Who is the director of the film: <filmLabel>",
+        "selector": "<directorLabel>",
+        "tags": ["film"],
+        "lang": "en",
+        "query": "SELECT DISTINCT ?filmLabel ?directorLabel WHERE { ?film wdt:P31 wd:Q11424. ?film wdt:P57 ?director. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } }LIMIT 100"
+    },
+    {
         "question": "En qué fecha se entrenó la película: <filmLabel>",
         "selector": "<release>",
-        "tags": ["film", "text"],
+        "tags": ["film"],
         "lang": "es",
         "query": "SELECT DISTINCT ?filmLabel ?release WHERE { ?film wdt:P31 wd:Q11424. ?film wdt:P577 ?release. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }LIMIT 100"
     },
     {
-        "question": "Cuál es el tema principal de la película: <filmLabel>",
-        "selector": "<plotLabel>",
-        "tags": ["film", "text"],
-        "lang": "es",
-        "query": "SELECT DISTINCT ?filmLabel ?plotLabel WHERE { ?film wdt:P31 wd:Q11424. ?film wdt:P921 ?plot. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }LIMIT 100"
-    },
-    {
-        "question": "Cuál es la población de <countryLabel>",
-        "selector": "<population>",
-        "tags": ["country", "text"],
-        "lang": "es",
-        "query": "SELECT ?countryLabel ?population WHERE { ?country wdt:P31 wd:Q6256. ?country wdt:P1082 ?population. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
+        "question": "When was this movie released: <filmLabel>",
+        "selector": "<release>",
+        "tags": ["film"],
+        "lang": "en",
+        "query": "SELECT DISTINCT ?filmLabel ?release WHERE { ?film wdt:P31 wd:Q11424. ?film wdt:P577 ?release. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } }LIMIT 100"
     },
     {
         "question": "Cuál es la capital de <countryLabel>",
         "selector": "<capitalLabel>",
-        "tags": ["country", "text"],
+        "tags": ["geography"],
         "lang": "es",
         "query": "SELECT ?countryLabel ?capitalLabel WHERE { ?country wdt:P31 wd:Q6256. ?country wdt:P36 ?capital. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
     },
     {
+        "question": "What is the capital of <countryLabel>",
+        "selector": "<capitalLabel>",
+        "tags": ["geography"],
+        "lang": "en",
+        "query": "SELECT ?countryLabel ?capitalLabel WHERE { ?country wdt:P31 wd:Q6256. ?country wdt:P36 ?capital. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } }"
+    },
+    {
         "question": "Cuál es el país de esta bandera",
         "selector": "<countryLabel>",
-        "tags": ["country", "image"],
+        "tags": ["geography", "image"],
         "lang": "es",
         "query": "SELECT ?countryLabel ?flagLabel ?flag WHERE { ?country wdt:P31 wd:Q6256. ?country wdt:P41 ?flag. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }",
         "imageurl": "<flag>"
     },
     {
-        "question": "Qué idioma se habla en <countryLabel>?",
-        "selector": "<languageLabel>",
-        "tags": ["country", "text"],
-        "lang": "es",
-        "query": "SELECT ?countryLabel ?languageLabel WHERE { ?country wdt:P31 wd:Q6256. ?country wdt:P37 ?language. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
+        "question": "Whose country is this flag",
+        "selector": "<countryLabel>",
+        "tags": ["geography", "image"],
+        "lang": "en",
+        "query": "SELECT ?countryLabel ?flagLabel ?flag WHERE { ?country wdt:P31 wd:Q6256. ?country wdt:P41 ?flag. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } }",
+        "imageurl": "<flag>"
     },
     {
         "question": "Quien es el autor de <obraLabel> que está en <ubicacionLabel>",
         "selector": "<autorLabel>",
-        "tags": ["artwork", "image"],
+        "tags": ["art", "image"],
         "lang": "es",
         "query": " SELECT ?obraLabel ?autorLabel ?imagenLabel ?ubicacionLabel WHERE { ?obra wdt:P31 wd:Q3305213; wdt:P170 ?autor; wdt:P495 wd:Q29; wdt:P18 ?imagen; wdt:P195 ?ubicacion. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". }}",
         "imageurl": "<imagenLabel>"
     },
     {
+        "question": "Who is the author of <obraLabel> which is in <ubicacionLabel>",
+        "selector": "<autorLabel>",
+        "tags": ["art", "image"],
+        "lang": "en",
+        "query": " SELECT ?obraLabel ?autorLabel ?imagenLabel ?ubicacionLabel WHERE { ?obra wdt:P31 wd:Q3305213; wdt:P170 ?autor; wdt:P495 wd:Q29; wdt:P18 ?imagen; wdt:P195 ?ubicacion. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }}",
+        "imageurl": "<imagenLabel>"
+    },
+    {
         "question": "Cuál es el símbolo químico de <elementLabel>",
         "selector": "<symbol>",
-        "tags": ["element", "text"],
+        "tags": ["science"],
         "lang": "es",
         "query": "SELECT ?elementLabel ?symbol WHERE { ?element wdt:P31 wd:Q11344. ?element wdt:P246 ?symbol. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
     },
     {
-        "question": "Cuál es la temperatura de fusión del <elementLabel>",
-        "selector": "<melting>",
-        "tags": ["element", "text"],
-        "lang": "es",
-        "query": "SELECT ?elementLabel ?melting WHERE { ?element wdt:P31 wd:Q11344. ?element wdt:P2101 ?melting. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
+        "question": "What is the chemical symbol for <elementLabel>",
+        "selector": "<symbol>",
+        "tags": ["science"],
+        "lang": "en",
+        "query": "SELECT ?elementLabel ?symbol WHERE { ?element wdt:P31 wd:Q11344. ?element wdt:P246 ?symbol. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } }"
     },
     {
-        "question": "Cuál es la temperatura de ebullición del <elementLabel>",
-        "selector": "<boiling>",
-        "tags": ["element", "text"],
+        "question": "Qué piloto gano la <championshipLabel>",
+        "selector": "<winnerLabel>",
+        "tags": ["sports"],
         "lang": "es",
-        "query": "SELECT ?elementLabel ?boiling WHERE { ?element wdt:P31 wd:Q11344. ?element wdt:P2102 ?boiling. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
-    }  
+        "query": "SELECT ?championshipLabel ?winnerLabel WHERE { ?championship wdt:P31 wd:Q108861375. ?championship wdt:P1346 ?winner. ?winner wdt:P31 wd:Q5. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } }"
+
+    },
+    {
+        "question": "Which driver won the <championshipLabel>",
+        "selector": "<winnerLabel>",
+        "tags": ["sports"],
+        "lang": "en",
+        "query": "SELECT ?championshipLabel ?winnerLabel WHERE { ?championship wdt:P31 wd:Q108861375. ?championship wdt:P1346 ?winner. ?winner wdt:P31 wd:Q5. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } }"
+
+    },
+    {
+        "question": "Qué equipo ganó la <championshipLabel>",
+        "selector": "<winnerLabel>",
+        "tags": ["sports"],
+        "lang": "es",
+        "query": "SELECT ?championshipLabel ?winnerLabel WHERE { ?championship wdt:P31 wd:Q123724352. ?championship wdt:P1346 ?winner. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100"
+    },
+    {
+        "question": "Which team won the <championshipLabel>",
+        "selector": "<winnerLabel>",
+        "tags": ["sports"],
+        "lang": "en",
+        "query": "SELECT ?championshipLabel ?winnerLabel WHERE { ?championship wdt:P31 wd:Q123724352. ?championship wdt:P1346 ?winner. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100"
+    },
+    {
+        "question": "¿Qué equipo ganó la <leagueLabel>?",
+        "selector": "<winnerLabel>",
+        "tags": ["sports"],
+        "lang": "es",
+        "query": "SELECT ?leagueLabel ?winnerLabel WHERE { ?league wdt:P31 wd:Q27020041; wdt:P3450 wd:Q155223. ?league wdt:P1346 ?winner. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100"
+    },
+    {
+        "question": "Which team won the <leagueLabel>",
+        "selector": "<winnerLabel>",
+        "tags": ["sports"],
+        "lang": "en",
+        "query": "SELECT ?leagueLabel ?winnerLabel WHERE { ?league wdt:P31 wd:Q27020041; wdt:P3450 wd:Q155223. ?league wdt:P1346 ?winner. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100"
+    },
+    {
+        "question": "¿A qué equipo pertenece este escudo?",
+        "selector": "<teamLabel>",
+        "tags": ["esports", "image"],
+        "lang": "es",
+        "query": "SELECT ?teamLabel ?badgeLabel ?badge WHERE { ?team wdt:P31 wd:Q61974339. ?team wdt:P154 ?badge. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100",
+        "imageurl": "<badge>"
+    },
+    {
+        "question": "Which team does this badge belong to?",
+        "selector": "<teamLabel>",
+        "tags": ["esports", "image"],
+        "lang": "en",
+        "query": "SELECT ?teamLabel ?badgeLabel ?badge WHERE { ?team wdt:P31 wd:Q61974339. ?team wdt:P154 ?badge. SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100",
+        "imageurl": "<badge>"
+    },
+    {
+        "question": "¿Cuál es el estadio de <teamLabel>?",
+        "selector": "<stadiumLabel>",
+        "tags": ["sports"],
+        "lang": "es",
+        "query": "SELECT ?teamLabel ?stadiumLabel WHERE { ?team wdt:P31 wd:Q476028. ?team wdt:P115 ?stadium. ?team wdt:P118 ?league. FILTER(?league IN (wd:Q324867, wd:Q9448, wd:Q82595, wd:Q13394, wd:Q35615))  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],es\". } } LIMIT 100"
+    },
+    {
+        "question": "Which is the stadium of <teamLabel>?",
+        "selector": "<stadiumLabel>",
+        "tags": ["sports"],
+        "lang": "en",
+        "query": "SELECT ?teamLabel ?stadiumLabel WHERE { ?team wdt:P31 wd:Q476028. ?team wdt:P115 ?stadium. ?team wdt:P118 ?league. FILTER(?league IN (wd:Q324867, wd:Q9448, wd:Q82595, wd:Q13394, wd:Q35615))  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". } } LIMIT 100"
+    }
 ]

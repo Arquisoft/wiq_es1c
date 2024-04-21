@@ -14,6 +14,7 @@ import {
 import { Nav } from '../nav/Nav';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
+import i18n from "../../i18n";
 
 
 const token = localStorage.getItem("token");
@@ -121,7 +122,9 @@ export const Game = ({finishFunction, name, tags}) => {
     const loadNextQuestion = () => {
         initializeUI();
 
-        nextQuestion(token).then((respuesta) => {
+        const language = i18n.language;
+
+        nextQuestion(token, language).then((respuesta) => {
             setPregunta(respuesta.title);
             setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
