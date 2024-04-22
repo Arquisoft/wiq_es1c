@@ -69,7 +69,7 @@ export const Nav = () => {
     console.log("Current path: " + path);
 
     if (path != "/game") navigate("/home");
-    else if (path === "/game") {
+    else if (path === "/game" || path === "/suddendeath" || path === "/againstClock") {
       Swal.fire({
         title: t("Nav.alertTitle"),
         text: t("Nav.alertText"),
