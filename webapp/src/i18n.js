@@ -34,6 +34,7 @@ i18n
                     profile: 'Profile',
                     history: 'History',
                     friends: 'Friends',
+                    ranking: 'Ranking',
                     spanish: 'Spanish',
                     english: 'English'
                 },
@@ -115,6 +116,7 @@ i18n
                     profile: 'Perfil',
                     history: 'Historial',
                     friends: 'Amigos',
+                    ranking: 'Ranking',
                     spanish: 'Español',
                     english: 'Inglés'
                 },
