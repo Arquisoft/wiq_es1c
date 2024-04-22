@@ -134,7 +134,6 @@ export const Game = ({finishFunction, name, tags}) => {
                 if(name !== "AgainstClock" || time === undefined){
                     setTime(timef);
                 }
-                console.log("Cambiar el tiempo de pregunta"+(timef.end - Number(new Date().getTime())));
             });
         });
     }
