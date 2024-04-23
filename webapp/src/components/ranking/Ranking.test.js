@@ -7,27 +7,6 @@ import "../../i18n";
 
 jest.mock('../../services/user.service', () => (
 {
-    getRanking: () => Promise.resolve(
-        [
-            [
-                {
-                    user_id: "1",
-                    numberOfQuestions: 2,
-                    Questions: [
-                        {
-                            answer: 'abc',
-                            user_answer: 'abc'
-                        },
-                        {
-                            answer: 'abc',
-                            user_answer: '123'
-                        }
-                    ]
-                }
-            ]
-            
-        ]
-    ),
     getUsers: () => Promise.resolve(
         [
             {
@@ -58,6 +37,31 @@ jest.mock('../../services/user.service', () => (
                     }
                 ]
             }
+        ]
+    )
+}));
+
+jest.mock('../../services/ranking.service.js', () => (
+{
+    getRanking: () => Promise.resolve(
+        [
+            [
+                {
+                    user_id: "1",
+                    numberOfQuestions: 2,
+                    Questions: [
+                        {
+                            answer: 'abc',
+                            user_answer: 'abc'
+                        },
+                        {
+                            answer: 'abc',
+                            user_answer: '123'
+                        }
+                    ]
+                }
+            ]
+            
         ]
     ),
     sortByHitPercentage: () => Promise.resolve(
