@@ -101,7 +101,6 @@ jest.mock('../../services/ranking.service.js', () => (
 
 describe('Game Component', () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
-    t.mockReturnValue('');
 
     test("renders component",async () => 
     {
