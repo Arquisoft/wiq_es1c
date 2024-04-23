@@ -34,6 +34,7 @@ i18n
                     profile: 'Profile',
                     history: 'History',
                     friends: 'Friends',
+                    ranking: 'Ranking',
                     spanish: 'Spanish',
                     english: 'English'
                 },
@@ -82,6 +83,17 @@ i18n
                     noFriendRequest: 'You have no friend requests.',
                     searchUsers: 'Search users',
                     sendRequest: 'Send request'
+                },
+                Ranking: {
+                    title: 'Ranking',
+                    sort: 'Sort by',
+                    hitPercentage: 'Percentage of hits',
+                    numberOfCorrectQuestions: 'Number of correct questions',
+                    numberOfPlays: 'Cantidad de partidas',
+                    user: 'User',
+                    hit: 'Hit',
+                    correctsQuestion: 'Correct questions',
+                    plays: 'Games played'
                 }
             },
         },
@@ -115,6 +127,7 @@ i18n
                     profile: 'Perfil',
                     history: 'Historial',
                     friends: 'Amigos',
+                    ranking: 'Ranking',
                     spanish: 'Español',
                     english: 'Inglés'
                 },
@@ -163,6 +176,17 @@ i18n
                     noFriendRequest: 'No tienes peticiones de amistad.',
                     searchUsers: 'Buscar usuarios',
                     sendRequest: 'Enviar petición'
+                },
+                Ranking: {
+                    title: 'Clasificación',
+                    sort: 'Ordenar por',
+                    hitPercentage: 'Porcentaje de aciertos',
+                    numberOfCorrectQuestions: 'Número de preguntas correctas',
+                    numberOfPlays: 'Cantidad de partidas',
+                    user: 'Usuario',
+                    hit: 'Acierto',
+                    correctsQuestion: 'Preguntas correctas',
+                    plays: 'Partidas jugadas'
                 }
             },
         },
