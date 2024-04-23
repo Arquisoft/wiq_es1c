@@ -14,7 +14,8 @@ const getHistory = async (req,res) => {
 
 const getHistoryByUser = async (req, res) =>
 {
-    const response = await fetch("http://game:8003/api/game/getHistoryByUser", {
+    console.log("ID:\t" + req.body.userId);
+    let response = await fetch("http://game:8003/api/game/getHistoryByUser", {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -22,7 +23,7 @@ const getHistoryByUser = async (req, res) =>
         },
         body: JSON.stringify({
             token: req.body.token,
-            usedId: req.body.usedId
+            userId: req.body.userId
         })
     });
 
