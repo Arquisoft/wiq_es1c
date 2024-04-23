@@ -92,6 +92,8 @@ i18n
                     numberOfPlays: 'Cantidad de partidas',
                     user: 'User',
                     hit: 'Hit',
+                    correctsQuestion: 'Correct questions',
+                    plays: 'Games played'
                 }
             },
         },
@@ -176,7 +178,7 @@ i18n
                     sendRequest: 'Enviar petición'
                 },
                 Ranking: {
-                    title: 'Ranking',
+                    title: 'Clasificación',
                     sort: 'Ordenar por',
                     hitPercentage: 'Porcentaje de aciertos',
                     numberOfCorrectQuestions: 'Número de preguntas correctas',
@@ -184,8 +186,7 @@ i18n
                     user: 'Usuario',
                     hit: 'Acierto',
                     correctsQuestion: 'Preguntas correctas',
-                    plays: 'Partidas jugadas',
-                    noData: 'No hay clasificación que mostrar'
+                    plays: 'Partidas jugadas'
                 }
             },
         },
