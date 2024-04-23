@@ -9,6 +9,41 @@ jest.mock('../../services/user.service', () => (
 {
     getRanking: () => Promise.resolve(
         [
+            [
+                {
+                    user_id: "1",
+                    numberOfQuestions: 2,
+                    Questions: [
+                        {
+                            answer: 'abc',
+                            user_answer: 'abc'
+                        },
+                        {
+                            answer: 'abc',
+                            user_answer: '123'
+                        }
+                    ]
+                }
+            ]
+            
+        ]
+    ),
+    getUsers: () => Promise.resolve(
+        [
+            {
+                id: "1",
+                name: "user1"
+            }
+        ]
+    ),
+    getUser: () => Promise.resolve(
+        {
+            id: "1",
+            name: "user1"
+        }
+    ),
+    getHistoryByUser: () => Promise.resolve(
+        [
             {
                 user_id: "1",
                 numberOfQuestions: 2,
@@ -20,8 +55,41 @@ jest.mock('../../services/user.service', () => (
                     {
                         answer: 'abc',
                         user_answer: '123'
-                    },
+                    }
                 ]
+            }
+        ]
+    ),
+    sortByHitPercentage: () => Promise.resolve(
+        [
+            {
+                hitsPercentage: 50,
+                user: {
+                    id: "1",
+                    name: "user1"
+                }
+            }
+        ]
+    ),
+    sortByNumberOfCorrectQuestions: () => Promise.resolve(
+        [
+            {
+                correctsAnswer: 1,
+                user: {
+                    id: "1",
+                    name: "user1"
+                }
+            }
+        ]
+    ),
+    sortByNumberOfPlays: () => Promise.resolve(
+        [
+            {
+                numberOfPlays: 2,
+                user: {
+                    id: "1",
+                    name: "user1"
+                }
             }
         ]
     )
@@ -34,7 +102,10 @@ describe('Game Component', () => {
     {
         await act(async () => render(<MemoryRouter><Ranking /></MemoryRouter>));
 
-        waitFor(() => expect(screen.getByText(/Clasificación/i)).toBeInTheDocument());
+        waitFor(() => {
+            expect(screen.getByText(/Clasificación/i)).toBeInTheDocument();
+            expect(screen.getByText(/Usuario: user1/i)).toBeInTheDocument();
+        });
     });
     
 });
