@@ -16,6 +16,7 @@ import {Footer} from '../footer/Footer';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
 import i18n from "../../i18n";
+import { useTranslation } from "react-i18next";
 
 
 const token = localStorage.getItem("token");
@@ -29,6 +30,7 @@ let isFinished = async () => {
 }
 
 export const Game = ({finishFunction, name, tags}) => {
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
@@ -106,14 +108,14 @@ export const Game = ({finishFunction, name, tags}) => {
                     confirmButton: "text-black dark:text-white ",
                     cancelButton: "text-black dark:text-white " ,
                 },
-                title: "El juego ha finalizado!",
-                text: "Gracias por jugar",
+                title: t('Home.finishGameTitle'),
+                text: t('Home.finishGameText'),
                 imageUrl: bannerDark,
                 showCancelButton: true,
                 confirmButtonColor: "#f384f6",
                 cancelButtonColor: "#e8b260",
-                confirmButtonText: "Volver al menu principal",
-                cancelButtonText: "Continuar jugando"
+                confirmButtonText: t('Home.finishGameConfirm'),
+                cancelButtonText: t('Home.finishGameCancel')
             }).then((result) => {
                     if (result.isConfirmed) {
                         navigate("/home")
