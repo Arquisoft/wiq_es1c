@@ -5,6 +5,10 @@ import { Ranking } from './Ranking';
 import { MemoryRouter } from 'react-router-dom';
 import "../../i18n";
 
+jest.mock('some-i18n-library', () => ({
+    t: jest.fn(),
+}));
+
 jest.mock('../../services/user.service', () => (
 {
     getUsers: () => Promise.resolve(
@@ -101,6 +105,7 @@ jest.mock('../../services/ranking.service.js', () => (
 
 describe('Game Component', () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
+    t.mockReturnValue('');
 
     test("renders component",async () => 
     {
@@ -118,7 +123,7 @@ describe('Game Component', () => {
             expect(screen.getByText(/Usuario: user1/i)).toBeInTheDocument();
             expect(screen.getByText(/Acierto: 50 %/i));
             
-            expect(screen.getByText(/Porcentaje de aciertos/i)).toBeInTheDocument();
+            expect(screen.getByText(t('Ranking.hitPercentage'))).toBeInTheDocument();
 
             screen.getByTestId('select-sort-by').click();
             await act(async () => {});
@@ -126,7 +131,7 @@ describe('Game Component', () => {
             expect(screen.getByText(/Usuario: user1/i)).toBeInTheDocument();
             expect(screen.getByText(/Preguntas correctas: 1/i));
             
-            expect(screen.getByText(/Número de preguntas correctas/i)).toBeInTheDocument();
+            expect(screen.getByText(t('Ranking.numberOfCorrectQuestions'))).toBeInTheDocument();
 
             screen.getByTestId('select-sort-by').click();
             await act(async () => {});
@@ -134,7 +139,28 @@ describe('Game Component', () => {
             expect(screen.getByText(/Usuario: user1/i)).toBeInTheDocument();
             expect(screen.getByText(/Partidas jugadas: 2/i));
             
-            expect(screen.getByText(/Cantidad de partidas/i)).toBeInTheDocument();
+            expect(screen.getByText(t('Ranking.numberOfPlays'))).toBeInTheDocument();
+
+            await act(async () => 
+            {
+                sort({ target: { value: t('Ranking.hitPercentage') } });
+                await Promise.resolve();
+            });
+            expect(sortByHitPercentage).toHaveBeenCalledWith(ranking);
+
+            await act(async () => 
+            {
+                sort({ target: { value: t('Ranking.numberOfCorrectQuestions') } });
+                await Promise.resolve(); 
+            });
+            expect(sortByNumberOfCorrectQuestions).toHaveBeenCalledWith(ranking);
+
+            await act(async () => 
+            {
+                sort({ target: { value: 'otraOpcion' } }); 
+                await Promise.resolve(); 
+            });
+            expect(sortByNumberOfPlays).toHaveBeenCalledWith(ranking);
         });
     });
     
