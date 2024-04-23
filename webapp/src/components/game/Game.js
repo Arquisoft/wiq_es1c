@@ -41,6 +41,7 @@ export const Game = ({finishFunction, name, tags}) => {
     const [loading, setLoading] = useState(true);
     const [time , setTime] = useState(undefined);
     const [remTime, setRemTime] = useState(0);
+    const [percentage, setPercentage] = useState(0);
     const location = useLocation();
 
     const againstClockFinish = async () => {
@@ -171,7 +172,8 @@ export const Game = ({finishFunction, name, tags}) => {
 
                         percentage =  (trans/total) * 100;
                         invertedPercentage = 100 - Number(percentage);
-                    
+                        
+                        setPercentage(invertedPercentage)
                         setRemTime((invertedPercentage/100)*gameTime);
                     }else{
                         gameTime = basicGameSetting.durationQuestion ;
@@ -181,9 +183,9 @@ export const Game = ({finishFunction, name, tags}) => {
                         percentage =  (trans/total) * 100;
                         invertedPercentage = 100 - Number(percentage);
                         
+                        setPercentage(invertedPercentage)
                         setRemTime((invertedPercentage/100)*gameTime);
                     }
-
                     if(percentage > 100){
                         comprobarPregunta("");
                         time = undefined;
@@ -328,7 +330,7 @@ export const Game = ({finishFunction, name, tags}) => {
             }}
             className="text-black dark:text-white "
             >
-                <LinearProgress  color='inherit' variant={loading? "indeterminate" : "determinate"} value={remTime}  />
+                <LinearProgress  color='inherit' variant={loading? "indeterminate" : "determinate"} value={percentage}  />
             </Box>
         </Container>
     </Container>

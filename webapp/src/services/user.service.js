@@ -105,7 +105,7 @@ const getUsers = async () =>
 {
     try {
 
-      const response = await axios.post(`${apiEndpoint}:8001/api/user/getUsers`);
+      const response = await axios.get(`${apiEndpoint}:8001/api/user/getUsers`);
 
       return response.data;
 
