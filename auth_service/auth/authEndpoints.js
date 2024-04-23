@@ -160,4 +160,6 @@ const getUsername = async (req,res) => {
     });
 }
 
+
+
 module.exports = {login, register, verify, getUsername}

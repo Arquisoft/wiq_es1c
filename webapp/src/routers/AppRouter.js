@@ -7,10 +7,12 @@ import { PrivateRoute } from "./PrivateRoute";
 import { AuthRoute } from "./AuthRoute";
 import { Home } from "../components/home/Home";
 import Game from "../components/game/Game";
+import {AgainstClock} from "../components/game/AgainstClock";
 import { History } from "../components/history/History";
 import {Profile} from "../components/profile/Profile";
 import {Settings} from "../components/settings/Settings";
 import {SuddenDeath} from "../components/game/SuddenDeath";
+import { Friends } from "../components/friends/Friend";
 
 const router = createBrowserRouter([
     {
@@ -48,10 +50,22 @@ const router = createBrowserRouter([
                 </PrivateRoute>       
     },
     {
+        path: "/friends",
+        element: <PrivateRoute>
+                    <Friends />
+                </PrivateRoute>       
+    },
+    {
         path:"/suddendeath",
         element: <PrivateRoute>
             <SuddenDeath/>
         </PrivateRoute>
+    },
+    {
+        path: "/againstClock",
+        element: <PrivateRoute>
+                    <AgainstClock />
+                </PrivateRoute>       
     },
     {
 

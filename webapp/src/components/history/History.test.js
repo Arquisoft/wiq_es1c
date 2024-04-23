@@ -3,6 +3,7 @@ import { render, screen, act, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {History} from './History';
 import { MemoryRouter } from 'react-router-dom';
+import "../../i18n";
 
 jest.mock('../../services/user.service', () => ({
     getHistory: () => Promise.resolve(

@@ -5,6 +5,7 @@ import {SuddenDeath} from './SuddenDeath';
 import Game from "./Game";
 import { MemoryRouter, Route } from 'react-router-dom';
 import * as router from "react-router";
+import "../../i18n";
 
 jest.mock('../../services/game.service', () => ({
     startNewGame: () => Promise.resolve(""),

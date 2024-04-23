@@ -12,8 +12,10 @@ import {
     getNumberOfQuestions
 } from "../../services/game.service";
 import { Nav } from '../nav/Nav';
+import {Footer} from '../footer/Footer';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
+import i18n from "../../i18n";
 
 
 const token = localStorage.getItem("token");
@@ -41,6 +43,10 @@ export const Game = ({finishFunction, name, tags}) => {
     const [remTime, setRemTime] = useState(0);
     const location = useLocation();
 
+    const againstClockFinish = async () => {
+        return remTime <= 0;
+    }
+
 
     const comprobarPregunta = (respuesta) => {
         awnser(token, respuesta).then(async (correcta) => {
@@ -55,11 +61,11 @@ export const Game = ({finishFunction, name, tags}) => {
                 }
             }
 
-
-            console.log(typeof finishFunction);
-
             if(finishFunction !== undefined && finishFunction != null) {
                 callback(await finishFunction());
+            }
+            else if(name === "AgainstClock"){
+                callback( await againstClockFinish());
             }
             else{
                  callback(await isFinished());
@@ -121,13 +127,17 @@ export const Game = ({finishFunction, name, tags}) => {
     const loadNextQuestion = () => {
         initializeUI();
 
-        nextQuestion(token).then((respuesta) => {
+        const language = i18n.language;
+
+        nextQuestion(token, language).then((respuesta) => {
             setPregunta(respuesta.title);
             setQuestionImage(respuesta.imageUrl);
             setRespuestas(respuesta.awnsers);
             setLoading(false);
-            getEndTime(token).then((time) => {
-                setTime(time);
+            getEndTime(token).then((timef) => {
+                if(name !== "AgainstClock" || time === undefined){
+                    setTime(timef);
+                }
             });
         });
     }
@@ -137,7 +147,6 @@ export const Game = ({finishFunction, name, tags}) => {
         setQuestionImage("");
         setRespuestas(["...","...","...","..."])
         setLoading(true);
-        setTime(undefined);
 
         document.querySelectorAll('*[data-buton="btn"]').forEach((btn) => {
             btn.className = "bg-cyan-200 dark:bg-purple-700 w-full containedButton text-black dark:text-white font-mono";
@@ -148,21 +157,39 @@ export const Game = ({finishFunction, name, tags}) => {
     useEffect(() => {
         let interval = setInterval(() => {
             setTime(time => {
-                    if(time !== undefined){
-                        let total = basicGameSetting.durationQuestion * 1000;
-                        let trans = (new Date().getTime()) - time.start;
+                if(time !== undefined){
+                    let total = 0;
+                    let trans = 0;
+                    let percentage = 0;
+                    let invertedPercentage = 0;
+                    let gameTime = 0;
 
-                        let percentage =  (trans/total) * 100;
-                        let invertedPercentage = 100 - Number(percentage);
+                    if(name === "AgainstClock"){
+                        gameTime = (basicGameSetting.durationQuestion * basicGameSetting.numberOfQuestions) <= 600 ? basicGameSetting.durationQuestion * basicGameSetting.numberOfQuestions : 600;
+                        total = gameTime * 1000 ;
+                        trans = (new Date().getTime()) - time.start;
+
+                        percentage =  (trans/total) * 100;
+                        invertedPercentage = 100 - Number(percentage);
+                    
+                        setRemTime((invertedPercentage/100)*gameTime);
+                    }else{
+                        gameTime = basicGameSetting.durationQuestion ;
+                        total = gameTime * 1000;
+                        trans = (new Date().getTime()) - time.start;
+
+                        percentage =  (trans/total) * 100;
+                        invertedPercentage = 100 - Number(percentage);
                         
-                        setRemTime((invertedPercentage/100)*110);
-
-                        if(percentage > 100){
-                            comprobarPregunta("");
-                            time = undefined;
-                        }
+                        setRemTime((invertedPercentage/100)*gameTime);
                     }
-                return time;
+
+                    if(percentage > 100){
+                        comprobarPregunta("");
+                        time = undefined;
+                    }
+                }
+            return time;
             });
         }, 20);
 
@@ -228,8 +255,9 @@ export const Game = ({finishFunction, name, tags}) => {
                     className="text-black dark:text-white bg-cyan-200 dark:bg-purple-700"
                 >
                     <Typography data-testid="counter" variant="h2" component="h2" className="text-black dark:text-white " >
-                        { Math.min(Math.max(Number(remTime/10).toFixed(0),0),10) }
+                        { name != "AgainstClock" ? Math.min(Math.max(Number(remTime/1).toFixed(0),0),60) :  Math.min(Math.max(Number(remTime/1).toFixed(0),0),3000)}
                     </Typography>
+
                 </Box>
                 <Typography fontFamily="monospace" component="h1" variant="h5" className="text-black dark:text-white " 
                     sx={{
@@ -304,13 +332,14 @@ export const Game = ({finishFunction, name, tags}) => {
             </Box>
         </Container>
     </Container>
+    <Footer/>
     </>
   )
 }
 
 Game.propTypes = {
     finishFunction: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
 }
 
 export default Game;

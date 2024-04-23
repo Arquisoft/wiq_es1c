@@ -101,9 +101,22 @@ const getHistory = async () =>
 
 }
 
+const getUsers = async () =>
+{
+    try {
+
+      const response = await axios.post(`${apiEndpoint}:8001/api/user/getUsers`);
+
+      return response.data;
+
+    } catch (error) {
+      return error.response.data.error;
+    }
+}
+
 const isLoggedIn = async (username, password) => token !== undefined;
 const getToken = async () => token;
 
 
-export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory, getCreationDate, isValidToken};
+export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory, getCreationDate, isValidToken, getUsers};
 

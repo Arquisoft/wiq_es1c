@@ -27,21 +27,26 @@ const getRandomTemplate = async () => {
 
     return result[0];
 }
-const loadInitialTemplates = async () => {
+
+const loadInitialTemplates = () => {
     //Load the templates into the DB
     require("fs").readFile("./templates.json", "utf8", (err, data) => {
+
         let templates = JSON.parse(data);
+
     
         templates.forEach(template => {
-        //Save it to the DB!
-        //Delete old one if extists
-        Template.findOneAndDelete({question: template.question});
-    
-        // Create a new Template instance using the data from the JSON file
-        const newTemplate = new Template(template);
-    
-        // Save the new template to the database
-        newTemplate.save();
+
+            //Save it to the DB!
+            //Delete old one if extists
+            Template.findOneAndDelete({question: template.question}).then(async (result) => {
+                // Create a new Template instance using the data from the JSON file
+                const newTemplate = await new Template(template);
+                // Save the new template to the database
+                await newTemplate.save();
+
+            });
+
         });
     });
 }

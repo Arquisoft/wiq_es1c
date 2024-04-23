@@ -1,0 +1,112 @@
+openapi: 3.0.0
+info:
+  title: Friends API
+  description: API for friend requests and operations
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/friends/request/send:
+    post:
+      summary: Send friend request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE1MTYyMzkwMjJ9.UzI1NiIsInR5cCI6IkpXVCJ9"
+                to:
+                  type: string
+                  example: "user_id_to_send_request"
+              required:
+                - token
+                - to
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid request or there is already a pending request or they are already friends
+  /api/friends/request/accept:
+    post:
+      summary: Accept friend request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE1MTYyMzkwMjJ9.UzI1NiIsInR5cCI6IkpXVCJ9"
+                from:
+                  type: string
+                  example: "user_id_of_request_sender"
+              required:
+                - token
+                - from
+      responses:
+        '200':
+          description: Friend request accepted
+        '400':
+          description: Invalid request or request not found
+  /api/friends/request/:
+    post:
+      summary: Get pending friend requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE1MTYyMzkwMjJ9.UzI1NiIsInR5cCI6IkpXVCJ9"
+              required:
+                - token
+      responses:
+        '200':
+          description: OK
+  /api/friends/:
+    post:
+      summary: Get friends list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE1MTYyMzkwMjJ9.UzI1NiIsInR5cCI6IkpXVCJ9"
+              required:
+                - token
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    FriendRequest:
+      type: object
+      properties:
+        from:
+          type: string
+          example: "user_id_of_request_sender"
+        to:
+          type: string
+          example: "user_id_to_receive_request"
+    Friendship:
+      type: object
+      properties:
+        friend1:
+          type: string
+          example: "user_id1"
+        friend2:
+          type: string
+          example: "user_id2"

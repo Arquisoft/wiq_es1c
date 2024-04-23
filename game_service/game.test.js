@@ -75,7 +75,7 @@ describe('Game Service', () => {
     it("Should return 200 with a valid token when requesting the next answer", async () => {
         const response = await request(app)
             .post('/api/game/next')
-            .send({ token: validToken });
+            .send({ token: validToken, lang: "es" });
 
         expect(response.statusCode).toBe(200);
         expect(response.body.title).toBe("Cual es la capital de Chile");

@@ -11,16 +11,23 @@
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.6.5",
+    "flag-icons": "^7.2.1",
     "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "history": "^5.3.0",
+
+    "mdb-react-ui-kit": "^7.2.0",
+
+    "i18next": "^23.11.1",
+    "i18next-browser-languagedetector": "^7.2.1",
     "mariadb": "^3.3.0",
     "prop-types": "^15.8.1",
+
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.1.0",
     "react-native": "^0.73.5",
     "react-router-dom": "^6.21.3",
-    "react-scripts": "5.0.1",
     "sass": "^1.72.0",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",
@@ -65,6 +72,7 @@
     "mongodb-memory-server": "^9.1.4",
     "puppeteer": "^21.7.0",
     "react-native": "^0.73.5",
+    "react-scripts": "^5.0.1",
     "serve": "^14.2.1",
     "start-server-and-test": "^2.0.3",
     "tailwindcss": "^3.4.1"

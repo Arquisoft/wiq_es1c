@@ -3,6 +3,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { Settings } from './Settings';
+import "../../i18n";
 
 jest.mock('../../services/game.service', () => ({
   getGameSettings: () => Promise.resolve({ durationQuestion: 30, numberOfQuestions: 10 }),
@@ -14,7 +15,7 @@ describe("Settings component", () => {
 
   test("renders component", async () => {
     render(<MemoryRouter><Settings /></MemoryRouter>);
-    expect(screen.getByText(/Configuracion/i)).toBeInTheDocument();
+    expect(screen.getByText(/Configuración/i)).toBeInTheDocument();
   });
 
   test("displays correct number of questions", async () => {
