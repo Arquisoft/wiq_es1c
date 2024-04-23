@@ -125,7 +125,7 @@ describe('Game Service', () => {
     {
         const response = await request(app)
             .post('/api/game/getHistoryByUser')
-            .send({ userId: '1234' });
+            .send({ token: validToken, userId: '1234' });
 
         expect(response.statusCode).toBe(200);
     });
@@ -134,7 +134,7 @@ describe('Game Service', () => {
     {
         const response = await request(app)
             .post('/api/game/getHistoryByUser')
-            .send({ userId: undefined });
+            .send({ token: validToken, userId: undefined });
 
         expect(response.statusCode).toBe(400);
     });
