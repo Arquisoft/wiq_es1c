@@ -5,7 +5,7 @@ import { Ranking } from './Ranking';
 import { MemoryRouter } from 'react-router-dom';
 import "../../i18n";
 
-jest.mock('some-i18n-library', () => ({
+jest.mock('react-i18next', () => ({
     t: jest.fn(),
 }));
 
