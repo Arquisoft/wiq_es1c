@@ -16,7 +16,7 @@ const getHistory = async (req,res) => {
         }
     });
 
-    res.status(200).send((await response.json()));
+    res.status(200).send((await response.data));
 }
 
 module.exports = getHistory;
