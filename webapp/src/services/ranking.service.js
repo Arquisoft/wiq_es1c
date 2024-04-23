@@ -53,12 +53,63 @@ const sortByHitPercentage = async (data) =>
 
 const sortByNumberOfCorrectQuestions = async (data) =>
 {
+  let ranking = [];
 
+  for (let i = 0; i < data.length; i++)
+  {
+    if (data[i].length > 0)
+    {
+      const userId = data[i][0].user_id;
+      let correctsAnswer = 0;
+
+      // Recorro cada partida
+      for (let j = 0; j < data[i].length; j++)
+      {
+        // Recorro cada pregunta
+        for (let k = 0; k < data[i][j].Questions.length; k++)
+          if (data[i][j].Questions[k].answer === data[i][j].Questions[k].user_answer)
+            correctsAnswer++;
+      }
+
+      const user = await getUser(userId);
+      
+      ranking.push({
+        ...user,
+        correctsAnswer: correctsAnswer
+      });
+    }
+
+  }
+
+  ranking.sort((a, b) => b.correctsAnswer - a.correctsAnswer);
+
+  return ranking;
 }
 
 const sortByNumberOfPlays = async (data) =>
 {
+  let ranking = [];
 
+  for (let i = 0; i < data.length; i++)
+  {
+    if (data[i].length > 0)
+    {
+      const userId = data[i][0].user_id;
+      let numberOfPlays = data[i].length;
+
+      const user = await getUser(userId);
+      
+      ranking.push({
+        ...user,
+        numberOfPlays: numberOfPlays
+      });
+    }
+
+  }
+
+  ranking.sort((a, b) => b.numberOfPlays - a.numberOfPlays);
+
+  return ranking;
 }
 
 module.exports = { getRanking, sortByHitPercentage, sortByNumberOfCorrectQuestions, sortByNumberOfPlays }

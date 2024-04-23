@@ -183,6 +183,9 @@ i18n
                     numberOfPlays: 'Cantidad de partidas',
                     user: 'Usuario',
                     hit: 'Acierto',
+                    correctsQuestion: 'Preguntas correctas',
+                    plays: 'Partidas jugadas',
+                    noData: 'No hay clasificación que mostrar'
                 }
             },
         },

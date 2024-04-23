@@ -41,11 +41,12 @@ export const Ranking = () =>
 
     const sort = (by) =>
     {
-        setSortBy(by.target.value);
+        const value = by.target.value;
+        setSortBy(value);
 
-        if (sortBy === t('Ranking.hitPercentage'))
+        if (value === t('Ranking.hitPercentage'))
             sortByHitPercentage(ranking).then(data => setSortRanking(data));
-        else if (sortBy === t('Ranking.numberOfCorrectQuestions'))
+        else if (value === t('Ranking.numberOfCorrectQuestions'))
             sortByNumberOfCorrectQuestions(ranking).then(data => setSortRanking(data));
         else
             sortByNumberOfPlays(ranking).then(data => setSortRanking(data));
@@ -80,11 +81,30 @@ export const Ranking = () =>
                     <div className='flex flex-col justify-center items-center'>
                         { sortRanking.map((rank, index) =>
                             <div key={ rank.user.id } className='flex justify-center items-center text-white text-center rounded-full bg-violet-500 p-6 w-4/5 md:w-5/12 lg:w-2/6 mb-4'>
-                                <div>
-                                    <span className='text-lg lg:text-3xl font-bold'>{ t('Ranking.user') }: { rank.user.name }</span>
-                                    <br />
-                                    <span className='text-lg lg:text-3xl'>{ t('Ranking.hit') }: { rank.hitsPercentage } %</span>
-                                </div>
+                                
+                                {rank.hitsPercentage !== undefined && (
+                                    <div>
+                                        <span className='text-lg lg:text-3xl font-bold'>{ t('Ranking.user') }: { rank.user.name }</span>
+                                        <br />
+                                        <span className='text-lg lg:text-3xl'>{ t('Ranking.hit') }: { rank.hitsPercentage } %</span>
+                                    </div>
+                                )}
+
+                                {rank.correctsAnswer !== undefined && (
+                                    <div>
+                                        <span className='text-lg lg:text-3xl font-bold'>{ t('Ranking.user') }: { rank.user.name }</span>
+                                        <br />
+                                        <span className='text-lg lg:text-3xl'>{ t('Ranking.correctsQuestion') }: { rank.correctsAnswer }</span>
+                                    </div>
+                                )}
+
+                                {rank.numberOfPlays !== undefined && (
+                                    <div>
+                                        <span className='text-lg lg:text-3xl font-bold'>{ t('Ranking.user') }: { rank.user.name }</span>
+                                        <br />
+                                        <span className='text-lg lg:text-3xl'>{ t('Ranking.plays') }: { rank.numberOfPlays }</span>
+                                    </div>
+                                )}
 
                                 { ( index === 0 ) ? <span><EmojiEventsIcon fontSize='large' className='text-yellow-400 ml-5' /></span> : <span></span> }
                                 { ( index === 1 ) ? <span><EmojiEventsIcon fontSize='large' className='text-gray-400 ml-5' /></span> : <span></span> }
