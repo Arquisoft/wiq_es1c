@@ -66,13 +66,14 @@ export const Ranking = () =>
                             <FormControl fullWidth>
                                 <InputLabel>{ t('Ranking.sort') }</InputLabel>
                                 <Select
+                                    id="select-sort-by"
                                     value={ sortBy }
                                     label={ t('Ranking.sort') }
                                     onChange={sort}
                                 >
-                                    <MenuItem value={ t('Ranking.hitPercentage') }>{ t('Ranking.hitPercentage') }</MenuItem>
-                                    <MenuItem value={ t('Ranking.numberOfCorrectQuestions') }>{ t('Ranking.numberOfCorrectQuestions') }</MenuItem>
-                                    <MenuItem value={ t('Ranking.numberOfPlays') }>{ t('Ranking.numberOfPlays') }</MenuItem>
+                                    <MenuItem id='hitPercentage' value={ t('Ranking.hitPercentage') }>{ t('Ranking.hitPercentage') }</MenuItem>
+                                    <MenuItem id='numberOfCorrectQuestions' value={ t('Ranking.numberOfCorrectQuestions') }>{ t('Ranking.numberOfCorrectQuestions') }</MenuItem>
+                                    <MenuItem id='numberOfPlays' value={ t('Ranking.numberOfPlays') }>{ t('Ranking.numberOfPlays') }</MenuItem>
                                 </Select>
                             </FormControl>
                         </div>
