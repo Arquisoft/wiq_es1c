@@ -51,4 +51,14 @@ const sortByHitPercentage = async (data) =>
   return ranking;
 }
 
-module.exports = { getRanking, sortByHitPercentage }
+const sortByNumberOfCorrectQuestions = async (data) =>
+{
+
+}
+
+const sortByNumberOfPlays = async (data) =>
+{
+
+}
+
+module.exports = { getRanking, sortByHitPercentage, sortByNumberOfCorrectQuestions, sortByNumberOfPlays }

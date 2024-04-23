@@ -83,6 +83,15 @@ i18n
                     noFriendRequest: 'You have no friend requests.',
                     searchUsers: 'Search users',
                     sendRequest: 'Send request'
+                },
+                Ranking: {
+                    title: 'Ranking',
+                    sort: 'Sort by',
+                    hitPercentage: 'Percentage of hits',
+                    numberOfCorrectQuestions: 'Number of correct questions',
+                    numberOfPlays: 'Cantidad de partidas',
+                    user: 'User',
+                    hit: 'Hit',
                 }
             },
         },
@@ -170,6 +179,8 @@ i18n
                     title: 'Ranking',
                     sort: 'Ordenar por',
                     hitPercentage: 'Porcentaje de aciertos',
+                    numberOfCorrectQuestions: 'Número de preguntas correctas',
+                    numberOfPlays: 'Cantidad de partidas',
                     user: 'Usuario',
                     hit: 'Acierto',
                 }
