@@ -146,7 +146,11 @@ i18n
                     playSuddenDeath: 'JUGAR MUERTE SÚBITA',
                     playAgainstClock: 'JUGAR CONTRARRELOJ',
                     chooseTags: 'Elige las tags',
-                    infoTags: 'Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.'
+                    infoTags: 'Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.',
+                    finishGameTitle: 'El juego ha finalizado!',
+                    finishGameText: 'Gracias por jugar',
+                    finishGameConfirm: 'Volver al menu principal',
+                    finishGameCancel: 'Continuar jugando',
                 },
                 Configuration: {
                     title: 'Configuración',
