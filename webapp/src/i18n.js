@@ -45,7 +45,8 @@ i18n
                     tutorialP2: 'The time to answer is limited. The bar at the bottom shows the remaining time. If the time runs out, the question will count as failed and you will move on to the next one.',
                     goodLuck: 'Good luck and show what you know!',
                     playClassic: 'PLAY CLASSIC',
-                    playSuddenDeath: 'PLAYING SUDDEN DEATH',
+                    playSuddenDeath: 'PLAY SUDDEN DEATH',
+                    playAgainstClock: 'PLAY AGAINST CLOCK',
                     chooseTags: 'Choose the tags',
                     infoTags: 'With the tags you can select the categories you want to be asked about.',
                 },
@@ -82,6 +83,9 @@ i18n
                     noFriendRequest: 'You have no friend requests.',
                     searchUsers: 'Search users',
                     sendRequest: 'Send request'
+                },
+                Footer: {
+                    copyright: 'All rights reserved.'
                 }
             },
         },
@@ -127,6 +131,7 @@ i18n
                     goodLuck: '¡Mucha suerte y demuestra lo que sabes!',
                     playClassic: 'JUGAR CLÁSICO',
                     playSuddenDeath: 'JUGAR MUERTE SÚBITA',
+                    playAgainstClock: 'JUGAR CONTRARRELOJ',
                     chooseTags: 'Elige las tags',
                     infoTags: 'Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.'
                 },
@@ -163,6 +168,9 @@ i18n
                     noFriendRequest: 'No tienes peticiones de amistad.',
                     searchUsers: 'Buscar usuarios',
                     sendRequest: 'Enviar petición'
+                },
+                Footer: {
+                    copyright: 'Todos los derechos reservados.'
                 }
             },
         },
