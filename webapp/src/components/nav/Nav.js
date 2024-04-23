@@ -22,6 +22,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HistoryIcon from '@mui/icons-material/History';
 import GroupsIcon from '@mui/icons-material/Groups';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import i18n from "../../i18n";
 
 
@@ -177,13 +178,9 @@ export const Nav = () => {
             WIQ
           </Typography>
 
-          <Typography
-            variant="p"
-            component="div"
-            style={{ color: color, marginLeft: 15 }}
-          >
-          <a href="https://github.com/Arquisoft/wiq_es1c" target="_blank" rel="noopener noreferrer"> Sobre nosotros</a>
-          </Typography>
+          <a className="mr-2" href="https://github.com/Arquisoft/wiq_es1c" target="_blank" rel="noopener noreferrer">
+            <GitHubIcon style={{ color: color }} />
+          </a>
           
           <IconButton
             onClick={changeTheme}
