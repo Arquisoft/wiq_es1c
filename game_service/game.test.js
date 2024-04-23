@@ -121,6 +121,24 @@ describe('Game Service', () => {
         expect(response.statusCode).toBe(200);
     });
 
+    it("Should return 200 with a valid user id when accessing game history by user", async () =>
+    {
+        const response = await request(app)
+            .post('/api/game/getHistoryByUser')
+            .send({ userId: '1234' });
+
+        expect(response.statusCode).toBe(200);
+    });
+
+    it("Should return 400 with a not valid user id when accessing game history by user", async () =>
+    {
+        const response = await request(app)
+            .post('/api/game/getHistoryByUser')
+            .send({ userId: undefined });
+
+        expect(response.statusCode).toBe(400);
+    });
+
     it("Should return 200 with a valid token when accessing game settings", async () => {
         const response = await request(app)
             .post('/api/game/settings')

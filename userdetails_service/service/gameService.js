@@ -14,7 +14,12 @@ const getHistory = async (req,res) => {
 
 const getHistoryByUser = async (req, res) =>
 {
-    console.log("ID:\t" + req.body.userId);
+    if (!req.body.userId)
+    {
+        res.status(400).json({ error: 'user id is not valid' });
+        return;
+    }
+
     let response = await fetch("http://game:8003/api/game/getHistoryByUser", {
         method: "POST",
         headers: {

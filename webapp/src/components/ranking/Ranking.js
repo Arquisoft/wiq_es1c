@@ -59,7 +59,7 @@ export const Ranking = () =>
                 <div className='text-white'>Cargando...</div>
             ) : (
                 <>
-                    <h1 className='text-white text-center text-5xl mt-5 mb-4'>{ t('Ranking.title') }</h1>
+                    <h1 className='dark:text-white text-black text-center text-5xl mt-5 mb-4'>{ t('Ranking.title') }</h1>
 
                     <div className='flex justify-end mr-5' style={{ outline: 'none' }}>
                         <div className='bg-white rounded-xl p-2 w-1/5'>

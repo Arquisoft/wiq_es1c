@@ -9,6 +9,7 @@ const getRanking = async () =>
   for (let i = 0; i < users.length; i++)
     ranking.push( await getHistoryByUser(users[i]) );
 
+    console.log(ranking);
   return ranking;
 }
 

@@ -186,6 +186,12 @@ const getHistoryByUser = async (req, res) =>
 {
   const userId = req.body.userId;
 
+  if (!userId)
+  {
+    res.status(400).json({ error: 'user id not valid' });
+    return;
+  }
+
   const games = await Game.findAll({
     where: {
       user_id: userId
