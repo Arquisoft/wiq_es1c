@@ -16,6 +16,7 @@ import {Footer} from '../footer/Footer';
 import {useLocation} from "react-router-dom";
 import Swal from 'sweetalert2';
 import i18n from "../../i18n";
+import { useTranslation } from "react-i18next";
 
 
 const token = localStorage.getItem("token");
@@ -29,6 +30,7 @@ let isFinished = async () => {
 }
 
 export const Game = ({finishFunction, name, tags}) => {
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
