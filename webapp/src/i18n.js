@@ -165,6 +165,13 @@ i18n
                     noFriendRequest: 'No tienes peticiones de amistad.',
                     searchUsers: 'Buscar usuarios',
                     sendRequest: 'Enviar petición'
+                },
+                Ranking: {
+                    title: 'Ranking',
+                    sort: 'Ordenar por',
+                    hitPercentage: 'Porcentaje de aciertos',
+                    user: 'Usuario',
+                    hit: 'Acierto',
                 }
             },
         },
