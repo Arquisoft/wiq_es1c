@@ -13,7 +13,7 @@ describe("Footer component", () => {
         
         await act(async () => {});
 
-        expect(screen.getByText(/All rights reserved./i)).toBeInTheDocument();
+        expect(screen.getByText(/Todos los derechos reservados./i)).toBeInTheDocument();
         
 
     });
