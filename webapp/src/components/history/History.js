@@ -128,8 +128,8 @@ export const History = () => {
             <Nav/>
             <CssBaseline/>
             <Container className="m-3">
-                <FormControl>
-                    <InputLabel id="gamemode-label" >{t("History.gamemode")}</InputLabel>
+                <FormControl sx={{ width: '20rem'}}>
+                    <InputLabel id="gamemode-label" sx={{ color: 'white', fontSize: '1.3em'}}>{t("History.gamemode")}</InputLabel>
                     <Select
                         labelId="gamemode-cb"
                         id="gamemode-cb"
@@ -148,7 +148,7 @@ export const History = () => {
             </Container>
 
             <Container className="flex flex-col items-center justify-center min-h-screen">
-
+=
                 <TableContainer component={Paper} className="mt-8 bg-gray-800">
                     <Table aria-label="simple table">
                         <TableHead>
