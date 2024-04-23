@@ -1,13 +1,20 @@
+const axios = require('axios');
+
 const getHistory = async (req,res) => {
-    let response = await fetch("http://game:8003/api/game/getHistory", {
-        method: "POST", 
+    let url = "http://game:8003/api/game/getHistory";
+    
+    if(process.env.NODE_ENV !== "production"){
+        url = "http://localhost:8003/api/game/getHistory"
+    }
+
+    const response = await axios.post(url, {
+        token: req.body.token
+    }, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({token: req.body.token})
-    })
-
+        }
+    });
 
     res.status(200).send((await response.json()));
 }
