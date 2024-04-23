@@ -34,7 +34,7 @@ describe('Game Component', () => {
     {
         await act(async () => render(<MemoryRouter><Ranking /></MemoryRouter>));
 
-        expect(screen.getByText(/Clasificación/i)).toBeInTheDocument();
+        waitFor(() => expect(screen.getByText(/Clasificación/i)).toBeInTheDocument());
     });
     
 });
