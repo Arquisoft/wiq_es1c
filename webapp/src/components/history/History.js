@@ -109,6 +109,7 @@ export const History = () => {
     const { t } = useTranslation();
     const [history, setHistory] = useState([]);
     const [gamemodes, setGamemodes] = useState([]);
+    const [gamemodeSelected, setGamemodeSelected] = useState("classic");
 
     useEffect(() => {
         getHistory("classic").then(item => setHistory(item));
@@ -120,6 +121,7 @@ export const History = () => {
 
     const changeGamemode = (event) => {
         getHistory(event.target.value).then(item => setHistory(item));
+        setGamemodeSelected(event.target.value);
         console.log("Changing history to " + event.target.value);
     }
 
@@ -133,7 +135,7 @@ export const History = () => {
                     <Select
                         labelId="gamemode-cb"
                         id="gamemode-cb"
-                        value='classic'
+                        value={gamemodeSelected}
                         label="gamemode"
                         className="bg-white m-3"
                         onChange={changeGamemode}
@@ -148,7 +150,7 @@ export const History = () => {
             </Container>
 
             <Container className="flex flex-col items-center justify-center min-h-screen">
-=
+
                 <TableContainer component={Paper} className="mt-8 bg-gray-800">
                     <Table aria-label="simple table">
                         <TableHead>
