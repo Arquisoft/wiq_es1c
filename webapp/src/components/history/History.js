@@ -129,25 +129,29 @@ export const History = () => {
         <>
             <Nav/>
             <CssBaseline/>
-            <div className="p-3 bg-white">
-                <FormControl sx={{ width: '20rem'}}>
-                    <InputLabel id="gamemode-label" sx={{ color: 'black', fontSize: '1.3em'}}>{t("History.gamemode")}</InputLabel>
-                    <Select
-                        labelId="gamemode-cb"
-                        id="gamemode-cb"
-                        value={gamemodeSelected}
-                        label="gamemode"
-                        className="bg-white m-3"
-                        onChange={changeGamemode}
-                    >
-                        {
-                            gamemodes.map((gamemode) =>
-                                <MenuItem value={gamemode} key={gamemode}>{gamemode}</MenuItem>
-                            )
-                        }
-                    </Select>
-                </FormControl>
+            <div className="flex content-center">
+                <div className="m-2 p-3 content-center rounded-xl bg-white w-fit">
+                    <FormControl className="content-center" sx={{width: '20rem'}}>
+                        <InputLabel id="gamemode-label"
+                                    sx={{color: 'black', fontSize: '1.3em'}}>{t("History.gamemode")}</InputLabel>
+                        <Select
+                            labelId="gamemode-cb"
+                            id="gamemode-cb"
+                            value={gamemodeSelected}
+                            label="gamemode"
+                            className="bg-white m-3"
+                            onChange={changeGamemode}
+                        >
+                            {
+                                gamemodes.map((gamemode) =>
+                                    <MenuItem value={gamemode} key={gamemode}>{gamemode}</MenuItem>
+                                )
+                            }
+                        </Select>
+                    </FormControl>
+                </div>
             </div>
+
 
             <Container className="flex flex-col items-center justify-center min-h-screen">
 
@@ -156,10 +160,10 @@ export const History = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell/>
-                                <TableCell>{ t('History.date') }</TableCell>
-                                <TableCell>{ t('History.successful') }</TableCell>
-                                <TableCell>{ t('History.failed') }</TableCell>
-                                <TableCell>{ t('History.correctAnswers') }</TableCell>
+                                <TableCell>{t('History.date')}</TableCell>
+                                <TableCell>{t('History.successful')}</TableCell>
+                                <TableCell>{t('History.failed')}</TableCell>
+                                <TableCell>{t('History.correctAnswers')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
