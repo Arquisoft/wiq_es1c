@@ -101,7 +101,7 @@ describe('Game Service', () => {
 
         expect(response.statusCode).toBe(200);
         expect(response.text).toBe("Santiago");
-    })
+    });
 
     it("Should return 200 with a valid token when accessing game settings", async () =>
     {
@@ -190,5 +190,13 @@ describe('Game Service', () => {
             });
 
         expect(response.statusCode).toBe(400);
+    });
+
+    it("Should return 200 with a valid token when get question", async () => {
+        let response = await request(app)
+            .post('/api/game/currentquestion')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
     });
 })
