@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, act, fireEvent } from '@testing-library/react';
+import { render, screen, act, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Ranking } from './Ranking';
 import { MemoryRouter } from 'react-router-dom';
