@@ -46,21 +46,22 @@ defineFeature(feature, test => {
       expect(text).toBe('Home');
     });
 
-    when('I press play', async () => {
-      await expect(page).toClick('button', { text: 'JUGAR' });
+    when('I press classic play', async () => {
+      await expect(page).toClick('button', { text: 'JUGAR CLÁSICO' });
     });
     then('A new game starts', async () => {
-      //This time is given for wait Creating game in DB
-      await page.waitForTimeout(4000);
-      expect(Number(beforeNewGame[0].var)+1).toBe(Number(afterNewGame[0].var))
+      await page.waitForTimeout(3000);//tiempo para esperar a que carge la url a /game
+      const answerDiv = await page.waitForXPath('/html/body/div[1]/div/main/main/div[2]/div');
+      let allDiv = await answerDiv.$$('div')
+      expect(allDiv.length).toBe(8);
       const currentUrl = await page.url();
-      expect(currentUrl).toBe('http://localhost/game');
+      expect(currentUrl).toBe('http://localhost:3000/game');
     });
   });
   test('Results are shown', ({given,when,then}) => {
     let buttonColor;
     given('A logged user in a game', async () => {
-      await expect(page).toClick('button', { text: 'JUGAR' });
+      await expect(page).toClick('button', { text: 'JUGAR CLÁSICO' });
     });
     when('I choose an option', async () => {
       buttonColor = await page.waitForSelector('main button:first-of-type').backgroundColor;
@@ -79,7 +80,7 @@ defineFeature(feature, test => {
   test('Shows questions continuously',({given,when,then})=>{
     let text;
     given('A logged user in a game',async()=>{
-      await expect(page).toClick('button', { text: 'JUGAR' });
+      await expect(page).toClick('button', { text: 'JUGAR CLÁSICO' });
     });
     when('I choose an option',async()=>{
       const xpath = '/html/body/div[1]/div/main/main/div[1]/h1';
@@ -94,27 +95,31 @@ defineFeature(feature, test => {
       expect(text).not.toBe(await page.evaluate(e => e.innerText, element));
     });
   });
-  test('The answer is persistent',({given,when,then})=>{
-    let titles;
-    let text;
+  test('The answer is persistent in history',({given,when,then})=>{
+    let question;
     given('A logged user in a game',async()=>{
-      await expect(page).toClick('button', { text: 'JUGAR' });
+      await expect(page).toClick('button', { text: 'JUGAR CLÁSICO' });
     });
     when('I choose an option',async()=>{
       const xpath = '/html/body/div[1]/div/main/main/div[1]/h1';
       const element = await page.waitForXPath(xpath, { visible: true });
-      text = await page.evaluate(e => e.innerText, element);
+      question = await page.evaluate(e => e.innerText, element);
       await expect(page).toClick('[data-buton="btn"]:first-of-type')
       await page.waitForTimeout(3000);
     });
-    then('Answer is saved in database',async()=>{
-      await page.waitForTimeout(3000);
-      expect(titles.some(element=>element.title.includes(text))).toBe(true);
+    then('Answer is saved in history',async()=>{
+      await expect(page).toClick('[data-testid="open-account-menu"]')
+      await expect(page).toClick('[data-testid="go-history"]')
+      const questionLabel=await page.waitForXPath('//*[@id="root"]/div/div[2]/div/table/tbody/tr[7]/td[1]');
+      const buttonToDisplayQuestions = await questionLabel.$('button');
+      await buttonToDisplayQuestions.click();
+      const xpathQuestion = await page.waitForXPath('/html/body/div[1]/div/div[2]/div/table/tbody/tr[8]/td/div/div/div/div/table/tbody/tr/td[1]');
+      expect(xpathQuestion).not.toBe(null)
     });
   })
   test('Finish game',({given,when,then})=>{
     given('A logged user in a game',async()=>{
-      await expect(page).toClick('button', { text: 'JUGAR' });
+      await expect(page).toClick('button', { text: 'JUGAR CLÁSICO' });
     });
     when('I click in home and confirm',async()=>{
       const homeButton = await page.waitForSelector('[data-testid="HomeIcon"]');

@@ -52,7 +52,6 @@ defineFeature(feature, test => {
       await logoutButton.click();
     });
   })
-
   test('The user puts two different passwords', ({given,when,then}) => {
     let username;
     let password;
