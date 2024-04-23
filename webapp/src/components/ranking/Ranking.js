@@ -107,9 +107,9 @@ export const Ranking = () =>
                                     </div>
                                 )}
 
-                                { ( index === 0 ) ? <span><EmojiEventsIcon fontSize='large' className='text-yellow-400 ml-5' /></span> : <span></span> }
-                                { ( index === 1 ) ? <span><EmojiEventsIcon fontSize='large' className='text-gray-400 ml-5' /></span> : <span></span> }
-                                { ( index === 2 ) ? <span><EmojiEventsIcon fontSize='large' className='text-orange-600 ml-5' /></span> : <span></span> }
+                                { ( index === 0 ) ? <span id='cup-1'><EmojiEventsIcon fontSize='large' className='text-yellow-400 ml-5' /></span> : <span></span> }
+                                { ( index === 1 ) ? <span id='cup-2'><EmojiEventsIcon fontSize='large' className='text-gray-400 ml-5' /></span> : <span></span> }
+                                { ( index === 2 ) ? <span id='cup-3'><EmojiEventsIcon fontSize='large' className='text-orange-600 ml-5' /></span> : <span></span> }
                             </div>
                         ) }
                     </div>
