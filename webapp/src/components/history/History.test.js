@@ -36,17 +36,17 @@ jest.mock('../../services/user.service', () => ({
 describe('Game Component', () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
 
-  test("renders component and the games",async () => {
-        await act(async () => render(<MemoryRouter><History/></MemoryRouter>));
+    test("renders component and the games",async () => {
+            await act(async () => render(<MemoryRouter><History/></MemoryRouter>));
 
-        expect(screen.getByText(/4\/4\/2024/i)).toBeInTheDocument();
-        expect(screen.getByText(/5\/5\/2024/i)).toBeInTheDocument();
+            expect(screen.getByText(/4\/4\/2024/i)).toBeInTheDocument();
+            expect(screen.getByText(/5\/5\/2024/i)).toBeInTheDocument();
 
-        expect(screen.getByText(/Fecha/i)).toBeInTheDocument();
-        expect(screen.getByText(/Acertadas/i)).toBeInTheDocument();
-        expect(screen.getByText(/Falladas/i)).toBeInTheDocument();
-        expect(screen.getByText(/% de aciertos/i)).toBeInTheDocument();
-  });
+            expect(screen.getByText(/Fecha/i)).toBeInTheDocument();
+            expect(screen.getByText(/Acertadas/i)).toBeInTheDocument();
+            expect(screen.getByText(/Falladas/i)).toBeInTheDocument();
+            expect(screen.getByText(/% de aciertos/i)).toBeInTheDocument();
+    });
 
     test("when you click a game, it shows its questions",async () => {
         await act(async () => render(<MemoryRouter><History/></MemoryRouter>));

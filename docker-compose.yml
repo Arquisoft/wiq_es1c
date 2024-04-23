@@ -94,7 +94,7 @@ services:
     restart: unless-stopped
     image: prom/prometheus
     container_name: prometheus-${teamname:-defaultASW}
-    profiles: ["dev"]
+    profiles: [ "dev", "prod" ]
     networks:
       - mynetwork
     volumes:
@@ -112,7 +112,7 @@ services:
     restart: unless-stopped
     image: grafana/grafana
     container_name: grafana-${teamname:-defaultASW}
-    profiles: ["dev"]
+    profiles: [ "dev", "prod" ]
     networks:
       - mynetwork
     volumes:

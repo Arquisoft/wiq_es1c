@@ -158,6 +158,15 @@ jobs:
         user: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
         command: |
+          mkdir grafana
+          mkdir grafana/provisioning
+          mkdir grafana/provisioning/dashboards
+          mkdir grafana/provisioning/datasources
+          mkdir prometheus
+          wget https://raw.githubusercontent.com/arquisoft/wiq_es1c/master/grafana/provisioning/datasources/datasource.yml -O grafana/provisioning/datasources/datasource.yml
+          wget https://raw.githubusercontent.com/arquisoft/wiq_es1c/master/grafana/provisioning/dashboards/dashboard.yml -O  grafana/provisioning/dashboards/dashboard.yml
+          wget https://raw.githubusercontent.com/arquisoft/wiq_es1c/master/grafana/provisioning/dashboards/apiDashboard.json -O  grafana/provisioning/dashboards/apiDashboard.json
+          wget https://raw.githubusercontent.com/arquisoft/wiq_es1c/master/prometheus/prometheus.yml -O prometheus/prometheus.yml
           wget https://raw.githubusercontent.com/arquisoft/wiq_es1c/master/docker-compose.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/arquisoft/wiq_es1c/master/.env -O .env
           docker compose --profile prod down

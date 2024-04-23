@@ -13,6 +13,7 @@ import {Profile} from "../components/profile/Profile";
 import {Settings} from "../components/settings/Settings";
 import {SuddenDeath} from "../components/game/SuddenDeath";
 import { Friends } from "../components/friends/Friend";
+import { Ranking } from "../components/ranking/Ranking";
 
 const router = createBrowserRouter([
     {
@@ -80,7 +81,13 @@ const router = createBrowserRouter([
         element: <PrivateRoute>
                     <Settings />
                 </PrivateRoute>   
-    },    
+    },
+    {
+        path: "/ranking",
+        element: <PrivateRoute>
+                    <Ranking />
+                </PrivateRoute>
+    },
     {
         path: "*",
         element: <Error404 />

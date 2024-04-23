@@ -23,6 +23,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HistoryIcon from '@mui/icons-material/History';
 import GroupsIcon from '@mui/icons-material/Groups';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import i18n from "../../i18n";
 
 
@@ -113,6 +114,14 @@ export const Nav = () => {
     handleMenuAccountClose();
     navigate("/profile");
     console.log("Going to profile");
+    console.log("Token: ", localStorage.getItem("token"));
+  };
+
+  const ranking = () => {
+    // Close submenu
+    handleMenuAccountClose();
+    navigate("/ranking");
+    console.log("Going to ranking");
     console.log("Token: ", localStorage.getItem("token"));
   };
 
@@ -262,6 +271,7 @@ export const Nav = () => {
                 <MenuItem onClick={profile} data-testid="go-profile"><AccountCircleIcon className="mr-1" />{ t('Nav.profile') }</MenuItem>
                 <MenuItem onClick={history} data-testid="go-history"><HistoryIcon className="mr-1"/>{ t('Nav.history') }</MenuItem>
                 <MenuItem onClick={friends} data-testid="go-friends"><GroupsIcon className="mr-1"/>{ t('Nav.friends') }</MenuItem>
+                <MenuItem onClick={ranking} data-testid="go-ranking"><EmojiEventsIcon className="mr-1" />{ t('Nav.ranking') }</MenuItem>
 
               </Menu>
               </>
