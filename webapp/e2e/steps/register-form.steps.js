@@ -7,7 +7,6 @@ let page;
 let browser;
 
 defineFeature(feature, test => {
-  
   beforeAll(async () => {
     browser = process.env.GITHUB_ACTIONS
       ? await puppeteer.launch()
@@ -15,26 +14,25 @@ defineFeature(feature, test => {
     page = await browser.newPage();
     //Way of setting up the timeout
     setDefaultOptions({ timeout: 10000 })
-
-    await page
-      .goto("http://localhost:80/login", {
-        waitUntil: "networkidle0",
-      })
-      .catch(() => {});
   });
-  afterEach(async()=>{
-    await expect(page).toClick('button','[data-testid="logout"]');
+  beforeEach(async()=>{
+    await page
+        .goto("http://localhost:3000/register", {
+          waitUntil: "networkidle0",
+        })
+        .catch(() => {});
+  })
+  afterAll(async ()=>{
+    browser.close()
   })
   test('The user is not registered in the site', ({given,when,then}) => {
     let username;
     let password;
 
     given('An unregistered user', async () => {
-      username = "pabla"
-      password = "pabloasw"
-      await expect(page).toClick("a", { text: "¿No tienes una cuenta? Regístrate" });
+      username = "a)UAN)"
+      password = "pasl98AUC(/Avhb)h"
     });
-
     when('I fill the data in the form and press submit', async () => {
       await expect(page).toFill('input[name="username"]', username);
       await expect(page).toFill('input[name="password"]', password);
@@ -43,9 +41,15 @@ defineFeature(feature, test => {
     });
 
     then('A confirmation message should be shown in the screen', async () => {
-      await page.waitForXPath('/html/body/div[1]/div/main/main/div/div[1]/h2', { visible: true });
-      const homeElement = await page.$eval('/html/body/div[1]/div/main/main/div/div[1]/h2', el => el.textContent === 'Home');
-      expect(homeElement).toBeTruthy();
+      const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
+      const element = await page.waitForXPath(xpath, { visible: true });
+      //const element = await page.$(xpath) -> $ sirve para seleccionar elementos por ids, selectors y xpath para xpath
+      const text = await page.evaluate(e => e.innerText, element);
+      expect(text).toBe('Home');
+      //HACE LOGOUT DE LA APLICACION
+      const logoutButton = await page.waitForSelector('[data-testid="logout"]');
+      //const logoutButton = await page.$('[data-testid="logout"]'); -> waitforselector espera a que cargue el elemento
+      await logoutButton.click();
     });
   })
 
@@ -69,17 +73,13 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement('#confirmPassword-helper-text');
     });
   });
-
-  afterAll(async ()=>{
-    browser.close()
-  })
   test('The user uses an already taken username', ({given,when,then}) => {
     let username;
     let password;
 
     given('An unregistered user', async () => {
-      username = "pablt"
-      password = "pabloasw"
+      username = "a)UAN)"
+      password = "pabloaswethrjeyj"
     });
 
     when('I fill the data with a taken username', async () => {
@@ -93,8 +93,4 @@ defineFeature(feature, test => {
         await expect(page).toMatchElement("div", { text: "Nombre de usuario no disponible" });
     });
   });
-
-  afterAll(async ()=>{
-    browser.close()
-  })
 });
