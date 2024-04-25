@@ -12,7 +12,6 @@ RUN npm install
 
 # Set the env var
 ENV DB_URL=mariadb
-ENV NODE_ENV=production
 
 # Copy the app source code to the working directory
 COPY . .

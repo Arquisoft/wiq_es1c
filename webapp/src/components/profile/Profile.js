@@ -3,11 +3,9 @@ import { getCurrentUser, getCreationDate, getHistory } from "../../services/user
 import {Box, Container, CssBaseline,Typography,Icon, CircularProgress } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Nav } from '../nav/Nav';
-import { useTranslation } from "react-i18next";
-import {Footer} from '../footer/Footer';
+
 
 export const Profile = () =>{
-    const { t } = useTranslation();
 
     const [username, setUsername] = useState("No identificado");
     const [creationDate,setCreationDate] = useState();
@@ -157,23 +155,23 @@ export const Profile = () =>{
                         </Icon>
                         <div>
                         <Typography className="text-black dark:text-white" component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
-                            { t('Profile.user', { name: username }) }
+                        Usuario: {username}
                         </Typography>
                         <Typography className="text-black dark:text-white" fontFamily="monospace" fontWeight="bold" >
-                            { t('Profile.playSince', { date: creationDate }) }
+                            LLeva jugando desde: {creationDate}
                         </Typography>
                         </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' , justifyContent: 'space-between'}}>
-                        <div>
+                        <div >
                             <Typography className="text-black dark:text-white" style={{ marginBottom: '20px' }}> 
-                                { t('Profile.lastGameResults') }
+                                Resultados última partida
                             </Typography>
                         <CircleProgress percentage={Number(lastGame)} />
                         </div>
                         <div >
                             <Typography className="text-black dark:text-white" style={{ marginBottom: '20px' }}>
-                                { t('Profile.generalResults') }
+                                Resultados generales
                             </Typography>
                         <CircleProgress percentage={Number(general)} />
                         </div>
@@ -182,7 +180,7 @@ export const Profile = () =>{
             <CssBaseline />
             </Container>
         </Container>
-        <Footer/>
+        
         </>
     )
 }

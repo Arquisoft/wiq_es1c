@@ -29,11 +29,6 @@ const Question = Schema
         type: [String],
         required: true
     },
-    lang: {
-        type: String,
-        required: true,
-        default: "es"
-    },
 });
 
 Question.methods.toJSON = function()

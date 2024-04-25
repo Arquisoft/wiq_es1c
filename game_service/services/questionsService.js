@@ -3,25 +3,24 @@ const { requestQuestion } = require("../game/verification");
 
 const NUM_QUESTIONS = 100;
 
-const loadQuestion = async(tags, lang) =>
+const loadQuestion = async(tags) =>
 {
     let res;
 
     if(tags && tags.length > 0) {
-        res = await Question.aggregate([
-            { $match: { $and:
-                        [{tags: { $in: tags}}, {lang: lang}]
-                }
+        res = await Question.aggregate([{ 
+            $match: { 
+                tags: { 
+                    $in: tags
+                } 
+            } 
         }]).sample(1);
-    }
-
+    } 
 
     //Safety!
-    if(res === undefined || res[0] === undefined){
+    if(res === undefined || res[0] === undefined)
         res = await Question.aggregate().sample(1);
-    }
-
-
+    
     
     const { _id, __v, createdAt, ...question } = res[0];
 
@@ -37,8 +36,7 @@ const saveQuestion = async() =>
         answer: res.answer,
         fakes: [res.fake[0], res.fake[1], res.fake[2]],
         imageUrl: res.imgurl,
-        tags: res.tags,
-        lang: res.lang
+        tags: res.tags
     });
 
     await question.save();

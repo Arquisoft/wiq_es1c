@@ -23,7 +23,7 @@ export const PrivateRoute = ({ children }) =>
             
             try {
                 const valid = await isValidToken(token);
-                
+                console.log(valid);
                 setIsAuthenticated(valid);
 
             } catch (error) {

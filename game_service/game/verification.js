@@ -26,17 +26,15 @@ const getCurrentQuestion = async (userId) => {
     if(questions == null || questions.length < 1)
       return null;
   
-    return questions[0];
+    let question = questions[0]
+    if(question.user_answer != null)
+      return null;
+  
+    return question
 }
   
 const requestQuestion = async() => {
-  let url = "http://question:8002/api/questions/generate";
-    
-  if(process.env.NODE_ENV !== "production"){
-      url = "http://localhost:8002/api/questions/generate"
-  }
-
-  return (await axios.post(url)).data;
+  return res = (await axios.post("http://question:8002/api/questions/generate")).data;
 }
 
 module.exports = {validate, getCurrentQuestion, requestQuestion}

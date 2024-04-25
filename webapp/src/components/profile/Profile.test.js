@@ -3,7 +3,7 @@ import { render, screen, act, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Profile } from './Profile';
 import { MemoryRouter } from 'react-router-dom';
-import "../../i18n";
+
 
 jest.mock('../../services/user.service', () => ({
     getCurrentUser: () => {

@@ -12,7 +12,7 @@ const YAML = require('yaml')
 const authMiddleware = require('./auth/authMiddleware');
 
 const getUsername = require("./service/loginService");
-const { getHistory, getHistoryByUser } = require("./service/gameService");
+const getHistory = require("./service/gameService");
 
 const port = 8004;
 const app = express();
@@ -30,7 +30,6 @@ app.use('/api/*',authMiddleware); // Auth middleware for the questions API
 // Api endpoints
 app.post('/api/userdetails/name', getUsername);
 app.post('/api/userdetails/history', getHistory);
-app.post('/api/userdetails/history-by-user', getHistoryByUser);
 
 // Read the OpenAPI YAML file synchronously
 openapiPath='./openapi.yaml'

@@ -94,8 +94,7 @@ const processTemplate = async (template) => {
         "title": finalTitle, // Final title with placeholders replaced
         "answer": answer, // Correct answer
         "fake": fakeAnswers, // Three different fake answers
-        "tags": template.tags, // Associated tags
-        "lang": template.lang
+        "tags": template.tags // Associated tags
     };
     
     // If an image URL is specified in the template, add it to the processed template object

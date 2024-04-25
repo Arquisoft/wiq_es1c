@@ -23,10 +23,6 @@ module.exports = (sequelize, DataTypes) => {
     durationQuestion: {
       type: DataTypes.INTEGER,
       defaultValue: () => 10
-    },
-    numberOfQuestions: {
-      type: DataTypes.INTEGER,
-      defaultValue: () => 10
     }
   }, {
     sequelize,

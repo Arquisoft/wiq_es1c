@@ -1,5 +1,5 @@
 node_modules
 coverage
-**/*.sqlite
+testDB.sqlite
 docs/build
 .idea

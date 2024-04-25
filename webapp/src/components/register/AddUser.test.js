@@ -4,7 +4,6 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import AddUser from './AddUser';
-import "../../i18n";
 
 jest.mock('../../services/user.service', () => ({
   register: jest.fn(() => Promise.resolve('')), // Resolve with an empty string to simulate success
@@ -19,8 +18,6 @@ describe('AddUser Component', () => {
   test('submit the form with valid inputs', async () => {
     render(<MemoryRouter><AddUser /></MemoryRouter>);
     
-    //await waitFor();
-
     fireEvent.change(screen.getByLabelText(/Nombre de usuario/i), { target: { value: 'validUsername' } });
 
     fireEvent.change(screen.getAllByLabelText(/Contraseña/i)[0], { target: { value: 'validPassword' } });

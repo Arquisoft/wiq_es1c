@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {Box, IconButton, Chip, Container, CssBaseline, Modal, Typography} from "@mui/material";
-import CancelIcon from "@mui/icons-material/Cancel";
-import { useTranslation } from "react-i18next";
-
-import './Home.css';
 import { getCurrentUser } from "../../services/user.service";
-import { Nav } from '../nav/Nav';
-import {getTags} from "../../services/question.service";
-import {useNavigate} from "react-router-dom";
 import bannerDark from '../../media/wiq_banner.png';
 import bannerLight from '../../media/wiq_banner.light.png';
-import {Footer} from '../footer/Footer';
+import { Nav } from '../nav/Nav';
+import './Home.css';
+import {useNavigate} from "react-router-dom";
+import CancelIcon from "@mui/icons-material/Cancel";
+import {getTags} from "../../services/question.service";
 
 export const Home = () => 
 {
-    const { t } = useTranslation();
-
     const [loggedIn, setLoggedIn] = useState(true);
     const [username, setUsername] = useState("No identificado");
     const [tagSelection, setTagSelection] = useState(false);
@@ -44,7 +39,13 @@ export const Home = () =>
     }
 
     const startGame = () => {
-        let tagString = stringifyTags();
+        let tagString = "";
+        tags.forEach((tag) => {
+            if(tag.active)
+                tagString += tag.name + ","
+        });
+
+        tagString = tagString.substring(0, tagString.length - 1);
         navigate("/game", {
             state: {
                 tags: tagString
@@ -52,34 +53,6 @@ export const Home = () =>
         });
 
 
-    }
-
-    const startSuddenDeath = () => {
-        let tagString = stringifyTags();
-        navigate("/suddendeath", {
-            state: {
-                tags: tagString
-            }
-        })
-    }
-
-    const startAgainstClock = () => {
-        let tagString = stringifyTags();
-        navigate("/againstClock", {
-            state: {
-                tags: tagString
-            }
-        })
-    }
-
-    const stringifyTags = () => {
-        let tagString = "";
-        tags.forEach((tag) => {
-            if(tag.active)
-                tagString += tag.name + ","
-        });
-
-        return tagString.substring(0, tagString.length - 1);
     }
 
     useEffect(() =>
@@ -102,23 +75,17 @@ export const Home = () =>
 
         <Nav/>
         {(
-        <Container
-            component="main"
-            maxWidth="sm"
-            sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: "85vh",
-            }}
-            className="min-h-screen flex justify-center align-middle"
-        >
             <Container
-                className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex"
                 component="main"
-                maxWidth="sm"
+                maxWidth="md"
+                sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: "85vh", backgroundColor:"rgb(23 23 23 / var(--tw-bg-opacity))"}}
+                className="bg-teal-50 dark:bg-zinc-800 min-h-screen flex  justify-center place-content-between rounded-lg flex"
             >
+                <Container
+                    className="bg-teal-50 dark:bg-zinc-800 rounded-lg flex "
+                    component="main"
+                    maxWidth="sm"
+                >
                     <CssBaseline />
                     <Box
                         sx={{
@@ -130,19 +97,16 @@ export const Home = () =>
                         }}
                         className="bg-white dark:bg-dark-mode text-black dark:text-white "
                     >
-                        <img src={bannerLight} alt="WiQ" className="block dark:hidden"/>
-                        <img src={bannerDark} alt="WiQ" className="hidden dark:block"/>
+                       <img src = {bannerLight} alt="WiQ" className="block dark:hidden" />
+                       <img src = {bannerDark} alt="WiQ" className="hidden dark:block" />
 
                         <div className="flex p-4 place-content-between ">
-                            
-                            <Typography className="text-black dark:text-white " component="h2" variant="h4"
-                                        fontFamily="monospace" fontWeight="bold" alignSelf="center">
-                                { t('Home.home') }
+                            <Typography  className="text-black dark:text-white " component="h2" variant="h4" fontFamily="monospace" fontWeight="bold" alignSelf="center">
+                                Home
                             </Typography>
 
-                            <Typography className="text-black dark:text-white " component="h3" variant="h5"
-                                        fontFamily="monospace" alignSelf="center">
-                                { t('Home.welcome', { name: username }) }
+                            <Typography  className="text-black dark:text-white " component="h3" variant="h5" fontFamily="monospace" alignSelf="center">
+                                ¡Bienvenido, {username}!
                             </Typography>
 
                         </div>
@@ -150,46 +114,34 @@ export const Home = () =>
                         <div className="p-2 m-1">
                             <Typography component="h3" variant="h6" fontFamily="monospace" fontWeight="bold"
                                         alignSelf="center" className="text-black dark:text-white ">
-                                { t('Home.howToPlay') }
+                                Cómo jugar
                             </Typography>
                             <Typography component="p" variant="p" className="text-black dark:text-white ">
-                                { t('Home.tutorialP1') }
+                                Cuando pulses en el botón de jugar, se te irán mostrando preguntas junto con 4 posibles
+                                respuestas, sólo una de ellas es verdadera, haz click sobre la respuesta correcta para
+                                ganar puntos.
                             </Typography>
                             <Typography component="p" variant="p" className="text-black dark:text-white ">
-                                { t('Home.tutorialP2') }
+                                El tiempo para contestar es limitado. La barra en la parte inferior muestra el tiempo
+                                restante. Si el tiempo se termina, la pregunta contará como fallada y se pasará a la
+                                siguiente.
                             </Typography>
                             <Typography component="p" variant="h6" fontFamily="monospace" fontWeight="bold"
                                         className="text-center p-3 text-black dark:text-white ">
-                                { t('Home.goodLuck') }
+                                ¡Mucha suerte y demuestra lo que sabes!
                             </Typography>
                         </div>
-                        <div className="flex align-middle justify-center flex-grow m-3">
-                            <button onClick={startGame} className="bg-gradient-to-r
+                        <div className="flex align-middle justify-center flex-grow">
+                                <button onClick={startGame} className="bg-gradient-to-r
                                 from-cyan-50 via-cyan-300 to blue-500
                                 dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
                                 buttonGradient">
-                                    <span className="text-black dark:text-white text">{ t('Home.playClassic') }</span>
+                                    <span className="text-black dark:text-white text">JUGAR</span>
                                 </button>
                         </div>
                         <div className="flex align-middle justify-center flex-grow m-3">
-                            <button onClick={startSuddenDeath} className="bg-gradient-to-r
-                                from-cyan-50 via-cyan-300 to blue-500
-                                dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
-                                buttonGradient">
-                                <span className="text-black dark:text-white text">{ t('Home.playSuddenDeath') }</span>
-                            </button>
-                        </div>
-                        <div className="flex align-middle justify-center flex-grow m-3">
-                            <button onClick={startAgainstClock} className="bg-gradient-to-r
-                                from-cyan-50 via-cyan-300 to blue-500
-                                dark:from-orange-500 dark:via-purple-500 dark:to-pink-500
-                                buttonGradient">
-                                <span className="text-black dark:text-white text">{ t('Home.playAgainstClock') }</span>
-                            </button>
-                        </div>
-                        <div className="flex align-middle justify-center flex-grow m-3">
                             <button onClick={openTagSelection} className="buttonGradient">
-                                <span className="text-black dark:text-white ">{ t('Home.chooseTags') }</span>
+                                    <span className="text-black dark:text-white ">Elige las tags</span>
                             </button>
 
                         </div>
@@ -198,7 +150,7 @@ export const Home = () =>
                 </Container>
                 <Modal
                     open={tagSelection}
-                >
+                    >
                     <Container
                         className="bg-white dark:bg-dark-mode text-black dark:text-white rounded-lg self-center"
                         data-testid="tag-selection"
@@ -222,7 +174,7 @@ export const Home = () =>
                             <Typography component="h3" variant="h2" className="text-black dark:text-white">
                                 Tags
                             </Typography>
-                            <p className="text-black dark:text-white">{ t('Home.infoTags') }</p>
+                            <p className="text-black dark:text-white">Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.</p>
                             <div id="tagBox">
                                 {tags.map((tag) =>
                                     <Chip
@@ -246,8 +198,6 @@ export const Home = () =>
 
             </Container>
         )}
-        <br />
-        <Footer/>
         </>
     )
 }

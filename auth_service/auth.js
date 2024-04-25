@@ -10,7 +10,6 @@ const YAML = require('yaml')
 
 // My own libs
 const auth = require('./auth/authEndpoints');
-const user = require('./user/userEndpoints')
 
 const port = 8001;
 const app = express();
@@ -29,9 +28,6 @@ app.post("/api/auth/register", auth.register);
 app.post("/api/auth/login", auth.login);
 app.post("/api/auth/verify", auth.verify);
 app.post("/api/auth/getName", auth.getUsername);
-app.get("/api/user/getUsers", user.getUsers);
-app.get("/api/user/getUser", user.getUser);
-app.post("/api/user/deleteUser", user.deleteUser);
 app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });

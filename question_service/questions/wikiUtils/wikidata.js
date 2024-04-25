@@ -1,16 +1,19 @@
-const axios = require('axios');
-
 async function query(SPARQL) {
     const apiUrl = `https://query.wikidata.org/sparql?query=${encodeURIComponent(SPARQL)}&format=json`;
 
-    const response = await axios.get(apiUrl, {
+    const response = await fetch(apiUrl, {
         headers: {
             'Accept': 'application/json',
             'User-Agent': 'QuestionCrawler/1.0 (UO288991@uniovi.es)'
         }
     });
 
-    const datos = response.data;
+    if (!response.ok) {
+        console.error('Error al realizar la consulta a Wikidata:', response.statusText);
+        return;
+    }
+
+    const datos = await response.json();
 
     const resultados = datos.results.bindings.map((resultado) => {
         const resultadoFormateado = {};

@@ -3,7 +3,6 @@ import { render, screen, act, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {History} from './History';
 import { MemoryRouter } from 'react-router-dom';
-import "../../i18n";
 
 jest.mock('../../services/user.service', () => ({
     getHistory: () => Promise.resolve(
@@ -33,26 +32,20 @@ jest.mock('../../services/user.service', () => ({
     )
 }));
 
-jest.mock('../../services/game.service', () => ({
-    getGameModes: () => Promise.resolve(
-        ["classic", "SuddenDeath" ]
-    )
-}));
-
 describe('Game Component', () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
 
-    test("renders component and the games",async () => {
-            await act(async () => render(<MemoryRouter><History/></MemoryRouter>));
+  test("renders component and the games",async () => {
+        await act(async () => render(<MemoryRouter><History/></MemoryRouter>));
 
-            expect(screen.getByText(/4\/4\/2024/i)).toBeInTheDocument();
-            expect(screen.getByText(/5\/5\/2024/i)).toBeInTheDocument();
+        expect(screen.getByText(/4\/4\/2024/i)).toBeInTheDocument();
+        expect(screen.getByText(/5\/5\/2024/i)).toBeInTheDocument();
 
-            expect(screen.getByText(/Fecha/i)).toBeInTheDocument();
-            expect(screen.getByText(/Acertadas/i)).toBeInTheDocument();
-            expect(screen.getByText(/Falladas/i)).toBeInTheDocument();
-            expect(screen.getByText(/% de aciertos/i)).toBeInTheDocument();
-    });
+        expect(screen.getByText(/Fecha/i)).toBeInTheDocument();
+        expect(screen.getByText(/Acertadas/i)).toBeInTheDocument();
+        expect(screen.getByText(/Falladas/i)).toBeInTheDocument();
+        expect(screen.getByText(/% de aciertos/i)).toBeInTheDocument();
+  });
 
     test("when you click a game, it shows its questions",async () => {
         await act(async () => render(<MemoryRouter><History/></MemoryRouter>));

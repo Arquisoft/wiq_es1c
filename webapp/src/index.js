@@ -4,8 +4,7 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './App';
 import './index.css';
-import './i18n';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
