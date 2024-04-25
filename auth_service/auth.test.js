@@ -129,4 +129,69 @@ describe('Authentication Endpoints', () => {
         expect(response.body.name).toBe(mockUser.name);
     });
 
+    it("Should return 200 and the users", async() =>{
+
+        await User.create({
+            id: 2,
+            name: 'prueba2',
+            password: 'contraseña2'
+        });
+
+        const response = await request(app)
+            .get('/api/user/getUsers');
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual([{name: 'testuser', id:1},{name: 'prueba2',id:2}]);
+    });
+
+    it("Should return 200 and the mocked user",async()=>{
+        const response = await request(app)
+            .get('/api/user/getUser')
+            .query({user_id:1});
+        expect(response.statusCode).toBe(200);
+        expect(response.body.user.name).toEqual(mockUser.name)
+
+    });
+
+    it("Should return 401 because the user doesn't exist",async()=>{
+        const response = await request(app)
+            .get('/api/user/getUser')
+            .query({user_id:2});
+        expect(response.statusCode).toBe(401);
+
+    });
+
+    it("Should return 401 because it needs a parameter",async()=>{
+        const response = await request(app)
+            .get('/api/user/getUser')
+        expect(response.statusCode).toBe(401);
+
+    });
+
+    it("Shoud return 200 and delete the user",async()=>{
+        const response = await request(app)
+            .post('/api/user/deleteUser')
+            .query({user_id:1});
+        expect(response.statusCode).toBe(200);
+
+        //try to find the deleted user
+        const response2 = await request(app)
+            .get('/api/user/getUser')
+            .query({user_id:1});
+        expect(response2.statusCode).toBe(401);
+    });
+
+    it("Shoud return 401 because it needs a parameter in delete",async()=>{
+        const response = await request(app)
+            .post('/api/user/deleteUser')
+        expect(response.statusCode).toBe(401);
+    });
+
+    it("Shoud return 401 because the user doesn't exist in delete",async()=>{
+        console.log('este')
+        const response = await request(app)
+            .post('/api/user/deleteUser')
+            .query({user_id:8});
+        expect(response.statusCode).toBe(401);
+    });
+
 });

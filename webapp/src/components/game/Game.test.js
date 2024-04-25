@@ -3,6 +3,7 @@ import {render, screen, fireEvent, act, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {Game} from './Game';
 import { MemoryRouter, Route } from 'react-router-dom';
+import "../../i18n";
 
 jest.mock('../../services/game.service', () => ({
   startNewGame: () => Promise.resolve(""),
@@ -14,7 +15,8 @@ jest.mock('../../services/game.service', () => ({
       start: 0
     }
   ),
-  getGameSettings: () => Promise.resolve({durationQuestion:10})
+  getGameSettings: () => Promise.resolve({durationQuestion:10}),
+  getNumberOfQuestions: () => Promise.resolve(10)
 }));
 
 jest.spyOn(window, 'alert').mockImplementation(() => {});

@@ -2,24 +2,25 @@
 
 [![Deploy on release](https://github.com/Arquisoft/wiq_es1c/actions/workflows/release.yml/badge.svg)](https://github.com/Arquisoft/wiq_es1c/actions/workflows/release.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es1c&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es1c)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es1c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es1c) [![Open Issues](https://img.shields.io/github/issues-raw/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/issues) [![Closed Issues](https://img.shields.io/github/issues-closed-raw/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/issues?q=is%3Aissue+is%3Aclosed) [![Pull Requests](https://img.shields.io/github/issues-pr/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/pulls) [![License](https://img.shields.io/github/license/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/blob/main/LICENSE) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/) 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wiq_es1c&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wiq_es1c) [![Open Issues](https://img.shields.io/github/issues-raw/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/issues) [![Closed Issues](https://img.shields.io/github/issues-closed-raw/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/issues?q=is%3Aissue+is%3Aclosed) [![Pull Requests](https://img.shields.io/github/issues-pr/Arquisoft/wiq_es1c)](https://github.com/Arquisoft/wiq_es1c/pulls) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/) 
+[![CodeScene Code Health](https://codescene.io/projects/52509/status-badges/code-health)](https://codescene.io/projects/52509) [![CodeScene System Mastery](https://codescene.io/projects/52509/status-badges/system-mastery)](https://codescene.io/projects/52509) [![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/52509)
 
-
-[![Website](https://github.com/Arquisoft/wiq_es1c/blob/master/media/img/wiq_banner_readme.png)](http://wiqgame.run.place/)
-
-This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
+<p align="center">
+  <a href = "http://wiqgame.run.place/" title= "Pagina web">
+  <img src="https://github.com/Arquisoft/wiq_es1c/blob/master/media/img/wiq_banner_readme.png">
+  </a>
+</p>
 
 This repo is a basic application composed of several components.
 
 - **User service**. Express service that handles the insertion of new users in the system.
 - **Auth service**. Express service that handles the authentication of users.
 - **Game service**. Express service that handles the game itself.
+- **Friend service**. Express service that handles the friends.
 - **Question service**. Express service that handles the questions generation and distribution.
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
 
 Every service has its own MariaDB database in addition the question and game service have a MongoDB database for managing the questions and the communication with the Wikidata services.
-
-
 
 ## Description
 
