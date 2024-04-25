@@ -30,7 +30,13 @@ const getCurrentQuestion = async (userId) => {
 }
   
 const requestQuestion = async() => {
-  return res = (await axios.post("http://question:8002/api/questions/generate")).data;
+  let url = "http://question:8002/api/questions/generate";
+    
+  if(process.env.NODE_ENV !== "production"){
+      url = "http://localhost:8002/api/questions/generate"
+  }
+
+  return (await axios.post(url)).data;
 }
 
 module.exports = {validate, getCurrentQuestion, requestQuestion}
