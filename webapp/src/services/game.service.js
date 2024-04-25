@@ -2,15 +2,39 @@ import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost';
 
-const startNewGame = async (token, tags) =>
+const startNewGame = async (token, tags, gameMode) =>
 {
+    if(gameMode === undefined)
+        gameMode = "classic";
+
     try {
-      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token, "tags": tags });
+      await axios.post(`${apiEndpoint}:8003/api/game/new`, { "token": token, "tags": tags, "gameMode": gameMode });
 
       return "";
 
     } catch (error) {
       return error.response.data.error;
+    }
+}
+
+const getCurrentQuestion = async (token) => {
+    try {
+        const response = await axios.post(`${apiEndpoint}:8003/api/game/currentquestion`, { "token" : token});
+
+        return response.data.question;
+    } catch (error) {
+        return undefined;
+    }
+}
+
+const getNumberOfQuestions = async (token) => {
+    try {
+        const response = await axios.post(`${apiEndpoint}:8003/api/game/numberofquestions`, { "token" : token});
+
+        return response.data.numberOfQuestions;
+
+    } catch (error) {
+        return undefined;
     }
 }
 
@@ -30,10 +54,10 @@ const getEndTime = async (token) =>
   }
 }
 
-const nextQuestion = async (token) =>
+const nextQuestion = async (token, language) =>
 {
     try {
-      const response = await axios.post(`${apiEndpoint}:8003/api/game/next`, { "token": token });
+      const response = await axios.post(`${apiEndpoint}:8003/api/game/next`, { "token": token, "lang": language });
 
       return response.data;
 
@@ -66,4 +90,28 @@ const getGameSettings = async (token) =>
   }
 }
 
-export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings};
+const setGameSettings = async (token, duration, len) =>
+{
+  try {
+    await axios.post(`${apiEndpoint}:8003/api/game/updatesettings`, { 
+      "token": token, 
+      "durationQuestion": duration, 
+      "numberOfQuestions":len 
+    });
+  } catch (error) {
+    return error.response.data.error;
+  }
+}
+
+const getGameModes = async (token) => {
+    try {
+        const response = await axios.post(`${apiEndpoint}:8003/api/game/gamemodes`, { "token" : token});
+
+        return response.data;
+
+    } catch (error) {
+        return undefined;
+    }
+}
+
+export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings, setGameSettings, getNumberOfQuestions, getCurrentQuestion, getGameModes};

@@ -1,6 +1,10 @@
 const request = require('supertest');
 const app = require("./userdetails");
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const MockAdapter = require('axios-mock-adapter');
+
+const mock = new MockAdapter(axios);
 
 // Mock private key for JWT
 const privateKey = "ChangeMePlease!!!!";
@@ -10,9 +14,7 @@ describe('User Details Endpoints', () => {
         // Generate token for the mock user
         const token = jwt.sign({ user_id: 1 }, privateKey);
 
-        global.fetch = jest.fn().mockResolvedValue({
-            json: async () => ({name: "Juan"})
-        });
+        mock.onPost('http://localhost:8001/api/auth/getName').reply(200, { name: 'Juan' });
 
         const response = await request(app)
             .post('/api/userdetails/name')
@@ -30,9 +32,7 @@ describe('User Details Endpoints', () => {
         const mockHistory = [{ game_id: 1, score: 100 }, { game_id: 2, score: 150 }];
 
         // Mocking fetch call
-        global.fetch = jest.fn().mockResolvedValue({
-            json: async () => (mockHistory)
-        });
+        mock.onPost('http://localhost:8003/api/game/getHistory').reply(200, mockHistory);
 
         const response = await request(app)
             .post('/api/userdetails/history')
@@ -40,5 +40,44 @@ describe('User Details Endpoints', () => {
 
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(mockHistory);
+    });
+
+    it("Should return history if token is valid in getHistoryByUser endpoint", async () => {
+        // Generate token for the mock user
+        const token = jwt.sign({ user_id: 1 }, privateKey);
+
+        // Mock response from the external service
+        const mockHistory = [{ game_id: 1, score: 100 }, { game_id: 2, score: 150 }];
+
+        // Mocking fetch call
+        global.fetch = jest.fn().mockResolvedValue({
+            json: async () => (mockHistory)
+        });
+
+        const response = await request(app)
+            .post('/api/userdetails/history-by-user')
+            .send({ token: token, userId: 1 });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual(mockHistory);
+    });
+
+    it("Should return 400 if user id is not valid in getHistoryByUser endpoint", async () => {
+        // Generate token for the mock user
+        const token = jwt.sign({ user_id: 1 }, privateKey);
+
+        // Mock response from the external service
+        const mockHistory = [{ game_id: 1, score: 100 }, { game_id: 2, score: 150 }];
+
+        // Mocking fetch call
+        global.fetch = jest.fn().mockResolvedValue({
+            json: async () => (mockHistory)
+        });
+
+        const response = await request(app)
+            .post('/api/userdetails/history-by-user')
+            .send({ token: token, userId: undefined });
+
+        expect(response.statusCode).toBe(400);
     });
 });

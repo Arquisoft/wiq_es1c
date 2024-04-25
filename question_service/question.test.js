@@ -1,5 +1,25 @@
 const request = require('supertest')
 const app = require("./question")
+const MockAdapter = require('axios-mock-adapter');
+const axios = require('axios');
+// Mocking axios call
+const mock = new MockAdapter(axios);
+const responseData = {
+    results: {
+        bindings: [
+            { filmLabel: { value: "Pulp Fiction" }, directorLabel: { value: "Quentin Tarantino" } },
+            { filmLabel: { value: "Inception" }, directorLabel: { value: "Christopher Nolan" } },
+            { filmLabel: { value: "The Shawshank Redemption" }, directorLabel: { value: "Frank Darabont" } },
+            { filmLabel: { value: "The Godfather" }, directorLabel: { value: "Francis Ford Coppola" } },
+            { filmLabel: { value: "The Dark Knight" }, directorLabel: { value: "Christopher Nolan" } },
+            { filmLabel: { value: "Fight Club" }, directorLabel: { value: "David Fincher" } },
+            { filmLabel: { value: "Forrest Gump" }, directorLabel: { value: "Robert Zemeckis" } },
+            { filmLabel: { value: "The Matrix" }, directorLabel: { value: "Lana Wachowski" } }
+        ]
+    }
+};
+
+mock.onAny().reply(200, responseData);
 
 jest.mock('./db/mongo/utils', () => ({
     getRandomTemplate: () => { return Promise.resolve({
@@ -13,25 +33,6 @@ jest.mock('./db/mongo/utils', () => ({
         ["Galleta","Chocapic"]
     )}
 }));
-
-// Mock the fetch function
-global.fetch = jest.fn().mockResolvedValue({
-    ok: true, // Define the 'ok' property
-    json: async () => ({
-        results: {
-            bindings: [
-                { filmLabel: { value: "Pulp Fiction" }, directorLabel: { value: "Quentin Tarantino" } },
-                { filmLabel: { value: "Inception" }, directorLabel: { value: "Christopher Nolan" } },
-                { filmLabel: { value: "The Shawshank Redemption" }, directorLabel: { value: "Frank Darabont" } },
-                { filmLabel: { value: "The Godfather" }, directorLabel: { value: "Francis Ford Coppola" } },
-                { filmLabel: { value: "The Dark Knight" }, directorLabel: { value: "Christopher Nolan" } },
-                { filmLabel: { value: "Fight Club" }, directorLabel: { value: "David Fincher" } },
-                { filmLabel: { value: "Forrest Gump" }, directorLabel: { value: "Robert Zemeckis" } },
-                { filmLabel: { value: "The Matrix" }, directorLabel: { value: "Lana Wachowski" } }
-            ]
-        }
-    })
-});
 
 // Import Chance library for random number generation
 const Chance = require('chance')
