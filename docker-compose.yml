@@ -3,7 +3,7 @@ services:
   friend:
     restart: unless-stopped
     container_name: friends-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es1c/friend:latest
+    image: ghcr.io/arquisoft/wiq_es1c/friends:latest
     profiles: ["dev", "prod"]
     build: ./friends_service
     environment:
