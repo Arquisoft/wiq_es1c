@@ -103,15 +103,4 @@ const setGameSettings = async (token, duration, len) =>
   }
 }
 
-const getGameModes = async (token) => {
-    try {
-        const response = await axios.post(`${apiEndpoint}:8003/api/game/gamemodes`, { "token" : token});
-
-        return response.data;
-
-    } catch (error) {
-        return undefined;
-    }
-}
-
-export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings, setGameSettings, getNumberOfQuestions, getCurrentQuestion, getGameModes};
+export {startNewGame, nextQuestion, awnser, getEndTime, getGameSettings, setGameSettings, getNumberOfQuestions, getCurrentQuestion};

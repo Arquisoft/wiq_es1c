@@ -33,12 +33,6 @@ jest.mock('../../services/user.service', () => ({
     )
 }));
 
-jest.mock('../../services/game.service', () => ({
-    getGameModes: () => Promise.resolve(
-        ["classic", "SuddenDeath" ]
-    )
-}));
-
 describe('Game Component', () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
 

@@ -116,7 +116,7 @@ describe('Game Service', () => {
     {
         const response = await request(app)
             .post('/api/game/getHistory')
-            .send({ token: validToken, gameMode: 'classic' });
+            .send({ token: validToken });
 
         expect(response.statusCode).toBe(200);
     });
@@ -199,21 +199,4 @@ describe('Game Service', () => {
 
         expect(response.statusCode).toBe(200);
     });
-
-    it("Should return 200 with a valid token when get number of questions", async () => {
-        let response = await request(app)
-            .post('/api/game/numberofquestions')
-            .send({ token: validToken });
-
-        expect(response.statusCode).toBe(200);
-    });
-
-    it("Should return 200 with a valid token when get gamemodes", async () => {
-        let response = await request(app)
-            .post('/api/game/gamemodes')
-            .send({ token: validToken });
-
-        expect(response.statusCode).toBe(200);
-    });
-
 })

@@ -74,8 +74,7 @@ i18n
                     correctAnswer: 'Correct answer',
                     yourAnswer: 'Your answer',
                     correct: 'Correct',
-                    any: 'Any',
-                    gamemode: 'Game modes'
+                    any: 'Any'
                 },
                 Friends: {
                     friends: 'Friends',
@@ -176,8 +175,7 @@ i18n
                     correctAnswer: 'Respuesta correcta',
                     yourAnswer: 'Tu respuesta',
                     correct: 'Correcta',
-                    any: 'Cualquiera',
-                    gamemode: 'Modos de juego'
+                    any: 'Cualquiera'
                 },
                 Friends: {
                     friends: 'Amigos',

@@ -171,8 +171,7 @@ const getHistory = async (req,res) => {
 
   let games = await Game.findAll({
     where: {
-      user_id: userId,
-      gameMode: req.body.gameMode
+      user_id: userId
     },
     include: [{
       model: Question,
@@ -258,15 +257,4 @@ const setGameSettingsByUser = async (req, res) =>{
   res.status(200).send(settings);
 }
 
-const getGamemodes = async (req, res) => {
-
-    let userId = jwt.verify(req.body.token, privateKey).user_id;
-
-    let games = await Game.aggregate('gameMode', 'DISTINCT', { plain: false, where: { user_id: userId } });
-
-    res.status(200).send(games.map(game => game.DISTINCT));
-};
-
-
-module.exports = {newGame, next, awnser, update, getHistory, getHistoryByUser, getGameSettingsByUser, setGameSettingsByUser, getNumberOfQuestions, getQuestion, getGamemodes}
-
+module.exports = {newGame, next, awnser, update, getHistory, getHistoryByUser, getGameSettingsByUser, setGameSettingsByUser, getNumberOfQuestions, getQuestion}
