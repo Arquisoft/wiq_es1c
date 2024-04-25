@@ -46,7 +46,7 @@ defineFeature(feature, test => {
       const element = await page.waitForXPath(xpath, { visible: true });
       //const element = await page.$(xpath) -> $ sirve para seleccionar elementos por ids, selectors y xpath para xpath
       const text = await page.evaluate(e => e.innerText, element);
-      expect(text).toBe('Home');
+      expect(text).toBe('Inicio');
       //HACE LOGOUT DE LA APLICACION
       const logoutButton = await page.waitForSelector('[data-testid="logout"]');
       //const logoutButton = await page.$('[data-testid="logout"]'); -> waitforselector espera a que cargue el elemento

@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const { defineFeature, loadFeature }=require('jest-cucumber');
 const setDefaultOptions = require('expect-puppeteer').setDefaultOptions
 const feature = loadFeature('./features/play-game.feature');
+const {textVerifyByXpath}=require('../steps_testUtils');
 
 let page;
 let browser;
@@ -43,7 +44,7 @@ defineFeature(feature, test => {
       const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
       const element = await page.waitForXPath(xpath, { visible: true });
       const text = await page.evaluate(e => e.innerText, element);
-      expect(text).toBe('Home');
+      expect(text).toBe('Inicio');
     });
 
     when('I press classic play', async () => {
@@ -124,13 +125,13 @@ defineFeature(feature, test => {
     when('I click in home and confirm',async()=>{
       const homeButton = await page.waitForSelector('[data-testid="HomeIcon"]');
       await homeButton.click();
-      await expect(page).toClick('button',{text:'Sí,salir'})
+      const xpath = '/html/body/div[2]/div/div[6]/button[1]';
+      const confirmButton = await page.waitForXPath(xpath)
+      await confirmButton.click();
+      await page.waitForTimeout(2000)
     });
     then('The game is finished',async()=>{
-      const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
-      const element = await page.waitForXPath(xpath, { visible: true });
-      const text = await page.evaluate(e => e.innerText, element);
-      expect(text).toBe('Home');
+      await textVerifyByXpath(page,'/html/body/div[1]/div/main/main/div/div[1]/h2',"Inicio");
     });
   })
 });

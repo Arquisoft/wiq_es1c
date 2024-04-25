@@ -42,7 +42,7 @@ defineFeature(feature, test => {
     let beforeNewGame;
     given('A logged user in home view', async () => {
       const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
-      await textVerifyByXpath(page, xpath,"Home")
+      await textVerifyByXpath(page, xpath,"Inicio")
     });
 
     when('I press classic play', async () => {
@@ -51,21 +51,22 @@ defineFeature(feature, test => {
     then('The game ends after 10 questions', async () => {
       for(let i = 0; i<=10; i++){
         await page.waitForTimeout(2000);
-        await expect(page).toClick('[data-buton="btn"]:first-of-type')
+        await expect(page).toClick('[data-buton="btn"]:first-of-type');
       }
+      await page.waitForTimeout(2000);
       await expect(page).toMatchElement("h2",{text:"El juego ha finalizado!"})
     });
   });
   test('Starts a new suddendeath game', ({given,when,then}) => {
     given('A logged user in home view', async () => {
       const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
-      await textVerifyByXpath(page, xpath,"Home")
+      await textVerifyByXpath(page, xpath,"Inicio")
     });
     when('I press suddendeath game', async () => {
       await expect(page).toClick('button', { text: 'JUGAR MUERTE SÚBITA' });
     });
     then('The game ends when time runs out', async () => {
-      await page.waitForTimeout(12000);
+      await page.waitForTimeout(11000);
       await expect(page).toMatchElement("h2",{text:"El juego ha finalizado!"})
     });
   });
@@ -73,7 +74,7 @@ defineFeature(feature, test => {
     let text;
     given('A logged user in home view',async()=>{
       const xpath = '/html/body/div[1]/div/main/main/div/div[1]/h2';
-      await textVerifyByXpath(page, xpath,"Home")
+      await textVerifyByXpath(page, xpath,"Inicio")
     });
     when('I press againstClock game',async()=>{
       //await expect(page).toClick('button', { text: "JUGAR Contrareloj"});
@@ -85,7 +86,7 @@ defineFeature(feature, test => {
     });
     then('The game doesn´t finish after 10 questions',async()=> {
       for (let i = 0; i < 11; i++) {
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(2000);
         await expect(page).toClick('[data-buton="btn"]:first-of-type')
       }
       await expect(page).not.toMatchElement("h2", {text: "El juego ha finalizado!"})
