@@ -34,6 +34,7 @@ i18n
                     profile: 'Profile',
                     history: 'History',
                     friends: 'Friends',
+                    ranking: 'Ranking',
                     spanish: 'Spanish',
                     english: 'English'
                 },
@@ -45,7 +46,8 @@ i18n
                     tutorialP2: 'The time to answer is limited. The bar at the bottom shows the remaining time. If the time runs out, the question will count as failed and you will move on to the next one.',
                     goodLuck: 'Good luck and show what you know!',
                     playClassic: 'PLAY CLASSIC',
-                    playSuddenDeath: 'PLAYING SUDDEN DEATH',
+                    playSuddenDeath: 'PLAY SUDDEN DEATH',
+                    playAgainstClock: 'PLAY AGAINST CLOCK',
                     chooseTags: 'Choose the tags',
                     infoTags: 'With the tags you can select the categories you want to be asked about.',
                 },
@@ -82,6 +84,20 @@ i18n
                     noFriendRequest: 'You have no friend requests.',
                     searchUsers: 'Search users',
                     sendRequest: 'Send request'
+                },
+                Footer: {
+                    copyright: 'All rights reserved.'
+                },
+                Ranking: {
+                    title: 'Ranking',
+                    sort: 'Sort by',
+                    hitPercentage: 'Percentage of hits',
+                    numberOfCorrectQuestions: 'Number of correct questions',
+                    numberOfPlays: 'Cantidad de partidas',
+                    user: 'User',
+                    hit: 'Hit',
+                    correctsQuestion: 'Correct questions',
+                    plays: 'Games played'
                 }
             },
         },
@@ -115,6 +131,7 @@ i18n
                     profile: 'Perfil',
                     history: 'Historial',
                     friends: 'Amigos',
+                    ranking: 'Ranking',
                     spanish: 'Español',
                     english: 'Inglés'
                 },
@@ -127,8 +144,13 @@ i18n
                     goodLuck: '¡Mucha suerte y demuestra lo que sabes!',
                     playClassic: 'JUGAR CLÁSICO',
                     playSuddenDeath: 'JUGAR MUERTE SÚBITA',
+                    playAgainstClock: 'JUGAR CONTRARRELOJ',
                     chooseTags: 'Elige las tags',
-                    infoTags: 'Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.'
+                    infoTags: 'Con las tags puedes seleccionar las categorías sobre las que quieres ser preguntado.',
+                    finishGameTitle: 'El juego ha finalizado!',
+                    finishGameText: 'Gracias por jugar',
+                    finishGameConfirm: 'Volver al menu principal',
+                    finishGameCancel: 'Continuar jugando',
                 },
                 Configuration: {
                     title: 'Configuración',
@@ -163,6 +185,20 @@ i18n
                     noFriendRequest: 'No tienes peticiones de amistad.',
                     searchUsers: 'Buscar usuarios',
                     sendRequest: 'Enviar petición'
+                },
+                Footer: {
+                    copyright: 'Todos los derechos reservados.'
+                },
+                Ranking: {
+                    title: 'Clasificación',
+                    sort: 'Ordenar por',
+                    hitPercentage: 'Porcentaje de aciertos',
+                    numberOfCorrectQuestions: 'Número de preguntas correctas',
+                    numberOfPlays: 'Cantidad de partidas',
+                    user: 'Usuario',
+                    hit: 'Acierto',
+                    correctsQuestion: 'Preguntas correctas',
+                    plays: 'Partidas jugadas'
                 }
             },
         },

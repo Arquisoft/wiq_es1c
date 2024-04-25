@@ -41,4 +41,43 @@ describe('User Details Endpoints', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(mockHistory);
     });
+
+    it("Should return history if token is valid in getHistoryByUser endpoint", async () => {
+        // Generate token for the mock user
+        const token = jwt.sign({ user_id: 1 }, privateKey);
+
+        // Mock response from the external service
+        const mockHistory = [{ game_id: 1, score: 100 }, { game_id: 2, score: 150 }];
+
+        // Mocking fetch call
+        global.fetch = jest.fn().mockResolvedValue({
+            json: async () => (mockHistory)
+        });
+
+        const response = await request(app)
+            .post('/api/userdetails/history-by-user')
+            .send({ token: token, userId: 1 });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual(mockHistory);
+    });
+
+    it("Should return 400 if user id is not valid in getHistoryByUser endpoint", async () => {
+        // Generate token for the mock user
+        const token = jwt.sign({ user_id: 1 }, privateKey);
+
+        // Mock response from the external service
+        const mockHistory = [{ game_id: 1, score: 100 }, { game_id: 2, score: 150 }];
+
+        // Mocking fetch call
+        global.fetch = jest.fn().mockResolvedValue({
+            json: async () => (mockHistory)
+        });
+
+        const response = await request(app)
+            .post('/api/userdetails/history-by-user')
+            .send({ token: token, userId: undefined });
+
+        expect(response.statusCode).toBe(400);
+    });
 });

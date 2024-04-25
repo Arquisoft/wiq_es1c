@@ -101,7 +101,7 @@ describe('Game Service', () => {
 
         expect(response.statusCode).toBe(200);
         expect(response.text).toBe("Santiago");
-    })
+    });
 
     it("Should return 200 with a valid token when accessing game settings", async () =>
     {
@@ -119,6 +119,24 @@ describe('Game Service', () => {
             .send({ token: validToken });
 
         expect(response.statusCode).toBe(200);
+    });
+
+    it("Should return 200 with a valid user id when accessing game history by user", async () =>
+    {
+        const response = await request(app)
+            .post('/api/game/getHistoryByUser')
+            .send({ token: validToken, userId: '1234' });
+
+        expect(response.statusCode).toBe(200);
+    });
+
+    it("Should return 400 with a not valid user id when accessing game history by user", async () =>
+    {
+        const response = await request(app)
+            .post('/api/game/getHistoryByUser')
+            .send({ token: validToken, userId: undefined });
+
+        expect(response.statusCode).toBe(400);
     });
 
     it("Should return 200 with a valid token when accessing game settings", async () => {
@@ -172,5 +190,13 @@ describe('Game Service', () => {
             });
 
         expect(response.statusCode).toBe(400);
+    });
+
+    it("Should return 200 with a valid token when get question", async () => {
+        let response = await request(app)
+            .post('/api/game/currentquestion')
+            .send({ token: validToken });
+
+        expect(response.statusCode).toBe(200);
     });
 })
