@@ -31,20 +31,20 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   e2e-tests:
     needs: [unit-tests]
-     runs-on: ubuntu-latest
-     steps:
-     - uses: actions/checkout@v4
-     - uses: actions/setup-node@v4
-       with:
-         node-version: 20
-     - run: npm --prefix auth_service install
-     - run: npm --prefix game_service install
-     - run: npm --prefix userdetails_service install
-     - run: npm --prefix question_service install
-     - run: npm --prefix friends_service install
-     - run: npm --prefix webapp install
-     - run: npm --prefix webapp run build
-     - run: npm --prefix webapp run test:e2e
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - run: npm --prefix auth_service install
+    - run: npm --prefix game_service install
+    - run: npm --prefix userdetails_service install
+    - run: npm --prefix question_service install
+    - run: npm --prefix friends_service install
+    - run: npm --prefix webapp install
+    - run: npm --prefix webapp run build
+    - run: npm --prefix webapp run test:e2e
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages
     runs-on: ubuntu-latest
