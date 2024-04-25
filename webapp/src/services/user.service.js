@@ -98,7 +98,25 @@ const getHistory = async (gameMode) =>
     } catch(error) {
         return "Cant load history";
     }
+}
 
+const getHistoryByUser = async (user) =>
+{
+  try 
+  {
+    const response = await axios.post(`${apiEndpoint}:8004/api/userdetails/history-by-user`, { 
+      token: localStorage.getItem("token"),
+      userId: user.id
+    });
+
+    if ( response.status === 200 )
+      return response.data;
+
+    return "Cant get history by user " + user;
+  } 
+  catch (error) {
+    return "Cant get history by user " + user;
+  }
 }
 
 const getGamemodes = async () => {
@@ -117,7 +135,7 @@ const getUsers = async () =>
 {
     try {
 
-      const response = await axios.post(`${apiEndpoint}:8001/api/user/getUsers`);
+      const response = await axios.get(`${apiEndpoint}:8001/api/user/getUsers`);
 
       return response.data;
 
@@ -126,9 +144,23 @@ const getUsers = async () =>
     }
 }
 
+const getUser = async (userId) =>
+{
+  try
+  {
+    const response = await axios.get(`${apiEndpoint}:8001/api/user/getUser?user_id=${ userId }`);
+
+    return response.data;
+  }
+  catch (error) 
+  {
+    return error.response.data.error;
+  }
+}
+
 const isLoggedIn = async (username, password) => token !== undefined;
 const getToken = async () => token;
 
 
-export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory, getCreationDate, isValidToken, getUsers};
+export {login, register, isLoggedIn, getToken, getCurrentUser, getHistory, getCreationDate, isValidToken, getUsers, getUser, getHistoryByUser};
 

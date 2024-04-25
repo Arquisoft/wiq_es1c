@@ -46,6 +46,8 @@ describe("Nav component", () => {
         waitFor(()=>{
             expect(screen.getByText(/Perfil/i)).toBeInTheDocument();
             expect(screen.getByText(/Historial/i)).toBeInTheDocument();
+            expect(screen.getByText(/Amigos/i)).toBeInTheDocument();
+            expect(screen.getByText(/Ranking/i)).toBeInTheDocument();
         });
     });
 
@@ -121,6 +123,44 @@ describe("Nav component", () => {
 
         waitFor(()=>{
             expect(history.location.pathname).toBe('/history');
+        });
+    });
+
+    test("goes to Friends", async () =>
+    {
+        const history = createMemoryHistory();
+
+        render(<Router history={history}><Nav/></Router>);
+
+        screen.getByTestId('open-account-menu').click();
+
+        await act(async () => {});
+
+        screen.getByTestId('go-friends').click();
+
+        await act(async () => {});
+
+        waitFor(()=>{
+            expect(history.location.pathname).toBe('/friends');
+        });
+    });
+
+    test("goes to Ranking", async () =>
+    {
+        const history = createMemoryHistory();
+
+        render(<Router history={history}><Nav/></Router>);
+
+        screen.getByTestId('open-account-menu').click();
+
+        await act(async () => {});
+
+        screen.getByTestId('go-ranking').click();
+
+        await act(async () => {});
+
+        waitFor(()=>{
+            expect(history.location.pathname).toBe('/ranking');
         });
     });
 

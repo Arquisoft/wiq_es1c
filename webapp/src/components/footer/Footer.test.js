@@ -3,7 +3,7 @@ import { render, screen, act, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter, BrowserRouter as Router  } from 'react-router-dom';
 import { Footer } from './Footer';
-
+import '../../i18n';
 
 describe("Footer component", () => {
     beforeEach(() => localStorage.setItem("token", "manolineldelpino"));
@@ -13,7 +13,7 @@ describe("Footer component", () => {
         
         await act(async () => {});
 
-        expect(screen.getByText(/All rights reserved./i)).toBeInTheDocument();
+        expect(screen.getByText(/Todos los derechos reservados./i)).toBeInTheDocument();
         
 
     });

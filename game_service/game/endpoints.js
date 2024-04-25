@@ -183,6 +183,31 @@ const getHistory = async (req,res) => {
   return res.status(200).json(games.map(game => game.toJSON()))
 }
 
+const getHistoryByUser = async (req, res) =>
+{
+  const userId = req.body.userId;
+
+  if (!userId)
+  {
+    res.status(400).json({ error: 'user id not valid' });
+    return;
+  }
+
+  const games = await Game.findAll({
+    where: {
+      user_id: userId
+    },
+    include: [{
+      model: Question,
+      as: 'Questions' // alias defined in the association
+    }]
+  });
+
+  return res.status(200).json(
+    games.map(game => game.toJSON())
+  );
+}
+
 const getGameSettingsByUser = async (req, res) =>{
   const userId = await jwt.verify(req.body.token, privateKey).user_id;
 
@@ -242,4 +267,6 @@ const getGamemodes = async (req, res) => {
     res.status(200).send(games.map(game => game.DISTINCT));
 };
 
-module.exports = {newGame, next, awnser, update, getHistory, getGameSettingsByUser, setGameSettingsByUser, getNumberOfQuestions, getQuestion, getGamemodes}
+
+module.exports = {newGame, next, awnser, update, getHistory, getHistoryByUser, getGameSettingsByUser, setGameSettingsByUser, getNumberOfQuestions, getQuestion, getGamemodes}
+
