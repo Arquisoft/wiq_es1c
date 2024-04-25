@@ -17,11 +17,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { getHistory } from "../../services/user.service"
+import { getGameModes } from "../../services/game.service"
 import { Nav } from '../nav/Nav';
 import {Footer} from '../footer/Footer';
-import { CssBaseline } from '@mui/material';
+import {CssBaseline, FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import StringColorChip from './ColorChip';
 import { useTranslation } from "react-i18next";
+import "../home/Home.css";
 
 function Row(props) {
     const { t } = useTranslation();
@@ -106,25 +108,62 @@ function Row(props) {
 export const History = () => {
     const { t } = useTranslation();
     const [history, setHistory] = useState([]);
+    const [gamemodes, setGamemodes] = useState([]);
+    const [gamemodeSelected, setGamemodeSelected] = useState("classic");
 
     useEffect(() => {
-        getHistory().then(item => setHistory(item));
+        getHistory("classic").then(item => setHistory(item));
     }, [])
+
+    useEffect(() => {
+        getGameModes(localStorage.getItem("token")).then(gamemodes => setGamemodes(gamemodes));
+    }, []);
+
+    const changeGamemode = (event) => {
+        getHistory(event.target.value).then(item => setHistory(item));
+        setGamemodeSelected(event.target.value);
+        console.log("Changing history to " + event.target.value);
+    }
 
     return (
         <>
             <Nav/>
             <CssBaseline/>
+            <div className="flex content-center">
+                <div className="m-2 p-3 content-center rounded-xl bg-white w-fit">
+                    <FormControl className="content-center" sx={{width: '20rem'}}>
+                        <InputLabel id="gamemode-label"
+                                    sx={{color: 'black', fontSize: '1.3em'}}>{t("History.gamemode")}</InputLabel>
+                        <Select
+                            labelId="gamemode-cb"
+                            id="gamemode-cb"
+                            value={gamemodeSelected}
+                            label="gamemode"
+                            className="bg-white m-3"
+                            onChange={changeGamemode}
+                        >
+                            {
+                                gamemodes.map((gamemode) =>
+                                    <MenuItem value={gamemode} key={gamemode}>{gamemode}</MenuItem>
+                                )
+                            }
+                        </Select>
+                    </FormControl>
+                </div>
+            </div>
+
+
             <Container className="flex flex-col items-center justify-center min-h-screen">
+
                 <TableContainer component={Paper} className="mt-8 bg-gray-800">
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell/>
-                                <TableCell>{ t('History.date') }</TableCell>
-                                <TableCell>{ t('History.successful') }</TableCell>
-                                <TableCell>{ t('History.failed') }</TableCell>
-                                <TableCell>{ t('History.correctAnswers') }</TableCell>
+                                <TableCell>{t('History.date')}</TableCell>
+                                <TableCell>{t('History.successful')}</TableCell>
+                                <TableCell>{t('History.failed')}</TableCell>
+                                <TableCell>{t('History.correctAnswers')}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

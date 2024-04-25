@@ -86,11 +86,11 @@ const getCreationDate = async () =>
 
 }
 
-const getHistory = async () =>
+const getHistory = async (gameMode) =>
 {
     try {
 
-        const response = await axios.post(`${apiEndpoint}:8004/api/userdetails/history`, { token: localStorage.getItem("token") });
+        const response = await axios.post(`${apiEndpoint}:8004/api/userdetails/history`, { token: localStorage.getItem("token"), gameMode: gameMode });
         if ( response.status === 200 )
             return response.data;
         else 
@@ -117,6 +117,18 @@ const getHistoryByUser = async (user) =>
   catch (error) {
     return "Cant get history by user " + user;
   }
+}
+
+const getGamemodes = async () => {
+    try {
+        const response = await axios.post(`${apiEndpoint}:8003/api/game/gamemodes`, { token: localStorage.getItem("token") });
+        if ( response.status === 200 )
+            return response.data;
+        else
+            return "Cant load game modes";
+    } catch(error) {
+        return "Cant load game modes";
+    }
 }
 
 const getUsers = async () =>

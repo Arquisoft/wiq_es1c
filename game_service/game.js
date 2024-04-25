@@ -15,7 +15,7 @@ const YAML = require('yaml')
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
 const { newGame, next, awnser, update, getGameSettingsByUser, getHistory, getHistoryByUser, setGameSettingsByUser, getNumberOfQuestions,
-  getQuestion
+  getQuestion, getGamemodes
 } = require("./game/endpoints");
 const { saveQuestionsInDB, deleteOlderQuestions, loadInitialQuestions } = require('./services/questionsService');
 
@@ -44,6 +44,7 @@ app.post('/api/game/getHistory', getHistory);
 app.post('/api/game/getHistoryByUser', getHistoryByUser);
 app.post('/api/game/numberofquestions', getNumberOfQuestions);
 app.post('/api/game/currentquestion', getQuestion);
+app.post('/api/game/gamemodes', getGamemodes);
 
 // Read the OpenAPI YAML file synchronously
 openapiPath='./openapi.yaml'
