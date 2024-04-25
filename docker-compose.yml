@@ -1,5 +1,21 @@
 version: '5'
 services:
+  friend:
+    restart: unless-stopped
+    container_name: friends-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es1c/friend:latest
+    profiles: ["dev", "prod"]
+    build: ./friends_service
+    environment:
+      - DB_URL=set
+    depends_on:
+      FriendDataDB:
+        condition: service_healthy
+    ports:
+      - "8005:8005"
+    networks:
+      - mynetwork
+
   question:
     restart: unless-stopped
     container_name: question-${teamname:-defaultASW}
@@ -78,7 +94,7 @@ services:
     restart: unless-stopped
     image: prom/prometheus
     container_name: prometheus-${teamname:-defaultASW}
-    profiles: ["dev"]
+    profiles: [ "dev", "prod" ]
     networks:
       - mynetwork
     volumes:
@@ -96,7 +112,7 @@ services:
     restart: unless-stopped
     image: grafana/grafana
     container_name: grafana-${teamname:-defaultASW}
-    profiles: ["dev"]
+    profiles: [ "dev", "prod" ]
     networks:
       - mynetwork
     volumes:
@@ -113,6 +129,28 @@ services:
       - prometheus
 
 # RELATIONAL DATABASES 
+  FriendDataDB:
+    restart: unless-stopped
+    container_name: FriendDataDB-${teamname:-defaultASW}
+    image: mariadb
+    profiles: ["dev", "prod"]
+    volumes:
+      - friend_data:/var/lib/mysql
+    ports:
+      - "9003:9003"
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1 # This should be done in a real production server, im aware.
+      - MARIADB_DATABASE=db
+      - MYSQL_TCP_PORT=9003
+      - MYSQL_UNIX_PORT=9003
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+    networks:
+      - mynetwork
+
   UserDataDB:
     restart: unless-stopped
     container_name: UserDataDB-${teamname:-defaultASW}
@@ -174,6 +212,7 @@ volumes:
   game_data:
   prometheus_data: 
   grafana_data: 
+  friend_data:
 
 networks:
   mynetwork:

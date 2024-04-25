@@ -4,6 +4,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import Login from './Login';
+import '../../i18n';
 
 jest.mock('../../services/user.service', () => ({
   login: jest.fn(() => Promise.resolve(true)),
@@ -12,6 +13,7 @@ jest.mock('../../services/user.service', () => ({
 describe('Login Component', () => {
   test('renders Login component', () => {
     render(<MemoryRouter><Login /></MemoryRouter>);
+    
     expect(screen.getByText('Iniciar Sesión')).toBeInTheDocument();
   });
 

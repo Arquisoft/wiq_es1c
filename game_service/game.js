@@ -14,7 +14,9 @@ const YAML = require('yaml')
 
 // My own libs
 const authMiddleware = require('./auth/authMiddleware');
-const { newGame, next, awnser, update, getGameSettingsByUser, getHistory } = require("./game/endpoints");
+const { newGame, next, awnser, update, getGameSettingsByUser, getHistory, getHistoryByUser, setGameSettingsByUser, getNumberOfQuestions,
+  getQuestion, getGamemodes
+} = require("./game/endpoints");
 const { saveQuestionsInDB, deleteOlderQuestions, loadInitialQuestions } = require('./services/questionsService');
 
 const port = 8003;
@@ -22,6 +24,7 @@ const app = express();
 
 //Prometheus configuration
 const promBundle = require('express-prom-bundle');
+const {getCurrentQuestion} = require("./game/verification");
 const metricsMiddleware = promBundle({includeMethod: true});
 app.use(metricsMiddleware);
 
@@ -36,7 +39,12 @@ app.post('/api/game/next', next);
 app.post('/api/game/awnser', awnser);
 app.post('/api/game/update', update);
 app.post('/api/game/settings', getGameSettingsByUser);
+app.post('/api/game/updatesettings', setGameSettingsByUser);
 app.post('/api/game/getHistory', getHistory);
+app.post('/api/game/getHistoryByUser', getHistoryByUser);
+app.post('/api/game/numberofquestions', getNumberOfQuestions);
+app.post('/api/game/currentquestion', getQuestion);
+app.post('/api/game/gamemodes', getGamemodes);
 
 // Read the OpenAPI YAML file synchronously
 openapiPath='./openapi.yaml'
