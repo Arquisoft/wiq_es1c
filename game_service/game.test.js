@@ -116,7 +116,7 @@ describe('Game Service', () => {
     {
         const response = await request(app)
             .post('/api/game/getHistory')
-            .send({ token: validToken });
+            .send({ token: validToken, gameMode: 'classic' });
 
         expect(response.statusCode).toBe(200);
     });
