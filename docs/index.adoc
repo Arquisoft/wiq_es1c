@@ -79,4 +79,8 @@ include::src/11_technical_risks.adoc[]
 // 12. Glossary
 include::src/12_glossary.adoc[]
 
+<<<<
+// Annex01. Load tests
+include::src/Annex01_load_tests.adoc[]
+
 

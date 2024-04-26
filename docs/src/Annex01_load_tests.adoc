@@ -9,31 +9,39 @@ The first step was recording the start of a normal game to see how it loads the 
 
 This is part of the code that it generated: 
 
+image::../images/GameSimulationCode.PNG
 
 As we are quite confident in our cache, we will start with 100 current petitions:
 
+image::../images/Game_100_petitions.PNG
 
 As you can see in 2 seconds we can manage 100 petitions without failing any requests.
 The same happens with 200 petitions which only takes 3 seconds.
 
+image::../images/Game_200_petitions.PNG
+
 The problems start around the 500 petitions where some requests start fail due to time out exceptions, however around 80% of the request finish correctly and it only takes 10 seconds to finish.
 
+image::../images/Game_500_petitions.PNG
 
 We consider that been able to put up with more than 200 petitions at the same time is a quite good result.
 We have made more load test, for example load 500 petitions distributed in 20 seconds, which has great results.
 
+image::../images/Game_500_petitions_during20s.PNG
 
 And also load 1000 petitions during 30 seconds which was pretty fast, however some of the requests failed.
+
+image::../images/Game_1000_petitions_during30s.PNG
 
 And to finish with those related to the cache, we have included int the code some of the options that Gatling provides and mixed them. 
 The code for the las simulation is `atOnceUsers(200),nothingFor(5),rampUsers(500).during(20),constantUsersPerSec(30).during(15).randomized()`.
 Which at first loads 200 petitions at once, then waits for 5 seconds, loads 500 petitions distributed in 20 seconds and finally loads 30 petitions constant during 15 seconds at a randomized interval.
 In this graphic we can analyze that the problem with this tests is when the 500 distributed petitions and the 30 constant petitions.
 
-
+image::../images/Game_complex.PNG
 
 The other part that we have considered important to measure is the time which take an user to login, we have made this process slow because it helps to avoid brute force attacks.
 As you can see in the test a single user takes 12 seconds which is more than 500 petitions to the game service.
 
-
+image::../images/Login_1_petition.PNG
 
