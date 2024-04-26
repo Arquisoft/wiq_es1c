@@ -19,5 +19,8 @@ We have added the ADRs to the Wiki section in the GitHub page, so we provide the
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-12-(Question-Templates)[ADR 12] -> Question Templates
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-13-%28Prometheus-Database%29[ADR 13] -> Prometheus
 * https://github.com/Arquisoft/wiq_es1c/wiki/ADR-14-%28Grafana-Dashboard%29[ADR 14] -> Grafana dashboard
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-15-%28Data-migration%29[ADR 15] -> Data migration
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-16-%28i18next%29[ADR 16] -> i18next
+* https://github.com/Arquisoft/wiq_es1c/wiki/ADR-17-%28CodeScene%29[ADR 17] -> CodeScene
 
 
