@@ -50,11 +50,11 @@ The application is organised into microservices, making the different components
 
 === Decissions made to achieve quality goals 
 
-* **Usability**: .
+* **Usability**: To improve usability, we decided to test de app and with the results of these we modified the color palette and the arrangement of some elements according to the experience of the users of the tests.
 
 * **Performance efficiency**: To improve performance we decided to implement a cache that stores 1000 questions and every 24 h updates the 100 oldest. By this way we always have questions available and it is not necessary to wait for wikidata to give us an answer.
 
-* **Maintainability**: asjdajksndjkasndjkasd.
+* **Maintainability**: For maintenance we report bugs that we find in the form of issues in the repository, so when some of us have time is dedicated it to fix them.
 
 === Work methodology decissions
 
