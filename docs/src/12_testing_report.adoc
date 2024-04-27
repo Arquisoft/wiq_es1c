@@ -1,6 +1,6 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
-[[section-technical-risks]]
+[[section-testing-report]]
 == Testing Report
 
 
@@ -20,6 +20,12 @@ Nonetheless, it has helped us to develop numerous unit tests and make the projec
 === Acceptance Tests
 
 With acceptance tests, we aim to automatically verify that our system meets the requirements, confirm the integrity of our system with Wikidata, and detect any unexpected issues that may arise unnoticed.
+
+
+* We focus our efforts on testing the following features
+** Registering a new User
+** Playing a game
+** Playing game different modes
 
 === Load Tests
 === Usability Tests
