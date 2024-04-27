@@ -6,7 +6,21 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Unit Tests
 
+Each component has its own unit tests that verify its functionality acts correctly, thus providing security and robustness to the project.
+
+==== Code coverage result
+
+We use the Sonar tool to ensure that the code is well covered by tests, so that if there is less than 80% of uncovered code or if there is more than 3% of code duplications, it raises an error and we cannot integrate our changes until we have the minimum coverage
+
+image:12_code_coverage.png[arc42]
+
+It was challenging for us to maintain the code coverage at 80%, either due to our lack of experience with this tool or because it didn't function correctly. Some tests have decreased the coverage, while others have inflated it beyond what accurately reflects the security of the code.
+Nonetheless, it has helped us to develop numerous unit tests and make the project very robust.
+
 === Acceptance Tests
+
+With acceptance tests, we aim to automatically verify that our system meets the requirements, confirm the integrity of our system with Wikidata, and detect any unexpected issues that may arise unnoticed.
+
 === Load Tests
 === Usability Tests
 
