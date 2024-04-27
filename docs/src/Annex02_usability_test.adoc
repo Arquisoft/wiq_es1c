@@ -16,7 +16,7 @@ Before the test we gave the each participant a brief explanation about the game,
 We have summed up the main negative aspects that each user stood out, however in general they liked the application and enjoyed playing,
  and group them in the groups we have explained before.
 
-===Group 1: Study our degree
+=== Group 1: Study our degree
 
 * Don't understand what tags stands for.
 * You can enter the game configuration during the game, so it should show a pop up informing that you will end the game you are playing.
@@ -25,7 +25,7 @@ We have summed up the main negative aspects that each user stood out, however in
 * A lot of unused space on the sides of the screen.
 
 
-===Group 2: High computer expertise
+=== Group 2: High computer expertise
 
 * Don't understand what tags stands for.
 * A lot of unused space on the sides of the screen.
@@ -33,7 +33,7 @@ We have summed up the main negative aspects that each user stood out, however in
 * Don't like that the ranking shows their scores to the other players without consent.
 
 
-===Group 3: Hardly use a computer
+=== Group 3: Hardly use a computer
 
 * Don't understand what tags stands for.
 * Very difficult questions.
