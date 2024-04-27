@@ -508,7 +508,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_commercial_or_domain_risks">11.2. Commercial or domain risks</a></li>
 </ul>
 </li>
-<li><a href="#section-glossary">12. Glossary</a></li>
+<li><a href="#section-testing-report">12. Testing Report</a>
+<ul class="sectlevel2">
+<li><a href="#_unit_tests">12.1. Unit Tests</a></li>
+<li><a href="#_acceptance_tests">12.2. Acceptance Tests</a></li>
+<li><a href="#_load_tests">12.3. Load tests</a></li>
+<li><a href="#_usability_tests">12.4. Usability tests</a></li>
+</ul>
+</li>
+<li><a href="#section-glossary">13. Glossary</a></li>
 </ul>
 </div>
 </div>
@@ -601,13 +609,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Performance efficiency</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Efficiency problems cause a very negative UX</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We aim to achieve a response time of less than 2 seconds for the new question to be displayed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We aim to achieve a response time of less than 3 seconds for the new question to be displayed</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainability</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We hope that there will be changes to the project, or that the game modes will be expanded</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We will work on the optional parts regarding creating the mobile application and implementing various game modes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It should be easy to add new game modes and incorporate new question categories and question templates.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 </tr>
 </tbody>
@@ -797,6 +805,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>MariaDB</strong> is an open-source relational database managemente system. It offers features such as ACID compliance and compatibility with MySQL.</p>
 </li>
 <li>
+<p><strong>MongoDB</strong> is an open-source NoSQL database management system. It offers features such as high availability, horizontal scalability, and schema flexibility thanks to its document-based data model in JSON format.</p>
+</li>
+<li>
 <p><strong>Docker</strong> is a platform and tool that allows developers to build, package, distribute, and run applications within lightweight, portable containers that encapsulate everything needed to run an application.</p>
 </li>
 <li>
@@ -853,8 +864,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_decissions_made_to_achieve_quality_goals">4.3. Decissions made to achieve quality goals</h3>
-<div class="paragraph">
-<p>Pending.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Usability</strong>: To improve usability, we decided to test de app and with the results of these we modified the color palette and the arrangement of some elements according to the experience of the users of the tests.</p>
+</li>
+<li>
+<p><strong>Performance efficiency</strong>: To improve performance we decided to implement a cache that stores 1000 questions and every 24 h updates the 100 oldest. By this way we always have questions available and it is not necessary to wait for wikidata to give us an answer.</p>
+</li>
+<li>
+<p><strong>Maintainability</strong>: For maintainability, we decided to design a system that facilitates the creation of new question templates, so that adding a new template will automatically incorporate it into the application. There is a guide on how to do this in the question_service.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -968,7 +989,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_level_3">5.3. Level 3</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/BlackBox%20Level%203.png" alt="BlackBox Level 3" width="1299" height="725">
+<img src="./images/BlackBox%20Level%203.png" alt="BlackBox Level 3" width="1495" height="725">
 </div>
 </div>
 <div class="dlist">
@@ -1251,6 +1272,15 @@ we will take as the proyect progresses.</p>
 <li>
 <p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-14-%28Grafana-Dashboard%29">ADR 14</a> &#8594; Grafana dashboard</p>
 </li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-15-%28Data-migration%29">ADR 15</a> &#8594; Data migration</p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-16-%28i18next%29">ADR 16</a> &#8594; i18next</p>
+</li>
+<li>
+<p><a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-17-%28CodeScene%29">ADR 17</a> &#8594; CodeScene</p>
+</li>
 </ul>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1418,7 +1448,227 @@ we will take as the proyect progresses.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-glossary">12. Glossary</h2>
+<h2 id="section-testing-report">12. Testing Report</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_unit_tests">12.1. Unit Tests</h3>
+<div class="paragraph">
+<p>Each component has its own unit tests that verify its functionality acts correctly, thus providing security and robustness to the project.</p>
+</div>
+<div class="sect3">
+<h4 id="_code_coverage_result">12.1.1. Code coverage result</h4>
+<div class="paragraph">
+<p>We use the Sonar tool to ensure that the code is well covered by tests, so that if there is less than 80% of uncovered code or if there is more than 3% of code duplications, it raises an error and we cannot integrate our changes until we have the minimum coverage</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/12_code_coverage.png" alt="arc42"></span></p>
+</div>
+<div class="paragraph">
+<p>It was challenging for us to maintain the code coverage at 80%, either due to our lack of experience with this tool or because it didn&#8217;t function correctly. Some tests have decreased the coverage, while others have inflated it beyond what accurately reflects the security of the code.
+Nonetheless, it has helped us to develop numerous unit tests and make the project very robust.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_acceptance_tests">12.2. Acceptance Tests</h3>
+<div class="paragraph">
+<p>With acceptance tests, we aim to automatically verify that our system meets the requirements, confirm the integrity of our system with Wikidata, and detect any unexpected issues that may arise unnoticed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We focus our efforts on testing the following features</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Registering a new User</p>
+</li>
+<li>
+<p>Playing a game</p>
+</li>
+<li>
+<p>Playing game different modes</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_tests">12.3. Load tests</h3>
+<div class="paragraph">
+<p>Load tests measure performance in advance of normal load or peak load. To carry out these tests we have used the tool Gatling, which allows to record an example of use and change the amount of load on it.</p>
+</div>
+<div class="paragraph">
+<p>As one of our quality goals is performance efficiency, we have focused our tests on measuring the performance of our question cache, which we explain in our ADR:  <a href="https://github.com/Arquisoft/wiq_es1c/wiki/ADR-11-%28Question-Cache%29">ADR 11</a>.</p>
+</div>
+<div class="paragraph">
+<p>The first step was recording the start of a normal game to see how it loads the question. We will add all the results we got from Gatling in a folder in the documentation section, in case you want to consult it in depth.</p>
+</div>
+<div class="paragraph">
+<p>This is part of the code that it generated:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/GameSimulationCode.PNG" alt="GameSimulationCode">
+</div>
+</div>
+<div class="paragraph">
+<p>As we are quite confident in our cache, we will start with 100 current petitions:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Game_100_petitions.PNG" alt="Game 100 petitions">
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see in 2 seconds we can manage 100 petitions without failing any requests.
+The same happens with 200 petitions which only takes 3 seconds.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Game_200_petitions.PNG" alt="Game 200 petitions">
+</div>
+</div>
+<div class="paragraph">
+<p>The problems start around the 500 petitions where some requests start fail due to time out exceptions, however around 80% of the request finish correctly and it only takes 10 seconds to finish.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Game_500_petitions.PNG" alt="Game 500 petitions">
+</div>
+</div>
+<div class="paragraph">
+<p>We consider that been able to put up with more than 200 petitions at the same time is a quite good result.
+We have made more load test, for example load 500 petitions distributed in 20 seconds, which has great results.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Game_500_petitions_during20s.PNG" alt="Game 500 petitions during20s">
+</div>
+</div>
+<div class="paragraph">
+<p>And also load 1000 petitions during 30 seconds which was pretty fast, however some of the requests failed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Game_1000_petitions_during30s.PNG" alt="Game 1000 petitions during30s">
+</div>
+</div>
+<div class="paragraph">
+<p>And to finish with those related to the cache, we have included int the code some of the options that Gatling provides and mixed them.
+The code for the las simulation is <code>atOnceUsers(200),nothingFor(5),rampUsers(500).during(20),constantUsersPerSec(30).during(15).randomized()</code>.
+Which at first loads 200 petitions at once, then waits for 5 seconds, loads 500 petitions distributed in 20 seconds and finally loads 30 petitions constant during 15 seconds at a randomized interval.
+In this graphic we can analyze that the problem with this tests is when the 500 distributed petitions and the 30 constant petitions.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Game_complex.PNG" alt="Game complex">
+</div>
+</div>
+<div class="paragraph">
+<p>The other part that we have considered important to measure is the time which take an user to login, we have made this process slow because it helps to avoid brute force attacks.
+As you can see in the test a single user takes 12 seconds which is more than 500 petitions to the game service.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Login_1_petition.PNG" alt="Login 1 petition">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usability_tests">12.4. Usability tests</h3>
+<div class="paragraph">
+<p>We have consider that usability is one of the most important aspects in a game because people external to the project can see problems or design mistakes that
+we may overlook.
+For that reason we have consider advisable to make usability tests.</p>
+</div>
+<div class="paragraph">
+<p>As we had to develop this project in such a short time we didn&#8217;t have time to make proper usability test, for that reason we will take as a reference the chapter
+9 of the book "Don&#8217;t Make Me Think" ,written by Steve Krug, named "Usability testing on 10 cents a day".</p>
+</div>
+<div class="paragraph">
+<p>We have tested 6 different users which we have organized in three groups (2 per group) : the ones which also study our degree, but are in another projects; the ones who have
+high computer expertise because they study something related to technology and the ones who hardly use a computer.</p>
+</div>
+<div class="paragraph">
+<p>Before the test we gave the each participant a brief explanation about the game, but without going into much detail because we wanted them to discover the functionality of the game.</p>
+</div>
+<div class="paragraph">
+<p>We have summed up the main negative aspects that each user stood out, however in general they liked the application and enjoyed playing,
+and group them in the groups we have explained before.</p>
+</div>
+<div class="sect3">
+<h4 id="_group_1_study_our_degree">12.4.1. Group 1: Study our degree</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Don&#8217;t understand what tags stands for.</p>
+</li>
+<li>
+<p>You can enter the game configuration during the game, so it should show a pop up informing that you will end the game you are playing.</p>
+</li>
+<li>
+<p>When you try to sign off it should show a confirmation message.</p>
+</li>
+<li>
+<p>Can be a good idea not to allow internationalize while you are playing the game.</p>
+</li>
+<li>
+<p>A lot of unused space on the sides of the screen.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_group_2_high_computer_expertise">12.4.2. Group 2: High computer expertise</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Don&#8217;t understand what tags stands for.</p>
+</li>
+<li>
+<p>A lot of unused space on the sides of the screen.</p>
+</li>
+<li>
+<p>Implement help in the questions, for example rule out one of the fake questions.</p>
+</li>
+<li>
+<p>Don&#8217;t like that the ranking shows their scores to the other players without consent.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_group_3_hardly_use_a_computer">12.4.3. Group 3: Hardly use a computer</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Don&#8217;t understand what tags stands for.</p>
+</li>
+<li>
+<p>Very difficult questions.</p>
+</li>
+<li>
+<p>Too many sport theme questions.</p>
+</li>
+<li>
+<p>Music in the game would be a plus.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We will try to keep in mind those aspects in the development of our app, however as we are at the end of the project and we don&#8217;t have many time, we will try
+to fix and implement those which we consider required or important.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-glossary">13. Glossary</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1464,7 +1714,7 @@ we will take as the proyect progresses.</p>
 <div id="footer">
 <div id="footer-text">
 Version 9.0 EN<br>
-Last updated 2024-04-02 19:40:54 +0200
+Last updated 2024-04-27 18:52:40 +0200
 </div>
 </div>
 </body>
