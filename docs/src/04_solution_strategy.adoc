@@ -14,6 +14,8 @@ The following technologies have been used to develop this project:
 
 * **MariaDB** is an open-source relational database managemente system. It offers features such as ACID compliance and compatibility with MySQL.
 
+* **MongoDB** is an open-source NoSQL database management system. It offers features such as high availability, horizontal scalability, and schema flexibility thanks to its document-based data model in JSON format.
+
 * **Docker** is a platform and tool that allows developers to build, package, distribute, and run applications within lightweight, portable containers that encapsulate everything needed to run an application. 
 
 * **Tailwind CSS** is a highly customizable CSS framework that provides a set of low-level utility classes that can be directly applied to HTML elements to style them. 
@@ -48,7 +50,11 @@ The application is organised into microservices, making the different components
 
 === Decissions made to achieve quality goals 
 
-Pending.
+* **Usability**: To improve usability, we decided to test de app and with the results of these we modified the color palette and the arrangement of some elements according to the experience of the users of the tests.
+
+* **Performance efficiency**: To improve performance we decided to implement a cache that stores 1000 questions and every 24 h updates the 100 oldest. By this way we always have questions available and it is not necessary to wait for wikidata to give us an answer.
+
+* **Maintainability**: For maintainability, we decided to design a system that facilitates the creation of new question templates, so that adding a new template will automatically incorporate it into the application. There is a guide on how to do this in the question_service.
 
 === Work methodology decissions
 

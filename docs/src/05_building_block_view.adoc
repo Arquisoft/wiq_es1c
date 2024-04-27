@@ -74,7 +74,7 @@ Component WIQ as "WIQ" {
 
     Component ms as "Micro services" {
         Component c1 as "Auth MicroService" {
-            Component auth as "Auth Service" #6c71c4 
+            Component auth as "Auth Service" #6c71c4
             Database d1 as "Login Data" #859900
         }
 
@@ -85,13 +85,18 @@ Component WIQ as "WIQ" {
         Component c3 as "Game MicroService" {
             Component game as "Game Service" #6c71c4
             Database d2 as "Game data" #859900
-            Database d5 as "Question cache" #b58900 
+            Database d5 as "Question cache" #b58900
         }
 
         Component c4 as "Question MicroService" {
             Component questions as "Question Service" #6c71c4
             Database d6 as "Template storage" #b58900
         }
+        Component c5 as "Friend MicroService" {
+            Component friends as "Friends Service" #6c71c4
+            Database d7 as "Friend data" #859900
+        }
+
     }
 
     Component ui as "User Interface" #d33682
@@ -99,6 +104,7 @@ Component WIQ as "WIQ" {
     ui -down-> auth
     ui -down-> game
     ui -down-> history
+    ui -down-> friends
 
     auth -[dotted]-> d1
     auth <-[dotted]- d1
@@ -108,6 +114,8 @@ Component WIQ as "WIQ" {
     game <-[dotted]- d5
     questions -[dotted]-> d6
     questions <-[dotted]- d6
+    friends -[dotted]-> d7
+    friends <-[dotted]- d7
 }
 
 Component w as "Wikidata" #2aa198
