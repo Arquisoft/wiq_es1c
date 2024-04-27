@@ -1,0 +1,45 @@
+[[annex-usability-tests]]
+== Usability tests
+
+We have consider that usability is one of the most important aspects in a game because people external to the project can see problems or design mistakes that 
+we may overlook.
+For that reason we have consider advisable to make usability tests.
+
+As we had to develop this project in such a short time we didn't have time to make proper usability test, for that reason we will take as a reference the chapter
+9 of the book "Don't Make Me Think" ,written by Steve Krug, named "Usability testing on 10 cents a day".
+
+We have tested 6 different users which we have organized in three groups (2 per group) : the ones which also study our degree, but are in another projects; the ones who have 
+high computer expertise because they study something related to technology and the ones who hardly use a computer.
+
+Before the test we gave the each participant a brief explanation about the game, but without going into much detail because we wanted them to discover the functionality of the game.
+
+We have summed up the main negative aspects that each user stood out, however in general they liked the application and enjoyed playing,
+ and group them in the groups we have explained before.
+
+===Group 1: Study our degree
+
+* Don't understand what tags stands for.
+* You can enter the game configuration during the game, so it should show a pop up informing that you will end the game you are playing.
+* When you try to sign off it should show a confirmation message.
+* Can be a good idea not to allow internationalize while you are playing the game.
+* A lot of unused space on the sides of the screen.
+
+
+===Group 2: High computer expertise
+
+* Don't understand what tags stands for.
+* A lot of unused space on the sides of the screen.
+* Implement help in the questions, for example rule out one of the fake questions.
+* Don't like that the ranking shows their scores to the other players without consent.
+
+
+===Group 3: Hardly use a computer
+
+* Don't understand what tags stands for.
+* Very difficult questions.
+* Too many sport theme questions.
+* Music in the game would be a plus.
+
+
+We will try to keep in mind those aspects in the development of our app, however as we are at the end of the project and we don't have many time, we will try 
+to fix and implement those which we consider required or important.

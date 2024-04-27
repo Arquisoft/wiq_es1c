@@ -83,4 +83,8 @@ include::src/12_glossary.adoc[]
 // Annex01. Load tests
 include::src/Annex01_load_tests.adoc[]
 
+<<<<
+// Annex02. Usability tests
+include::src/Annex02_usability_tests.adoc[]
+
 
