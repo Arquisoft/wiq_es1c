@@ -54,7 +54,7 @@ The application is organised into microservices, making the different components
 
 * **Performance efficiency**: To improve performance we decided to implement a cache that stores 1000 questions and every 24 h updates the 100 oldest. By this way we always have questions available and it is not necessary to wait for wikidata to give us an answer.
 
-* **Maintainability**: For maintenance we report bugs that we find in the form of issues in the repository, so when some of us have time is dedicated it to fix them.
+* **Maintainability**: For maintainability, we decided to design a system that facilitates the creation of new question templates, so that adding a new template will automatically incorporate it into the application. There is a guide on how to do this in the question_service.
 
 === Work methodology decissions
 
