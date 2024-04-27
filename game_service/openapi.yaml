@@ -8,7 +8,8 @@ servers:
 paths:
   /api/game/new:
     post:
-      summary: Start a new game
+      summary: Create New Game
+      description: Creates a new game session for the user.
       requestBody:
         required: true
         content:
@@ -18,18 +19,25 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: JWT token for authentication.
+                tags:
+                  type: string
+                  description: Comma-separated list of tags for game questions (optional).
+                gameMode:
+                  type: string
+                  description: Mode of the game (e.g., single-player, multiplayer).
       responses:
         '200':
-          description: New game started successfully
-        '401':
-          description: Invalid token
+          description: OK
+        '400':
+          description: Bad Request
         '500':
-          description: Internal server error
+          description: Internal Server Error
 
   /api/game/next:
     post:
-      summary: Get the next question in the game
+      summary: Get Next Question
+      description: Retrieves the next question in the game session.
       requestBody:
         required: true
         content:
@@ -39,10 +47,13 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: JWT token for authentication.
+                lang:
+                  type: string
+                  description: Language code for question language (e.g., 'en', 'es').
       responses:
         '200':
-          description: Next question retrieved successfully
+          description: OK
           content:
             application/json:
               schema:
@@ -50,23 +61,27 @@ paths:
                 properties:
                   title:
                     type: string
-                    example: "What is the capital of France?"
+                    description: Title of the question.
+                  lang:
+                    type: string
+                    description: Language of the question.
                   imageUrl:
                     type: string
-                    example: "https://example.com/image.jpg"
+                    description: URL of the image associated with the question (optional).
                   awnsers:
                     type: array
                     items:
                       type: string
-                    example: ["Paris", "London", "Berlin", "Rome"]
-        '401':
-          description: Invalid token
+                      description: Possible answers to the question.
+        '400':
+          description: Bad Request
         '500':
-          description: Internal server error
+          description: Internal Server Error
 
   /api/game/awnser:
     post:
-      summary: Submit an answer to the current question
+      summary: Submit Answer
+      description: Submits the answer to the current question in the game session.
       requestBody:
         required: true
         content:
@@ -76,26 +91,22 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: JWT token for authentication.
                 awnser:
                   type: string
-                  example: "Paris"
+                  description: User's answer to the question.
       responses:
         '200':
-          description: Answer submitted successfully
-          content:
-            application/json:
-              schema:
-                type: string
-                example: "Correct"
-        '401':
-          description: Invalid token
+          description: OK
+        '400':
+          description: Bad Request
         '500':
-          description: Internal server error
+          description: Internal Server Error
 
   /api/game/update:
     post:
-      summary: Update the current game state
+      summary: Update Question
+      description: Updates the current question in the game session.
       requestBody:
         required: true
         content:
@@ -105,10 +116,10 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: JWT token for authentication.
       responses:
         '200':
-          description: Game state updated successfully
+          description: OK
           content:
             application/json:
               schema:
@@ -116,22 +127,235 @@ paths:
                 properties:
                   title:
                     type: string
-                    example: "What is the capital of France?"
+                    description: Title of the question.
                   imageUrl:
                     type: string
-                    example: "https://example.com/image.jpg"
+                    description: URL of the image associated with the question (optional).
                   awnsers:
                     type: array
                     items:
                       type: string
-                    example: ["Paris", "London", "Berlin", "Rome"]
+                      description: Possible answers to the question.
                   created:
                     type: string
-                    example: "1647865400000"
+                    format: date-time
+                    description: Timestamp of when the question was created.
                   duration:
                     type: string
-                    example: "30"
-        '401':
-          description: Invalid token
+                    description: Duration of the question.
+                  numberOfQuestions:
+                    type: integer
+                    description: Total number of questions in the game session.
+                  questionNumber:
+                    type: integer
+                    description: Number of the current question.
+        '400':
+          description: Bad Request
         '500':
-          description: Internal server error
+          description: Internal Server Error
+
+  /api/game/settings:
+    post:
+      summary: Get Game Settings
+      description: Retrieves the game settings for the authenticated user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: JWT token for authentication.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  durationQuestion:
+                    type: integer
+                    description: Duration of each question in seconds.
+                  numberOfQuestions:
+                    type: integer
+                    description: Number of questions per game session.
+        '500':
+          description: Internal Server Error
+
+  /api/game/updatesettings:
+    post:
+      summary: Update Game Settings
+      description: Updates the game settings for the authenticated user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: JWT token for authentication.
+                durationQuestion:
+                  type: integer
+                  description: Duration of each question in seconds.
+                numberOfQuestions:
+                  type: integer
+                  description: Number of questions per game session.
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+
+  /api/game/getHistory:
+    post:
+      summary: Get Game History
+      description: Retrieves the game history for the authenticated user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: JWT token for authentication.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID of the game.
+                    createdAt:
+                      type: string
+                      format: date-time
+                      description: Timestamp of when the game was created.
+                    updatedAt:
+                      type: string
+                      format: date-time
+                      description: Timestamp of when the game was last updated.
+        '500':
+          description: Internal Server Error
+  /api/game/getHistoryByUser:
+    post:
+      summary: Get Game History By User
+      description: Retrieves the game history for a specified user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: ID of the user to retrieve game history for.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID of the game.
+                    createdAt:
+                      type: string
+                      format: date-time
+                      description: Timestamp of when the game was created.
+                    updatedAt:
+                      type: string
+                      format: date-time
+                      description: Timestamp of when the game was last updated.
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+
+  /api/game/getNumberOfQuestions:
+    post:
+      summary: Get Number of Questions
+      description: Retrieves the total number of questions in the current game session.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: JWT token for authentication.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numberOfQuestions:
+                    type: integer
+                    description: Total number of questions in the current game session.
+        '500':
+          description: Internal Server Error
+
+  /api/game/currentquestion:
+    post:
+      summary: Get Current Question
+      description: Retrieves the current question in the game session.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: JWT token for authentication.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  question:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: ID of the question.
+                      title:
+                        type: string
+                        description: Title of the question.
+                      imageUrl:
+                        type: string
+                        description: URL of the image associated with the question (optional).
+                      awnsers:
+                        type: array
+                        items:
+                          type: string
+                          description: Possible answers to the question.
+        '500':
+          description: Internal Server Error

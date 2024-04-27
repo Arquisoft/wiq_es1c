@@ -8,7 +8,8 @@ servers:
 paths:
   /api/auth/register:
     post:
-      summary: Register a new user
+      summary: Register User
+      description: Registers a new user.
       requestBody:
         required: true
         content:
@@ -18,13 +19,13 @@ paths:
               properties:
                 username:
                   type: string
-                  example: user123
+                  description: Username of the new user.
                 password:
                   type: string
-                  example: password123
+                  description: Password of the new user.
       responses:
         '201':
-          description: User successfully registered
+          description: Created
           content:
             application/json:
               schema:
@@ -32,9 +33,9 @@ paths:
                 properties:
                   token:
                     type: string
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    description: JWT token for the registered user.
         '200':
-          description: Username already exists
+          description: OK
           content:
             application/json:
               schema:
@@ -42,13 +43,14 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "Nombre de usuario no disponible"
+                    description: Error message if registration fails.
         '500':
-          description: Internal server error
+          description: Internal Server Error
 
   /api/auth/login:
     post:
-      summary: Log in with username and password
+      summary: User Login
+      description: Logs in an existing user.
       requestBody:
         required: true
         content:
@@ -58,13 +60,13 @@ paths:
               properties:
                 username:
                   type: string
-                  example: user123
+                  description: Username of the user.
                 password:
                   type: string
-                  example: password123
+                  description: Password of the user.
       responses:
         '200':
-          description: User logged in successfully
+          description: OK
           content:
             application/json:
               schema:
@@ -72,9 +74,9 @@ paths:
                 properties:
                   token:
                     type: string
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    description: JWT token for the logged-in user.
         '401':
-          description: Invalid username or password
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -82,13 +84,14 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "Usuario o contraseña incorrectos"
+                    description: Error message if login fails.
         '500':
-          description: Internal server error
+          description: Internal Server Error
 
   /api/auth/verify:
     post:
-      summary: Verify user authentication token
+      summary: Verify Token
+      description: Verifies the validity of a JWT token.
       requestBody:
         required: true
         content:
@@ -98,35 +101,53 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: JWT token to verify.
       responses:
         '200':
-          description: Token is valid
+          description: OK
         '401':
-          description: Invalid or expired token
+          description: Unauthorized
         '500':
-          description: Internal server error
+          description: Internal Server Error
 
-  /health:
-    get:
-      summary: Health check endpoint
+  /api/auth/getName:
+    post:
+      summary: Get Username
+      description: Retrieves the username of the authenticated user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: JWT token for authentication.
       responses:
         '200':
-          description: Service is healthy
+          description: OK
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  status:
+                  name:
                     type: string
-                    example: "OK"
+                    description: Username of the authenticated user.
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: Creation date of the authenticated user's account.
+        '400':
+          description: Bad Request
         '500':
-          description: Internal server error
+          description: Internal Server Error
 
   /api/user/getUsers:
     get:
-      summary: Obtener todos los usuarios
+      summary: Get All Users
+      description: Retrieves the list of all users.
       responses:
         '200':
           description: OK
@@ -139,21 +160,24 @@ paths:
                   properties:
                     name:
                       type: string
-                      example: "User1"
+                      description: Username of the user.
                     id:
                       type: integer
-                      example: "1234"
+                      description: ID of the user.
+        '500':
+          description: Internal Server Error
 
   /api/user/getUser:
     get:
-      summary: Obtener un usuario por ID
+      summary: Get User by ID
+      description: Retrieves a user by their ID.
       parameters:
-        - in: query
-          name: user_id
+        - name: user_id
+          in: query
           required: true
           schema:
             type: integer
-            example: "1234"
+            description: ID of the user to retrieve.
       responses:
         '200':
           description: OK
@@ -165,30 +189,48 @@ paths:
                   user:
                     type: object
                     properties:
-                      name:
-                        type: string
-                        example: "User1"
                       id:
                         type: integer
-                        example: "1234"
-        '401':
-          description: Usuario no encontrado
-      requestBody:
-        required: false
-        content:
-          application/json: {}
+                        description: ID of the user.
+                      name:
+                        type: string
+                        description: Username of the user.
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
 
   /api/user/deleteUser:
     post:
-      summary: Eliminar un usuario por ID
-      requestBody:
-        required: true
-        content:
-          application/json: {}
+      summary: Delete User
+      description: Deletes a user by their ID.
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            description: ID of the user to delete.
       responses:
         '200':
-          description: Usuario borrado
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message after user deletion.
         '401':
-          description: Usuario no encontrado
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message if user deletion fails.
         '500':
-          description: Error del servidor
+          description: Internal Server Error

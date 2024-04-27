@@ -8,7 +8,8 @@ servers:
 paths:
   /api/userdetails/name:
     post:
-      summary: Get user's name
+      summary: Get User Name
+      description: Retrieves the name and creation date of the authenticated user.
       requestBody:
         required: true
         content:
@@ -18,10 +19,10 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: JWT token for authentication.
       responses:
         '200':
-          description: User name retrieved successfully
+          description: OK
           content:
             application/json:
               schema:
@@ -29,17 +30,18 @@ paths:
                 properties:
                   name:
                     type: string
-                    example: "John"
-        '400':
-          description: Invalid user or error retrieving user name
-        '401':
-          description: Invalid token
+                    description: User's name.
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: Timestamp of user creation.
         '500':
-          description: Internal server error
+          description: Internal Server Error
 
   /api/userdetails/history:
     post:
-      summary: Get user's game history
+      summary: Get User History
+      description: Retrieves the game history for the authenticated user.
       requestBody:
         required: true
         content:
@@ -49,57 +51,107 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  description: JWT token for authentication.
       responses:
         '200':
-          description: User game history retrieved successfully
+          description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      example: "ecadb470-b62c-42de-bb38-66b6b1d3b3c3"
-                    createdAt:
-                      type: string
-                      format: date-time
-                      example: "2024-03-19T08:39:34.000Z"
-                    updatedAt:
-                      type: string
-                      format: date-time
-                      example: "2024-03-19T08:39:34.000Z"
-                    UserId:
-                      type: string
-                      example: "beb91682-e280-414a-a07e-7d9f3ee9add6"
-                    Questions:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: string
-                          title:
-                            type: string
-                          imageUrl:
-                            type: string
-                          awnsers:
-                            type: array
-                            items:
-                              type: string
-                          created:
-                            type: string
-                          duration:
-                            type: string
-                          user_answer:
-                            type: string
-                          onTime:
-                            type: boolean
-        '400':
-          description: Invalid user or error retrieving game history
-        '401':
-          description: Invalid token
+                  $ref: '#/components/schemas/GameHistory'
         '500':
-          description: Internal server error
+          description: Internal Server Error
+
+  /api/userdetails/history-by-user:
+    post:
+      summary: Get User History By User
+      description: Retrieves the game history for a specified user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: JWT token for authentication.
+                userId:
+                  type: string
+                  description: ID of the user to retrieve game history for.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameHistory'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+
+components:
+  schemas:
+    GameHistory:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the game.
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of when the game was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of when the game was last updated.
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+    Question:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the question.
+        title:
+          type: string
+          description: The question's title.
+        imageUrl:
+          type: string
+          description: URL of the image associated with the question.
+        answer:
+          type: string
+          description: The correct answer to the question.
+        fake:
+          type: array
+          items:
+            type: string
+          description: Array of fake answers.
+        user_answer:
+          type: string
+          description: The user's answer to the question.
+        duration:
+          type: integer
+          description: Duration of the question in seconds.
+        onTime:
+          type: boolean
+          description: Indicates whether the user answered the question within the allotted time.
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of when the question was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of when the question was last updated.
+        gameId:
+          type: string
+          description: ID of the game the question belongs to.

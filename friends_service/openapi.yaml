@@ -8,7 +8,8 @@ servers:
 paths:
   /api/friends/request/send:
     post:
-      summary: Send friend request
+      summary: Send Friend Request
+      description: Sends a friend request to another user.
       requestBody:
         required: true
         content:
@@ -18,21 +19,20 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE1MTYyMzkwMjJ9.UzI1NiIsInR5cCI6IkpXVCJ9"
+                  description: JWT token for authentication.
                 to:
                   type: string
-                  example: "user_id_to_send_request"
-              required:
-                - token
-                - to
+                  description: ID of the user to send the request to.
       responses:
         '200':
           description: OK
         '400':
-          description: Invalid request or there is already a pending request or they are already friends
+          description: Bad Request
+
   /api/friends/request/accept:
     post:
-      summary: Accept friend request
+      summary: Accept Friend Request
+      description: Accepts a friend request from another user.
       requestBody:
         required: true
         content:
@@ -42,21 +42,20 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE1MTYyMzkwMjJ9.UzI1NiIsInR5cCI6IkpXVCJ9"
+                  description: JWT token for authentication.
                 from:
                   type: string
-                  example: "user_id_of_request_sender"
-              required:
-                - token
-                - from
+                  description: ID of the user who sent the request.
       responses:
         '200':
-          description: Friend request accepted
+          description: OK
         '400':
-          description: Invalid request or request not found
+          description: Bad Request
+
   /api/friends/request/:
     post:
-      summary: Get pending friend requests
+      summary: Get Friend Requests
+      description: Retrieves friend requests received by the authenticated user.
       requestBody:
         required: true
         content:
@@ -66,15 +65,30 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE1MTYyMzkwMjJ9.UzI1NiIsInR5cCI6IkpXVCJ9"
-              required:
-                - token
+                  description: JWT token for authentication.
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    from:
+                      type: string
+                      description: ID of the user who sent the request.
+                    to:
+                      type: string
+                      description: ID of the user who received the request.
+        '400':
+          description: Bad Request
+
   /api/friends/:
     post:
-      summary: Get friends list
+      summary: Get Friends
+      description: Retrieves the list of friends of the authenticated user.
       requestBody:
         required: true
         content:
@@ -84,29 +98,22 @@ paths:
               properties:
                 token:
                   type: string
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE1MTYyMzkwMjJ9.UzI1NiIsInR5cCI6IkpXVCJ9"
-              required:
-                - token
+                  description: JWT token for authentication.
       responses:
         '200':
           description: OK
-components:
-  schemas:
-    FriendRequest:
-      type: object
-      properties:
-        from:
-          type: string
-          example: "user_id_of_request_sender"
-        to:
-          type: string
-          example: "user_id_to_receive_request"
-    Friendship:
-      type: object
-      properties:
-        friend1:
-          type: string
-          example: "user_id1"
-        friend2:
-          type: string
-          example: "user_id2"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    friend1:
+                      type: string
+                      description: ID of the first friend.
+                    friend2:
+                      type: string
+                      description: ID of the second friend.
+        '400':
+          description: Bad Request
