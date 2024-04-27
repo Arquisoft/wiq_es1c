@@ -51,7 +51,10 @@ const getUser = async (req, res) => {
         }
 
         res.status(200).json({
-            user: user
+            user: {
+                id: user.id,
+                name: user.name,
+            }
         });
 
     }catch (error){
