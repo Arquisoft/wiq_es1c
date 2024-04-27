@@ -39,12 +39,12 @@ The functional requirements that the application will have:
 
 |*Performance efficiency*
 |Efficiency problems cause a very negative UX
-|We aim to achieve a response time of less than 2 seconds for the new question to be displayed
+|We aim to achieve a response time of less than 3 seconds for the new question to be displayed
 |High
 
 |*Maintainability*
 |We hope that there will be changes to the project, or that the game modes will be expanded
-|We will work on the optional parts regarding creating the mobile application and implementing various game modes
+|It should be easy to add new game modes and incorporate new question categories and question templates.
 |Medium
 |===
 
