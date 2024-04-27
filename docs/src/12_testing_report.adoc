@@ -1,0 +1,23 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-technical-risks]]
+== Testing Report
+
+
+=== Tests
+[options="header",cols="1,3,3"]
+|===
+|Test|Scope|Results
+| _Unit_ | _In case of having a large number of users using the application at the same time, our API can generate a bottleneck when generating requests to Wikidata._ | _Use a container orchestrator such as Kubernetes to replicate our API and thus balance the load of requests. Another possible solution would be to store the queries requested to Wikidata for later use without having to make the request at that instant._
+| _Aceptance_ | _In case of storing the requested questions to Wikidata it is possible that some of them may become obsolete._ | _A separate microservice could be made whose purpose is to update the answers to the questions from time to time._
+| _Coverage_ | _In case of storing the requested questions to Wikidata it is possible that some of them may become obsolete._ | _A separate microservice could be made whose purpose is to update the answers to the questions from time to time._
+| _Load_ | _In case of storing the requested questions to Wikidata it is possible that some of them may become obsolete._ | _A separate microservice could be made whose purpose is to update the answers to the questions from time to time._
+| _Usability_ | _In case of storing the requested questions to Wikidata it is possible that some of them may become obsolete._ | _A separate microservice could be made whose purpose is to update the answers to the questions from time to time._
+|===
+
+=== Commercial or domain risks
+[options="header",cols="1,3,3"]
+|===
+|Risk|Description|Possible measures
+| _Wikidata could limit the use of its API_ | _In case of having a large number of users using the application at the same time, Wikidata itself may limit the number of requests or even ban us from using it._ | _Store queries requested to Wikidata for later use without the need to make the request at the time._
+|===
