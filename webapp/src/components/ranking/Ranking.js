@@ -87,7 +87,7 @@ export const Ranking = () =>
                                     <div>
                                         <span className='text-lg lg:text-3xl font-bold'>{ t('Ranking.user') }: { rank.user.name }</span>
                                         <br />
-                                        <span className='text-lg lg:text-3xl'>{ t('Ranking.hit') }: { rank.hitsPercentage } %</span>
+                                        <span className='text-lg lg:text-3xl'>{ t('Ranking.hit') }: { rank.hitsPercentage.toFixed(2) } %</span>
                                     </div>
                                 )}
 

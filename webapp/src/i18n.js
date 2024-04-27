@@ -78,6 +78,8 @@ i18n
                 },
                 Friends: {
                     friends: 'Friends',
+                    success: 'Success!',
+                    reqmsg: 'Friend request sent.',
                     noFriends: 'You have no friends.',
                     accept: 'Accept',
                     receivedFriendRequest: 'Friendship requests received',
@@ -179,6 +181,8 @@ i18n
                 },
                 Friends: {
                     friends: 'Amigos',
+                    success: 'Exito',
+                    reqmsg: 'Peticion de amistad enviada',
                     noFriends: 'No tienes amigos.',
                     accept: 'Aceptar',
                     receivedFriendRequest: 'Peticiones de amistad recibidas',

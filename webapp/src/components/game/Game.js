@@ -18,18 +18,17 @@ import Swal from 'sweetalert2';
 import i18n from "../../i18n";
 import { useTranslation } from "react-i18next";
 
-
-const token = localStorage.getItem("token");
-
-let isFinished = async () => {
-    const number = await getNumberOfQuestions(token);
-    const settings = await getGameSettings(token);
-    const maxNumber = settings.numberOfQuestions;
-    return number > maxNumber;
-
-}
-
 export const Game = ({finishFunction, name, tags}) => {
+    
+    const token = localStorage.getItem("token");
+
+    let isFinished = async () => {
+        const number = await getNumberOfQuestions(token);
+        const settings = await getGameSettings(token);
+        const maxNumber = settings.numberOfQuestions;
+        return number >= maxNumber;
+    }
+
     const { t } = useTranslation();
 
     const navigate = useNavigate();

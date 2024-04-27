@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { getUsers, getCurrentUser } from "../../services/user.service";
 import { acceptRequest, getFriends, getRequests, sendRequest } from "../../services/friends.service";
 import {Footer} from '../footer/Footer';
+import Swal from 'sweetalert2';
 
 export const Friends = () => {
   const { t } = useTranslation();
@@ -32,7 +33,13 @@ export const Friends = () => {
 
   const sendFriendRequest = () => {
     if(selectedUser && selectedUser.id)
-      sendRequest(localStorage.getItem("token"), selectedUser.id);
+      sendRequest(localStorage.getItem("token"), selectedUser.id).then(() => {
+        Swal.fire(
+          `${t('Friends.success')}`,
+          `${t('Friends.reqmsg')}`,
+          'success'
+        )
+      });
   }
 
   const updateFriends = () => {
@@ -108,12 +115,12 @@ export const Friends = () => {
                             <Avatar>{(""+name)[0]}</Avatar>
                           </Grid>
                           <Grid item xs={8}>
-                            <Typography>{name}</Typography>
+                            <Typography className="text-black dark:text-white">{".   " + name}</Typography>
                           </Grid>
                         </Grid>
                       )
                       :
-                      <Typography>{ t('Friends.noFriends') }</Typography>
+                      <Typography className="text-black dark:text-white">{ t('Friends.noFriends') }</Typography>
                     }
                   </Stack>
               </Box>
@@ -134,7 +141,7 @@ export const Friends = () => {
                       requests.map(request => 
                         <Grid container spacing={2} key={request.id}>
                           <Grid item xs={8}>
-                            <Typography>{request.name}</Typography>
+                            <Typography className="text-black dark:text-white">{request.name}</Typography>
                           </Grid>
                           <Grid item xs={4}>
                             <Button onClick={()=>acceptFriendRequest(request.from)}variant="outlined">{ t('Friends.accept') }</Button>
@@ -142,7 +149,7 @@ export const Friends = () => {
                         </Grid>
                       )
                       :
-                      <Typography>{ t('Friends.noFriendRequest') }</Typography>
+                      <Typography className="text-black dark:text-white">{ t('Friends.noFriendRequest') }</Typography>
                     }
                   </Stack>
               </Box>
