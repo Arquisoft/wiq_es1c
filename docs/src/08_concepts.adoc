@@ -34,5 +34,4 @@ and backend areas. (With special attention to e2e tests, unit tests and integrat
 
 === Internationalization
 
-At this point of the proyect we are not sure if we will implement Internationalization, it's a decision that
-we will take as the proyect progresses.
+We have decided to internationalize to visual part of our application and also the question templates, so the question it generates can also be in English.

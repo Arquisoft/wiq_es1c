@@ -62,7 +62,7 @@ While developing and testing the app it will be run on the developer's localhost
 
 Quality and/or Performance Features::
 
-We have not tested the application performance so we can't analyze it yet
+After doing the load tests we can conclude that our app has a great performance taking into account the resources it can use and how cheap the server is. Without going into detail about it because we have written a section in the documentation about load tests, we can affirm that our application can solve 200 game petitions in less than 5 seconds.
 
 Mapping of Building Blocks to Infrastructure::
 
